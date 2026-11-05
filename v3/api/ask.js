@@ -1,7 +1,7 @@
 /* POST /api/ask  { question, pages: [{ title, href }] }  ->  { answer, links }
    Answers a prospective student's question using only the page list the site sends.
    Keys come from Vercel environment variables and never reach the browser:
-     GEMINI_API_KEY   (optional GEMINI_MODEL, default gemini-2.5-flash)
+     GEMINI_API_KEY   (optional GEMINI_MODEL, default gemini-3.8-flash)
      NVIDIA_API_KEY   (optional NVIDIA_MODEL, default nvidia/llama-3.1-nemotron-70b-instruct)
    Gemini is tried first, then NVIDIA, so either key alone is enough. */
 "use strict";
@@ -24,7 +24,7 @@ const okHref = h => typeof h === "string" && h.length < 300 && (/^[a-z0-9][a-z0-
 
 async function gemini(prompt) {
   const key = process.env.GEMINI_API_KEY; if (!key) return null;
-  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+  const model = process.env.GEMINI_MODEL || "gemini-3.8-flash";
   const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key },
     body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM }] }, contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 800, thinkingConfig: { thinkingBudget: 0 } } })
