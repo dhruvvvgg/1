@@ -122,17 +122,80 @@
     });
   }
 
-  const filmDialog = $("[data-film-dialog]");
-  const filmFrame = $("[data-film-frame]");
-  $$("[data-film]").forEach(btn => btn.addEventListener("click", () => {
-    const id = btn.dataset.film;
-    filmFrame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="SRMIST campus film" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
-    filmDialog.showModal();
-  }));
-  if (filmDialog) {
-    lightDismiss(filmDialog);
-    $("[data-close-film]").addEventListener("click", () => filmDialog.close());
-    filmDialog.addEventListener("close", () => { filmFrame.innerHTML = ""; });
+  /* Preview build (data-env="preview"): pages there can't submit forms to other sites
+     or embed video, so the finder and search hand over a link instead. */
+  const isPreview = document.documentElement.dataset.env === "preview";
+  const handOff = (form, out, text) => {
+    const url = (form.dataset.action || form.action) + "?" + new URLSearchParams(new FormData(form)).toString();
+    out.hidden = false;
+    out.textContent = "";
+    const a = document.createElement("a");
+    a.href = url; a.target = "_blank"; a.rel = "noopener"; a.textContent = text;
+    out.append(a);
+    a.focus();
+  };
+  const finder = $("[data-finder]");
+  if (finder && isPreview) finder.addEventListener("submit", e => {
+    e.preventDefault();
+    const q = $("#finder-q").value.trim();
+    handOff(finder, $("[data-finder-out]"), q ? `See programmes matching “${q}” on srmist.edu.in` : "See all programmes on srmist.edu.in");
+  });
+  const searchForm = $(".search-dialog__form");
+  if (searchForm && isPreview) {
+    const out = document.createElement("p");
+    out.className = "search-dialog__hint"; out.hidden = true;
+    searchForm.append(out);
+    searchForm.addEventListener("submit", e => { e.preventDefault(); handOff(searchForm, out, `Search srmist.edu.in for “${$("#search-q").value.trim()}”`); });
+  }
+
+  /* ---------- Hero campus film: muted background loop, loaded after the page, with a pause control ---------- */
+  const heroVideo = $("[data-hero-video]");
+  const filmToggle = $("[data-film-toggle]");
+  const filmLink = $(".film-link");
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const saveData = navigator.connection && navigator.connection.saveData;
+  if (heroVideo && filmToggle && !isPreview && !calm && !saveData && window.innerWidth >= 900) {
+    window.addEventListener("load", () => {
+      const id = heroVideo.dataset.video;
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&rel=0&enablejsapi=1`;
+      iframe.title = "SRM campus film (muted background)";
+      iframe.tabIndex = -1;
+      iframe.allow = "autoplay; encrypted-media";
+      iframe.addEventListener("load", () => {
+        heroVideo.classList.add("is-playing");
+        filmToggle.hidden = false;
+        if (filmLink) filmLink.hidden = true;
+      });
+      heroVideo.append(iframe);
+      let paused = false;
+      filmToggle.addEventListener("click", () => {
+        paused = !paused;
+        iframe.contentWindow.postMessage(JSON.stringify({ event: "command", func: paused ? "pauseVideo" : "playVideo", args: [] }), "*");
+        filmToggle.setAttribute("aria-pressed", String(paused));
+        $("[data-film-label]", filmToggle).textContent = paused ? "Play campus film" : "Pause campus film";
+        $("use", filmToggle).setAttribute("href", paused ? "#i-play" : "#i-pause");
+      });
+    }, { once: true });
+  }
+  if (filmLink) { filmLink.target = "_blank"; filmLink.rel = "noopener"; }
+
+  /* ---------- College index: hovering or focusing a college swaps the preview photo ---------- */
+  const colleges = $("[data-colleges]");
+  if (colleges) {
+    const img = $("[data-colleges-img]", colleges);
+    const links = $$(".colleges__list a", colleges);
+    const show = a => {
+      links.forEach(l => l.classList.toggle("is-active", l === a));
+      const src = a.dataset.img;
+      if (!src || img.getAttribute("src") === src) return;
+      img.classList.add("is-swapping");
+      const next = new Image();
+      next.onload = next.onerror = () => { img.src = src; img.classList.remove("is-swapping"); };
+      next.src = src;
+    };
+    links.forEach(a => { a.addEventListener("pointerenter", () => show(a)); a.addEventListener("focus", () => show(a)); });
+    if (links[0]) links[0].classList.add("is-active");
   }
 
   /* ---------- Tabs (WAI-ARIA tabs pattern, automatic activation) ---------- */
@@ -191,8 +254,12 @@
   });
 
   /* ---------- Image fallback: keep the brand-tinted frame instead of a broken icon ---------- */
-  $$("img").forEach(img => {
-    const fail = () => (img.closest(".media-frame") || img).classList.add("img-missing");
+  $$("[data-logo]").forEach(img => {
+    const fail = () => img.closest(".brand").classList.add("logo-missing");
+    if (img.complete && img.naturalWidth === 0) fail(); else img.addEventListener("error", fail, { once: true });
+  });
+  $$("img:not([data-logo])").forEach(img => {
+    const fail = () => img.classList.add("img-missing");
     if (img.complete && img.naturalWidth === 0 && img.getAttribute("src")) fail();
     else img.addEventListener("error", fail, { once: true });
   });

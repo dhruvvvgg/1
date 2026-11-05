@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SRM Institute of Science and Technology, Chennai | Learn. Leap. Lead.</title>
 <meta name="description" content="SRMIST is a NAAC A++ university in Chennai, ranked #11 among Indian universities (NIRF 2025). 300+ undergraduate, postgraduate and doctoral programmes in engineering, medicine, management, law, agriculture and the sciences.">
-<meta name="theme-color" content="#0B2350">
+<meta name="theme-color" content="#0C4DA2">
 <link rel="icon" href="https://www.srmist.edu.in/wp-content/uploads/2022/01/favicon.png">
 <meta property="og:title" content="SRM Institute of Science and Technology">
 <meta property="og:description" content="A NAAC A++ university in Chennai. Find your programme and apply for 2027.">
@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://www.srmist.edu.in">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,800;6..96,900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 <link rel="stylesheet" href="assets/css/main.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CollegeOrUniversity","name":"SRM Institute of Science and Technology","alternateName":"SRMIST","url":"https://www.srmist.edu.in/","logo":"https://www.srmist.edu.in/wp-content/uploads/2022/01/srm-logo.svg","foundingDate":"1985","address":{"@type":"PostalAddress","streetAddress":"SRM Nagar, Kattankulathur","addressLocality":"Chengalpattu","addressRegion":"Tamil Nadu","postalCode":"603203","addressCountry":"IN"},"telephone":"+91-44-27417000","sameAs":["https://www.facebook.com/SRMUniversityOfficial","https://www.instagram.com/SRMUniversityOfficial/","https://www.linkedin.com/company/srm-ist-chennai","https://www.youtube.com/user/SRMeducation","https://twitter.com/SRM_Univ"]}
@@ -31,6 +31,7 @@
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
@@ -77,8 +78,9 @@
 
   <div class="masthead">
     <div class="container masthead__inner">
-      <a class="brand" href="./">
-        <img src="https://www.srmist.edu.in/wp-content/uploads/2022/01/srm-logo.svg" width="190" height="56" alt="SRM Institute of Science and Technology, home">
+      <a class="brand" href="./" aria-label="SRM Institute of Science and Technology, home">
+        <img src="https://www.srmist.edu.in/wp-content/uploads/2022/01/srm-logo.svg" width="190" height="56" alt="" data-logo>
+        <span class="brand__word" aria-hidden="true"><b>SRM</b><span>Institute of Science<br>and Technology</span></span>
       </a>
 
       <nav class="primary-nav" aria-label="Main">
@@ -313,337 +315,353 @@
 
 <main id="main">
 
-  <!-- 1. Hero: who we are + the main job of the page (find a programme) -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="container hero__grid">
-      <div class="hero__copy">
-        <h1 id="hero-title" class="hero__title">Learn. Leap. Lead.</h1>
-        <p class="hero__lede">SRM Institute of Science and Technology is a NAAC&nbsp;A++ university in Chennai, founded in&nbsp;1985. More than 50,000 students study here across 300+ programmes, from engineering and medicine to law, management, agriculture and the sciences.</p>
-
-        <form class="finder" action="https://www.srmist.edu.in/program-finder/" method="get" aria-labelledby="finder-title">
-          <h2 id="finder-title" class="finder__title">Find your programme</h2>
-          <fieldset class="finder__levels">
-            <legend class="visually-hidden">Level of study</legend>
-            <label class="seg"><input type="radio" name="program-level" value="Undergraduate" checked><span>Undergraduate</span></label>
-            <label class="seg"><input type="radio" name="program-level" value="Post Graduate"><span>Postgraduate</span></label>
-            <label class="seg"><input type="radio" name="program-level" value="Ph.D"><span>PhD</span></label>
-          </fieldset>
-          <div class="finder__row">
-            <label for="finder-q" class="visually-hidden">Subject or programme name</label>
-            <input id="finder-q" name="search-word" type="search" list="finder-suggest" placeholder="Try computer science, MBBS, law, B.Arch" autocomplete="off">
-            <datalist id="finder-suggest">
-              <option value="Computer Science and Engineering"><option value="Artificial Intelligence and Machine Learning"><option value="Electronics and Communication Engineering"><option value="Mechanical Engineering"><option value="Biotechnology"><option value="MBBS"><option value="BDS"><option value="B.Pharm"><option value="B.Sc Nursing"><option value="BBA"><option value="MBA"><option value="BA LLB"><option value="B.Arch"><option value="B.Sc Agriculture"><option value="Physiotherapy">
-            </datalist>
-            <button class="btn btn--gold" type="submit">Show programmes</button>
-          </div>
-          <p class="finder__alt">Not sure yet? <a href="#colleges">Browse by college</a> or <a href="https://webstor.srmist.edu.in/web_assets/downloads/2026/srm-admission-brochure-2026-2027.pdf">download the admission brochure</a> (PDF).</p>
-        </form>
-      </div>
-
-      <figure class="hero__media">
-        <div class="media-frame media-frame--hero">
-          <img src="https://www.srmist.edu.in/wp-content/uploads/2026/08/Dignitaries-and-graduates-at-the-convocation-scaled.jpg" alt="Graduates in caps and gowns with dignitaries at SRMIST's 22nd Convocation" width="1600" height="1100" fetchpriority="high">
-        </div>
-        <button class="film-btn" type="button" data-film="S_xAJo_siHA">
-          <span class="film-btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></span>
-          <span>Watch the campus film</span>
+  <!-- HERO: the campus first, the motto as the headline, the finder as the main action -->
+  <section class="hero" aria-labelledby="hero-title" data-hero>
+    <div class="hero__media" aria-hidden="true">
+      <img class="hero__poster" src="https://www.srmist.edu.in/wp-content/uploads/2026/08/Dignitaries-and-graduates-at-the-convocation-scaled.jpg" alt="" width="1920" height="1080" fetchpriority="high">
+      <div class="hero__video" data-hero-video data-video="S_xAJo_siHA"></div>
+      <div class="hero__shade"></div>
+    </div>
+    <div class="container hero__inner">
+      <p class="hero__place">Kattankulathur, Chennai. Since 1985.</p>
+      <h1 id="hero-title" class="hero__title"><span>Learn<i>.</i></span> <span>Leap<i>.</i></span> <span>Lead<i>.</i></span></h1>
+      <div class="hero__foot">
+        <p class="hero__lede">A NAAC A++ university with 50,000+ students, 9 colleges and 300+ programmes, from engineering and medicine to law, management and agriculture.</p>
+        <button class="film-toggle" type="button" data-film-toggle hidden aria-pressed="false">
+          <span class="film-toggle__icon" aria-hidden="true"><svg class="icon"><use href="#i-pause"/></svg></span><span data-film-label>Pause campus film</span>
         </button>
-        <figcaption>22nd Convocation, August 2026</figcaption>
-      </figure>
-    </div>
-
-    <div class="container">
-      <ul class="proof" aria-label="Rankings and accreditations">
-        <li><strong>A++</strong><span>NAAC grade, the highest awarded</span></li>
-        <li><strong class="num">#11</strong><span>University in India, NIRF 2025</span></li>
-        <li><strong class="num">#14</strong><span>Engineering in India, NIRF 2025</span></li>
-        <li><strong class="num">2nd</strong><span>Private university in India, Nature Index</span></li>
-        <li class="proof__link"><a href="https://www.srmist.edu.in/about-us/accreditations-and-rankings/">All rankings and accreditations</a></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 2. Admissions: one cycle, one place, chosen by applicant type -->
-  <section class="section admissions" aria-labelledby="adm-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 id="adm-title">Admissions 2027</h2>
-        <p>Choose the route that fits you. Each one lists eligibility, entrance exams, fees and the application link.</p>
-      </div>
-
-      <div class="tabs" data-tabs>
-        <div class="tabs__list" role="tablist" aria-label="Applicant type">
-          <button role="tab" id="tab-in" aria-controls="panel-in" aria-selected="true">Indian applicants</button>
-          <button role="tab" id="tab-intl" aria-controls="panel-intl" aria-selected="false" tabindex="-1">International</button>
-          <button role="tab" id="tab-med" aria-controls="panel-med" aria-selected="false" tabindex="-1">Medicine and dentistry</button>
-          <button role="tab" id="tab-phd" aria-controls="panel-phd" aria-selected="false" tabindex="-1">PhD</button>
-        </div>
-
-        <div class="tabs__panel" role="tabpanel" id="panel-in" aria-labelledby="tab-in">
-          <div class="adm">
-            <div class="adm__main">
-              <h3>Undergraduate and postgraduate programmes</h3>
-              <p>Engineering admissions are through SRMJEEE, the SRM Joint Engineering Entrance Examination. Most other programmes admit on qualifying marks, with programme-specific tests and interviews where required.</p>
-              <div class="adm__actions">
-                <a class="btn btn--blue" href="https://www.srmist.edu.in/admission-india/">Apply as an Indian applicant</a>
-                <a class="btn btn--ghost" href="https://www.srmist.edu.in/admission-india/engineering/scholarships/">Scholarships and fees</a>
-              </div>
-            </div>
-            <dl class="adm__facts">
-              <div><dt>Scholarships</dt><dd>₹30 crore+ awarded every year, on merit, sport and need</dd></div>
-              <div><dt>Engineering, agriculture, architecture</dt><dd><a href="tel:+917026452645">+91 70 2645 2645</a></dd></div>
-              <div><dt>All other programmes</dt><dd><a href="tel:+917026472647">+91 70 2647 2647</a></dd></div>
-            </dl>
-          </div>
-        </div>
-
-        <div class="tabs__panel" role="tabpanel" id="panel-intl" aria-labelledby="tab-intl" hidden>
-          <div class="adm">
-            <div class="adm__main">
-              <h3>Study in Chennai with students from 95 countries</h3>
-              <p>The Directorate of International Relations supports you from application to arrival: admission, visa and FRRO registration, the international hostel and student services on campus.</p>
-              <div class="adm__actions">
-                <a class="btn btn--blue" href="https://www.srmist.edu.in/admission-international/">Apply as an international student</a>
-                <a class="btn btn--ghost" href="https://www.srmist.edu.in/ir/international-admission-details/">Eligibility and documents</a>
-              </div>
-            </div>
-            <dl class="adm__facts">
-              <div><dt>International students</dt><dd>900+ on campus</dd></div>
-              <div><dt>Partner universities</dt><dd>170+ international agreements</dd></div>
-              <div><dt>Housing</dt><dd><a href="https://www.srmist.edu.in/srm-hostels/">Dedicated international hostel</a></dd></div>
-            </dl>
-          </div>
-        </div>
-
-        <div class="tabs__panel" role="tabpanel" id="panel-med" aria-labelledby="tab-med" hidden>
-          <div class="adm">
-            <div class="adm__main">
-              <h3>MBBS, BDS, MD/MS and super-speciality programmes</h3>
-              <p>Admission to medical and dental programmes follows NEET and the counselling process set by the Medical Counselling Committee. SRM Medical College Hospital and Research Centre is on the Kattankulathur campus.</p>
-              <div class="adm__actions">
-                <a class="btn btn--blue" href="https://medical.srmist.edu.in/">NEET MBBS admissions 2026–27</a>
-                <a class="btn btn--ghost" href="https://dental.srmist.edu.in/">Dental admissions</a>
-              </div>
-            </div>
-            <dl class="adm__facts">
-              <div><dt>Medical and allied health</dt><dd><a href="tel:+917026472647">+91 70 2647 2647</a></dd></div>
-              <div><dt>Research degrees</dt><dd><a href="https://medicalresearch.srmist.edu.in/phd-admission/">PhD in medical research</a></dd></div>
-            </dl>
-          </div>
-        </div>
-
-        <div class="tabs__panel" role="tabpanel" id="panel-phd" aria-labelledby="tab-phd" hidden>
-          <div class="adm">
-            <div class="adm__main">
-              <h3>Doctoral research across 111 departments</h3>
-              <p>Full-time and part-time PhD programmes in engineering, sciences, management, law, medicine and health sciences, supported by central research laboratories and funded projects.</p>
-              <div class="adm__actions">
-                <a class="btn btn--blue" href="https://www.srmist.edu.in/admissions/">PhD admissions</a>
-                <a class="btn btn--ghost" href="https://www.srmist.edu.in/research/">Explore our research</a>
-              </div>
-            </div>
-            <dl class="adm__facts">
-              <div><dt>Faculty</dt><dd>3,200+ academics</dd></div>
-              <div><dt>Externally funded projects</dt><dd>544+ worth ₹250 crore+</dd></div>
-            </dl>
-          </div>
-        </div>
+        <a class="film-link" href="https://www.youtube.com/watch?v=S_xAJo_siHA" data-film="S_xAJo_siHA">
+          <span class="film-toggle__icon" aria-hidden="true"><svg class="icon"><use href="#i-play"/></svg></span>Watch the campus film
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 3. Colleges -->
-  <section class="section colleges" id="colleges" aria-labelledby="col-title">
+  <!-- Finder: overlaps the hero edge, the one thing every visitor can do first -->
+  <div class="container finder-wrap">
+    <form class="finder" action="https://www.srmist.edu.in/program-finder/" method="get" aria-labelledby="finder-title" data-finder>
+      <h2 id="finder-title" class="finder__title">Find your programme</h2>
+      <fieldset class="finder__levels">
+        <legend class="visually-hidden">Level of study</legend>
+        <label class="seg"><input id="lvl-ug" type="radio" name="program-level" value="Undergraduate" checked><span>Undergraduate</span></label>
+        <label class="seg"><input id="lvl-pg" type="radio" name="program-level" value="Post Graduate"><span>Postgraduate</span></label>
+        <label class="seg"><input id="lvl-phd" type="radio" name="program-level" value="Ph.D"><span>PhD</span></label>
+      </fieldset>
+      <div class="finder__row">
+        <label for="finder-q" class="visually-hidden">Subject or programme name</label>
+        <input id="finder-q" name="search-word" type="search" list="finder-suggest" placeholder="Computer science, MBBS, law, B.Arch…" autocomplete="off">
+        <datalist id="finder-suggest">
+          <option value="Computer Science and Engineering"><option value="Artificial Intelligence and Machine Learning"><option value="Electronics and Communication Engineering"><option value="Mechanical Engineering"><option value="Biotechnology"><option value="MBBS"><option value="BDS"><option value="B.Pharm"><option value="B.Sc Nursing"><option value="BBA"><option value="MBA"><option value="BA LLB"><option value="B.Arch"><option value="B.Sc Agriculture"><option value="Physiotherapy">
+        </datalist>
+        <button class="btn btn--gold" type="submit">Show programmes</button>
+      </div>
+      <p class="finder__out" data-finder-out hidden></p>
+    </form>
+    <ul class="proof" aria-label="Rankings and accreditations">
+      <li><strong>A<span class="sym">+</span><span class="sym">+</span></strong><span>NAAC, the highest grade</span></li>
+      <li><strong class="num"><span class="sym">#</span>11</strong><span>University in India, NIRF&nbsp;2025</span></li>
+      <li><strong class="num"><span class="sym">#</span>14</strong><span>Engineering in India, NIRF&nbsp;2025</span></li>
+      <li><strong class="num">2nd</strong><span>Private university in India, Nature&nbsp;Index</span></li>
+    </ul>
+  </div>
+
+  <!-- ===================== LEARN ===================== -->
+  <section class="chapter chapter--learn" id="learn" aria-labelledby="learn-title">
     <div class="container">
-      <div class="section-head section-head--split">
-        <div>
-          <h2 id="col-title">Nine colleges, one campus</h2>
-          <p>Choose a college to see its departments, programmes and faculty.</p>
-        </div>
-        <a class="text-link" href="https://www.srmist.edu.in/departments/">All 111 departments</a>
+      <header class="chapter__head">
+        <h2 id="learn-title" class="chapter__word">Learn<i>.</i></h2>
+        <p class="chapter__intro">Nine colleges on one 250-acre campus. Pick one to see its departments, programmes and faculty.</p>
+      </header>
+
+      <div class="colleges" data-colleges>
+        <ol class="colleges__list">
+          <li><a href="https://www.srmist.edu.in/college/college-of-engineering-technology/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0014_Background.jpg"><span class="colleges__name">Engineering and Technology</span><span class="colleges__meta">#14 in India, NIRF 2025</span></a></li>
+          <li><a href="https://medical.srmist.edu.in/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0005_Medicine.jpg"><span class="colleges__name">Medicine and Health Sciences</span><span class="colleges__meta">Medicine, pharmacy, nursing, physiotherapy, public health</span></a></li>
+          <li><a href="https://dental.srmist.edu.in/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0009_Dentistry.jpg"><span class="colleges__name">Dentistry</span><span class="colleges__meta">BDS and MDS</span></a></li>
+          <li><a href="https://www.srmist.edu.in/faculty-of-management/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0006_Management.jpg"><span class="colleges__name">Management</span><span class="colleges__meta">BBA, MBA and doctoral programmes</span></a></li>
+          <li><a href="https://law.srmist.edu.in/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0007_LAW-1.jpg"><span class="colleges__name">Law</span><span class="colleges__meta">Integrated and postgraduate law degrees</span></a></li>
+          <li><a href="https://www.srmist.edu.in/college/college-of-science-and-humanities/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/boxImg_science_humanities.jpg"><span class="colleges__name">Science and Humanities</span><span class="colleges__meta">Sciences, liberal arts, commerce, media</span></a></li>
+          <li><a href="https://www.srmist.edu.in/department/department-of-architecture/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0010_Architecture.jpg"><span class="colleges__name">Architecture</span><span class="colleges__meta">Architecture and design</span></a></li>
+          <li><a href="https://www.srmist.edu.in/department/college-of-agriculture-sciences/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0011_Agriculture-Sciences.jpg"><span class="colleges__name">Agricultural Sciences</span><span class="colleges__meta">ICAR accredited</span></a></li>
+          <li><a href="https://www.srmonline.in/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/boxImg_online_edu-1.jpg"><span class="colleges__name">Online and Distance</span><span class="colleges__meta">Study from anywhere</span></a></li>
+        </ol>
+        <figure class="colleges__preview" aria-hidden="true">
+          <img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0014_Background.jpg" alt="" width="900" height="1100" loading="lazy" data-colleges-img>
+        </figure>
       </div>
 
-      <ul class="college-grid">
-        <li class="college college--feature">
-          <a href="https://www.srmist.edu.in/college/college-of-engineering-technology/">
-            <div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0014_Background.jpg" alt="" loading="lazy" width="900" height="600"></div>
-            <div class="college__body"><h3>Engineering and Technology</h3><p>Computing, AI, electronics, mechanical, civil, biotechnology and more. Ranked #14 in India by NIRF 2025.</p></div>
-          </a>
-        </li>
-        <li class="college"><a href="https://medical.srmist.edu.in/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0005_Medicine.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="college__body"><h3>Medicine and Health Sciences</h3><p>Medicine, pharmacy, nursing, physiotherapy and public health.</p></div></a></li>
-        <li class="college"><a href="https://dental.srmist.edu.in/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0009_Dentistry.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="college__body"><h3>Dentistry</h3><p>BDS, MDS and specialist dental training.</p></div></a></li>
-        <li class="college"><a href="https://www.srmist.edu.in/faculty-of-management/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0006_Management.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="college__body"><h3>Management</h3><p>BBA, MBA and doctoral programmes.</p></div></a></li>
-        <li class="college"><a href="https://law.srmist.edu.in/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0007_LAW-1.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="college__body"><h3>Law</h3><p>Integrated and postgraduate law degrees.</p></div></a></li>
-        <li class="college"><a href="https://www.srmist.edu.in/college/college-of-science-and-humanities/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/boxImg_science_humanities.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="college__body"><h3>Science and Humanities</h3><p>Sciences, liberal arts, commerce and media.</p></div></a></li>
-        <li class="college"><a href="https://www.srmist.edu.in/department/department-of-architecture/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0010_Architecture.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="college__body"><h3>Architecture</h3><p>Architecture and design programmes.</p></div></a></li>
-        <li class="college"><a href="https://www.srmist.edu.in/department/college-of-agriculture-sciences/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0011_Agriculture-Sciences.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="college__body"><h3>Agricultural Sciences</h3><p>Agriculture and horticulture, ICAR accredited.</p></div></a></li>
-        <li class="college"><a href="https://www.srmonline.in/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/boxImg_online_edu-1.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="college__body"><h3>Online and Distance</h3><p>Degrees you can study from anywhere.</p></div></a></li>
-      </ul>
+      <!-- Admissions: one cycle, chosen by applicant -->
+      <div class="admissions" id="admissions" aria-labelledby="adm-title">
+        <div class="admissions__head">
+          <h3 id="adm-title">Admissions 2027</h3>
+          <p>Choose your route. Each one lists eligibility, entrance exams, fees and the application link.</p>
+        </div>
+        <div class="tabs" data-tabs>
+          <div class="tabs__list" role="tablist" aria-label="Applicant type">
+            <button role="tab" id="tab-in" aria-controls="panel-in" aria-selected="true">Indian applicants</button>
+            <button role="tab" id="tab-intl" aria-controls="panel-intl" aria-selected="false" tabindex="-1">International</button>
+            <button role="tab" id="tab-med" aria-controls="panel-med" aria-selected="false" tabindex="-1">Medicine and dentistry</button>
+            <button role="tab" id="tab-phd" aria-controls="panel-phd" aria-selected="false" tabindex="-1">PhD</button>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="panel-in" aria-labelledby="tab-in" tabindex="0">
+            <div class="adm">
+              <div class="adm__main">
+                <h4>Undergraduate and postgraduate</h4>
+                <p>Engineering admits through SRMJEEE, the SRM Joint Engineering Entrance Examination. Most other programmes admit on qualifying marks, with tests or interviews where a programme needs them.</p>
+                <div class="adm__actions">
+                  <a class="btn btn--blue" href="https://www.srmist.edu.in/admission-india/">Apply as an Indian applicant</a>
+                  <a class="btn btn--line" href="https://www.srmist.edu.in/admission-india/engineering/scholarships/">Scholarships and fees</a>
+                </div>
+              </div>
+              <dl class="adm__facts">
+                <div><dt>Scholarships every year</dt><dd class="num">₹30 crore<span class="sym">+</span></dd></div>
+                <div><dt>Engineering, agriculture, architecture</dt><dd class="num"><span class="sym">+</span>91 70 2645 2645</dd></div>
+                <div><dt>All other programmes</dt><dd class="num"><span class="sym">+</span>91 70 2647 2647</dd></div>
+              </dl>
+            </div>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="panel-intl" aria-labelledby="tab-intl" tabindex="0" hidden>
+            <div class="adm">
+              <div class="adm__main">
+                <h4>Students from 95 countries study here</h4>
+                <p>The Directorate of International Relations helps from application to arrival: admission, visa and FRRO registration, the international hostel and student services.</p>
+                <div class="adm__actions">
+                  <a class="btn btn--blue" href="https://www.srmist.edu.in/admission-international/">Apply as an international student</a>
+                  <a class="btn btn--line" href="https://www.srmist.edu.in/ir/international-admission-details/">Eligibility and documents</a>
+                </div>
+              </div>
+              <dl class="adm__facts">
+                <div><dt>International students</dt><dd class="num">900<span class="sym">+</span></dd></div>
+                <div><dt>International agreements</dt><dd class="num">170<span class="sym">+</span></dd></div>
+                <div><dt>Nationalities on campus</dt><dd class="num">95</dd></div>
+              </dl>
+            </div>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="panel-med" aria-labelledby="tab-med" tabindex="0" hidden>
+            <div class="adm">
+              <div class="adm__main">
+                <h4>MBBS, BDS, MD/MS and super-speciality</h4>
+                <p>Medical and dental admissions follow NEET and the Medical Counselling Committee process. SRM Medical College Hospital and Research Centre is on the Kattankulathur campus.</p>
+                <div class="adm__actions">
+                  <a class="btn btn--blue" href="https://medical.srmist.edu.in/">NEET MBBS admissions 2026–27</a>
+                  <a class="btn btn--line" href="https://dental.srmist.edu.in/">Dental admissions</a>
+                </div>
+              </div>
+              <dl class="adm__facts">
+                <div><dt>Medical and allied health</dt><dd class="num"><span class="sym">+</span>91 70 2647 2647</dd></div>
+                <div><dt>Research degrees</dt><dd><a href="https://medicalresearch.srmist.edu.in/phd-admission/">PhD in medical research</a></dd></div>
+              </dl>
+            </div>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="panel-phd" aria-labelledby="tab-phd" tabindex="0" hidden>
+            <div class="adm">
+              <div class="adm__main">
+                <h4>Doctoral research across 111 departments</h4>
+                <p>Full-time and part-time PhDs in engineering, the sciences, management, law, medicine and health sciences, backed by central research laboratories.</p>
+                <div class="adm__actions">
+                  <a class="btn btn--blue" href="https://www.srmist.edu.in/admissions/">PhD admissions</a>
+                  <a class="btn btn--line" href="https://www.srmist.edu.in/research/">Explore our research</a>
+                </div>
+              </div>
+              <dl class="adm__facts">
+                <div><dt>Faculty</dt><dd class="num">3<span class="sym">,</span>200<span class="sym">+</span></dd></div>
+                <div><dt>Externally funded projects</dt><dd class="num">544<span class="sym">+</span></dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 4. Outcomes: one band, every number dated -->
-  <section class="section outcomes" aria-labelledby="out-title">
+  <!-- ===================== LEAP ===================== -->
+  <section class="chapter chapter--leap" id="leap" aria-labelledby="leap-title">
     <div class="container">
-      <div class="section-head section-head--on-dark">
-        <h2 id="out-title">Where an SRM degree leads</h2>
-        <p>Figures from the latest published placement and research reports.</p>
-      </div>
-      <div class="outcomes__grid">
-        <div class="outcomes__group">
-          <h3>Placements 2023–24</h3>
-          <dl class="stats">
-            <div><dt>Job offers</dt><dd class="num">5,546+</dd></div>
-            <div><dt>Recruiting companies</dt><dd class="num">980+</dd></div>
-            <div><dt>Highest package</dt><dd class="num">₹52 LPA</dd></div>
-            <div><dt>Average package</dt><dd class="num">₹7.19 LPA</dd></div>
-          </dl>
-          <a class="text-link text-link--on-dark" href="https://www.srmist.edu.in/placements/">Placement report</a>
-        </div>
-        <div class="outcomes__group">
+      <header class="chapter__head">
+        <h2 id="leap-title" class="chapter__word">Leap<i>.</i></h2>
+        <p class="chapter__intro">Research that turns into patents, start-ups and a semester at universities like MIT and Carnegie Mellon.</p>
+      </header>
+
+      <dl class="leap-stats">
+        <div><dt>Publications</dt><dd class="num">47<span class="sym">,</span>000<span class="sym">+</span></dd></div>
+        <div><dt>Patents</dt><dd class="num">920<span class="sym">+</span></dd></div>
+        <div><dt>External research funding</dt><dd class="num">₹250 Cr<span class="sym">+</span></dd></div>
+        <div><dt>Among Indian private universities, Nature Index</dt><dd class="num">2nd</dd></div>
+      </dl>
+
+      <div class="leap-grid">
+        <article class="leap-block">
           <h3>Research</h3>
-          <dl class="stats">
-            <div><dt>Publications</dt><dd class="num">47,000+</dd></div>
-            <div><dt>Patents</dt><dd class="num">920+</dd></div>
-            <div><dt>External research funding</dt><dd class="num">₹250 Cr+</dd></div>
-            <div><dt>Funded projects</dt><dd class="num">544+</dd></div>
-          </dl>
-          <a class="text-link text-link--on-dark" href="https://www.srmist.edu.in/research/highlights/">Research highlights</a>
-        </div>
+          <p>Central laboratories, high-performance computing and nanotechnology facilities are open to every department. SRM researchers include scientists in the world's top 2% by citation.</p>
+          <ul class="leap-links">
+            <li><a href="https://www.srmist.edu.in/research/">Directorate of Research</a></li>
+            <li><a href="https://www.srmist.edu.in/research/#crlf">Central research laboratories</a></li>
+            <li><a href="https://www.srmist.edu.in/research/projects/">Funded projects</a></li>
+          </ul>
+        </article>
+        <article class="leap-block">
+          <h3>Start-ups</h3>
+          <p>The SRM start-up ecosystem takes students from an idea to a company, with incubation, a Fab Lab, mentoring and seed support.</p>
+          <ul class="leap-links">
+            <li><a href="https://www.srmist.edu.in/research/innovation-incubation/">Innovation and incubation</a></li>
+            <li><a href="https://www.srmist.edu.in/research/patents/">Patents</a></li>
+          </ul>
+        </article>
+        <article class="leap-block">
+          <h3>Go abroad</h3>
+          <p>More than 200 students have been sponsored for a semester at 35+ universities abroad, including MIT, Carnegie Mellon, UC Davis, Warwick and the University of Western Australia.</p>
+          <ul class="leap-links">
+            <li><a href="https://www.srmist.edu.in/ir/outward-mobility/">Semester abroad and twinning</a></li>
+            <li><a href="https://www.srmist.edu.in/ir/">Global partnerships</a></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="filmstrip" role="region" tabindex="0" aria-label="Start-ups from the SRM ecosystem, scroll sideways for more">
+      <ul class="filmstrip__track">
+        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-1.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-2.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-3.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-4.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-5.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-6.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-7.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-8.jpg" alt="" loading="lazy" width="480" height="320"></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== CAMPUS (interlude) ===================== -->
+  <section class="campus" id="campus" aria-labelledby="campus-title">
+    <div class="container campus__grid">
+      <div class="campus__copy">
+        <h2 id="campus-title">A 250-acre campus</h2>
+        <p>Kattankulathur is home to hostels for students from 95 countries, grounds for every sport, and Milan, the national cultural festival held here every year.</p>
+        <a class="btn btn--gold" href="https://webstor.srmist.edu.in/web_assets/srmist-virtual-tour-vo/index.htm"><svg class="icon" aria-hidden="true"><use href="#i-360"/></svg>Take the 360° tour</a>
+      </div>
+      <a class="campus__tile campus__tile--a" href="https://www.srmist.edu.in/life-at-srm/sports/">
+        <img src="https://www.srmist.edu.in/wp-content/uploads/2024/12/srm-sports-1.jpg" alt="" loading="lazy" width="651" height="434">
+        <span class="campus__label"><b>Sports</b>30 international medals in 2023–24</span>
+      </a>
+      <a class="campus__tile campus__tile--b" href="https://www.srmist.edu.in/srm-hostels/">
+        <img src="https://www.srmist.edu.in/wp-content/uploads/2022/04/ir_hostel_img3_1405335571-e1649594105962.jpg" alt="" loading="lazy" width="600" height="400">
+        <span class="campus__label"><b>Hostels and dining</b>Men's, women's and international hostels</span>
+      </a>
+      <a class="campus__tile campus__tile--c" href="https://www.srmist.edu.in/life-at-srm/culture/">
+        <img src="https://www.srmist.edu.in/wp-content/uploads/2026/02/Milan-26-Brochure-724x1024-1.png" alt="" loading="lazy" width="724" height="1024">
+        <span class="campus__label"><b>Milan</b>The national cultural festival</span>
+      </a>
+      <a class="campus__tile campus__tile--d" href="https://www.srmist.edu.in/life-at-srm/student-life/clubs/">
+        <img src="https://www.srmist.edu.in/wp-content/uploads/2024/12/Admission-India-SRMIST-1-Copy-768x511.jpg" alt="" loading="lazy" width="768" height="511">
+        <span class="campus__label"><b>Clubs and teams</b>Technical teams, NCC, NSS, entrepreneurship</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== LEAD ===================== -->
+  <section class="chapter chapter--lead" id="lead" aria-labelledby="lead-title">
+    <div class="container">
+      <header class="chapter__head">
+        <h2 id="lead-title" class="chapter__word">Lead<i>.</i></h2>
+        <p class="chapter__intro">Where SRM graduates go: into 980+ companies, the civil services, research labs and their own start-ups.</p>
+      </header>
+    </div>
+
+    <div class="placements">
+      <div class="container placements__inner">
+        <h3 class="placements__title">Placements 2023–24</h3>
+        <dl class="placements__stats">
+          <div class="placements__hero"><dt>Highest package</dt><dd class="num">₹52<small>LPA</small></dd></div>
+          <div><dt>Job offers</dt><dd class="num">5<span class="sym">,</span>546<span class="sym">+</span></dd></div>
+          <div><dt>Recruiting companies</dt><dd class="num">980<span class="sym">+</span></dd></div>
+          <div><dt>Average package</dt><dd class="num">₹7.19<small>LPA</small></dd></div>
+        </dl>
+        <a class="placements__link" href="https://www.srmist.edu.in/placements/">See the placement report</a>
+      </div>
+    </div>
+
+    <div class="container alumni-head">
+      <h3>Alumni</h3>
+      <a class="text-link" href="https://www.srmist.edu.in/alumni-affairs/notable-alumni/">All notable alumni</a>
+    </div>
+    <div class="rail" data-rail>
+      <ul class="rail__track" tabindex="0" aria-label="Notable alumni, scroll sideways for more">
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/04/Mr.-Sriram-Krishnan-2-300x225.jpg" alt="" loading="lazy" width="300" height="360"><h4>Sriram Krishnan</h4><p>Senior Policy Advisor for Artificial Intelligence, The White House</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/06/varun-300x225.jpg" alt="" loading="lazy" width="300" height="360"><h4>Varun Chakravarthy</h4><p>Indian international cricketer</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/sharanya-ari-potrait.jpg" alt="" loading="lazy" width="300" height="360"><h4>Sharanya Ari, IAS</h4><p>Indian Administrative Service</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/06/Mr.-Ashok-Malhotra-300x300.jpg" alt="" loading="lazy" width="300" height="360"><h4>Ashok Malhotra</h4><p>Mission Director, National Technical Textiles Mission</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/ashok-ramacharan.jpg" alt="" loading="lazy" width="300" height="360"><h4>Ashok Ramachandran</h4><p>President, India Business, Suzlon Group</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/vikraman-vasudevan.jpg" alt="" loading="lazy" width="300" height="360"><h4>Vikraman Vasudevan, IPS</h4><p>Indian Police Service</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/ojas-mahapatra.jpg" alt="" loading="lazy" width="300" height="360"><h4>Ojas Mahapatra</h4><p>Group CEO, MARS Bioimaging</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/nikita-hari.jpg" alt="" loading="lazy" width="300" height="360"><h4>Nikitha Hari</h4><p>Head, Teaching and Research Design Support Group</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/04/Sudha-Jamthe-259x300.jpg" alt="" loading="lazy" width="300" height="360"><h4>Sudha Jamthe</h4><p>Author and educator, Business School of AI</p></li>
+        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/pankaj-kumar-mishra.jpg" alt="" loading="lazy" width="300" height="360"><h4>Pankaj Kumar Mishra, IRS</h4><p>Indian Revenue Service</p></li>
+      </ul>
+      <div class="container rail__controls">
+        <button class="icon-btn icon-btn--line" type="button" data-rail-prev aria-label="Previous alumni"><svg class="icon flip" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        <button class="icon-btn icon-btn--line" type="button" data-rail-next aria-label="Next alumni"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
       </div>
     </div>
   </section>
 
-  <!-- 5. News and events -->
-  <section class="section news" aria-labelledby="news-title">
+  <!-- ===================== NEWS & EVENTS ===================== -->
+  <section class="news" aria-labelledby="news-title">
     <div class="container news__grid">
       <div class="news__stories">
-        <div class="section-head section-head--split">
+        <div class="block-head">
           <h2 id="news-title">News</h2>
           <a class="text-link" href="https://www.srmist.edu.in/news/">All news</a>
         </div>
         <article class="story story--lead">
           <a href="https://www.srmist.edu.in/srmist-22nd-convocation/">
-            <div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/08/Dignitaries-and-graduates-at-the-convocation-scaled.jpg" alt="" loading="lazy" width="900" height="560"></div>
+            <img src="https://www.srmist.edu.in/wp-content/uploads/2026/08/Dignitaries-and-graduates-at-the-convocation-scaled.jpg" alt="" loading="lazy" width="900" height="560">
             <h3>22nd Convocation: Vice President C. P. Radhakrishnan calls on graduates to lead India's journey to Viksit Bharat</h3>
           </a>
         </article>
         <ul class="story-list">
-          <li class="story"><a href="https://www.srmist.edu.in/srmist-student-named-distinguished-winner-at-apples-swift-student-challenge-2026/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/07/Shourya-Thakur-at-Steve-Jobs-Theatre.png" alt="" loading="lazy" width="240" height="160"></div><h3>Student named Distinguished Winner at Apple's Swift Student Challenge 2026</h3></a></li>
-          <li class="story"><a href="https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/01/IMG20260f128162948-scaled.jpg" alt="" loading="lazy" width="240" height="160"></div><h3>Team Camber Racing wins the national title at Formula Bharat 2026</h3></a></li>
-          <li class="story"><a href="https://www.srmist.edu.in/srmist-sports-students-secure-prestigious-positions-in-the-public-sector/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/06/SRMIST-Sports-Students-Placed-in-the-Public-Sector-Organizations.jpg" alt="" loading="lazy" width="240" height="160"></div><h3>Student athletes secure positions in public sector organisations</h3></a></li>
-          <li class="story"><a href="https://www.srmist.edu.in/srmist-marks-founder-chancellor-dr-t-r-parivendhars-birthday-with-sevai-thirunal-2026/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/08/Press-Realease-Vendhar-B-day.png" alt="" loading="lazy" width="240" height="160"></div><h3>Founder Chancellor Dr T. R. Paarivendhar's birthday marked with Sevai Thirunal 2026</h3></a></li>
+          <li class="story"><a href="https://www.srmist.edu.in/srmist-student-named-distinguished-winner-at-apples-swift-student-challenge-2026/"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/07/Shourya-Thakur-at-Steve-Jobs-Theatre.png" alt="" loading="lazy" width="240" height="160"><h3>Student named Distinguished Winner at Apple's Swift Student Challenge 2026</h3></a></li>
+          <li class="story"><a href="https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/01/IMG20260f128162948-scaled.jpg" alt="" loading="lazy" width="240" height="160"><h3>Team Camber Racing wins the national title at Formula Bharat 2026</h3></a></li>
+          <li class="story"><a href="https://www.srmist.edu.in/srmist-sports-students-secure-prestigious-positions-in-the-public-sector/"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/06/SRMIST-Sports-Students-Placed-in-the-Public-Sector-Organizations.jpg" alt="" loading="lazy" width="240" height="160"><h3>Student athletes secure positions in public sector organisations</h3></a></li>
         </ul>
       </div>
 
       <div class="events" role="region" aria-labelledby="events-title">
-        <div class="section-head section-head--split">
-          <h2 id="events-title">Upcoming events</h2>
+        <div class="block-head">
+          <h2 id="events-title">Coming up</h2>
           <a class="text-link" href="https://www.srmist.edu.in/events/">All events</a>
         </div>
-        <!-- Each event carries its end date; past events are removed on load so the list can't go stale. -->
+        <!-- Each event carries its end date; ended events are removed on load so the list can't go stale. -->
         <ol class="event-list" data-events>
           <li class="event" data-end="2026-10-28">
-            <time class="event__date" datetime="2026-10-25"><span class="event__day num">25–28</span><span class="event__month">Oct</span></time>
-            <div><h3><a href="https://www.srmist.edu.in/events/international-conference-on-biofilms-microbiome-research-bmr-2026/">BMR 2026: International Conference on Biofilms and Microbiome Research</a></h3><p>Conference</p></div>
+            <time class="event__date" datetime="2026-10-25"><b class="num">25</b><span>Oct</span></time>
+            <div><h3><a href="https://www.srmist.edu.in/events/international-conference-on-biofilms-microbiome-research-bmr-2026/">BMR 2026: International Conference on Biofilms and Microbiome Research</a></h3><p>25–28 October, conference</p></div>
           </li>
           <li class="event" data-end="2026-11-13">
-            <time class="event__date" datetime="2026-11-12"><span class="event__day num">12–13</span><span class="event__month">Nov</span></time>
-            <div><h3><a href="https://www.srmist.edu.in/events/technoblizz-2026-12th-edition/">Technoblizz 2026, 12th edition</a></h3><p>Technical symposium</p></div>
+            <time class="event__date" datetime="2026-11-12"><b class="num">12</b><span>Nov</span></time>
+            <div><h3><a href="https://www.srmist.edu.in/events/technoblizz-2026-12th-edition/">Technoblizz 2026, 12th edition</a></h3><p>12–13 November, technical symposium</p></div>
           </li>
           <li class="event" data-end="2026-11-21">
-            <time class="event__date" datetime="2026-11-16"><span class="event__day num">16–21</span><span class="event__month">Nov</span></time>
-            <div><h3><a href="https://www.srmist.edu.in/events/six-days-fdp-on-mechanics-driven-design-and-analysis-for-engineering-structures/">Faculty development programme: mechanics-driven design of engineering structures</a></h3><p>Six-day programme</p></div>
+            <time class="event__date" datetime="2026-11-16"><b class="num">16</b><span>Nov</span></time>
+            <div><h3><a href="https://www.srmist.edu.in/events/six-days-fdp-on-mechanics-driven-design-and-analysis-for-engineering-structures/">Faculty development programme on mechanics-driven design of engineering structures</a></h3><p>16–21 November, six days</p></div>
           </li>
           <li class="event" data-end="2026-12-19">
-            <time class="event__date" datetime="2026-12-19"><span class="event__day num">19</span><span class="event__month">Dec</span></time>
-            <div><h3><a href="https://www.srmist.edu.in/events/alumni-day-2026/">Alumni Day 2026</a></h3><p>For all SRM alumni</p></div>
+            <time class="event__date" datetime="2026-12-19"><b class="num">19</b><span>Dec</span></time>
+            <div><h3><a href="https://www.srmist.edu.in/events/alumni-day-2026/">Alumni Day 2026</a></h3><p>19 December, for all SRM alumni</p></div>
           </li>
         </ol>
-        <p class="event-empty" hidden data-events-empty>No events are scheduled right now. <a href="https://www.srmist.edu.in/events/">See past events</a>.</p>
+        <p class="event-empty" hidden data-events-empty>Nothing is scheduled right now. <a href="https://www.srmist.edu.in/events/">See past events</a>.</p>
       </div>
     </div>
   </section>
 
-  <!-- 6. Research and innovation -->
-  <section class="section research" aria-labelledby="res-title">
-    <div class="container research__grid">
-      <figure class="research__media">
-        <div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/srmist-research-1.jpg" alt="Researchers at work in an SRMIST laboratory" loading="lazy" width="900" height="700"></div>
-      </figure>
-      <div class="research__copy">
-        <h2 id="res-title">Research that leaves the lab</h2>
-        <p class="lede">SRM is second among Indian private universities in the Nature Index. Its researchers include scientists in the world's top 2% by citation, and the work goes into patents, start-ups and partnerships with industry and government.</p>
-        <ul class="link-list">
-          <li><a href="https://www.srmist.edu.in/research/">Directorate of Research</a><span>Policy, funding and research council</span></li>
-          <li><a href="https://www.srmist.edu.in/research/#crlf">Central research laboratories</a><span>Shared instruments, HPC and nanotechnology facilities</span></li>
-          <li><a href="https://www.srmist.edu.in/research/innovation-incubation/">Innovation and incubation</a><span>SRM IIC, the Fab Lab and the start-up ecosystem</span></li>
-          <li><a href="https://medicalresearch.srmist.edu.in/">Medical research</a><span>Clinical and translational research at SRM Medical College</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. Campus life -->
-  <section class="section life" aria-labelledby="life-title">
-    <div class="container">
-      <div class="section-head section-head--split">
-        <div>
-          <h2 id="life-title">Life on a 250-acre campus</h2>
-          <p>Hostels, sports grounds, student clubs and Milan, the annual national cultural festival.</p>
-        </div>
-        <a class="btn btn--ghost" href="https://webstor.srmist.edu.in/web_assets/srmist-virtual-tour-vo/index.htm"><svg class="icon" aria-hidden="true"><use href="#i-360"/></svg>Take the 360° virtual tour</a>
-      </div>
-      <ul class="life-grid">
-        <li class="life-card life-card--tall"><a href="https://www.srmist.edu.in/life-at-srm/sports/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/12/srm-sports-1.jpg" alt="" loading="lazy" width="651" height="434"></div><div class="life-card__body"><h3>Sports</h3><p>30 international medals in 2023–24, and courts and grounds for tennis, basketball, badminton, volleyball and more.</p></div></a></li>
-        <li class="life-card"><a href="https://www.srmist.edu.in/srm-hostels/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/04/ir_hostel_img3_1405335571-e1649594105962.jpg" alt="" loading="lazy" width="600" height="400"></div><div class="life-card__body"><h3>Hostels and dining</h3><p>Separate hostels for men, women and international students, with dining for every diet.</p></div></a></li>
-        <li class="life-card"><a href="https://www.srmist.edu.in/life-at-srm/culture/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/02/Milan-26-Brochure-724x1024-1.png" alt="" loading="lazy" width="600" height="400"></div><div class="life-card__body"><h3>Arts and culture</h3><p>Music, dance, theatre and Milan, the annual national cultural festival.</p></div></a></li>
-        <li class="life-card"><a href="https://www.srmist.edu.in/life-at-srm/student-life/clubs/"><div class="media-frame"><img src="https://www.srmist.edu.in/wp-content/uploads/2024/12/Admission-India-SRMIST-1-Copy-768x511.jpg" alt="" loading="lazy" width="768" height="511"></div><div class="life-card__body"><h3>Clubs and societies</h3><p>Technical teams, entrepreneurship cells, NCC, NSS and community service.</p></div></a></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 8. Alumni -->
-  <section class="section alumni" aria-labelledby="alum-title">
-    <div class="container">
-      <div class="section-head section-head--split">
-        <div>
-          <h2 id="alum-title">Alumni in public life, science and business</h2>
-          <p>Graduates who started where you might.</p>
-        </div>
-        <a class="text-link" href="https://www.srmist.edu.in/alumni-affairs/notable-alumni/">All notable alumni</a>
-      </div>
-    </div>
-    <div class="rail" data-rail>
-      <ul class="rail__track" tabindex="0" aria-label="Notable alumni, scroll horizontally">
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/04/Mr.-Sriram-Krishnan-2-300x225.jpg" alt="" loading="lazy" width="300" height="300"><h3>Sriram Krishnan</h3><p>Senior Policy Advisor for Artificial Intelligence, The White House</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/06/varun-300x225.jpg" alt="" loading="lazy" width="300" height="300"><h3>Varun Chakravarthy</h3><p>Indian international cricketer</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/sharanya-ari-potrait.jpg" alt="" loading="lazy" width="300" height="300"><h3>Sharanya Ari, IAS</h3><p>Indian Administrative Service</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/06/Mr.-Ashok-Malhotra-300x300.jpg" alt="" loading="lazy" width="300" height="300"><h3>Ashok Malhotra</h3><p>Mission Director, National Technical Textiles Mission</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/ashok-ramacharan.jpg" alt="" loading="lazy" width="300" height="300"><h3>Ashok Ramachandran</h3><p>President, India Business, Suzlon Group</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/vikraman-vasudevan.jpg" alt="" loading="lazy" width="300" height="300"><h3>Vikraman Vasudevan, IPS</h3><p>Indian Police Service</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/ojas-mahapatra.jpg" alt="" loading="lazy" width="300" height="300"><h3>Ojas Mahapatra</h3><p>Group CEO, MARS Bioimaging</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/nikita-hari.jpg" alt="" loading="lazy" width="300" height="300"><h3>Nikitha Hari</h3><p>Head, Teaching and Research Design Support Group</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/04/Sudha-Jamthe-259x300.jpg" alt="" loading="lazy" width="300" height="300"><h3>Sudha Jamthe</h3><p>Author and educator, Business School of AI</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/pankaj-kumar-mishra.jpg" alt="" loading="lazy" width="300" height="300"><h3>Pankaj Kumar Mishra, IRS</h3><p>Indian Revenue Service</p></li>
-      </ul>
-      <div class="container rail__controls">
-        <button class="icon-btn icon-btn--outline" type="button" data-rail-prev aria-label="Previous alumni"><svg class="icon flip" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        <button class="icon-btn icon-btn--outline" type="button" data-rail-next aria-label="Next alumni"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. Closing call to action -->
+  <!-- Closing call to action -->
   <section class="cta-band" aria-labelledby="cta-title">
     <div class="container cta-band__inner">
-      <div>
-        <h2 id="cta-title">Start your application for 2027</h2>
-        <p>Talk to the admissions team, visit the campus, or apply online today.</p>
-      </div>
+      <h2 id="cta-title">Your leap starts here.</h2>
       <div class="cta-band__actions">
-        <a class="btn btn--gold" href="https://www.srmist.edu.in/admissions/">Apply now</a>
-        <a class="btn btn--ghost-dark" href="https://www.srmist.edu.in/contact-us/">Plan a campus visit</a>
+        <a class="btn btn--gold" href="https://www.srmist.edu.in/admissions/">Apply for 2027</a>
+        <a class="btn btn--line-light" href="https://www.srmist.edu.in/visitors/">Plan a campus visit</a>
       </div>
     </div>
   </section>
@@ -745,12 +763,6 @@
     </ul>
   </div>
 </footer>
-
-<!-- Campus film: the YouTube player loads only when asked for, in privacy mode -->
-<dialog class="film-dialog" data-film-dialog aria-label="Campus film">
-  <button class="icon-btn film-dialog__close" type="button" data-close-film aria-label="Close video"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
-  <div class="film-dialog__frame" data-film-frame></div>
-</dialog>
 
 <script src="assets/js/main.js" defer></script>
 </body>
