@@ -30,7 +30,6 @@
   const mark = $("[data-wordmark]");
   if (mark) {
     const fills = $$(".wordmark__fill", mark);
-    const toggle = $("[data-wordmark-toggle]");
     const phone = matchMedia("(max-width: 560px)");
     const paint = () => fills.forEach(f => {
       const src = phone.matches && f.dataset.imgM ? f.dataset.imgM : f.dataset.img;
@@ -47,18 +46,7 @@
     const play = () => { timer = setInterval(() => { i = (i + 1) % fills.length; show(i); }, 5000); };
     const stop = () => { clearInterval(timer); timer = null; };
     if (!calm && fills.length > 1) play();
-    if (toggle) {
-      if (calm) toggle.hidden = true;
-      const PAUSE = "M3 2h3v10H3zM8 2h3v10H8z", PLAY = "M4 2l8 5-8 5z";
-      toggle.addEventListener("click", () => {
-        const pausing = !!timer;
-        if (pausing) stop(); else { i = (i + 1) % fills.length; show(i); play(); } // resuming moves on at once, so the press is visible
-        mark.classList.toggle("is-paused", pausing); // freezes the slow pan inside the letters as well
-        toggle.setAttribute("aria-pressed", String(pausing));
-        $("path", toggle).setAttribute("d", pausing ? PLAY : PAUSE);
-        $("span", toggle).textContent = pausing ? "Play photos" : "Pause photos";
-      });
-    }
+
   }
 
   /* ---------- Scroll chapters: the card in view sets the backdrop and headline ---------- */

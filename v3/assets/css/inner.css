@@ -164,3 +164,4 @@
   .clstep__body { padding-left: 0; }
   .bgsec--inner h1 { font-size: clamp(2.25rem, 1rem + 7vw, 3.5rem); }
 }
+.social a[data-ext]::after, .menu-btn[data-ext]::after { content: none; }
