@@ -24,6 +24,10 @@ for rel in pages:
     s = open(os.path.join(ROOT, rel), encoding="utf-8").read()
     s = re.sub(r'((?:href|src)=")(/[^/"][^"]*|/)(")', lambda m: m.group(1) + fix(m.group(2)) + m.group(3), s)
     s = s.replace('"/programs/btech-cse/"', '"' + up + 'programs/btech-cse/index.html"')
+    shim = ('<script>window.SRMB="%s";(function(){var B=window.SRMB,R=function(u){if(typeof u!=="string"||u.charAt(0)!=="/"||u.charAt(1)==="/")return u;var m=u.match(/^([^?#]*)(.*)$/),p=m[1];if(p.slice(-1)==="/")p+="index.html";return B+p.slice(1)+m[2];};'
+            'window.SRMR=R;var f=window.fetch;window.fetch=function(u,o){return f.call(this,R(u),o);};'
+            'document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(a){var h=a.getAttribute("href");if(h&&h.charAt(0)==="/")a.setAttribute("href",R(h));}},true);})();</script>') % up
+    s = s.replace("<head>", "<head>\n" + shim, 1) if "<head>" in s else s
     s = s.replace("<body>", "<body>\n" + BANNER, 1) if "<body>" in s else re.sub(r"(<body[^>]*>)", r"\1\n" + BANNER, s, count=1)
     if depth == 0:  # the host wraps the main page in its own skeleton
         head = s[s.index("<head>") + 6: s.index("</head>")]
