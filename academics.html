@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Academic Schools and Programmes at SRM Institute of Science and Technology, Kattankulathur.">
+  <title>Academics &amp; Schools | SRMIST Kattankulathur</title>
+  
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/srm-logo.svg">
+  <style>
+    .page-hero {
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-7);
+      background-color: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .breadcrumbs {
+      font-size: var(--font-size-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-ink-subtle);
+      margin-bottom: var(--space-3);
+    }
+    .page-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-4);
+    }
+    .page-lede {
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+      color: var(--color-ink-muted);
+      max-width: 68ch;
+      line-height: var(--leading-editorial);
+    }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-6);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border);
+    }
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-xs);
+      font-weight: 700;
+      color: var(--color-ink);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .filter-pill.active {
+      background-color: var(--color-ink);
+      color: #FFFFFF;
+      border-color: var(--color-ink);
+    }
+    .schools-section {
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-9);
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .schools-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    @media (min-width: 768px) {
+      .schools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .schools-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .school-card {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-5);
+      transition: border-color 150ms ease;
+    }
+    .school-card:hover {
+      border-color: var(--color-ink);
+    }
+    .school-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .school-name {
+      font-size: var(--font-size-lg);
+      font-weight: 800;
+      color: var(--color-ink);
+      margin-top: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+    .school-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-ink-muted);
+      line-height: 1.55;
+    }
+    .school-stats-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border);
+      font-size: var(--font-size-xs);
+      color: var(--color-ink-subtle);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="/" class="brand-link" aria-label="SRM Institute of Science and Technology Homepage">
+        <img src="/assets/img/srm-logo.svg" alt="SRM Logo" class="brand-logo-img" width="140" height="40">
+        <span class="brand-campus-tag">Kattankulathur<br>Main Campus</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main Navigation">
+        <a href="/academics.html" class="nav-link active">Academics</a>
+        <a href="/#ways-in" class="nav-link">Admissions</a>
+        <a href="/#statement-research" class="nav-link">Research</a>
+        <a href="/#statement-life" class="nav-link">Campus Life</a>
+        <a href="/#milestones" class="nav-link">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="/#ways-in" class="btn btn-secondary" style="min-height: 40px; padding: 0 16px; font-size: 13px;">Apply 2027</a>
+        <a href="/menu.html" class="menu-circle-btn" aria-label="Open full site navigation directory">
+          <span></span>
+          <span></span>
+          <span></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    
+    <!-- Hero Header -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="breadcrumbs">
+          <a href="/">Home</a> &nbsp;/&nbsp; <span>Academics</span>
+        </div>
+        <h1 class="page-title">Schools &amp; Programmes</h1>
+        <p class="page-lede">
+          Six multidisciplinary faculties spanning 240+ degree programmes, anchored on flexible choice-based credit systems, experiential lab immersion, and international ABET accreditation.
+        </p>
+
+        <!-- Static Filter Bar -->
+        <div class="filter-bar" role="tablist" aria-label="Programme Level Filter">
+          <button class="filter-pill active" role="tab" aria-selected="true">All Faculties (6)</button>
+          <button class="filter-pill" role="tab" aria-selected="false">Engineering &amp; Technology</button>
+          <button class="filter-pill" role="tab" aria-selected="false">Architecture &amp; Design</button>
+          <button class="filter-pill" role="tab" aria-selected="false">Medicine &amp; Health Sciences</button>
+          <button class="filter-pill" role="tab" aria-selected="false">Science &amp; Humanities</button>
+          <button class="filter-pill" role="tab" aria-selected="false">Management &amp; Law</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schools Grid -->
+    <section class="schools-section" aria-label="Faculties and Academic Schools">
+      <div class="container">
+        <div class="schools-grid">
+          
+          <!-- School 1 -->
+          <article class="school-card">
+            <div>
+              <span class="school-tag">Computing Hub &middot; Tech Park</span>
+              <h2 class="school-name">School of Computing</h2>
+              <p class="school-desc">
+                Housed across the 15-storey Tech Park complex. Specialisations in Distributed Systems, Artificial Intelligence, Cybersecurity, Cloud Infrastructure, and Data Engineering.
+              </p>
+            </div>
+            <div class="school-stats-row">
+              <span>B.Tech / M.Tech / Ph.D</span>
+              <span class="todo-verify">ABET Accredited</span>
+            </div>
+          </article>
+
+          <!-- School 2 -->
+          <article class="school-card">
+            <div>
+              <span class="school-tag">Engineering Block &middot; Main Campus</span>
+              <h2 class="school-name">School of Mechanical &amp; Aerospace</h2>
+              <p class="school-desc">
+                Pioneering automotive powertrain engineering, composite aerodynamic materials, satellite subsystems, and industrial robotics laboratories in collaboration with global partners.
+              </p>
+            </div>
+            <div class="school-stats-row">
+              <span>B.Tech / M.Tech</span>
+              <span class="todo-verify">Volvo Tech Centre</span>
+            </div>
+          </article>
+
+          <!-- School 3 -->
+          <article class="school-card">
+            <div>
+              <span class="school-tag">Design Studios &middot; Architecture Complex</span>
+              <h2 class="school-name">School of Architecture &amp; Interior Design</h2>
+              <p class="school-desc">
+                Council of Architecture approved curricula emphasizing climate-responsive urban design, parametric building modelling, and sustainable tropical habitat planning.
+              </p>
+            </div>
+            <div class="school-stats-row">
+              <span>B.Arch / B.Des / M.Arch</span>
+              <span class="todo-verify">CoA Approved</span>
+            </div>
+          </article>
+
+          <!-- School 4 -->
+          <article class="school-card">
+            <div>
+              <span class="school-tag">Bio-Engineering Labs &middot; UB Campus</span>
+              <h2 class="school-name">School of Bioengineering</h2>
+              <p class="school-desc">
+                Cross-disciplinary integration of molecular genetics, biomedical instrumentation, tissue engineering, and computational biology alongside active clinicians.
+              </p>
+            </div>
+            <div class="school-stats-row">
+              <span>B.Tech / M.Tech / Ph.D</span>
+              <span class="todo-verify">DST-FIST Supported</span>
+            </div>
+          </article>
+
+          <!-- School 5 -->
+          <article class="school-card">
+            <div>
+              <span class="school-tag">Medical College &amp; Hospital &middot; KTR</span>
+              <h2 class="school-name">Faculty of Medical &amp; Health Sciences</h2>
+              <p class="school-desc">
+                Tertiary 1,200-bed teaching hospital facility providing clinical education across MBBS, MD/MS super-specialties, nursing, pharmacy, and physiotherapy.
+              </p>
+            </div>
+            <div class="school-stats-row">
+              <span>MBBS / MD / MS</span>
+              <span class="todo-verify">NMC Approved</span>
+            </div>
+          </article>
+
+          <!-- School 6 -->
+          <article class="school-card">
+            <div>
+              <span class="school-tag">Management Tower &middot; Main Campus</span>
+              <h2 class="school-name">School of Management &amp; Law</h2>
+              <p class="school-desc">
+                Developing corporate leadership and jurisprudence through case-method pedagogies, financial trading simulators, and constitutional moot court training.
+              </p>
+            </div>
+            <div class="school-stats-row">
+              <span>BBA / MBA / B.A. LL.B</span>
+              <span class="todo-verify">BCI / AICTE</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer with TP + TP2 Skyline -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-nav-grid">
+        <div class="footer-col footer-col-brand">
+          <img src="/assets/img/srm-logo-white.svg" alt="SRM IST White Logo" class="footer-brand-logo" width="140" height="40">
+          <address class="footer-brand-address">
+            SRM Institute of Science and Technology<br>
+            SRM Nagar, Kattankulathur - 603 203<br>
+            Chengalpattu District, Tamil Nadu, India.
+          </address>
+        </div>
+        <div class="footer-col">
+          <h4>Academics</h4>
+          <ul class="footer-link-list">
+            <li><a href="/academics.html">School of Computing</a></li>
+            <li><a href="/academics.html">School of Architecture</a></li>
+            <li><a href="/academics.html">Mechanical &amp; Aerospace</a></li>
+            <li><a href="/academics.html">Medical &amp; Health Sciences</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Campuses</h4>
+          <ul class="footer-link-list">
+            <li><a href="/">Kattankulathur (Main)</a></li>
+            <li><a href="https://www.srmrmp.edu.in/" class="external" target="_blank" rel="noopener">Ramapuram</a></li>
+            <li><a href="https://vdp.srmist.edu.in/" class="external" target="_blank" rel="noopener">Vadapalani</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-link-list">
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/#ways-in">Admissions Portal</a></li>
+            <li><a href="/menu.html">Full Directory</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-compliance-row">
+        <div>&copy; 2026 SRM Institute of Science and Technology. All rights reserved.</div>
+        <div class="compliance-links">
+          <a href="https://www.srmist.edu.in/naac-ssr/" class="external" target="_blank" rel="noopener">NAAC SSR</a>
+          <a href="https://www.srmist.edu.in/nirf/" class="external" target="_blank" rel="noopener">NIRF</a>
+          <a href="https://www.srmist.edu.in/aicte/" class="external" target="_blank" rel="noopener">AICTE</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-skyline-wrapper" aria-hidden="true">
+<svg class="skyline-svg" viewBox="0 0 1600 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYEnd meet" role="img" aria-label="Stylized illustrated skyline of SRM Tech Park (TP) and Tech Park 2 (TP2) at dusk">
+  <!-- Layer 1: Sky canvas matching footer background #111317 -->
+  <g id="sky">
+    <rect width="1600" height="420" fill="#111317"/>
+    <!-- Distant sky layer / faint twilight horizon -->
+    <rect y="220" width="1600" height="200" fill="#141720"/>
+    <rect y="310" width="1600" height="110" fill="#171B26"/>
+  </g>
+
+  <!-- Layer 2: Distant architectural backdrop & shadows -->
+  <g id="buildings-backdrop" opacity="0.45">
+    <!-- Distant connecting bridge & UB silhouette -->
+    <rect x="180" y="240" width="140" height="150" fill="#0C0E14"/>
+    <polygon points="180,240 250,210 320,240" fill="#0C0E14"/>
+    <rect x="760" y="270" width="120" height="120" fill="#0E1118"/>
+    <rect x="1380" y="260" width="160" height="130" fill="#0E1118"/>
+  </g>
+
+  <!-- Layer 3: Main Buildings (TP & TP2 Side by Side) -->
+  <g id="buildings">
+    <!-- ==================== TECH PARK 1 (TP - G+15 Stories) ==================== -->
+    <!-- TP Main Massing: X: 340 to 740 (Width: 400px, Height: 330px from y=60 to 390) -->
+    <!-- Central Tower Spine / Lift Core (tallest) -->
+    <rect x="510" y="45" width="60" height="345" fill="#1F2533"/>
+    <!-- Antenna spire on TP Core -->
+    <line x1="540" y1="45" x2="540" y2="15" stroke="#3D475F" stroke-width="3"/>
+    <circle cx="540" cy="15" r="3" fill="#C7A008"/>
+
+    <!-- TP Left Wing (G+14) -->
+    <rect x="340" y="75" width="170" height="315" fill="#242B3B"/>
+    <!-- TP Right Wing (G+14) -->
+    <rect x="570" y="75" width="170" height="315" fill="#242B3B"/>
+
+    <!-- Parapet & Roof Cap -->
+    <rect x="330" y="70" width="420" height="8" fill="#323C52"/>
+    <rect x="500" y="40" width="80" height="6" fill="#3D475F"/>
+
+    <!-- Architectural Louvers / Vertical Mullions -->
+    <rect x="420" y="78" width="6" height="312" fill="#1B202C"/>
+    <rect x="654" y="78" width="6" height="312" fill="#1B202C"/>
+
+    <!-- TP Base / Entrance Portico -->
+    <rect x="330" y="340" width="420" height="50" fill="#1B202C"/>
+    <rect x="490" y="325" width="100" height="65" fill="#2D3547"/>
+
+    <!-- ==================== TECH PARK 2 (TP2 - Computing Complex) ==================== -->
+    <!-- TP2 Massing: X: 840 to 1280 (Width: 440px, Height: 290px from y=100 to 390) -->
+    <!-- Modern stepped cantilever / angular profile -->
+    <rect x="850" y="110" width="390" height="280" fill="#283042"/>
+    <rect x="910" y="85" width="270" height="305" fill="#202736"/>
+    <!-- Glass Atrium / Modern Link -->
+    <rect x="740" y="220" width="110" height="170" fill="#191F2C"/>
+    <line x1="740" y1="280" x2="850" y2="280" stroke="#2D3547" stroke-width="2"/>
+    <line x1="740" y1="330" x2="850" y2="330" stroke="#2D3547" stroke-width="2"/>
+
+    <!-- TP2 Top Roof Pavilion & Solar Array -->
+    <rect x="940" y="70" width="210" height="15" fill="#38435C"/>
+    <polygon points="900,110 940,85 1150,85 1190,110" fill="#2E374C"/>
+
+    <!-- TP2 Modern Facade Ribs -->
+    <rect x="970" y="90" width="8" height="300" fill="#181D28"/>
+    <rect x="1040" y="90" width="8" height="300" fill="#181D28"/>
+    <rect x="1110" y="90" width="8" height="300" fill="#181D28"/>
+  </g>
+
+  <!-- Layer 4: Window Grids & Ambient Lights -->
+  <g id="windows">
+    <rect x="352" y="90" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="377" y="90" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="402" y="90" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="427" y="90" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="452" y="90" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="477" y="90" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="584" y="90" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="609" y="90" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="634" y="90" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="659" y="90" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="684" y="90" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="709" y="90" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="536" y="90" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="109" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="377" y="109" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="402" y="109" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="427" y="109" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="452" y="109" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="477" y="109" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="584" y="109" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="609" y="109" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="634" y="109" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="659" y="109" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="684" y="109" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="709" y="109" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="536" y="109" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="128" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="377" y="128" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="402" y="128" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="427" y="128" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="452" y="128" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="477" y="128" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="584" y="128" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="609" y="128" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="634" y="128" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="659" y="128" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="684" y="128" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="709" y="128" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="536" y="128" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="147" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="377" y="147" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="402" y="147" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="427" y="147" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="452" y="147" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="477" y="147" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="584" y="147" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="609" y="147" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="634" y="147" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="659" y="147" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="684" y="147" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="709" y="147" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="536" y="147" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="166" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="377" y="166" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="402" y="166" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="427" y="166" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="452" y="166" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="477" y="166" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="584" y="166" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="609" y="166" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="634" y="166" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="659" y="166" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="684" y="166" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="709" y="166" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="536" y="166" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="185" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="377" y="185" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="402" y="185" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="427" y="185" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="452" y="185" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="477" y="185" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="584" y="185" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="609" y="185" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="634" y="185" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="659" y="185" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="684" y="185" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="709" y="185" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="536" y="185" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="204" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="377" y="204" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="402" y="204" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="427" y="204" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="452" y="204" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="477" y="204" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="584" y="204" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="609" y="204" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="634" y="204" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="659" y="204" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="684" y="204" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="709" y="204" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="536" y="204" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="223" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="377" y="223" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="402" y="223" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="427" y="223" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="452" y="223" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="477" y="223" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="584" y="223" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="609" y="223" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="634" y="223" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="659" y="223" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="684" y="223" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="709" y="223" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="536" y="223" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="242" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="377" y="242" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="402" y="242" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="427" y="242" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="452" y="242" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="477" y="242" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="584" y="242" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="609" y="242" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="634" y="242" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="659" y="242" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="684" y="242" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="709" y="242" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="536" y="242" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="261" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="377" y="261" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="402" y="261" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="427" y="261" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="452" y="261" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="477" y="261" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="584" y="261" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="609" y="261" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="634" y="261" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="659" y="261" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="684" y="261" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="709" y="261" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="536" y="261" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="280" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="377" y="280" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="402" y="280" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="427" y="280" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="452" y="280" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="477" y="280" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="584" y="280" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="609" y="280" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="634" y="280" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="659" y="280" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="684" y="280" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="709" y="280" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="536" y="280" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="299" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="377" y="299" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="402" y="299" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="427" y="299" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="452" y="299" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="477" y="299" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="584" y="299" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="609" y="299" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="634" y="299" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="659" y="299" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="684" y="299" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="709" y="299" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="536" y="299" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="352" y="318" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.5"/>
+    <rect x="377" y="318" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="402" y="318" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="427" y="318" width="16" height="10" rx="1" fill="#E5B824" opacity="0.75"/>
+    <rect x="452" y="318" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="477" y="318" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="584" y="318" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="609" y="318" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="634" y="318" width="16" height="10" rx="1" fill="#9BBBE6" opacity="0.45"/>
+    <rect x="659" y="318" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="684" y="318" width="16" height="10" rx="1" fill="#E5B824" opacity="0.8"/>
+    <rect x="709" y="318" width="16" height="10" rx="1" fill="#121620" opacity="0.9"/>
+    <rect x="536" y="318" width="8" height="11" rx="1" fill="#9BBBE6" opacity="0.6"/>
+    <rect x="868" y="125" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="905" y="125" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="942" y="125" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="979" y="125" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1016" y="125" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1053" y="125" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1090" y="125" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1127" y="125" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1164" y="125" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1201" y="125" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="868" y="148" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="905" y="148" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="942" y="148" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="979" y="148" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1016" y="148" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1053" y="148" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1090" y="148" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1127" y="148" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1164" y="148" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1201" y="148" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="868" y="171" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="905" y="171" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="942" y="171" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="979" y="171" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1016" y="171" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1053" y="171" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1090" y="171" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1127" y="171" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1164" y="171" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1201" y="171" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="868" y="194" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="905" y="194" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="942" y="194" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="979" y="194" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1016" y="194" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1053" y="194" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1090" y="194" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1127" y="194" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1164" y="194" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1201" y="194" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="868" y="217" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="905" y="217" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="942" y="217" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="979" y="217" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1016" y="217" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1053" y="217" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1090" y="217" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1127" y="217" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1164" y="217" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1201" y="217" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="868" y="240" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="905" y="240" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="942" y="240" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="979" y="240" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1016" y="240" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1053" y="240" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1090" y="240" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1127" y="240" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1164" y="240" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1201" y="240" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="868" y="263" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="905" y="263" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="942" y="263" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="979" y="263" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1016" y="263" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1053" y="263" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1090" y="263" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1127" y="263" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1164" y="263" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1201" y="263" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="868" y="286" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="905" y="286" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="942" y="286" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="979" y="286" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1016" y="286" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1053" y="286" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1090" y="286" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1127" y="286" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1164" y="286" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1201" y="286" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="868" y="309" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="905" y="309" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="942" y="309" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="979" y="309" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1016" y="309" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1053" y="309" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1090" y="309" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1127" y="309" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1164" y="309" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1201" y="309" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="868" y="332" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="905" y="332" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="942" y="332" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="979" y="332" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1016" y="332" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1053" y="332" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1090" y="332" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1127" y="332" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1164" y="332" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1201" y="332" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="868" y="355" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="905" y="355" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="942" y="355" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="979" y="355" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1016" y="355" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1053" y="355" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1090" y="355" width="26" height="13" rx="1" fill="#E5B824" opacity="0.7"/>
+    <rect x="1127" y="355" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+    <rect x="1164" y="355" width="26" height="13" rx="1" fill="#8EAFDA" opacity="0.55"/>
+    <rect x="1201" y="355" width="26" height="13" rx="1" fill="#141822" opacity="0.85"/>
+  </g>
+
+  <!-- Layer 5: Foreground (Kattankulathur trees, landscape & campus ground) -->
+  <g id="foreground">
+    <!-- Ground plane -->
+    <rect x="0" y="388" width="1600" height="32" fill="#0C0E12"/>
+    <line x1="0" y1="388" x2="1600" y2="388" stroke="#222836" stroke-width="1.5"/>
+
+    <!-- Stylized campus palm & broadleaf trees (silhouettes) -->
+    <!-- Left cluster -->
+    <circle cx="120" cy="375" r="26" fill="#0F171D"/>
+    <circle cx="150" cy="370" r="32" fill="#141E26"/>
+    <circle cx="190" cy="378" r="22" fill="#0F171D"/>
+    <circle cx="280" cy="372" r="28" fill="#131C24"/>
+    <circle cx="310" cy="379" r="20" fill="#0F171D"/>
+
+    <!-- Center trees between TP and TP2 -->
+    <circle cx="760" cy="375" r="24" fill="#121B24"/>
+    <circle cx="790" cy="368" r="30" fill="#15212C"/>
+    <circle cx="825" cy="376" r="25" fill="#121B24"/>
+
+    <!-- Right cluster -->
+    <circle cx="1300" cy="370" r="30" fill="#141E26"/>
+    <circle cx="1340" cy="376" r="22" fill="#0F171D"/>
+    <circle cx="1420" cy="366" r="34" fill="#15212C"/>
+    <circle cx="1465" cy="374" r="26" fill="#121B24"/>
+    <circle cx="1520" cy="378" r="20" fill="#0F171D"/>
+
+    <!-- Building Labels (Subtle architectural caption in the corner) -->
+    <text x="340" y="407" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#586275" letter-spacing="0.08em">TECH PARK (TP · G+15)</text>
+    <text x="850" y="407" font-family="'Inter Tight', sans-serif" font-size="11" font-weight="700" fill="#586275" letter-spacing="0.08em">TECH PARK 2 (TP2 · COMPUTING COMPLEX)</text>
+    <text x="1380" y="407" font-family="'JetBrains Mono', monospace" font-size="10" fill="#434B5A">KTR CAMPUS SKYLINE</text>
+  </g>
+</svg>
+    </div>
+  </footer>
+
+</body>
+</html>

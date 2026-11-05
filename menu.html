@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Directory | SRMIST Kattankulathur</title>
+  
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/srm-logo.svg">
+  <style>
+    .directory-page {
+      background-color: var(--color-dark-bg);
+      color: var(--color-dark-ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .directory-header {
+      padding-top: var(--space-5);
+      padding-bottom: var(--space-5);
+      border-bottom: 1px solid var(--color-dark-border);
+    }
+    .directory-close-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-pill);
+      background-color: var(--color-dark-surface);
+      color: #FFFFFF;
+      border: 1px solid var(--color-dark-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .directory-close-btn:hover {
+      background-color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+    .directory-content {
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-9);
+      flex: 1;
+    }
+    .directory-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      color: #FFFFFF;
+      margin-bottom: var(--space-6);
+    }
+    .directory-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-7);
+    }
+    @media (min-width: 640px) {
+      .directory-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .directory-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .dir-group h2 {
+      font-size: var(--font-size-md);
+      font-weight: 800;
+      color: var(--color-accent-gold);
+      margin-bottom: var(--space-4);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .dir-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .dir-links a {
+      font-size: var(--font-size-base);
+      color: var(--color-dark-muted);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+    .dir-links a:hover {
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body class="directory-page">
+  <header class="directory-header">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+      <a href="/" class="brand-link">
+        <img src="/assets/img/srm-logo-white.svg" alt="SRM IST White Logo" class="brand-logo-img" width="140" height="40">
+      </a>
+      <a href="/" class="directory-close-btn" aria-label="Close directory and return to previous page">&times;</a>
+    </div>
+  </header>
+
+  <main class="directory-content">
+    <div class="container">
+      <h1 class="directory-title">Institutional Directory</h1>
+
+      <div class="directory-grid">
+        <div class="dir-group">
+          <h2>Academics</h2>
+          <ul class="dir-links">
+            <li><a href="/academics.html">All Schools &amp; Faculties</a></li>
+            <li><a href="/academics.html">School of Computing</a></li>
+            <li><a href="/academics.html">School of Architecture</a></li>
+            <li><a href="/academics.html">School of Mechanical Sciences</a></li>
+            <li><a href="/academics.html">Medical &amp; Health Sciences</a></li>
+            <li><a href="/academics.html">Management &amp; Commerce</a></li>
+            <li><a href="/academics.html">School of Law</a></li>
+          </ul>
+        </div>
+
+        <div class="dir-group">
+          <h2>Admissions 2027</h2>
+          <ul class="dir-links">
+            <li><a href="/#ways-in">Admissions Portal</a></li>
+            <li><a href="https://admissions.srmist.edu.in" class="external" target="_blank" rel="noopener">SRMJEEE Registration</a></li>
+            <li><a href="/#ways-in">Scholarships &amp; Fee Concessions</a></li>
+            <li><a href="/#ways-in">International Admissions</a></li>
+            <li><a href="/#ways-in">Campus Visit Booking</a></li>
+          </ul>
+        </div>
+
+        <div class="dir-group">
+          <h2>Research &amp; Centers</h2>
+          <ul class="dir-links">
+            <li><a href="/#statement-research">Research Overview</a></li>
+            <li><a href="/#statement-research">Sir C.V. Raman Research Park</a></li>
+            <li><a href="/#statement-research">Nanotechnology Research Center</a></li>
+            <li><a href="/#work">Autonomous Systems &amp; UAV Lab</a></li>
+            <li><a href="/#work">Volvo Vehicle Technology Centre</a></li>
+          </ul>
+        </div>
+
+        <div class="dir-group">
+          <h2>Campuses &amp; Portals</h2>
+          <ul class="dir-links">
+            <li><a href="/">Kattankulathur (Main Campus)</a></li>
+            <li><a href="https://www.srmrmp.edu.in/" class="external" target="_blank" rel="noopener">Ramapuram Campus</a></li>
+            <li><a href="https://vdp.srmist.edu.in/" class="external" target="_blank" rel="noopener">Vadapalani Campus</a></li>
+            <li><a href="https://evarsity.srmist.edu.in" class="external" target="_blank" rel="noopener">eVarsity Student Portal</a></li>
+            <li><a href="https://alumni.srmist.edu.in" class="external" target="_blank" rel="noopener">Alumni Association</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
