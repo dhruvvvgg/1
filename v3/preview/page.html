@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Engineering and Technology, SRMIST Concept</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Concept redesign of the SRM Institute of Science and Technology homepage, Kattankulathur.">
+<meta name="theme-color" content="#fafafa">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+/* SRM IST homepage concept v3
+   Thesis: calm and typographic everywhere, two showpieces only: the photo-filled
+   wordmark hero and the TP/TP2 skyline footer. One accent: SRM gold.
+   Every non-showpiece section uses one pattern: H2, one-sentence intro, one link. */
+
+:root {
+  color-scheme: light;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --ink: #121418;
+  --ink-2: #3a3f48;
+  --muted: #5d636e;          /* 6.0:1 on --bg */
+  --line: #e2e3e6;
+  --accent: #e4b316;         /* SRM gold, from the logo */
+  --accent-ink: #121418;     /* text on accent: 9.6:1 */
+  --night: #0e1b33;          /* footer, chapters scrim */
+
+  --font-display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader", "Source Serif 4", Georgia, serif;
+
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 160px;
+  --section: clamp(96px, 10vw, 176px);
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1360px;
+  --radius-card: 20px;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-serif); font-size: 1.1875rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img, svg { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; box-shadow: 0 0 0 6px var(--accent); border-radius: 4px; }
+.dark :focus-visible { outline-color: #fff; }
+
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.sr-only { position: absolute !important; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: 16px; top: -80px; z-index: 100; background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 999px; font: 700 1rem var(--font-display); text-decoration: none; }
+.skip:focus { top: 12px; }
+.ui { font-family: var(--font-display); }
+
+/* Concept banner (competition preview) */
+.concept { background: var(--ink); color: #e9eaee; font: 500 0.875rem/1.4 var(--font-display); }
+.concept .wrap { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; padding-block: 8px; }
+.concept a { color: var(--accent); }
+
+/* ---------- Buttons and links ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px;
+  font: 700 1rem var(--font-display); text-decoration: none; background: var(--surface); color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+  transition: background-color 150ms ease, color 150ms ease, transform 150ms var(--ease);
+}
+.pill:hover { background: var(--ink); color: var(--surface); }
+.pill:active { transform: scale(0.96); }
+.pill--accent { background: var(--accent); box-shadow: none; }
+.pill--accent:hover { background: var(--ink); color: var(--accent); }
+.more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font: 700 1.0625rem var(--font-display); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; transition: text-decoration-color 150ms ease; }
+.more:hover { text-decoration-color: var(--ink); }
+.more::after { content: "→"; transition: transform 200ms var(--ease); }
+.more:hover::after { transform: translateX(4px); }
+a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
+.more[data-ext]::after { content: "↗"; }
+
+/* ---------- Header ---------- */
+.header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgb(250 250 250 / 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.header .wrap { display: flex; align-items: center; gap: var(--s5); min-height: 76px; }
+.brand img { height: 52px; width: auto; }
+.nav { display: flex; gap: var(--s5); margin-left: auto; font: 600 1rem var(--font-display); }
+.nav a { text-decoration: none; padding-block: 10px; background: linear-gradient(var(--accent), var(--accent)) left bottom / 0 3px no-repeat; transition: background-size 200ms var(--ease); }
+.nav a:hover { background-size: 100% 3px; }
+.menu-btn { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); flex: none; transition: transform 150ms var(--ease); }
+.menu-btn:active { transform: scale(0.96); }
+.menu-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2.25; fill: none; stroke-linecap: round; }
+
+/* Full-screen menu */
+.menu { position: fixed; inset: 0; z-index: 90; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; padding-top: env(safe-area-inset-top, 0px); }
+.menu:not([hidden]) { animation: fade 220ms var(--ease); }
+@keyframes fade { from { opacity: 0; } }
+.menu__top { display: flex; align-items: center; justify-content: space-between; min-height: 76px; border-bottom: 1px solid var(--line); }
+.menu__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s6); padding-block: var(--s8); }
+.menu__grid h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; padding-bottom: var(--s3); margin-bottom: var(--s3); border-bottom: 3px solid var(--accent); }
+.menu__grid a { display: flex; align-items: center; min-height: 40px; text-decoration: none; font-size: 1.0625rem; }
+.menu__grid a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+.menu__cta { display: flex; flex-wrap: wrap; gap: var(--s3); padding-bottom: var(--s8); }
+
+/* ---------- Hero: photo-filled wordmark ---------- */
+.hero { padding-top: clamp(24px, 4vw, 56px); }
+.wordmark { position: relative; font: 800 clamp(10rem, 1rem + 47vw, 52rem)/0.78 var(--font-display); letter-spacing: -0.075em; margin-left: -0.04em; user-select: none; }
+.wordmark__fill { display: block; color: transparent; background-size: cover; background-position: center 40%; -webkit-background-clip: text; background-clip: text; transition: opacity 1600ms ease; padding-bottom: 0.08em; }
+.wordmark__fill + .wordmark__fill { position: absolute; inset: 0; }
+.wordmark__fill:not(.is-on) { opacity: 0; }
+.wordmark__fill:first-child { color: var(--ink); } /* shows only if photos fail */
+.wordmark__fill:first-child.has-img { color: transparent; }
+.hero__row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s7); align-items: end; margin-top: var(--s5); }
+.hero__intro { font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.375rem); line-height: 1.25; letter-spacing: -0.01em; max-width: 30ch; }
+.hero__intro mark { background: var(--accent); color: var(--accent-ink); padding: 0 0.12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hero__side { display: flex; flex-direction: column; gap: var(--s4); align-items: flex-start; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.hero__meta { display: flex; align-items: center; gap: var(--s4); font: 500 0.875rem var(--font-display); color: var(--muted); }
+.ctl { white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font: 600 0.875rem var(--font-display); color: var(--ink-2); }
+.ctl:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+.ctl svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* ---------- Scroll chapters (pinned headline, changing backdrop) ---------- */
+.chapters { position: relative; margin-top: var(--section); }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; color: #fff; isolation: isolate; }
+.stage__bg { position: absolute; inset: 0; z-index: -2; }
+.stage__bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 900ms ease, transform 1400ms var(--ease); }
+.stage__bg img.is-on { opacity: 1; transform: none; }
+.stage::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgb(14 27 51 / 0.5); }
+.stage__head { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); }
+.stage__kicker { font: 700 1rem var(--font-display); color: var(--accent); margin-bottom: var(--s3); }
+.stage__title { position: relative; height: 1em; font: 800 clamp(3.25rem, 1.4rem + 8vw, 9.5rem)/1 var(--font-display); letter-spacing: -0.05em; text-transform: uppercase; }
+.stage__title span { position: absolute; left: 0; top: 0; white-space: nowrap; clip-path: inset(0 0 0 0); transition: clip-path 600ms var(--ease), transform 600ms var(--ease); }
+.stage__title span:not(.is-on) { clip-path: inset(0 0 100% 0); transform: translateY(-0.12em); }
+.stage__count { margin-top: var(--s4); font: 600 0.9375rem var(--font-display); color: rgb(255 255 255 / 0.8); font-variant-numeric: tabular-nums; }
+.stage__credit { position: absolute; right: var(--gutter); bottom: 16px; font: 500 0.75rem var(--font-display); color: rgb(255 255 255 / 0.75); }
+.stage__credit a { color: inherit; }
+
+.chapter-cards { position: relative; z-index: 1; margin-top: -60vh; padding-bottom: 30vh; }
+.chapter-card { min-height: 100vh; display: flex; align-items: flex-end; padding-bottom: 12vh; }
+.chapter-card__box { margin-left: auto; width: min(460px, 100%); background: var(--surface); color: var(--ink); border-radius: var(--radius-card); padding: var(--s6); }
+.chapter-card__box h2 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+.chapter-card__box p { margin-top: var(--s3); color: var(--ink-2); }
+.chapter-card__stat { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--line); font: 600 1rem var(--font-display); }
+.chapter-card__stat b { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+.chapter-card__media { display: none; }
+
+/* ---------- Quiet sections: one repeating pattern ---------- */
+.section { padding-block: var(--section); }
+.section + .section { padding-top: 0; }
+.s-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s5) var(--s7); align-items: end; margin-bottom: var(--s8); }
+.s-head h2 { font-size: clamp(2.25rem, 1.4rem + 3vw, 4.25rem); font-weight: 800; letter-spacing: -0.045em; line-height: 0.98; }
+.s-head p { color: var(--ink-2); max-width: 46ch; }
+.s-head .more { grid-column: 2; justify-self: start; }
+
+/* Ways in: numbered blocks */
+.ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6); }
+.way { display: flex; flex-direction: column; gap: var(--s4); padding-top: var(--s4); border-top: 1px solid var(--ink); }
+.way__n { font: 800 1rem var(--font-display); font-variant-numeric: tabular-nums; }
+.way img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); outline: 1px solid oklch(0 0 0 / 0.08); outline-offset: -1px; }
+.way h3 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; }
+.way p { color: var(--ink-2); }
+
+/* Work from SRM: credited cards */
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6) var(--s5); }
+.card a { display: flex; flex-direction: column; gap: var(--s3); text-decoration: none; }
+.card figure { margin: 0; }
+.card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); outline: 1px solid oklch(0 0 0 / 0.08); outline-offset: -1px; transition: transform 500ms var(--ease); }
+.card a:hover img { transform: scale(1.015); }
+.card figcaption { margin-top: var(--s2); font: 500 0.8125rem var(--font-display); color: var(--muted); }
+.card figcaption a { display: inline; color: inherit; }
+.card__type { font: 700 0.875rem var(--font-display); color: var(--muted); }
+.card h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+.card a:hover h3 { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 5px; }
+.card p { color: var(--ink-2); font-size: 1.0625rem; }
+
+/* Milestones + pull-quote */
+.story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s8); align-items: start; }
+.timeline li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--s4); padding-block: var(--s4); border-top: 1px solid var(--line); }
+.timeline li:last-child { border-bottom: 1px solid var(--line); }
+.timeline b { font: 800 1.5rem var(--font-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.quote { margin: 0; padding-left: var(--s6); border-left: 4px solid var(--accent); }
+.quote p { font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem); line-height: 1.2; letter-spacing: -0.015em; }
+.quote footer { margin-top: var(--s5); font: 600 1rem var(--font-display); color: var(--muted); }
+.placeholder { font: 600 0.75rem var(--font-display); color: #8a5a00; background: #fff4cf; border-radius: 4px; padding: 2px 6px; vertical-align: middle; }
+
+/* Partner wall */
+.partners { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.partners li { display: grid; place-items: center; aspect-ratio: 3 / 2; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font: 600 0.875rem var(--font-display); color: var(--muted); }
+
+/* ---------- Footer + skyline ---------- */
+.footer { background: var(--night); color: #d9deea; font-family: var(--font-display); font-size: 0.9375rem; margin-top: var(--section); }
+.footer a { color: #fff; text-decoration: none; }
+.footer a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+.footer__top { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: var(--s6); padding-block: var(--s8) var(--s7); }
+.footer__logo { display: inline-block; background: #fff; border-radius: 12px; padding: 10px 14px; }
+.footer__logo img { height: 56px; width: auto; }
+.footer address { font-style: normal; margin-top: var(--s5); line-height: 1.6; }
+.clock { margin-top: var(--s5); display: flex; align-items: baseline; gap: 10px; }
+.clock time { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; font-variant-numeric: tabular-nums; }
+.footer details { border-top: 1px solid rgb(255 255 255 / 0.12); }
+.footer summary { list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 52px; font-weight: 800; color: #fff; font-size: 1.0625rem; cursor: pointer; }
+.footer summary::-webkit-details-marker { display: none; }
+.footer summary::after { content: "+"; color: var(--accent); font-size: 1.25rem; }
+.footer details[open] summary::after { content: "–"; }
+.footer details ul { padding-bottom: var(--s4); }
+.footer details a { display: inline-flex; min-height: 36px; align-items: center; }
+.footer__legal { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); justify-content: space-between; padding-block: var(--s5); border-top: 1px solid rgb(255 255 255 / 0.12); font-size: 0.8125rem; color: #aab3c6; }
+.footer__legal ul { display: flex; flex-wrap: wrap; gap: var(--s5); }
+.social { display: flex; gap: var(--s2); margin-top: var(--s5); }
+.social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); font-size: 0.8125rem; font-weight: 700; }
+.social a:hover { box-shadow: inset 0 0 0 1px var(--accent); text-decoration: none; }
+.skyline { display: block; width: 100%; height: auto; margin-top: var(--s6); }
+@media (max-width: 800px) { .skyline { height: 240px; } }
+.skyline .layer { transition: transform 120ms linear; will-change: transform; }
+.skyline .win { transition: fill 1200ms ease; }
+
+/* ---------- Second-level template ---------- */
+.page-hero { padding-block: var(--s8) var(--s7); border-bottom: 1px solid var(--line); }
+.crumbs { font: 600 0.875rem var(--font-display); color: var(--muted); }
+.crumbs a { color: inherit; }
+.page-hero h1 { margin-top: var(--s4); font-size: clamp(3rem, 1.6rem + 6vw, 7.5rem); font-weight: 800; letter-spacing: -0.055em; line-height: 0.92; }
+.page-hero p { margin-top: var(--s5); font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); line-height: 1.3; max-width: 40ch; }
+.page-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--s8); padding-block: var(--s8); }
+.page-nav { position: sticky; top: 100px; align-self: start; font: 600 1rem var(--font-display); }
+.page-nav a { display: flex; min-height: 40px; align-items: center; text-decoration: none; color: var(--muted); }
+.page-nav a:hover, .page-nav a[aria-current] { color: var(--ink); }
+.page-nav a[aria-current] { box-shadow: inset 3px 0 0 var(--accent); padding-left: 12px; }
+.prose { max-width: 68ch; }
+.prose h2 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.04em; margin: var(--s8) 0 var(--s4); }
+.prose h2:first-child { margin-top: 0; }
+.prose p + p { margin-top: var(--s4); }
+.prose figure { margin: var(--s6) 0; }
+.prose figure img { border-radius: var(--radius-card); }
+.prose figcaption { margin-top: var(--s2); font: 500 0.8125rem var(--font-display); color: var(--muted); }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); margin-top: var(--s6); }
+.facts div { padding-top: var(--s3); border-top: 1px solid var(--ink); }
+.facts dt { font: 600 0.875rem var(--font-display); color: var(--muted); }
+.facts dd { margin: 0; font: 800 1.5rem var(--font-display); letter-spacing: -0.02em; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .nav { display: none; }
+  .menu-btn { margin-left: auto; }
+  .menu__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .partners { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer__top { grid-template-columns: 1fr 1fr; }
+  .footer__top > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 800px) {
+  .hero__row, .s-head, .story { grid-template-columns: 1fr; }
+  .s-head .more { grid-column: 1; }
+  .ways, .cards { grid-template-columns: 1fr; }
+  .card img { aspect-ratio: 4 / 3; }
+  .page-grid { grid-template-columns: 1fr; }
+  .page-nav { position: static; display: flex; gap: var(--s4); overflow-x: auto; }
+  .facts { grid-template-columns: 1fr 1fr; }
+  .chapter-card__box { margin-inline: auto; }
+}
+@media (max-width: 560px) {
+  .brand img { height: 42px; }
+  .header .wrap { min-height: 64px; }
+  .menu-btn { width: 48px; height: 48px; }
+  .menu__grid { grid-template-columns: 1fr; }
+  .hero__ctas .pill { flex: 1 1 auto; justify-content: center; }
+  .footer__top { grid-template-columns: 1fr; }
+  .partners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chapter-card__box { padding: var(--s5); }
+  .stage__head { top: 24%; }
+  .chapter-card { padding-bottom: 4vh; min-height: 115vh; }
+  .chapter-cards { margin-top: -40vh; }
+}
+
+/* Reduced motion: no pinning, no cross-fades; chapters become plain stacked sections */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .stage { display: none; }
+  .chapter-cards { margin-top: 0; padding-bottom: 0; }
+  .chapter-card { min-height: 0; display: block; padding: 0 0 var(--s8); }
+  .chapter-card__box { margin: 0; width: auto; padding: 0; background: none; }
+  .chapter-card__media { display: block; margin-bottom: var(--s4); }
+  .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); }
+  .chapter-card__box h2 { font-size: 2.5rem; }
+  .skyline .layer { transform: none !important; }
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<aside class="concept" aria-label="About this page">
+  <div class="wrap"><span>Concept redesign entered in the SRM Website Design Challenge 2026. Not the official SRMIST website.</span><a href="https://www.srmist.edu.in/" data-ext>Official site</a></div>
+</aside>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#chapters">Academics</a>
+      <a href="#ways">Admissions</a>
+      <a href="#work">Research</a>
+      <a href="#chapters">Campus life</a>
+      <a href="page.html">About</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      <span class="sr-only">Open menu</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" hidden data-menu>
+  <div class="wrap">
+    <div class="menu__top">
+      <a class="brand" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
+      <button class="menu-btn" type="button" data-menu-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <span class="sr-only">Close menu</span>
+      </button>
+    </div>
+    <div class="menu__grid ui">
+      <div><h2>Academics</h2><ul><li><a href="page.html">Colleges and faculties</a></li><li><a href="page.html">Programme finder</a></li><li><a href="page.html">Departments A to Z</a></li><li><a href="page.html">Online and distance</a></li></ul></div>
+      <div><h2>Admissions</h2><ul><li><a href="page.html">Indian applicants</a></li><li><a href="page.html">International applicants</a></li><li><a href="page.html">Medicine and dentistry</a></li><li><a href="page.html">Scholarships and fees</a></li></ul></div>
+      <div><h2>Research</h2><ul><li><a href="page.html">Directorate of Research</a></li><li><a href="page.html">Central laboratories</a></li><li><a href="page.html">Innovation and incubation</a></li><li><a href="page.html">PhD study</a></li></ul></div>
+      <div><h2>Campus life</h2><ul><li><a href="page.html">Hostels and dining</a></li><li><a href="page.html">Clubs and festivals</a></li><li><a href="page.html">Sports</a></li><li><a href="page.html">Student support</a></li></ul></div>
+      <div><h2>About</h2><ul><li><a href="page.html">History</a></li><li><a href="page.html">Leadership</a></li><li><a href="page.html">Rankings and accreditation</a></li><li><a href="page.html">News and events</a></li></ul></div>
+    </div>
+    <div class="menu__cta"><a class="pill pill--accent" href="#ways">Apply</a><a class="pill" href="#ways">Request info</a><a class="pill" href="#ways">Visit campus</a></div>
+  </div>
+</div>
+
+<main id="main">
+  <section class="page-hero wrap" aria-labelledby="page-title">
+    <p class="crumbs"><a href="index.html">Home</a> / <a href="page.html">Academics</a> / Engineering and Technology</p>
+    <h1 id="page-title">Engineering and Technology</h1>
+    <p>Second-level page template: one serif lead sentence says what this page is for. <span class="placeholder">Template copy</span></p>
+  </section>
+  <div class="wrap page-grid">
+    <nav class="page-nav" aria-label="On this page">
+      <a href="#overview" aria-current="true">Overview</a>
+      <a href="#departments">Departments</a>
+      <a href="#admissions">Admissions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <article class="prose">
+      <h2 id="overview">Overview</h2>
+      <p>Every section on a second-level page follows the homepage pattern: a heading, a short paragraph and one link. Replace this copy with the college's own overview. <span class="placeholder">Template copy</span></p>
+      <dl class="facts">
+        <div><dt>Departments</dt><dd>00<!-- TODO: verify --></dd></div>
+        <div><dt>Programmes</dt><dd>00<!-- TODO: verify --></dd></div>
+        <div><dt>NIRF Engineering 2025</dt><dd>#14<!-- TODO: verify --></dd></div>
+      </dl>
+      <figure>
+        <img src="assets/img/commons-tech-park.webp" alt="The yellow and blue facade of the SRM Tech Park" width="1280" height="848" loading="lazy">
+        <figcaption>Tech Park, Kattankulathur. Photo: Syed Tehzeeb Alam, CC BY-SA 4.0</figcaption>
+      </figure>
+      <h2 id="departments">Departments</h2>
+      <p>List departments here, each linking to its own page. <span class="placeholder">Template copy</span></p>
+      <p><a class="more" href="page.html">All departments</a></p>
+      <h2 id="admissions">Admissions</h2>
+      <p>Engineering programmes admit through SRMJEEE, the SRM Joint Engineering Entrance Examination.</p>
+      <p><a class="more" href="https://www.srmist.edu.in/admissions/" data-ext>Admissions 2027</a></p>
+      <h2 id="contact">Contact</h2>
+      <p>Engineering, agriculture and architecture admissions: +91 70 2645 2645</p>
+    </article>
+  </div>
+</main>
+
+<!-- SHOWPIECE 2: footer ending in the TP / TP2 skyline -->
+<footer class="footer dark">
+  <div class="wrap footer__top">
+    <div>
+      <a class="footer__logo" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology" width="168" height="56" loading="lazy"></a>
+      <address>SRM Nagar, Kattankulathur 603203<br>Chengalpattu District, Tamil Nadu<br>+91 44 2741 7000</address>
+      <p class="clock">Kattankulathur <time data-clock>--:--</time> IST</p>
+      <ul class="social" aria-label="Social media">
+        <li><a href="https://www.instagram.com/SRMUniversityOfficial/" aria-label="Instagram">IG</a></li>
+        <li><a href="https://www.linkedin.com/company/srm-ist-chennai" aria-label="LinkedIn">in</a></li>
+        <li><a href="https://www.youtube.com/user/SRMeducation" aria-label="YouTube">YT</a></li>
+        <li><a href="https://twitter.com/SRM_Univ" aria-label="X">X</a></li>
+      </ul>
+    </div>
+    <details data-acc open><summary>Study</summary><ul><li><a href="page.html">Programmes</a></li><li><a href="page.html">Admissions 2027</a></li><li><a href="page.html">Scholarships</a></li><li><a href="page.html">International students</a></li></ul></details>
+    <details data-acc open><summary>Let us help you</summary><ul><li><a href="page.html">Contact admissions</a></li><li><a href="page.html">Visit campus</a></li><li><a href="page.html">Student support</a></li><li><a href="page.html">Anti-ragging</a></li></ul></details>
+    <details data-acc open><summary>University</summary><ul><li><a href="page.html">About SRMIST</a></li><li><a href="page.html">Research</a></li><li><a href="page.html">News and events</a></li><li><a href="https://www.srmist.edu.in/" data-ext>Official website</a></li></ul></details>
+  </div>
+  <div class="wrap footer__legal">
+    <p>© 2026 SRM Institute of Science and Technology (concept). Photos: Wikimedia Commons contributors, credited where shown.</p>
+    <ul><li><a href="page.html">Privacy</a></li><li><a href="page.html">Terms</a></li><li><a href="page.html">Mandatory disclosures</a></li></ul>
+  </div>
+
+  <!-- TP is traced (simplified) from a photo of the Tech Park. TODO: replace with real TP2 tracing when reference photos are supplied. -->
+  <svg class="skyline" viewBox="0 0 1600 380" role="img" aria-labelledby="sky-title" data-skyline preserveAspectRatio="xMidYMax slice">
+    <title id="sky-title">Illustration of the Tech Park and Tech Park 2 buildings at Kattankulathur, with the sky matching the time in India</title>
+    <rect data-sky width="1600" height="380" fill="#9cc3e4"/>
+    <circle data-sun cx="1340" cy="90" r="34" fill="#f5d55a"/>
+    <g class="layer" data-depth="0.15" fill="#2a3d63" opacity="0.55">
+      <path d="M0 300h90v-40h60v-28h70v68h80v-52h90v52h60v-36h50V300H0z"/>
+      <path d="M1260 300v-44h70v-30h80v74h60v-48h70v48h60V300z"/>
+    </g>
+    <g class="layer" data-depth="0.35">
+      <!-- TP: gold slab with blue glass grid, white side stripes, red entrance canopy -->
+      <g data-tp>
+        <rect x="470" y="60" width="300" height="260" fill="#e4b316"/>
+        <rect x="770" y="80" width="70" height="240" fill="#f3f4f6"/>
+        <g fill="#e2a0b4"><rect x="778" y="80" width="10" height="240"/><rect x="798" y="80" width="10" height="240"/><rect x="818" y="80" width="10" height="240"/></g>
+        <rect x="462" y="52" width="316" height="12" fill="#c99a06"/>
+        <g data-wins="tp" data-x="490" data-y="78" data-cols="6" data-rows="7" data-w="38" data-h="24" data-gx="10" data-gy="10"></g>
+        <rect x="560" y="292" width="120" height="8" fill="#b23a3a"/>
+        <rect x="575" y="300" width="90" height="20" fill="#1c3f7a"/>
+      </g>
+      <!-- TP2: placeholder massing. TODO: replace with real TP2 tracing -->
+      <g data-tp2>
+        <rect x="900" y="100" width="250" height="220" fill="#1c3f7a"/>
+        <rect x="1150" y="130" width="60" height="190" fill="#163363"/>
+        <rect x="892" y="92" width="266" height="10" fill="#e4b316"/>
+        <g data-wins="tp2" data-x="914" data-y="116" data-cols="5" data-rows="6" data-w="34" data-h="20" data-gx="12" data-gy="12"></g>
+      </g>
+    </g>
+    <g class="layer" data-depth="0.6">
+      <rect y="318" width="1600" height="62" fill="#0b1528"/>
+      <g fill="#14301f">
+        <circle cx="420" cy="300" r="34"/><circle cx="452" cy="312" r="24"/><circle cx="868" cy="304" r="30"/><circle cx="1236" cy="300" r="36"/><circle cx="1270" cy="314" r="22"/><circle cx="140" cy="306" r="28"/><circle cx="1480" cy="304" r="30"/>
+      </g>
+      <rect x="0" y="330" width="1600" height="4" fill="#e4b316"/>
+    </g>
+  </svg>
+</footer>
+
+<script>
+/* SRM concept v3. Progressive enhancement: the page reads fine without this file. */
+(() => {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Full-screen menu ---------- */
+  const menu = $("[data-menu]");
+  const openBtn = $("[data-menu-open]");
+  if (menu && openBtn) {
+    const close = () => { menu.hidden = true; openBtn.setAttribute("aria-expanded", "false"); document.documentElement.style.overflow = ""; openBtn.focus(); };
+    openBtn.addEventListener("click", () => {
+      menu.hidden = false; openBtn.setAttribute("aria-expanded", "true");
+      document.documentElement.style.overflow = "hidden";
+      $("[data-menu-close]", menu).focus();
+    });
+    $("[data-menu-close]", menu).addEventListener("click", close);
+    $$("a", menu).forEach(a => a.addEventListener("click", () => { if (a.hash) close(); }));
+    menu.addEventListener("keydown", e => {
+      if (e.key === "Escape") close();
+      if (e.key !== "Tab") return;
+      const f = $$("a, button", menu); const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+
+  /* ---------- Hero: photos inside the wordmark, slow cross-fade, pausable ---------- */
+  const mark = $("[data-wordmark]");
+  if (mark) {
+    const fills = $$(".wordmark__fill", mark);
+    const credit = $("[data-wordmark-credit]");
+    const toggle = $("[data-wordmark-toggle]");
+    fills.forEach(f => {
+      const img = new Image();
+      img.onload = () => { f.style.backgroundImage = `url("${f.dataset.img}")`; f.classList.add("has-img"); };
+      img.src = f.dataset.img;
+    });
+    let i = 0, timer = null;
+    const show = n => {
+      fills.forEach((f, k) => f.classList.toggle("is-on", k === n));
+      if (credit) credit.textContent = fills[n].dataset.credit;
+    };
+    const play = () => { timer = setInterval(() => { i = (i + 1) % fills.length; show(i); }, 5000); };
+    const stop = () => { clearInterval(timer); timer = null; };
+    if (!calm && fills.length > 1) play();
+    if (toggle) {
+      if (calm) toggle.hidden = true;
+      toggle.addEventListener("click", () => {
+        const paused = !!timer;
+        paused ? stop() : play();
+        toggle.setAttribute("aria-pressed", String(paused));
+        $("span", toggle).textContent = paused ? "Play photos" : "Pause photos";
+      });
+    }
+  }
+
+  /* ---------- Scroll chapters: the card in view sets the backdrop and headline ---------- */
+  const chapters = $("[data-chapters]");
+  if (chapters && !calm && "IntersectionObserver" in window) {
+    const bgs = $$(".stage__bg img", chapters);
+    const words = $$(".stage__title span", chapters);
+    const count = $("[data-stage-count]", chapters);
+    const credit = $("[data-stage-credit]", chapters);
+    const cards = $$("[data-chapter]", chapters);
+    let current = 0;
+    const set = n => {
+      if (n === current) return;
+      current = n;
+      bgs.forEach((b, k) => b.classList.toggle("is-on", k === n));
+      words.forEach((w, k) => w.classList.toggle("is-on", k === n));
+      count.textContent = `${String(n + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+      credit.textContent = cards[n].dataset.credit;
+    };
+    // Load backdrops eagerly once the section is near, so the cross-fade never shows an empty frame.
+    new IntersectionObserver((entries, obs) => {
+      if (entries.some(e => e.isIntersecting)) { bgs.forEach(b => (b.loading = "eager")); obs.disconnect(); }
+    }, { rootMargin: "600px" }).observe(chapters);
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) set(Number(e.target.dataset.chapter)); });
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    cards.forEach(c => io.observe(c));
+  }
+
+  /* ---------- Footer: accordions collapse on small screens ---------- */
+  const small = window.matchMedia("(max-width: 560px)");
+  const syncAcc = () => $$("[data-acc]").forEach(d => (d.open = !small.matches));
+  syncAcc(); small.addEventListener("change", syncAcc);
+
+  /* ---------- Live IST clock + sky that follows the time in Kattankulathur ---------- */
+  const clock = $("[data-clock]");
+  const fmt = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false });
+  const istHour = () => {
+    const p = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "numeric", hour12: false }).formatToParts(new Date());
+    const h = Number(p.find(x => x.type === "hour").value) % 24, m = Number(p.find(x => x.type === "minute").value);
+    return h + m / 60;
+  };
+
+  const sky = $("[data-skyline]");
+  const NS = "http://www.w3.org/2000/svg";
+  if (sky) {
+    // Generate the window grids for both buildings.
+    $$("[data-wins]", sky).forEach(g => {
+      const d = g.dataset;
+      for (let r = 0; r < +d.rows; r++) for (let c = 0; c < +d.cols; c++) {
+        const w = document.createElementNS(NS, "rect");
+        w.setAttribute("x", +d.x + c * (+d.w + +d.gx)); w.setAttribute("y", +d.y + r * (+d.h + +d.gy));
+        w.setAttribute("width", d.w); w.setAttribute("height", d.h);
+        w.setAttribute("class", "win");
+        w.dataset.seed = String(((r * 7 + c * 13) % 10) / 10); // fixed pattern: same windows light up every evening
+        g.append(w);
+      }
+    });
+  }
+  const paintSky = () => {
+    if (clock) { clock.textContent = fmt.format(new Date()); clock.setAttribute("datetime", new Date().toISOString()); }
+    if (!sky) return;
+    const h = istHour();
+    // 0 = day, 1 = full night. Dusk ramps 17:00–19:30, dawn 5:00–6:30.
+    let night = 0;
+    if (h >= 19.5 || h < 5) night = 1;
+    else if (h >= 17) night = (h - 17) / 2.5;
+    else if (h < 6.5) night = 1 - (h - 5) / 1.5;
+    const mix = (a, b, t) => "#" + [0, 2, 4].map(i => Math.round(parseInt(a.slice(1 + i, 3 + i), 16) * (1 - t) + parseInt(b.slice(1 + i, 3 + i), 16) * t).toString(16).padStart(2, "0")).join("");
+    const skyCol = night < 0.5 ? mix("#9cc3e4", "#e59a5b", night * 2) : mix("#e59a5b", "#0e1b33", (night - 0.5) * 2);
+    $("[data-sky]", sky).setAttribute("fill", skyCol);
+    const sun = $("[data-sun]", sky);
+    sun.setAttribute("fill", night > 0.75 ? "#e9edf5" : "#f5d55a");
+    sun.setAttribute("cy", String(90 + night * 30));
+    $$(".win", sky).forEach(w => {
+      const lit = night > +w.dataset.seed * 0.9 + 0.1;
+      const tp2 = w.parentNode.dataset.wins === "tp2";
+      w.setAttribute("fill", lit ? "#ffd766" : tp2 ? "#2b5aa8" : "#1c3f7a");
+    });
+  };
+  paintSky(); setInterval(paintSky, 30000);
+
+  /* Gentle parallax as the footer comes into view */
+  if (sky && !calm) {
+    const layers = $$(".layer", sky);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        const r = sky.getBoundingClientRect();
+        const p = Math.max(0, Math.min(1, (window.innerHeight - r.top) / (window.innerHeight + r.height)));
+        layers.forEach(l => (l.style.transform = `translateY(${(1 - p) * 40 * +l.dataset.depth}px)`));
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  }
+})();
+
+</script>
+</body>
+</html>
