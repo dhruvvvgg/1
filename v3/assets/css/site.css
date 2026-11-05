@@ -271,3 +271,9 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
   .chapter-card__box h2 { font-size: 2.5rem; }
   .skyline .layer { transform: none !important; }
 }
+
+/* Signature skyline band: photo cut-out on a light ground, as the last element */
+.skyline-band { margin: 0; background: var(--bg); padding-top: var(--s7); display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+.skyline-band img { width: min(820px, 100%); height: auto; position: relative; z-index: 1; margin-bottom: -10px; }
+.skyline-band__ground { display: block; width: 100%; height: 26px; background: linear-gradient(var(--accent) 0 12px, var(--night) 12px); position: relative; z-index: 2; }
+@media (max-width: 560px) { .skyline-band img { width: 150%; max-width: none; } }

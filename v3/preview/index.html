@@ -281,6 +281,12 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
   .skyline .layer { transform: none !important; }
 }
 
+/* Signature skyline band: photo cut-out on a light ground, as the last element */
+.skyline-band { margin: 0; background: var(--bg); padding-top: var(--s7); display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+.skyline-band img { width: min(820px, 100%); height: auto; position: relative; z-index: 1; margin-bottom: -10px; }
+.skyline-band__ground { display: block; width: 100%; height: 26px; background: linear-gradient(var(--accent) 0 12px, var(--night) 12px); position: relative; z-index: 2; }
+@media (max-width: 560px) { .skyline-band img { width: 150%; max-width: none; } }
+
 </style>
 <link rel="preload" as="image" href="assets/img/commons-tech-park.webp">
 
@@ -540,42 +546,11 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
     <ul><li><a href="page.html">Privacy</a></li><li><a href="page.html">Terms</a></li><li><a href="page.html">Mandatory disclosures</a></li></ul>
   </div>
 
-  <!-- TP is traced (simplified) from a photo of the Tech Park. TODO: replace with real TP2 tracing when reference photos are supplied. -->
-  <svg class="skyline" viewBox="0 0 1600 380" role="img" aria-labelledby="sky-title" data-skyline preserveAspectRatio="xMidYMax slice">
-    <title id="sky-title">Illustration of the Tech Park and Tech Park 2 buildings at Kattankulathur, with the sky matching the time in India</title>
-    <rect data-sky width="1600" height="380" fill="#9cc3e4"/>
-    <circle data-sun cx="1340" cy="90" r="34" fill="#f5d55a"/>
-    <g class="layer" data-depth="0.15" fill="#2a3d63" opacity="0.55">
-      <path d="M0 300h90v-40h60v-28h70v68h80v-52h90v52h60v-36h50V300H0z"/>
-      <path d="M1260 300v-44h70v-30h80v74h60v-48h70v48h60V300z"/>
-    </g>
-    <g class="layer" data-depth="0.35">
-      <!-- TP: gold slab with blue glass grid, white side stripes, red entrance canopy -->
-      <g data-tp>
-        <rect x="470" y="60" width="300" height="260" fill="#e4b316"/>
-        <rect x="770" y="80" width="70" height="240" fill="#f3f4f6"/>
-        <g fill="#e2a0b4"><rect x="778" y="80" width="10" height="240"/><rect x="798" y="80" width="10" height="240"/><rect x="818" y="80" width="10" height="240"/></g>
-        <rect x="462" y="52" width="316" height="12" fill="#c99a06"/>
-        <g data-wins="tp" data-x="490" data-y="78" data-cols="6" data-rows="7" data-w="38" data-h="24" data-gx="10" data-gy="10"></g>
-        <rect x="560" y="292" width="120" height="8" fill="#b23a3a"/>
-        <rect x="575" y="300" width="90" height="20" fill="#1c3f7a"/>
-      </g>
-      <!-- TP2: placeholder massing. TODO: replace with real TP2 tracing -->
-      <g data-tp2>
-        <rect x="900" y="100" width="250" height="220" fill="#1c3f7a"/>
-        <rect x="1150" y="130" width="60" height="190" fill="#163363"/>
-        <rect x="892" y="92" width="266" height="10" fill="#e4b316"/>
-        <g data-wins="tp2" data-x="914" data-y="116" data-cols="5" data-rows="6" data-w="34" data-h="20" data-gx="12" data-gy="12"></g>
-      </g>
-    </g>
-    <g class="layer" data-depth="0.6">
-      <rect y="318" width="1600" height="62" fill="#0b1528"/>
-      <g fill="#14301f">
-        <circle cx="420" cy="300" r="34"/><circle cx="452" cy="312" r="24"/><circle cx="868" cy="304" r="30"/><circle cx="1236" cy="300" r="36"/><circle cx="1270" cy="314" r="22"/><circle cx="140" cy="306" r="28"/><circle cx="1480" cy="304" r="30"/>
-      </g>
-      <rect x="0" y="330" width="1600" height="4" fill="#e4b316"/>
-    </g>
-  </svg>
+  <!-- Signature skyline: buildings cut out of a campus photo (sky, lake and trees removed), Flagler-style -->
+  <figure class="skyline-band">
+    <img src="assets/img/campus-skyline.webp" alt="The tall arched-window tower and its long wing on the Kattankulathur campus" width="546" height="172" loading="lazy">
+    <span class="skyline-band__ground" aria-hidden="true"></span>
+  </figure>
 </footer>
 
 <script>
