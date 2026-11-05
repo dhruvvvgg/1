@@ -1,0 +1,105 @@
+/* ==========================================================================
+   SRM IST Redesign - Design System Tokens
+   Phase 1: Visual Design Architecture
+   Rules:
+   - 8px-based spacing scale
+   - AA contrast minimum (no pure #000 or #fff)
+   - SRM Royal Blue accent pulled directly from official vector logo
+   - Strict concentric radius and hairline structural borders
+   ========================================================================== */
+
+:root {
+  /* Brand Accents (Extracted from srm-logo.svg) */
+  --color-accent: #034DA1;
+  --color-accent-hover: #023877;
+  --color-accent-pressed: #012957;
+  --color-accent-gold: #C7A008;
+  --color-accent-light: #EBF2FA;
+  --color-focus-ring: #034DA1;
+
+  /* Neutrals Ramp (Light Theme / Base Canvas) */
+  --color-ink: #111317;
+  --color-ink-muted: #4A505A;
+  --color-ink-subtle: #737A87;
+  --color-bg: #F8F9FA;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #F1F3F6;
+  --color-border: #E2E5E9;
+  --color-border-subtle: #ECEEF1;
+
+  /* Dark Theme Surfaces (Used in Hero Wordmark, Statement Bands, Footer) */
+  --color-dark-bg: #111317;
+  --color-dark-surface: #181B22;
+  --color-dark-surface-card: #20242D;
+  --color-dark-border: #2C323E;
+  --color-dark-ink: #F2F4F7;
+  --color-dark-muted: #9BA3B0;
+  --color-dark-subtle: #6D7584;
+
+  /* Solid Scrim for Photography Legibility (Craft Rule 1: No gradients) */
+  --color-scrim-dark: rgba(17, 19, 23, 0.74);
+  --color-scrim-medium: rgba(17, 19, 23, 0.52);
+
+  /* Typography Families */
+  --font-display: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Newsreader', 'Source Serif 4', Georgia, serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Line Heights */
+  --leading-none: 1.0;
+  --leading-tight: 1.08;
+  --leading-snug: 1.25;
+  --leading-editorial: 1.62;
+
+  /* Font Sizes */
+  --font-size-xs: 0.8125rem;  /* 13px */
+  --font-size-sm: 0.9375rem;  /* 15px */
+  --font-size-base: 1.0625rem;/* 17px */
+  --font-size-md: 1.25rem;    /* 20px */
+  --font-size-lg: 1.5rem;     /* 24px */
+  --font-size-xl: 2.125rem;   /* 34px */
+  --font-size-2xl: 3.25rem;   /* 52px */
+  --font-size-hero: clamp(6.5rem, 21vw, 15.5rem);
+  --font-size-band: clamp(2.25rem, 5.5vw, 4.25rem);
+
+  /* Spacing Scale (8px system) */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 160px;
+
+  /* Radii & Concentric Alignment */
+  --radius-sm: 6px;
+  --radius-card: 12px;
+  --radius-pill: 9999px;
+
+  /* Elevation (Soft low-alpha layered shadows; Craft Rule 10) */
+  --shadow-subtle: 0 1px 3px rgba(17, 19, 23, 0.05);
+  --shadow-card: 0 8px 24px -4px rgba(17, 19, 23, 0.07);
+  --shadow-floating: 0 16px 36px -8px rgba(17, 19, 23, 0.12);
+
+  /* Containment & Small Documented Z-Index Scale (Craft Rule 6) */
+  --z-base: 1;
+  --z-nav: 20;
+  --z-menu-overlay: 40;
+  --z-menu-modal: 50;
+  --z-skip-link: 90;
+
+  /* Image Outline Standard (oklch 1px low-opacity) */
+  --image-outline: 1px solid rgba(0, 0, 0, 0.08);
+  --image-outline-dark: 1px solid rgba(255, 255, 255, 0.12);
+
+  /* Max Measure */
+  --measure-narrow: 56ch;
+  --measure-body: 68ch;
+  --container-max: 1320px;
+}

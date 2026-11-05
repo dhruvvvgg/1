@@ -1,0 +1,15 @@
+{
+  "name": "srmist-redesign-phase1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "playwright": "^1.49.0"
+  }
+}

@@ -1,0 +1,899 @@
+/* ==========================================================================
+   SRM IST Redesign - Components
+   Phase 1: Visual Design Architecture
+   Rules:
+   - No gradients (Rule 1)
+   - No transition: all (Rule 3)
+   - isolation: isolate on layered components (Rule 6)
+   - No pure black or pure white (Rule 7)
+   - Concentric radius & 44px min hit targets
+   - scale(0.96) on :active
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Site Header & Navigation
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: relative;
+  z-index: var(--z-nav);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  min-height: 44px;
+}
+
+.brand-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.brand-campus-tag {
+  display: none;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  border-left: 1px solid var(--color-border);
+  padding-left: var(--space-3);
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .brand-campus-tag {
+    display: block;
+  }
+}
+
+.site-nav {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+}
+
+.nav-link {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-1);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  transition: color 150ms ease;
+}
+
+.nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-link.active {
+  color: var(--color-accent);
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Circular Accent Menu Button (VCUarts identity) */
+.menu-circle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  border: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.menu-circle-btn:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.menu-circle-btn:active {
+  transform: scale(0.96);
+  background-color: var(--color-accent-pressed);
+}
+
+.menu-circle-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: #FFFFFF;
+  border-radius: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Buttons & Micro-Interactions
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  padding: 0 var(--space-5);
+  min-height: 48px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  border: 1px solid var(--color-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  color: var(--color-ink);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-ink);
+  background-color: var(--color-surface-subtle);
+}
+
+.btn-outline-light {
+  background-color: transparent;
+  color: var(--color-dark-ink);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* --------------------------------------------------------------------------
+   3. Hero Section (VCUarts giant photo-clipped wordmark)
+   -------------------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-bg);
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-9);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Giant wordmark with campus photo clipped inside letterforms */
+.hero-wordmark-container {
+  width: 100%;
+}
+
+.hero-wordmark {
+  font-family: var(--font-display);
+  font-size: var(--font-size-hero);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.065em;
+  text-transform: lowercase;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+
+  /* Photo-clipped letters: calibrated to capture rich terracotta facade across all letters */
+  background-image: url('/assets/img/hero-campus-ub.webp');
+  background-size: 135%;
+  background-position: 45% 72%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px rgba(17, 19, 23, 0.22);
+  filter: contrast(1.18) brightness(0.9);
+  display: block;
+}
+
+/* Fallback for browsers without background-clip support */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero-wordmark {
+    color: var(--color-accent);
+  }
+}
+
+.hero-editorial-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  max-width: 900px;
+}
+
+.hero-intro-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.5vw, 1.85rem);
+  font-weight: 400;
+  line-height: var(--leading-editorial);
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+.hero-subproof {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero-subproof-badge {
+  font-weight: 700;
+  color: var(--color-accent);
+  background-color: var(--color-accent-light);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-subproof-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   4. UT Austin Statement Bands (Resting State: 3 Stacked Full-Bleed Photo Bands)
+   -------------------------------------------------------------------------- */
+.statement-bands-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.statement-band {
+  position: relative;
+  isolation: isolate;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  color: var(--color-dark-ink);
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-dark-border);
+}
+
+/* Flat, solid scrim over photo for legibility (Craft Rule 1: NO gradients) */
+.statement-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-scrim-dark);
+  z-index: 1;
+}
+
+.band-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 920px;
+}
+
+.band-theme-tag {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.band-theme-tag::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-accent-gold);
+}
+
+/* Huge uppercase headline (Inter Tight 900) */
+.band-headline {
+  font-family: var(--font-display);
+  font-size: var(--font-size-band);
+  font-weight: 900;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.band-sentence {
+  font-family: var(--font-serif);
+  font-size: clamp(1.125rem, 1.8vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-dark-ink);
+  max-width: 65ch;
+}
+
+.band-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.band-stat-line {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-dark-muted);
+}
+
+.band-stat-highlight {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.band-link-cta {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.band-link-cta:hover {
+  color: var(--color-accent-gold);
+}
+
+/* Band 1: Learn */
+.band-learn {
+  background-image: url('/assets/img/lab-imac.webp');
+}
+
+/* Band 2: Research */
+.band-research {
+  background-image: url('/assets/img/lab-chemistry.webp');
+}
+
+/* Band 3: Life on Campus */
+.band-life {
+  background-image: url('/assets/img/campus-lakeview.webp');
+}
+
+/* --------------------------------------------------------------------------
+   5. Ways In (Oregon Outdoor Alliance: 01 / 02 / 03 Numbered Blocks)
+   -------------------------------------------------------------------------- */
+.ways-in-section {
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-9);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-header-block {
+  margin-bottom: var(--space-7);
+}
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+}
+
+.ways-in-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 900px) {
+  .ways-in-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.way-block {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-5);
+  box-shadow: var(--shadow-subtle);
+  transition: border-color 150ms ease;
+}
+
+.way-block:hover {
+  border-color: var(--color-ink-subtle);
+}
+
+.way-top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ways-in-num {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: 900;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.way-title {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.way-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-ink-muted);
+  line-height: 1.55;
+}
+
+.way-link {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.way-link:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   6. Work From SRM (RISD-Style Editorial Cards)
+   -------------------------------------------------------------------------- */
+.work-section {
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-9);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .work-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.work-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.work-media-container {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: var(--color-surface-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  outline: var(--image-outline);
+  outline-offset: -1px;
+}
+
+.work-media-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-ink-subtle);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.work-title {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+.work-summary {
+  font-size: var(--font-size-sm);
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+}
+
+/* Editorial image credit caption (RISD rule) */
+.image-credit-line {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-ink-subtle);
+  letter-spacing: 0.02em;
+  margin-top: var(--space-1);
+}
+
+/* --------------------------------------------------------------------------
+   7. Milestones & Pull-Quote (Harvard Style)
+   -------------------------------------------------------------------------- */
+.milestones-section {
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-9);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.milestones-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+@media (min-width: 900px) {
+  .milestones-layout {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.timeline-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid var(--color-border);
+  padding-left: var(--space-5);
+  margin-left: var(--space-2);
+  gap: var(--space-6);
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--space-5) - 6px);
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  border: 2px solid var(--color-bg);
+}
+
+.timeline-year {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  color: var(--color-accent);
+  margin-bottom: var(--space-1);
+}
+
+.timeline-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-ink);
+  line-height: 1.5;
+}
+
+.pull-quote-block {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.quote-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+
+.quote-cite {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-ink-muted);
+  font-style: normal;
+}
+
+/* --------------------------------------------------------------------------
+   8. Quiet Partners Wall
+   -------------------------------------------------------------------------- */
+.partners-section {
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-7);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.partners-heading {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-subtle);
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.partners-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6) var(--space-8);
+}
+
+.partner-item {
+  font-family: var(--font-display);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-ink-muted);
+  letter-spacing: -0.01em;
+  padding: var(--space-2) var(--space-3);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   9. Footer & Illustrated Skyline Container
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--color-dark-bg);
+  color: var(--color-dark-ink);
+  padding-top: var(--space-9);
+  border-top: 1px solid var(--color-dark-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-nav-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-7);
+  padding-bottom: var(--space-8);
+}
+
+@media (min-width: 640px) {
+  .footer-nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-nav-grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+
+.footer-col-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.footer-brand-logo {
+  height: 44px;
+  width: auto;
+  align-self: flex-start;
+}
+
+.footer-brand-address {
+  font-size: var(--font-size-sm);
+  color: var(--color-dark-muted);
+  line-height: 1.6;
+  font-style: normal;
+}
+
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: var(--space-4);
+  letter-spacing: 0.02em;
+}
+
+.footer-link-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer-link-list a {
+  font-size: var(--font-size-sm);
+  color: var(--color-dark-muted);
+  text-decoration: none;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-link-list a:hover {
+  color: #FFFFFF;
+}
+
+.footer-compliance-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-top: 1px solid var(--color-dark-border);
+  font-size: var(--font-size-xs);
+  color: var(--color-dark-subtle);
+}
+
+.compliance-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.compliance-links a {
+  color: var(--color-dark-muted);
+  text-decoration: none;
+}
+
+.compliance-links a:hover {
+  color: #FFFFFF;
+}
+
+/* The TP & TP2 Illustrated Skyline (The Second Showpiece) */
+.footer-skyline-wrapper {
+  width: 100%;
+  line-height: 0;
+  display: block;
+  background-color: var(--color-dark-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.skyline-svg {
+  width: 100%;
+  min-height: 200px;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .skyline-svg {
+    min-height: 280px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .skyline-svg {
+    min-height: 360px;
+  }
+}

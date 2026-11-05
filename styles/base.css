@@ -1,0 +1,183 @@
+/* ==========================================================================
+   SRM IST Redesign - Base Styles & Reset
+   Phase 1: Visual Design Craft
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--leading-editorial);
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  background: var(--color-ink);
+  color: var(--color-surface);
+  padding: var(--space-2) var(--space-4);
+  z-index: var(--z-skip-link);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: top 150ms ease;
+}
+
+.skip-link:focus-visible {
+  top: var(--space-4);
+  outline: 2px solid var(--color-accent-gold);
+  outline-offset: 2px;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  color: var(--color-ink);
+  text-wrap: balance;
+  letter-spacing: -0.025em;
+}
+
+p {
+  text-wrap: pretty;
+  max-width: var(--measure-body);
+}
+
+.tabular-figures,
+.stat-figure,
+.timeline-year,
+.ways-in-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 150ms ease, opacity 150ms ease, border-color 150ms ease;
+}
+
+a.external::after {
+  content: " \2197";
+  font-size: 0.85em;
+  display: inline-block;
+  vertical-align: 1px;
+  font-family: sans-serif;
+  color: var(--color-ink-subtle);
+}
+
+/* Focus styles (Craft Rule 11: visible, styled, never bare outline:none) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bordered-image {
+  outline: var(--image-outline);
+  outline-offset: -1px;
+}
+
+/* Layout Containers */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: var(--space-7);
+    padding-right: var(--space-7);
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+}
+
+/* Verification badge for unverified figures */
+.todo-verify {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: #8C5D00;
+  background-color: #FEF3D6;
+  border: 1px solid #F5D77F;
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+  vertical-align: baseline;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-left: var(--space-1);
+}
+
+/* Dark mode section overrides */
+.theme-dark {
+  background-color: var(--color-dark-bg);
+  color: var(--color-dark-ink);
+}
+
+.theme-dark h1,
+.theme-dark h2,
+.theme-dark h3 {
+  color: var(--color-dark-ink);
+}
+
+.theme-dark p {
+  color: var(--color-dark-muted);
+}
