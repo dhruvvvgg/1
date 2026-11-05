@@ -54,6 +54,31 @@ body = re.sub(r"https://www\.srmist\.edu\.in/wp-content/uploads/[^\"' )]+\.(?:jp
 for name in used:
     shutil.copy2(os.path.join(IMG_SRC, name), os.path.join(IMG_OUT, name))
 
+# Alumni without a local portrait get initials, never someone else's photo.
+def mono(m):
+    li = m.group(0)
+    src = re.search(r'src="([^"]+)"', li).group(1)
+    if src.startswith("img/"):
+        return li
+    name = re.search(r"<h4>(.*?)</h4>", li).group(1).split(",")[0]
+    initials = "".join(w[0] for w in re.findall(r"[A-Z][a-z]+", name)[:2])
+    return re.sub(r"<img [^>]*>", f'<span class="person__mono" aria-hidden="true">{initials}</span>', li)
+body = re.sub(r'<li class="person">.*?</li>', mono, body, flags=re.S)
+# News photos belong to specific stories: drop stand-ins there.
+body = re.sub(r'(<(?:article|li) class="story[^"]*">\s*<a [^>]*>)\s*<img [^>]*>', r'\1', body)
+# Any other photo that is still remote is dropped rather than shown as an empty frame.
+body = re.sub(r'<img [^>]*src="https://www\.srmist\.edu\.in/[^"]+"[^>]*>', "", body)
+body = body.replace('aria-label="Start-ups from the SRM ecosystem, scroll sideways for more"', 'aria-label="Life at SRM, scroll sideways for more"')
+
+# Photo credits (Wikimedia Commons licences require attribution).
+credits = {}
+if "map.json" in available:
+    credits = json.load(open(os.path.join(IMG_SRC, "map.json"))).get("_credits", {})
+used_credits = [c for n, c in credits.items() if n in used]
+if used_credits:
+    items = "; ".join(f'<a href="{c["source"]}">{c["author"] or "Wikimedia Commons"}</a> ({c["license"]})' for c in used_credits)
+    body = body.replace('<p class="footer__copy">', f'<p class="footer__credits">Campus photos from Wikimedia Commons: {items}.</p>\n    <p class="footer__copy">', 1)
+
 # Forms: no cross-site submission on the preview host.
 body = re.sub(r'(<form[^>]*?) action="([^"]+)"', r'\1 data-action="\2"', body)
 body = body.replace('data-finder>', 'data-finder data-preview>')
@@ -66,7 +91,8 @@ banner = """<div class="concept-bar" role="note">
   </div>"""
 body = body.replace('<header class="site-header" data-header>', '<header class="site-header" data-header>\n  ' + banner, 1)
 
-head = """<title>SRMIST Homepage Concept</title>
+head = """<meta charset="utf-8">
+<title>SRMIST Homepage Concept</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Concept redesign of the SRMIST homepage for the SRM Website Design Challenge 2026.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,800;6..96,900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">

@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>SRMIST Homepage Concept</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Concept redesign of the SRMIST homepage for the SRM Website Design Challenge 2026.">
@@ -556,6 +557,15 @@ i { font-style: normal; }
 @media (forced-colors: active) { .btn, .icon-btn, .seg span { border: 1px solid ButtonText; } }
 @media print { .site-header, .film-toggle, .film-link, .rail__controls, .cta-band, .drawer, .concept-bar { display: none !important; } }
 
+/* Alumni without a portrait: initials on SRM blue */
+.person__mono { display: grid; place-items: center; width: 100%; aspect-ratio: 5 / 6; background: var(--srm-blue); color: var(--white); font-family: var(--font-display); font-weight: 900; font-size: 4rem; letter-spacing: -0.02em; border-bottom: 4px solid var(--srm-gold); }
+.person:nth-child(even) .person__mono { background: var(--srm-blue-deep); }
+.footer__credits { grid-column: 1 / -1; font-size: var(--fs-xs); color: var(--on-blue-2); }
+.footer__credits a { color: var(--on-blue); text-decoration: underline; }
+/* Logo on dark ground */
+.footer__brand img[src$="srm-logo-white.svg"] { height: 64px; }
+.footer__brand .footer__logo { height: 76px; width: auto; background: var(--white); padding: 10px 14px; border-radius: var(--radius); }
+
 /* Preview host: paint the phone's top safe area in the header colour */
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 90; background: #e4b316; }
 
@@ -626,7 +636,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <div class="masthead">
     <div class="container masthead__inner">
       <a class="brand" href="./" aria-label="SRM Institute of Science and Technology, home">
-        <img src="https://www.srmist.edu.in/wp-content/uploads/2022/01/srm-logo.svg" width="190" height="56" alt="" data-logo>
+        <img src="img/srm-logo.svg" width="190" height="56" alt="" data-logo>
         <span class="brand__word" aria-hidden="true"><b>SRM</b><span>Institute of Science<br>and Technology</span></span>
       </a>
 
@@ -865,7 +875,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <!-- HERO: the campus first, the motto as the headline, the finder as the main action -->
   <section class="hero" aria-labelledby="hero-title" data-hero>
     <div class="hero__media" aria-hidden="true">
-      <img class="hero__poster" src="https://www.srmist.edu.in/wp-content/uploads/2026/08/Dignitaries-and-graduates-at-the-convocation-scaled.jpg" alt="" width="1920" height="1080" fetchpriority="high">
+      <img class="hero__poster" src="img/commons-rays-of-hope.jpg" alt="" width="1920" height="1080" fetchpriority="high">
       <div class="hero__video" data-hero-video data-video="S_xAJo_siHA"></div>
       <div class="hero__shade"></div>
     </div>
@@ -922,18 +932,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
       <div class="colleges" data-colleges>
         <ol class="colleges__list">
-          <li><a href="https://www.srmist.edu.in/college/college-of-engineering-technology/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0014_Background.jpg"><span class="colleges__name">Engineering and Technology</span><span class="colleges__meta">#14 in India, NIRF 2025</span></a></li>
-          <li><a href="https://medical.srmist.edu.in/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0005_Medicine.jpg"><span class="colleges__name">Medicine and Health Sciences</span><span class="colleges__meta">Medicine, pharmacy, nursing, physiotherapy, public health</span></a></li>
-          <li><a href="https://dental.srmist.edu.in/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0009_Dentistry.jpg"><span class="colleges__name">Dentistry</span><span class="colleges__meta">BDS and MDS</span></a></li>
-          <li><a href="https://www.srmist.edu.in/faculty-of-management/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0006_Management.jpg"><span class="colleges__name">Management</span><span class="colleges__meta">BBA, MBA and doctoral programmes</span></a></li>
-          <li><a href="https://law.srmist.edu.in/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0007_LAW-1.jpg"><span class="colleges__name">Law</span><span class="colleges__meta">Integrated and postgraduate law degrees</span></a></li>
-          <li><a href="https://www.srmist.edu.in/college/college-of-science-and-humanities/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/boxImg_science_humanities.jpg"><span class="colleges__name">Science and Humanities</span><span class="colleges__meta">Sciences, liberal arts, commerce, media</span></a></li>
-          <li><a href="https://www.srmist.edu.in/department/department-of-architecture/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0010_Architecture.jpg"><span class="colleges__name">Architecture</span><span class="colleges__meta">Architecture and design</span></a></li>
-          <li><a href="https://www.srmist.edu.in/department/college-of-agriculture-sciences/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/0011_Agriculture-Sciences.jpg"><span class="colleges__name">Agricultural Sciences</span><span class="colleges__meta">ICAR accredited</span></a></li>
-          <li><a href="https://www.srmonline.in/" data-img="https://www.srmist.edu.in/wp-content/uploads/2024/11/boxImg_online_edu-1.jpg"><span class="colleges__name">Online and Distance</span><span class="colleges__meta">Study from anywhere</span></a></li>
+          <li><a href="https://www.srmist.edu.in/college/college-of-engineering-technology/" data-img="img/commons-tech-park.jpg"><span class="colleges__name">Engineering and Technology</span><span class="colleges__meta">#14 in India, NIRF 2025</span></a></li>
+          <li><a href="https://medical.srmist.edu.in/" data-img="img/commons-srm-university-campus-chennai-tamil-nadu-india.jpg"><span class="colleges__name">Medicine and Health Sciences</span><span class="colleges__meta">Medicine, pharmacy, nursing, physiotherapy, public health</span></a></li>
+          <li><a href="https://dental.srmist.edu.in/" data-img="img/commons-srm-university-auditorium.jpg"><span class="colleges__name">Dentistry</span><span class="colleges__meta">BDS and MDS</span></a></li>
+          <li><a href="https://www.srmist.edu.in/faculty-of-management/" data-img="img/commons-0j9a0195.jpg"><span class="colleges__name">Management</span><span class="colleges__meta">BBA, MBA and doctoral programmes</span></a></li>
+          <li><a href="https://law.srmist.edu.in/" data-img="img/commons-srm-university-auditorium.jpg"><span class="colleges__name">Law</span><span class="colleges__meta">Integrated and postgraduate law degrees</span></a></li>
+          <li><a href="https://www.srmist.edu.in/college/college-of-science-and-humanities/" data-img="img/commons-a21-env.jpg"><span class="colleges__name">Science and Humanities</span><span class="colleges__meta">Sciences, liberal arts, commerce, media</span></a></li>
+          <li><a href="https://www.srmist.edu.in/department/department-of-architecture/" data-img="img/commons-srm-university-auditorium.jpg"><span class="colleges__name">Architecture</span><span class="colleges__meta">Architecture and design</span></a></li>
+          <li><a href="https://www.srmist.edu.in/department/college-of-agriculture-sciences/" data-img="img/commons-srm-university-campus-chennai-tamil-nadu-india.jpg"><span class="colleges__name">Agricultural Sciences</span><span class="colleges__meta">ICAR accredited</span></a></li>
+          <li><a href="https://www.srmonline.in/" data-img="img/commons-0j9a0195.jpg"><span class="colleges__name">Online and Distance</span><span class="colleges__meta">Study from anywhere</span></a></li>
         </ol>
         <figure class="colleges__preview" aria-hidden="true">
-          <img src="https://www.srmist.edu.in/wp-content/uploads/2024/11/0014_Background.jpg" alt="" width="900" height="1100" loading="lazy" data-colleges-img>
+          <img src="img/commons-tech-park.jpg" alt="" width="900" height="1100" loading="lazy" data-colleges-img>
         </figure>
       </div>
 
@@ -1065,16 +1075,16 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       </div>
     </div>
 
-    <div class="filmstrip" role="region" tabindex="0" aria-label="Start-ups from the SRM ecosystem, scroll sideways for more">
+    <div class="filmstrip" role="region" tabindex="0" aria-label="Life at SRM, scroll sideways for more">
       <ul class="filmstrip__track">
-        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-1.jpg" alt="" loading="lazy" width="480" height="320"></li>
-        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-2.jpg" alt="" loading="lazy" width="480" height="320"></li>
-        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-3.jpg" alt="" loading="lazy" width="480" height="320"></li>
-        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-4.jpg" alt="" loading="lazy" width="480" height="320"></li>
-        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-5.jpg" alt="" loading="lazy" width="480" height="320"></li>
-        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-6.jpg" alt="" loading="lazy" width="480" height="320"></li>
-        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-7.jpg" alt="" loading="lazy" width="480" height="320"></li>
-        <li><img src="https://www.srmist.edu.in/wp-content/uploads/2024/09/SRMIST-Startup-Ecosystem-8.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="img/commons-tech-park.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="img/commons-a22wcmt.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="img/commons-srm-university-auditorium.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="img/commons-0j9a0195.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="img/commons-bihu-team.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="img/commons-srm-university-campus-chennai-tamil-nadu-india.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="img/commons-a21-env.jpg" alt="" loading="lazy" width="480" height="320"></li>
+        <li><img src="img/commons-rays-of-hope.jpg" alt="" loading="lazy" width="480" height="320"></li>
       </ul>
     </div>
   </section>
@@ -1088,19 +1098,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <a class="btn btn--gold" href="https://webstor.srmist.edu.in/web_assets/srmist-virtual-tour-vo/index.htm"><svg class="icon" aria-hidden="true"><use href="#i-360"/></svg>Take the 360° tour</a>
       </div>
       <a class="campus__tile campus__tile--a" href="https://www.srmist.edu.in/life-at-srm/sports/">
-        <img src="https://www.srmist.edu.in/wp-content/uploads/2024/12/srm-sports-1.jpg" alt="" loading="lazy" width="651" height="434">
+        <img src="img/commons-srm-university-campus-chennai-tamil-nadu-india.jpg" alt="" loading="lazy" width="651" height="434">
         <span class="campus__label"><b>Sports</b>30 international medals in 2023–24</span>
       </a>
       <a class="campus__tile campus__tile--b" href="https://www.srmist.edu.in/srm-hostels/">
-        <img src="https://www.srmist.edu.in/wp-content/uploads/2022/04/ir_hostel_img3_1405335571-e1649594105962.jpg" alt="" loading="lazy" width="600" height="400">
+        <img src="img/commons-srm-university-auditorium.jpg" alt="" loading="lazy" width="600" height="400">
         <span class="campus__label"><b>Hostels and dining</b>Men's, women's and international hostels</span>
       </a>
       <a class="campus__tile campus__tile--c" href="https://www.srmist.edu.in/life-at-srm/culture/">
-        <img src="https://www.srmist.edu.in/wp-content/uploads/2026/02/Milan-26-Brochure-724x1024-1.png" alt="" loading="lazy" width="724" height="1024">
+        <img src="img/commons-bihu-team.jpg" alt="" loading="lazy" width="724" height="1024">
         <span class="campus__label"><b>Milan</b>The national cultural festival</span>
       </a>
       <a class="campus__tile campus__tile--d" href="https://www.srmist.edu.in/life-at-srm/student-life/clubs/">
-        <img src="https://www.srmist.edu.in/wp-content/uploads/2024/12/Admission-India-SRMIST-1-Copy-768x511.jpg" alt="" loading="lazy" width="768" height="511">
+        <img src="img/commons-a21-env.jpg" alt="" loading="lazy" width="768" height="511">
         <span class="campus__label"><b>Clubs and teams</b>Technical teams, NCC, NSS, entrepreneurship</span>
       </a>
     </div>
@@ -1134,16 +1144,16 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
     <div class="rail" data-rail>
       <ul class="rail__track" tabindex="0" aria-label="Notable alumni, scroll sideways for more">
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/04/Mr.-Sriram-Krishnan-2-300x225.jpg" alt="" loading="lazy" width="300" height="360"><h4>Sriram Krishnan</h4><p>Senior Policy Advisor for Artificial Intelligence, The White House</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/06/varun-300x225.jpg" alt="" loading="lazy" width="300" height="360"><h4>Varun Chakravarthy</h4><p>Indian international cricketer</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/sharanya-ari-potrait.jpg" alt="" loading="lazy" width="300" height="360"><h4>Sharanya Ari, IAS</h4><p>Indian Administrative Service</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/06/Mr.-Ashok-Malhotra-300x300.jpg" alt="" loading="lazy" width="300" height="360"><h4>Ashok Malhotra</h4><p>Mission Director, National Technical Textiles Mission</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/ashok-ramacharan.jpg" alt="" loading="lazy" width="300" height="360"><h4>Ashok Ramachandran</h4><p>President, India Business, Suzlon Group</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/vikraman-vasudevan.jpg" alt="" loading="lazy" width="300" height="360"><h4>Vikraman Vasudevan, IPS</h4><p>Indian Police Service</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/ojas-mahapatra.jpg" alt="" loading="lazy" width="300" height="360"><h4>Ojas Mahapatra</h4><p>Group CEO, MARS Bioimaging</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/nikita-hari.jpg" alt="" loading="lazy" width="300" height="360"><h4>Nikitha Hari</h4><p>Head, Teaching and Research Design Support Group</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2025/04/Sudha-Jamthe-259x300.jpg" alt="" loading="lazy" width="300" height="360"><h4>Sudha Jamthe</h4><p>Author and educator, Business School of AI</p></li>
-        <li class="person"><img src="https://www.srmist.edu.in/wp-content/uploads/2022/12/pankaj-kumar-mishra.jpg" alt="" loading="lazy" width="300" height="360"><h4>Pankaj Kumar Mishra, IRS</h4><p>Indian Revenue Service</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">SK</span><h4>Sriram Krishnan</h4><p>Senior Policy Advisor for Artificial Intelligence, The White House</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">VC</span><h4>Varun Chakravarthy</h4><p>Indian international cricketer</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">SA</span><h4>Sharanya Ari, IAS</h4><p>Indian Administrative Service</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">AM</span><h4>Ashok Malhotra</h4><p>Mission Director, National Technical Textiles Mission</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">AR</span><h4>Ashok Ramachandran</h4><p>President, India Business, Suzlon Group</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">VV</span><h4>Vikraman Vasudevan, IPS</h4><p>Indian Police Service</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">OM</span><h4>Ojas Mahapatra</h4><p>Group CEO, MARS Bioimaging</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">NH</span><h4>Nikitha Hari</h4><p>Head, Teaching and Research Design Support Group</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">SJ</span><h4>Sudha Jamthe</h4><p>Author and educator, Business School of AI</p></li>
+        <li class="person"><span class="person__mono" aria-hidden="true">PK</span><h4>Pankaj Kumar Mishra, IRS</h4><p>Indian Revenue Service</p></li>
       </ul>
       <div class="container rail__controls">
         <button class="icon-btn icon-btn--line" type="button" data-rail-prev aria-label="Previous alumni"><svg class="icon flip" aria-hidden="true"><use href="#i-arrow"/></svg></button>
@@ -1162,14 +1172,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </div>
         <article class="story story--lead">
           <a href="https://www.srmist.edu.in/srmist-22nd-convocation/">
-            <img src="https://www.srmist.edu.in/wp-content/uploads/2026/08/Dignitaries-and-graduates-at-the-convocation-scaled.jpg" alt="" loading="lazy" width="900" height="560">
             <h3>22nd Convocation: Vice President C. P. Radhakrishnan calls on graduates to lead India's journey to Viksit Bharat</h3>
           </a>
         </article>
         <ul class="story-list">
-          <li class="story"><a href="https://www.srmist.edu.in/srmist-student-named-distinguished-winner-at-apples-swift-student-challenge-2026/"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/07/Shourya-Thakur-at-Steve-Jobs-Theatre.png" alt="" loading="lazy" width="240" height="160"><h3>Student named Distinguished Winner at Apple's Swift Student Challenge 2026</h3></a></li>
-          <li class="story"><a href="https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/01/IMG20260f128162948-scaled.jpg" alt="" loading="lazy" width="240" height="160"><h3>Team Camber Racing wins the national title at Formula Bharat 2026</h3></a></li>
-          <li class="story"><a href="https://www.srmist.edu.in/srmist-sports-students-secure-prestigious-positions-in-the-public-sector/"><img src="https://www.srmist.edu.in/wp-content/uploads/2026/06/SRMIST-Sports-Students-Placed-in-the-Public-Sector-Organizations.jpg" alt="" loading="lazy" width="240" height="160"><h3>Student athletes secure positions in public sector organisations</h3></a></li>
+          <li class="story"><a href="https://www.srmist.edu.in/srmist-student-named-distinguished-winner-at-apples-swift-student-challenge-2026/"><h3>Student named Distinguished Winner at Apple's Swift Student Challenge 2026</h3></a></li>
+          <li class="story"><a href="https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/"><h3>Team Camber Racing wins the national title at Formula Bharat 2026</h3></a></li>
+          <li class="story"><a href="https://www.srmist.edu.in/srmist-sports-students-secure-prestigious-positions-in-the-public-sector/"><h3>Student athletes secure positions in public sector organisations</h3></a></li>
         </ul>
       </div>
 
@@ -1217,7 +1226,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 <footer class="site-footer">
   <div class="container footer__top">
     <div class="footer__brand">
-      <img src="https://www.srmist.edu.in/wp-content/uploads/2022/01/srm-logo-white.svg" width="190" height="56" alt="SRM Institute of Science and Technology" loading="lazy">
+      <img src="img/srm-logo.svg" class="footer__logo" width="190" height="64" alt="SRM Institute of Science and Technology" loading="lazy">
       <address>
         SRM Nagar, Kattankulathur 603203<br>
         Chengalpattu District, Tamil Nadu, India
@@ -1303,6 +1312,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <li><a href="https://webstor.srmist.edu.in/web_assets/downloads/2026/flipbook/srmist-institutional-development-plan/">Institutional Development Plan</a></li>
       </ul>
     </details>
+    <p class="footer__credits">Campus photos from Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:0J9A0195.jpg">VA Studios</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:A21-Env.jpg">Rishitshivesh1017</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:A22WCMT.jpg">Rishitshivesh1017</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Bihu_Team.jpg">Arnab J Deka</a> (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:Rays_of_hope.jpg">Animesh Sahoo</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:SRM_University_Auditorium.JPG">Hareesh Sivasubramanian</a> (CC BY-SA 3.0); <a href="https://commons.wikimedia.org/wiki/File:SRM_University_Campus_Chennai_Tamil_Nadu_India.jpg">N. Vivekananthamoorthy</a> (CC BY 4.0); <a href="https://commons.wikimedia.org/wiki/File:Tech_Park.jpg">Syed Tehzeeb Alam</a> (CC BY-SA 4.0).</p>
     <p class="footer__copy">© 2026 SRM Institute of Science and Technology. Deemed to be University under Section 3 of the UGC Act, 1956.</p>
     <ul class="footer__policies">
       <li><a href="https://www.srmist.edu.in/privacy-policy/">Privacy</a></li>

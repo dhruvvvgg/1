@@ -552,3 +552,12 @@ i { font-style: normal; }
 }
 @media (forced-colors: active) { .btn, .icon-btn, .seg span { border: 1px solid ButtonText; } }
 @media print { .site-header, .film-toggle, .film-link, .rail__controls, .cta-band, .drawer, .concept-bar { display: none !important; } }
+
+/* Alumni without a portrait: initials on SRM blue */
+.person__mono { display: grid; place-items: center; width: 100%; aspect-ratio: 5 / 6; background: var(--srm-blue); color: var(--white); font-family: var(--font-display); font-weight: 900; font-size: 4rem; letter-spacing: -0.02em; border-bottom: 4px solid var(--srm-gold); }
+.person:nth-child(even) .person__mono { background: var(--srm-blue-deep); }
+.footer__credits { grid-column: 1 / -1; font-size: var(--fs-xs); color: var(--on-blue-2); }
+.footer__credits a { color: var(--on-blue); text-decoration: underline; }
+/* Logo on dark ground */
+.footer__brand img[src$="srm-logo-white.svg"] { height: 64px; }
+.footer__brand .footer__logo { height: 76px; width: auto; background: var(--white); padding: 10px 14px; border-radius: var(--radius); }
