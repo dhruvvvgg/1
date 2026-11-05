@@ -151,13 +151,39 @@ const cards = items => `<ul class="cardgrid">${items.map(c => `<li class="ccard"
 
 /* ---------- shared chrome ---------- */
 const navLink = it => (it.local ? `<a href="${local(it.local)}">${esc(it.label)}</a>` : ext(it.ext, esc(it.label)));
+/* aria-current for the page itself ("page") and for its section ("true") */
+const curAttr = loc => {
+  const r = current ? current.route : "/", l = local(loc);
+  if (r === l) return ' aria-current="page"';
+  if (l !== "/" && r.startsWith(l)) return ' aria-current="true"';
+  return "";
+};
+const navItem = p => {
+  if (!p.children) return `<a class="nav__top" href="${local(p.local)}"${curAttr(p.local)}>${esc(p.label)}</a>`;
+  const id = "dd-" + slug(p.label);
+  return `<div class="nav__item" data-dd>
+        <a class="nav__top" href="${local(p.local)}"${curAttr(p.local)}>${esc(p.label)}</a>
+        <button class="nav__caret" type="button" aria-expanded="false" aria-controls="${id}"><span class="sr-only">${esc(p.label)} pages</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="nav__panel" id="${id}" hidden><ul>
+          <li><a href="${local(p.local)}"${curAttr(p.local) && current.route === local(p.local) ? ' aria-current="page"' : ""}>${esc(p.label)} overview</a></li>
+          ${p.children.map(c => `<li>${c.local ? `<a href="${local(c.local)}"${curAttr(c.local)}>${esc(c.label)}</a>` : ext(c.ext, esc(c.label))}</li>`).join("")}
+        </ul></div>
+      </div>`;
+};
+const SUGGESTED = ["How do I book a hostel?", "What scholarships are there for engineering?", "How do international students apply?", "Who do I contact at the Career Centre?"];
+const PROG_CHIPS = ["B.Tech under 3 lakh at Kattankulathur", "Law programmes", "MBA at Kattankulathur", "Diploma programmes", "Undergraduate under 1 lakh", "Agriculture programmes"];
+const MAIN_PHONE = C("contact").phones[0];
 const header = () => `<!-- build:header -->
 <header class="header">
   <div class="wrap">
     <a class="brand" href="/"><img src="/assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
-    <nav class="nav" aria-label="Main">
-      ${nav.primary.map(p => `<a href="${local(p.local)}">${esc(p.label)}</a>`).join("\n      ")}
+    <nav class="nav" aria-label="Main" data-nav>
+      ${nav.primary.map(navItem).join("\n      ")}
     </nav>
+    <div class="hdr-tools">
+      <button class="hdr-btn hdr-btn--ask" type="button" data-ask-open aria-haspopup="dialog" aria-controls="ask-panel"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5"/></svg><span>Ask SRM</span><kbd class="hdr-kbd" aria-hidden="true">Ctrl K</kbd></button>
+      <button class="hdr-btn hdr-btn--aa" type="button" data-prefs-open aria-expanded="false" aria-controls="prefs-panel"><span aria-hidden="true">Aa</span><span class="sr-only">Reading preferences</span></button>
+    </div>
     <a class="pill pill--accent header__apply" href="${esc(nav.cta.apply.ext)}" target="_blank" rel="noopener noreferrer" data-ext>${esc(nav.cta.apply.label)}${EXT_ICON}<span class="sr-only"> (opens the original SRMIST site)</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
@@ -182,7 +208,58 @@ const header = () => `<!-- build:header -->
     <ul class="menu__campuses ui" aria-label="Campuses">${nav.campuses.map(c => `<li>${ext(c.ext, esc(c.name))}</li>`).join("")}</ul>
   </div>
 </div>
+
+<div class="prefs" id="prefs-panel" role="dialog" aria-labelledby="prefs-title" hidden data-prefs>
+  <div class="prefs__top"><h2 id="prefs-title" class="prefs__title">Reading preferences</h2>
+    <button class="iconbtn" type="button" data-prefs-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close reading preferences</span></button></div>
+  <fieldset class="prefs__group"><legend>Text size</legend>
+    <div class="seg">${["Default", "Large", "Larger"].map((t, i) => `<label class="seg__opt"><input type="radio" name="pref-size" value="${i}"${i === 0 ? " checked" : ""}><span>${t}</span></label>`).join("")}</div>
+  </fieldset>
+  <label class="switch"><input type="checkbox" data-pref="contrast"><span>High contrast</span></label>
+  <label class="switch"><input type="checkbox" data-pref="dyslexia"><span>Dyslexia-friendly font</span></label>
+  <label class="switch"><input type="checkbox" data-pref="motion"><span>Reduce motion</span></label>
+  <button class="pill" type="button" data-prefs-reset>Reset</button>
+  <p class="sr-only" aria-live="polite" data-prefs-status></p>
+</div>
+
+<div class="askp" id="ask-panel" role="dialog" aria-modal="true" aria-labelledby="askp-title" hidden data-askp>
+  <div class="askp__box">
+    <div class="askp__top"><h2 id="askp-title" class="askp__title">Ask SRM</h2>
+      <button class="iconbtn" type="button" data-askp-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close Ask SRM</span></button></div>
+    <form class="askp__form" role="search" data-askp-form>
+      <label class="sr-only" for="askp-q">Ask a question or describe a programme</label>
+      <input id="askp-q" type="search" autocomplete="off" placeholder="Ask a question, or try “B.Tech under 3 lakh”">
+      <button class="pill pill--ink" type="submit">Ask</button>
+    </form>
+    <div class="askp__chips">
+      <p class="askp__label" id="askp-sq">Suggested questions</p>
+      <ul class="chipbtns" aria-labelledby="askp-sq">${SUGGESTED.map(q => `<li><button type="button" class="chipbtn" data-ask-chip>${esc(q)}</button></li>`).join("")}</ul>
+      <p class="askp__label" id="askp-pq">Find programmes</p>
+      <ul class="chipbtns" aria-labelledby="askp-pq">${PROG_CHIPS.map(q => `<li><button type="button" class="chipbtn" data-ask-chip>${esc(q)}</button></li>`).join("")}</ul>
+    </div>
+    <div class="askp__out" aria-live="polite" data-askp-out></div>
+    <p class="ai__note">Answers are quoted from this site’s pages, with a link to each source.</p>
+  </div>
+</div>
+
+<nav class="mbar" aria-label="Quick actions" data-mbar>
+  <a class="mbar__item" href="/programs/"${curAttr("/programs")}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Programs</span></a>
+  <a class="mbar__item" href="/admissions/scholarships/#estimate"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10M7 8h10M7 4c5 0 5 8 0 8l8 8"/></svg><span>Fees</span></a>
+  <a class="mbar__item" href="tel:${MAIN_PHONE.replace(/[^+\d]/g, "")}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>Call</span></a>
+  <a class="mbar__item mbar__item--apply" href="${esc(nav.cta.apply.ext)}" target="_blank" rel="noopener noreferrer" data-ext>${esc(nav.cta.apply.label.replace(/ now$/i, ""))}<span class="sr-only"> (opens the original SRMIST site)</span></a>
+</nav>
 <!-- /build:header -->`;
+
+/* reading preferences are applied before first paint, so there is no flash */
+const PREPAINT = `<script>
+(function () { try {
+  var p = JSON.parse(localStorage.getItem("srm-prefs") || "{}"), c = document.documentElement.classList;
+  if (p.size) c.add("pref-size-" + p.size);
+  if (p.contrast) c.add("pref-contrast");
+  if (p.dyslexia) c.add("pref-dyslexia");
+  if (p.motion) c.add("pref-motion");
+} catch (e) {} })();
+</script>`;
 
 const audienceBar = () => `<!-- build:audience -->
 <nav class="iam" aria-label="Information for"><div class="wrap"><span class="iam__label">For</span><ul>
@@ -210,7 +287,7 @@ const footer = () => `<!-- build:footer -->
     <p class="footer__copyright">© 2026 SRM Institute of Science and Technology.<br><span class="footer__proposal">Redesign proposal for SRMIST</span></p>
   </div>
   <div class="footer__legal">
-    <ul><li><a href="/contact/">Contact</a></li><li>${ext("https://www.srmist.edu.in/privacy-policy/", "Privacy")}</li><li>${ext("https://www.srmist.edu.in/terms-and-conditions/", "Terms")}</li><li>${ext("https://www.srmist.edu.in/iqac/public-disclosure/", "Mandatory disclosures")}</li></ul>
+    <ul><li><a href="/contact/">Contact</a></li><li><a href="/parents/">Parents</a></li><li>${ext("https://www.srmist.edu.in/privacy-policy/", "Privacy")}</li><li>${ext("https://www.srmist.edu.in/terms-and-conditions/", "Terms")}</li><li>${ext("https://www.srmist.edu.in/iqac/public-disclosure/", "Mandatory disclosures")}</li></ul>
   </div>
   </div>
   <figure class="campus-ending">
@@ -251,6 +328,7 @@ function render(page) {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(page.title)} | SRM Institute of Science and Technology</title>
 <meta name="description" content="${esc(page.description || page.lead || page.title)}">
+${PREPAINT}
 ${HEAD_COMMON}
 <link rel="stylesheet" href="/assets/css/site.css">
 <link rel="stylesheet" href="/assets/css/inner.css">
@@ -267,6 +345,7 @@ ${body}
 </main>
 ${footer()}
 <script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/features.js" defer></script>
 <script src="/assets/js/inner.js" defer></script>
 </body>
 </html>
@@ -293,6 +372,148 @@ const progLink = (p, text, cls) => (p.slug === CSE ? `<a${cls ? ` class="${cls}"
 const feeLabel = p => (p.level === "D" ? "Initial semester fee" : "Annual fee");
 
 /* =====================================================================
+   FEATURE BUILDERS (data comes only from /content)
+   ===================================================================== */
+const jsonData = (id, obj) => `<script type="application/json" id="${id}">${JSON.stringify(obj).replace(/</g, "\\u003c")}</script>`;
+const CT = C("contact");
+const telHref = n => "tel:" + String(n).replace(/[^+\d]/g, "").replace(/^0/, "+910").replace(/^\+910(\d{2})/, "+91$1");
+const contactRow = (label, value, kind) => {
+  const href = kind === "tel" ? telHref(value) : "mailto:" + value;
+  return `<li class="crow"><span class="crow__label">${esc(label)}</span><a class="crow__val" href="${href}">${esc(value)}</a><button class="copybtn" type="button" data-copy="${esc(value)}">Copy<span class="sr-only"> ${esc(label)}</span></button></li>`;
+};
+const DISCIPLINES = [
+  { id: "engineering", label: "Engineering", india: "Engineering & Technology", intl: "Engineering & Technology", phone: 0 },
+  { id: "law", label: "Law", india: "Law", intl: "Law", phone: 1 },
+  { id: "management", label: "Management", india: "Management", intl: "Management", phone: 1 },
+  { id: "medicine", label: "Medicine and Health", india: "Medicine & Health Sciences", intl: "Medical & Health Sciences", phone: 1 },
+  { id: "agriculture", label: "Agriculture", india: "Agricultural Sciences", intl: "Agricultural Sciences", phone: 0 },
+  { id: "liberal", label: "Liberal Arts and Business", india: "Liberal Arts and Business Studies", intl: "Liberal Arts and Business Studies", phone: 1 },
+  { id: "architecture", label: "Architecture and Design", india: "Engineering & Technology", intl: "Engineering & Technology", phone: 0, only: "arch|design" }
+];
+const intlEmail = CT.emails.find(e => /International/.test(e.label));
+const indiaEmail = CT.emails.find(e => /Admissions/.test(e.label));
+
+/* /admissions: route selector, with a plain link list for no-JS */
+const routeSelector = () => {
+  const ai = C("admissions-india"), aii = C("admissions-international");
+  const plain = `<div class="route__plain" data-route-plain>
+    <h3 class="sub">Apply in India</h3>${linkList(ai.colleges.flatMap(c => (c.apply || []).map(a => ({ text: c.name + ": " + a.text, href: a.href }))))}
+    <h3 class="sub">Apply as an international student</h3>${linkList([{ text: "International application form 2027", href: aii.apply_portal }])}
+  </div>`;
+  const step = (n, legend, name, opts) => `<fieldset class="route__step" data-route-step="${n}"${n > 1 ? " hidden" : ""}><legend><span class="route__n">Step ${n} of 3</span> ${legend}</legend>
+    <div class="route__opts">${opts.map(([v, t]) => `<label class="optcard"><input type="radio" name="${name}" value="${v}"><span>${esc(t)}</span></label>`).join("")}</div></fieldset>`;
+  const widget = `<form class="route" data-route hidden aria-labelledby="route-h">
+    ${step(1, "Where are you applying from?", "r-where", [["india", "India"], ["intl", "International"]])}
+    ${step(2, "Which level?", "r-level", [["UG", "Undergraduate"], ["PG", "Postgraduate"], ["PhD", "PhD"], ["Diploma", "Diploma"]])}
+    ${step(3, "Which discipline?", "r-disc", DISCIPLINES.map(d => [d.id, d.label]))}
+    <div class="route__nav"><button class="pill" type="button" data-route-back hidden>Back</button><button class="pill" type="button" data-route-restart hidden>Start again</button></div>
+    <div class="route__out" data-route-out aria-live="polite"></div>
+  </form>`;
+  return sec("route", "Find your admission route", null, widget + plain, { v: "cards" }) +
+    jsonData("route-data", {
+      india: ai.colleges, intl: aii.programs, intlPortal: aii.apply_portal, waivers: aii.fee_waivers, disciplines: DISCIPLINES,
+      contacts: { india: indiaEmail, intl: intlEmail, phones: CT.admissions_information_centre }
+    });
+};
+
+/* /admissions/india: journey tracker */
+const indiaTracker = () => {
+  const a = C("admissions-india");
+  const steps = [
+    ["advisory", "Read the public advisory", `<p>Use only the official website and contacts. <a href="#advisory">Public Advisory</a></p>`],
+    ["college", "Choose your college", `<ul class="chips">${a.colleges.map(c => `<li><a href="#${slug(c.name)}">${esc(c.name)}</a></li>`).join("")}</ul>`],
+    ["download", "Download the prospectus and dates", `<ul class="trk__grp">${a.colleges.filter(c => c.downloads && c.downloads.length).map(c => `<li><p class="trk__who">${esc(c.name)}</p>${linkList(c.downloads)}</li>`).join("")}</ul>`],
+    ["apply", "Apply on the official portal", `<ul class="trk__grp">${a.colleges.filter(c => c.apply && c.apply.length).map(c => `<li><p class="trk__who">${esc(c.name)}</p>${linkList(c.apply)}</li>`).join("")}</ul>`],
+    ["scholarship", "Check scholarships and fees", `<p><a class="more" href="/admissions/scholarships/#estimate">Estimate your fees and scholarship</a></p>`],
+    ["hostel", "Plan your hostel", `<p><a class="more" href="/campus-life/hostels/">SRM Hostels</a></p>`],
+    ["contact", "Contact admissions with questions", `<ul class="crows">${contactRow(indiaEmail.label, indiaEmail.value, "mail")}${CT.admissions_information_centre.map(x => contactRow(x.programs, x.phone, "tel")).join("")}</ul>`]
+  ];
+  return `<div class="checklist" data-checklist="india-2027">
+      <div class="checklist__progress"><p data-cl-count aria-live="polite">0 of ${steps.length} steps done</p><div class="checklist__bar" aria-hidden="true"><span data-cl-bar></span></div></div>
+      <ol class="checklist__steps">${steps.map(([id, t, b], i) => `<li class="clstep" data-cl-step="${id}">
+        <div class="clstep__head"><input type="checkbox" id="cli-${id}" data-cl-check="${id}"><label for="cli-${id}"><span class="clstep__n">Step ${i + 1}</span> ${esc(t)}</label></div>
+        <div class="clstep__body">${b}</div></li>`).join("")}</ol>
+      <div class="cl-reset"><button class="pill" type="button" data-cl-reset>Reset tracker</button>
+        <span class="cl-confirm" data-cl-confirm hidden>Clear all ticks? <button class="pill pill--blue" type="button" data-cl-yes>Yes, reset</button> <button class="pill" type="button" data-cl-no>Keep them</button></span></div>
+    </div>`;
+};
+
+/* /admissions/scholarships: cost and scholarship estimator */
+const estimator = () => {
+  const s = C("admissions-scholarships"), t = s.rank_table;
+  const campuses = [...new Set(t.rows.map(r => r[0]))];
+  const progOpts = progs.map(p => `<option value="${esc(p.slug)}">${esc(p.name)}</option>`).join("");
+  const ui = `<form class="est" data-est onsubmit="return false">
+    <div class="est__in">
+      <div class="pf__field"><label for="est-find">Find a programme</label><input id="est-find" type="search" placeholder="Type to narrow the list" autocomplete="off" data-est-find></div>
+      <div class="pf__field"><label for="est-prog">Programme</label><select id="est-prog" data-est-prog><option value="">Choose a programme</option>${progOpts}</select></div>
+      <div class="pf__field"><label for="est-rank">Entrance rank</label><input id="est-rank" type="number" inputmode="numeric" min="1" step="1" placeholder="For example 180" data-est-rank></div>
+      <div class="pf__field"><label for="est-campus">Campus for the scholarship table</label><select id="est-campus" data-est-campus>${campuses.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("")}</select></div>
+    </div>
+    <div class="est__out" data-est-out aria-live="polite"><p>Choose a programme to see its fee.</p></div>
+    <p class="est__note">Indicative. Confirm with the admissions office. <a href="/contact/">Contact us</a></p>
+  </form>`;
+  return sec("estimate", "Estimate your fees and scholarship", "Programmes and fees come from this Program Finder; scholarship tiers come from the table on this page.", ui + `<p class="pf__subset">Fees shown are for programmes in this Program Finder. ${ext(P.full_list_link, "See the full programme list")}</p>`, { v: "cards" }) +
+    jsonData("est-data", { rows: progs.map(p => ({ slug: p.slug, name: p.name, college: P.colleges[p.college_idx], cidx: p.college_idx, fee: shown(p).fee, duration: shown(p).duration, level: p.level })), table: t.rows, columns: t.columns, heading: s.heading });
+};
+
+/* /academics/departments: tabs, search, count */
+const deptExplorer = () => {
+  const e = C("academics-engineering");
+  const list = (items, kind) => `<ul class="dx__list" data-dx-list="${kind}">${items.map(d => `<li data-dx-item>${kind === "dept" ? ext("https://www.srmist.edu.in/departments/", esc(d)) : esc(d)}</li>`).join("")}</ul>`;
+  return `<div class="dx" data-dx>
+    <div class="pf__field dx__search"><label for="dx-q">Search departments and centres</label><input id="dx-q" type="search" autocomplete="off" placeholder="Try civil, data or heritage" data-dx-q></div>
+    <div class="tabs" role="tablist" aria-label="Lists">
+      <button class="tab" role="tab" id="dx-t1" aria-selected="true" aria-controls="dx-p1" data-dx-tab="dept">Departments (${e.departments.length})</button>
+      <button class="tab" role="tab" id="dx-t2" aria-selected="false" aria-controls="dx-p2" tabindex="-1" data-dx-tab="centre">Research centres (${e.centres.length})</button>
+    </div>
+    <p class="dx__count" data-dx-count aria-live="polite">${e.departments.length} departments</p>
+    <div role="tabpanel" id="dx-p1" aria-labelledby="dx-t1" data-dx-panel="dept">${list(e.departments, "dept")}</div>
+    <div role="tabpanel" id="dx-p2" aria-labelledby="dx-t2" data-dx-panel="centre" hidden>${list(e.centres, "centre")}</div>
+    <p class="finder__empty" data-dx-empty hidden>Nothing matches that search.</p>
+    <p class="dx__note">Faculty of Engineering &amp; Technology. ${ext("https://www.srmist.edu.in/departments/", "All SRMIST departments")}</p>
+  </div>`;
+};
+
+/* /contact: contact the right office */
+const OFFICES = [
+  { id: "india", label: "Admissions India", rows: [[indiaEmail.label, indiaEmail.value, "mail"], ...CT.admissions_information_centre.map(x => [x.programs, x.phone, "tel"])] },
+  { id: "intl", label: "International admissions", rows: [[intlEmail.label, intlEmail.value, "mail"]] },
+  { id: "placements", label: "Placements", rows: [[CT.emails.find(e => /Placement/.test(e.label)).label, CT.emails.find(e => /Placement/.test(e.label)).value, "mail"]] },
+  { id: "research", label: "Research", rows: [[CT.emails.find(e => /Research/.test(e.label)).label, CT.emails.find(e => /Research/.test(e.label)).value, "mail"]] },
+  { id: "hostels", label: "Hostels", rows: [[CT.emails.find(e => /Hostel/.test(e.label)).label, CT.emails.find(e => /Hostel/.test(e.label)).value, "mail"]] },
+  { id: "other", label: "Something else", rows: [...CT.phones.map(p => ["Main line", p, "tel"]), ["Helpline", CT.helpline, "tel"], ...CT.enquiry_numbers.map(p => ["Enquiries", p, "tel"])] }
+];
+const officePicker = () => `<div class="office" data-office>
+    <fieldset class="office__pick"><legend class="sr-only">Which office do you need?</legend>
+      <div class="route__opts">${OFFICES.map((o, i) => `<label class="optcard"><input type="radio" name="office" value="${o.id}"${i === 0 ? " checked" : ""}><span>${esc(o.label)}</span></label>`).join("")}</div>
+    </fieldset>
+    ${OFFICES.map((o, i) => `<div class="office__card" data-office-card="${o.id}"${i === 0 ? "" : " data-office-rest"}><h3 class="sub">${esc(o.label)}</h3><ul class="crows">${o.rows.map(r => contactRow(r[0], r[1], r[2])).join("")}</ul></div>`).join("")}
+    <p class="sr-only" aria-live="polite" data-copy-status></p>
+  </div>`;
+
+/* /academics: choose your campus (counts only from programs.json) */
+const campusChooser = () => {
+  const camps = CT.campuses.map(c => {
+    const code = Object.keys(CAMPUS).find(k => c.name.toLowerCase().includes(CAMPUS[k].split(" ")[0].toLowerCase()));
+    const list = code ? progs.filter(p => p.campus === code) : [];
+    const mix = Object.entries(LEVEL).map(([k, v]) => [v, list.filter(p => p.level === k).length]).filter(x => x[1]);
+    return { name: c.name, href: c.href, code, n: list.length, mix, colleges: [...new Set(list.map(p => P.colleges[p.college_idx]))] };
+  });
+  const card = c => `<li class="ccard camp">
+      <h3>${esc(c.name)}</h3>
+      ${c.n ? `<p class="camp__n"><b>${c.n}</b> programmes in this Program Finder</p><ul class="chips">${c.mix.map(([l, n]) => `<li>${esc(l)}: ${n}</li>`).join("")}</ul><div class="ccard__links"><a class="more" href="/programs/?campus=${c.code}">See these programmes</a></div>`
+        : `<div class="ccard__links">${ext(c.href, "See programmes on the campus site", "more")}</div>`}
+    </li>`;
+  const inData = camps.filter(c => c.n);
+  const sel = (id, i) => `<div class="pf__field"><label for="${id}">Campus ${i + 1}</label><select id="${id}" data-cc-sel>${inData.map((c, k) => `<option value="${k}"${k === i ? " selected" : ""}>${esc(c.name)}</option>`).join("")}</select></div>`;
+  const compare = inData.length >= 2 ? `<div class="cc" data-cc><h3 class="sub">Compare two campuses</h3><div class="cc__sel">${sel("cc-a", 0)}${sel("cc-b", 1)}</div>
+      <div class="tablewrap" tabindex="0" role="region" aria-label="Campus comparison" data-cc-out></div>
+      <p class="pf__subset">Counts are for programmes in this Program Finder. ${ext(P.full_list_link, "See the full programme list")}</p></div>` + jsonData("cc-data", inData) : "";
+  return sec("campus", "Choose your campus", null, `<ul class="cardgrid">${camps.map(card).join("")}</ul>${compare}`, { v: "cards" });
+};
+
+/* =====================================================================
    PAGES
    ===================================================================== */
 const pages = [];
@@ -312,6 +533,7 @@ pages.push({
       sec("colleges", "Colleges in the Program Finder", P.source.split(" - ")[1] || null, `<ul class="cardgrid cardgrid--img">${colleges.map(c => placeCard(c.title, `<div class="ccard__links"><a class="more" href="/programs/?college=${c.i}">${c.n} programmes in this list</a></div>`, collegePhoto(c.title))).join("")}</ul>`, { v: "cards" }) +
       sec("engineering", C("academics-engineering").title, C("academics-engineering").meta_description,
         `<a class="more" href="/academics/engineering-technology/">${esc(C("academics-engineering").title)}</a>`, { v: "split", img: "formula" }) +
+      campusChooser() +
       sec("minors", "Minors in engineering", null, bullets(P.minors_in_engineering, "chips"));
   }
 });
@@ -332,16 +554,19 @@ pages.push({
     const card = p => {
       const s = shown(p);
       return `<li class="prog" data-prog data-slug="${esc(p.slug)}" data-level="${p.level}" data-college="${p.college_idx}" data-campus="${p.campus}" data-duration="${s.duration || ""}" data-fee="${s.fee || ""}" data-text="${esc((p.name + " " + p.department + " " + P.colleges[p.college_idx]).toLowerCase())}">
-        <p class="prog__meta">${esc(LEVEL[p.level])} · ${esc(P.colleges[p.college_idx])}</p>
         <h3 class="prog__name">${progLink(p, esc(p.name))}</h3>
-        <dl class="prog__facts">
-          <div><dt>Department</dt><dd>${esc(p.department)}</dd></div>
+        <dl class="prog__row">
+          <div><dt>Level</dt><dd>${esc(LEVEL[p.level])}</dd></div>
+          <div><dt>College</dt><dd>${esc(P.colleges[p.college_idx])}</dd></div>
           <div><dt>Campus</dt><dd>${esc(CAMPUS[p.campus])}</dd></div>
           ${s.duration ? `<div><dt>Duration</dt><dd>${s.duration} years</dd></div>` : ""}
           ${s.fee ? `<div><dt>${feeLabel(p)}</dt><dd>${inr(s.fee)}</dd></div>` : ""}
           ${s.intake ? `<div><dt>Intake</dt><dd>${s.intake}</dd></div>` : ""}
         </dl>
-        <label class="prog__cmp"><input type="checkbox" data-compare value="${esc(p.slug)}"> Compare</label>
+        <div class="prog__acts">
+          <button class="tgl" type="button" aria-pressed="false" data-compare="${esc(p.slug)}"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5h5v10H4zM11 5h5v10h-5z"/></svg><span>Compare</span><span class="sr-only"> ${esc(p.name)}</span></button>
+          <button class="tgl tgl--heart" type="button" aria-pressed="false" data-save="${esc(p.slug)}"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 17s-6-3.8-6-8.2A3.3 3.3 0 0 1 10 6a3.3 3.3 0 0 1 6 2.8C16 13.2 10 17 10 17z"/></svg><span>Save</span><span class="sr-only"> ${esc(p.name)}</span></button>
+        </div>
       </li>`;
     };
     const finder = `<form class="pf" data-finder role="search" aria-label="Program Finder" onsubmit="return false">
@@ -351,13 +576,23 @@ pages.push({
         <div class="pf__field"><label for="pf-college">College</label><select id="pf-college" name="college"><option value="">All colleges</option>${colleges}</select></div>
         <div class="pf__field"><label for="pf-campus">Campus</label><select id="pf-campus" name="campus"><option value="">All campuses</option>${campuses}</select></div>
         <div class="pf__field"><label for="pf-duration">Duration</label><select id="pf-duration" name="duration"><option value="">Any duration</option>${durs}</select></div>
-        <div class="pf__field"><label for="pf-fee">Annual fee</label><select id="pf-fee" name="fee"><option value="">Any fee</option><option value="0-100000">Up to ₹1,00,000</option><option value="100001-250000">₹1,00,001 to ₹2,50,000</option><option value="250001-450000">₹2,50,001 to ₹4,50,000</option><option value="450001-99999999">Above ₹4,50,000</option></select></div>
+        <div class="pf__field"><label for="pf-fee">Annual fee up to</label><select id="pf-fee" name="maxfee"><option value="">Any fee</option><option value="100000">₹1,00,000</option><option value="250000">₹2,50,000</option><option value="300000">₹3,00,000</option><option value="450000">₹4,50,000</option></select></div>
       </div>
-      <div class="pf__bar"><p class="pf__count" data-count aria-live="polite">${progs.length} programmes</p><button class="pill" type="button" data-clear>Clear filters</button></div>
-      <p class="pf__subset">This list shows ${progs.length} selected programmes. ${ext(P.full_list_link, "See the full programme list")}</p>
+      <div class="pf__bar"><p class="pf__count" data-count aria-live="polite">${progs.length} programmes in this Program Finder</p>
+        <div class="pf__btns"><button class="pill" type="button" data-saved-open aria-haspopup="dialog" aria-controls="saved-drawer">Saved (<span data-saved-count>0</span>)</button><button class="pill" type="button" data-clear>Clear all</button></div></div>
+      <p class="pf__subset">This Program Finder lists ${progs.length} selected programmes. ${ext(P.full_list_link, "See the full programme list")}</p>
     </form>
     <ul class="proglist" data-proglist>${progs.map(card).join("")}</ul>
-    <div class="pf__empty" data-empty hidden><p>No programme in this list matches those filters.</p><button class="pill" type="button" data-clear>Clear filters</button> ${ext(P.full_list_link, "Search the full programme list", "more")}</div>`;
+    <div class="pf__empty" data-empty hidden><p>No programme in this Program Finder matches those filters.</p><button class="pill" type="button" data-clear>Clear all</button> ${ext(P.full_list_link, "Search the full programme list", "more")}</div>
+    <div class="ctray" data-ctray hidden><p class="ctray__txt" data-ctray-txt aria-live="polite"></p><a class="pill pill--blue" href="#compare" data-ctray-go>Compare (<span data-ctray-n>0</span>)</a><button class="pill" type="button" data-cmp-clear>Clear</button></div>
+    <div class="drawer" id="saved-drawer" role="dialog" aria-modal="true" aria-labelledby="saved-title" hidden data-saved>
+      <div class="drawer__box">
+        <div class="drawer__top"><h2 id="saved-title" class="drawer__title">Saved programmes</h2><button class="iconbtn" type="button" data-saved-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close saved programmes</span></button></div>
+        <ul class="saved__list" data-saved-list></ul>
+        <p class="saved__empty" data-saved-empty>Nothing saved yet. Use the heart on a programme to save it here.</p>
+        <div class="drawer__acts"><button class="pill pill--blue" type="button" data-saved-compare>Compare saved</button><button class="pill" type="button" data-saved-print>Print list</button></div>
+      </div>
+    </div>`;
     record("finder", "Program Finder", progs.map(p => p.name + " " + p.department).join(". "));
     const q = (name, legend, opts) => `<fieldset class="quiz__q"><legend>${legend}</legend>${opts.map(([v, t], i) => `<label><input type="radio" name="${name}" value="${v}"${i === 0 ? " required" : ""}> ${t}</label>`).join("")}</fieldset>`;
     const quiz = `<form class="quiz" data-quiz>
@@ -370,9 +605,8 @@ pages.push({
     </form>
     <div class="quiz__out" data-quiz-out aria-live="polite"></div>`;
     const compare = `<div class="cmp" data-compare-panel>
-      <p class="cmp__hint" data-cmp-hint>Tick “Compare” on two or three programmes in the finder above.</p>
+      <p class="cmp__hint" data-cmp-hint aria-live="polite">Press “Compare” on two or three programmes in the finder above.</p>
       <div class="cmp__table" data-cmp-table hidden tabindex="0" role="region" aria-label="Programme comparison"></div>
-      <button class="pill" type="button" data-cmp-clear hidden>Clear comparison</button>
     </div>`;
     return sec("finder", "Program Finder", null, finder) +
       sec("quiz", "Which course fits me", "Answer five questions to see the three programmes in this list that match you best.", quiz, { v: "cards" }) +
@@ -434,10 +668,7 @@ pages.push({
   lead: C("academics-departments").meta_description,
   body: () => {
     const e = C("academics-engineering");
-    return sec("list", "Departments", null, `<div class="finder"><label class="finder__label" for="dept-q">Filter departments</label><input class="finder__input" id="dept-q" type="search" placeholder="Try civil, data or aerospace" autocomplete="off" data-filter="[data-dept]" data-filter-empty="dept-empty"></div>
-      <ul class="index">${e.departments.map(d => `<li data-dept><h3>${esc(d)}</h3>${ext("https://www.srmist.edu.in/departments/", "Department page", "more")}</li>`).join("")}</ul>
-      <p class="finder__empty" id="dept-empty" hidden>No department matches that search.</p>
-      <p class="actions">${ext("https://www.srmist.edu.in/departments/", "All SRMIST departments", "pill")}</p>`);
+    return sec("list", "Departments and research centres", null, deptExplorer());
   }
 });
 
@@ -457,7 +688,7 @@ const genericSection = s => {
 };
 pages.push({
   route: "/admissions", template: "hub", bg: BG("off-admissions"), title: C("admissions").title, lead: C("admissions").description,
-  body: () => C("admissions").sections.map(genericSection).join("") +
+  body: () => routeSelector() + C("admissions").sections.map(genericSection).join("") +
     sec("more", "More in Admissions", null, linkList(nav.primary.find(p => p.label === "Admissions").children.map(c => ({ label: c.label, local: c.local }))))
 });
 
@@ -467,7 +698,8 @@ pages.push({
   title: C("admissions-india").title, lead: C("admissions-india").description,
   body: () => {
     const a = C("admissions-india");
-    return sec("colleges", "Apply by college", null, `<ul class="cardgrid cardgrid--img">${a.colleges.map(c => `<li class="ccard${collegePhoto(c.name) ? " ccard--img" : ""}" id="${slug(c.name)}">${collegePhoto(c.name) ? photo(collegePhoto(c.name), "ccard__img") : ""}<div class="ccard__in">
+    return sec("journey", "Your admission journey", "Tick each step as you finish it. Your progress stays in this browser.", indiaTracker(), { v: "list" }) +
+      sec("colleges", "Apply by college", null, `<ul class="cardgrid cardgrid--img">${a.colleges.map(c => `<li class="ccard${collegePhoto(c.name) ? " ccard--img" : ""}" id="${slug(c.name)}">${collegePhoto(c.name) ? photo(collegePhoto(c.name), "ccard__img") : ""}<div class="ccard__in">
         <h3>${esc(c.name)}</h3>
         ${c.apply && c.apply.length ? `<p class="ccard__label">Apply online</p>${linkList(c.apply)}` : ""}
         ${c.also && c.also.length ? `<p class="ccard__label">Also offered</p>${bullets(c.also)}` : ""}
@@ -520,7 +752,7 @@ pages.push({
     const table = `<div class="tablectl"><label for="sch-campus">Campus</label><select id="sch-campus" data-campus-select>${camps.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("")}</select> ${ext(s.source || "https://www.srmist.edu.in/admission-india/engineering/scholarships/", "All campuses", "more")}</div>
       <div class="tablewrap" tabindex="0" role="region" aria-label="Scholarship table"><table class="dtable"><caption class="sr-only">Scholarships by campus</caption><thead><tr>${t.columns.map(c => `<th scope="col">${esc(c)}</th>`).join("")}</tr></thead>
       <tbody>${t.rows.map(r => `<tr data-campus="${esc(r[0])}">${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-    return sec("table", "Scholarships by campus", null, table) +
+    return estimator() + sec("table", "Scholarships by campus", null, table) +
       sec("notes", "Notes", null, bullets(s.notes)) +
       sec("categories", "Scholarship categories", null, numCards(s.categories), { v: "cards" }) +
       sec("annexure", s.annexure_a.heading, null, bullets(s.annexure_a.items)) +
@@ -691,7 +923,8 @@ pages.push({
   route: "/contact", template: "contact", bg: BG("srm-university-campus-chennai-tamil-nadu"), title: C("contact").title, lead: C("contact").description,
   body: () => {
     const c = C("contact");
-    return sec("reach", "Reach us", null, `<div class="split2"><ul class="contact-list">
+    return sec("office", "Contact the right office", null, officePicker(), { v: "cards" }) +
+      sec("reach", "Reach us", null, `<div class="split2"><ul class="contact-list">
         <li><span>Address</span>${esc(c.address)}</li>
         <li><span>Phone</span>${c.phones.map(esc).join(", ")}</li>
         <li><span>Enquiries</span>${c.enquiry_numbers.map(esc).join(", ")}</li>
@@ -702,6 +935,30 @@ pages.push({
       sec("campuses", "Campuses", null, linkList(c.campuses.map(x => ({ text: x.name, href: x.href }))));
   }
 });
+
+/* ---- content: /parents (only facts from campus-life.json and campus-hostels.json) ---- */
+pages.push({
+  route: "/parents", template: "content", bg: BG("hostel-kalpana"), title: "For parents", lead: "",
+  description: "Safety, hostels, student care, fees and contacts for parents of SRMIST students.",
+  toc: [["safety", "Safety"], ["hostels", "Hostels and food"], ["care", "Student care"], ["fees", "Fees"], ["contacts", "Who to contact"]],
+  body: () => {
+    const c = C("campus-life"), h = C("campus-hostels");
+    return sec("safety", "Safety and 24-hour emergency", null, `<p>${esc(c.safety.text)}</p>`, { v: "split", img: "grounds" }) +
+      sec("hostels", "Hostels and food", null, para(h.intro.slice(0, 3)) + `<a class="more" href="/campus-life/hostels/">SRM Hostels</a>`, { v: "split", img: "hostelK" }) +
+      sec("care", "Anti-ragging and student care", null, pull(c.care.text) + bullets(c.support_links, "chips"), { v: "band" }) +
+      sec("fees", "Fees and scholarships", null, `<p>${esc(h.fees_and_booking_heading)}</p><p class="actions"><a class="pill pill--blue" href="/admissions/scholarships/#estimate">Estimate fees and scholarship</a> <a class="pill" href="/admissions/scholarships/">Scholarships</a></p>`, { v: "list" }) +
+      sec("contacts", "Who to contact", null, `<ul class="cardgrid">
+        <li class="ccard"><h3>${esc(h.director.role)}</h3><p>${esc(h.director.name)}</p><ul class="crows">${contactRow("Email", h.director.email, "mail")}${contactRow("Phone", h.director.phone, "tel")}</ul></li>
+        ${h.contacts.map(x => `<li class="ccard"><h3>${esc(x.group)}</h3><ul class="crows">${x.email ? contactRow("Email", x.email, "mail") : ""}${x.warden_email ? contactRow("Warden", x.warden_email, "mail") : ""}${(x.phones || []).slice(0, 2).map(ph => contactRow("Phone", ph, "tel")).join("")}${x.mobile ? contactRow("Mobile", x.mobile, "tel") : ""}${x.warden_mobile ? contactRow("Warden mobile", x.warden_mobile, "tel") : ""}</ul></li>`).join("")}
+        <li class="ccard"><h3>University</h3><ul class="crows">${CT.phones.map(ph => contactRow("Main line", ph, "tel")).join("")}${contactRow("Helpline", CT.helpline, "tel")}</ul></li>
+      </ul><p class="sr-only" aria-live="polite" data-copy-status></p>`, { v: "cards" });
+  }
+});
+
+/* ---------- programme data for Ask SRM's programme search (every page) ---------- */
+fs.mkdirSync(path.join(ROOT, "assets/data"), { recursive: true });
+fs.writeFileSync(path.join(ROOT, "assets/data/programs.json"), JSON.stringify({ colleges: P.colleges, levels: LEVEL, campuses: CAMPUS, full: P.full_list_link,
+  rows: progs.map(p => ({ slug: p.slug, name: p.name, level: p.level, college_idx: p.college_idx, department: p.department, campus: p.campus, duration: shown(p).duration, fee: shown(p).fee, intake: shown(p).intake, href: progHref(p), feeLabel: feeLabel(p) })) }));
 
 /* ---------- write pages ---------- */
 for (const p of pages) render(p);
@@ -716,8 +973,34 @@ const swap = (src, name, startRe, endStr, html) => {
   const e = src.indexOf(endStr, s) + endStr.length;
   return src.slice(0, s) + html + src.slice(e);
 };
+current = { route: "/", title: "Home" };
 home = swap(home, "header", /<header class="header">/, "</div>\n</div>\n", header() + "\n");
 home = swap(home, "audience", /<nav class="iam"/, "</ul></div></nav>", audienceBar());
+/* shortcut cards (links only from nav.json) with the audience switcher above them */
+const navFind = label => { for (const p of nav.primary) { if (p.label === label) return { label: p.label, href: local(p.local) }; for (const c of p.children || []) if (c.label === label) return c.local ? { label: c.label, href: local(c.local) } : null; } const s2 = nav.secondary_bar.find(x => x.label === label); return s2 && s2.local ? { label: s2.label, href: local(s2.local) } : null; };
+const SHORT = ["Programs", "Admission India", "Admission International", "Scholarships", "Hostels", "Campus Life", "Placement Statistics", "International", "Research", "Innovation & Incubation", "Departments", "Accreditations & Rankings", "Contact"].map(navFind).filter(Boolean);
+SHORT.splice(1, 0, { label: "Parents", href: local(nav.audience_ext.Parents) });
+const AUDIENCES = {
+  student: ["Programs", "Admission India", "Scholarships", "Hostels", "Campus Life", "Placement Statistics"],
+  parent: ["Parents", "Hostels", "Scholarships", "Admission India", "Contact", "Placement Statistics"],
+  international: ["Admission International", "International", "Programs", "Hostels", "Scholarships", "Contact"],
+  researcher: ["Research", "Innovation & Incubation", "Departments", "Accreditations & Rankings", "Programs", "Contact"]
+};
+const studentOrder = [...AUDIENCES.student, ...SHORT.map(x => x.label).filter(l => !AUDIENCES.student.includes(l))];
+const shortcuts = `<!-- build:shortcuts -->
+<section class="shortcuts wrap" aria-labelledby="shortcuts-title" data-shortcuts>
+  <div class="aud" role="radiogroup" aria-labelledby="aud-label" data-aud><span class="aud__label" id="aud-label">I am a</span>
+    ${[["student", "Student"], ["parent", "Parent"], ["international", "International"], ["researcher", "Researcher"]].map(([v, t], i) => `<label class="aud__opt"><input type="radio" name="aud" value="${v}"${i === 0 ? " checked" : ""}><span>${t}</span></label>`).join("")}
+  </div>
+  <h2 class="shortcuts__title" id="shortcuts-title" data-aud-title>Popular with students</h2>
+  <ul class="shortcuts__list" data-aud-list>${studentOrder.map(l => SHORT.find(x => x.label === l)).map(x => `<li data-aud-item="${esc(x.label)}"><a class="shortcut" href="${x.href}">${esc(x.label)}</a></li>`).join("")}</ul>
+  ${jsonData("aud-data", AUDIENCES)}
+</section>
+<!-- /build:shortcuts -->`;
+if (home.includes("<!-- build:shortcuts -->")) home = swap(home, "shortcuts", /x^/, "", shortcuts);
+else home = home.replace("<!-- /build:audience -->", "<!-- /build:audience -->\n" + shortcuts);
+if (!home.includes('localStorage.getItem("srm-prefs")')) home = home.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n' + PREPAINT);
+if (!home.includes("/assets/js/features.js")) home = home.replace('<script src="assets/js/site.js" defer></script>', '<script src="assets/js/site.js" defer></script>\n<script src="/assets/js/features.js" defer></script>');
 home = swap(home, "footer", /<!-- Footer:[^\n]*\n<footer|<footer class="footer"/, "</footer>", footer());
 home = home
   .replace(/<title>[^<]*<\/title>/, "<title>SRM Institute of Science and Technology | Kattankulathur, Chennai</title>")

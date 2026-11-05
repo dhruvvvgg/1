@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Admission India | SRM Institute of Science and Technology</title>
 <meta name="description" content="SRMIST offers admission to Engineering, Medical, Management and Science &amp; Humanities students. The university also extends several scholarships, fee waiver schemes, teaching and research assistance to meritorious and deserving students.">
+<script>
+(function () { try {
+  var p = JSON.parse(localStorage.getItem("srm-prefs") || "{}"), c = document.documentElement.classList;
+  if (p.size) c.add("pref-size-" + p.size);
+  if (p.contrast) c.add("pref-contrast");
+  if (p.dyslexia) c.add("pref-dyslexia");
+  if (p.motion) c.add("pref-motion");
+} catch (e) {} })();
+</script>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#fafafa">
 <link rel="icon" href="data:,">
@@ -20,15 +29,61 @@
 <header class="header">
   <div class="wrap">
     <a class="brand" href="/"><img src="/assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
-    <nav class="nav" aria-label="Main">
-      <a href="/academics/">Academics</a>
-      <a href="/admissions/">Admissions</a>
-      <a href="/research/">Research</a>
-      <a href="/campus-life/">Campus Life</a>
-      <a href="/placements/">Placements</a>
-      <a href="/international/">International</a>
-      <a href="/about/">About</a>
+    <nav class="nav" aria-label="Main" data-nav>
+      <div class="nav__item" data-dd>
+        <a class="nav__top" href="/academics/">Academics</a>
+        <button class="nav__caret" type="button" aria-expanded="false" aria-controls="dd-academics"><span class="sr-only">Academics pages</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="nav__panel" id="dd-academics" hidden><ul>
+          <li><a href="/academics/">Academics overview</a></li>
+          <li><a href="/programs/">Programs</a></li><li><a href="/academics/engineering-technology/">Engineering &amp; Technology</a></li><li><a href="/academics/departments/">Departments</a></li><li><a href="https://www.srmist.edu.in/college/college-of-medicine-health-sciences/" target="_blank" rel="noopener noreferrer" data-ext>Medical &amp; Health Sciences<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/college/faculty-of-management/" target="_blank" rel="noopener noreferrer" data-ext>Management<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/college/faculty-of-science-humanities/" target="_blank" rel="noopener noreferrer" data-ext>Science &amp; Humanities<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/college/school-of-law/" target="_blank" rel="noopener noreferrer" data-ext>Law<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/college/srm-college-of-agricultural-sciences/" target="_blank" rel="noopener noreferrer" data-ext>Agricultural Sciences<span class="sr-only"> (opens the original SRMIST site)</span></a></li>
+        </ul></div>
+      </div>
+      <div class="nav__item" data-dd>
+        <a class="nav__top" href="/admissions/" aria-current="true">Admissions</a>
+        <button class="nav__caret" type="button" aria-expanded="false" aria-controls="dd-admissions"><span class="sr-only">Admissions pages</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="nav__panel" id="dd-admissions" hidden><ul>
+          <li><a href="/admissions/">Admissions overview</a></li>
+          <li><a href="/admissions/india/" aria-current="page">Admission India</a></li><li><a href="/admissions/international/">Admission International</a></li><li><a href="/admissions/scholarships/">Scholarships</a></li>
+        </ul></div>
+      </div>
+      <div class="nav__item" data-dd>
+        <a class="nav__top" href="/research/">Research</a>
+        <button class="nav__caret" type="button" aria-expanded="false" aria-controls="dd-research"><span class="sr-only">Research pages</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="nav__panel" id="dd-research" hidden><ul>
+          <li><a href="/research/">Research overview</a></li>
+          <li><a href="/research/innovation-incubation/">Innovation &amp; Incubation</a></li>
+        </ul></div>
+      </div>
+      <div class="nav__item" data-dd>
+        <a class="nav__top" href="/campus-life/">Campus Life</a>
+        <button class="nav__caret" type="button" aria-expanded="false" aria-controls="dd-campus-life"><span class="sr-only">Campus Life pages</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="nav__panel" id="dd-campus-life" hidden><ul>
+          <li><a href="/campus-life/">Campus Life overview</a></li>
+          <li><a href="/campus-life/hostels/">Hostels</a></li><li><a href="https://www.srmist.edu.in/student-clubs/" target="_blank" rel="noopener noreferrer" data-ext>Student Clubs<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/library/" target="_blank" rel="noopener noreferrer" data-ext>Library<span class="sr-only"> (opens the original SRMIST site)</span></a></li>
+        </ul></div>
+      </div>
+      <div class="nav__item" data-dd>
+        <a class="nav__top" href="/placements/">Placements</a>
+        <button class="nav__caret" type="button" aria-expanded="false" aria-controls="dd-placements"><span class="sr-only">Placements pages</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="nav__panel" id="dd-placements" hidden><ul>
+          <li><a href="/placements/">Placements overview</a></li>
+          <li><a href="/placements/statistics/">Placement Statistics</a></li>
+        </ul></div>
+      </div>
+      <a class="nav__top" href="/international/">International</a>
+      <div class="nav__item" data-dd>
+        <a class="nav__top" href="/about/">About</a>
+        <button class="nav__caret" type="button" aria-expanded="false" aria-controls="dd-about"><span class="sr-only">About pages</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <div class="nav__panel" id="dd-about" hidden><ul>
+          <li><a href="/about/">About overview</a></li>
+          <li><a href="/about/accreditations-rankings/">Accreditations &amp; Rankings</a></li><li><a href="/news-events/">News &amp; Events</a></li>
+        </ul></div>
+      </div>
     </nav>
+    <div class="hdr-tools">
+      <button class="hdr-btn hdr-btn--ask" type="button" data-ask-open aria-haspopup="dialog" aria-controls="ask-panel"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5"/></svg><span>Ask SRM</span><kbd class="hdr-kbd" aria-hidden="true">Ctrl K</kbd></button>
+      <button class="hdr-btn hdr-btn--aa" type="button" data-prefs-open aria-expanded="false" aria-controls="prefs-panel"><span aria-hidden="true">Aa</span><span class="sr-only">Reading preferences</span></button>
+    </div>
     <a class="pill pill--accent header__apply" href="https://www.srmist.edu.in/admission-india/" target="_blank" rel="noopener noreferrer" data-ext>Apply now<span class="sr-only"> (opens the original SRMIST site)</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
@@ -59,12 +114,52 @@
     <ul class="menu__campuses ui" aria-label="Campuses"><li><a href="https://www.srmist.edu.in" target="_blank" rel="noopener noreferrer" data-ext>Kattankulathur – Chennai<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://srmrmp.edu.in/ramapuram-campus/" target="_blank" rel="noopener noreferrer" data-ext>Ramapuram – Chennai<span class="sr-only"> (opens an external site in a new tab)</span></a></li><li><a href="https://www.srmistvdp.edu.in/" target="_blank" rel="noopener noreferrer" data-ext>Vadapalani – Chennai<span class="sr-only"> (opens an external site in a new tab)</span></a></li><li><a href="https://srmtrichy.edu.in/" target="_blank" rel="noopener noreferrer" data-ext>Tiruchirappalli<span class="sr-only"> (opens an external site in a new tab)</span></a></li><li><a href="https://www.srmimt.net/" target="_blank" rel="noopener noreferrer" data-ext>Delhi – NCR<span class="sr-only"> (opens an external site in a new tab)</span></a></li></ul>
   </div>
 </div>
+
+<div class="prefs" id="prefs-panel" role="dialog" aria-labelledby="prefs-title" hidden data-prefs>
+  <div class="prefs__top"><h2 id="prefs-title" class="prefs__title">Reading preferences</h2>
+    <button class="iconbtn" type="button" data-prefs-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close reading preferences</span></button></div>
+  <fieldset class="prefs__group"><legend>Text size</legend>
+    <div class="seg"><label class="seg__opt"><input type="radio" name="pref-size" value="0" checked><span>Default</span></label><label class="seg__opt"><input type="radio" name="pref-size" value="1"><span>Large</span></label><label class="seg__opt"><input type="radio" name="pref-size" value="2"><span>Larger</span></label></div>
+  </fieldset>
+  <label class="switch"><input type="checkbox" data-pref="contrast"><span>High contrast</span></label>
+  <label class="switch"><input type="checkbox" data-pref="dyslexia"><span>Dyslexia-friendly font</span></label>
+  <label class="switch"><input type="checkbox" data-pref="motion"><span>Reduce motion</span></label>
+  <button class="pill" type="button" data-prefs-reset>Reset</button>
+  <p class="sr-only" aria-live="polite" data-prefs-status></p>
+</div>
+
+<div class="askp" id="ask-panel" role="dialog" aria-modal="true" aria-labelledby="askp-title" hidden data-askp>
+  <div class="askp__box">
+    <div class="askp__top"><h2 id="askp-title" class="askp__title">Ask SRM</h2>
+      <button class="iconbtn" type="button" data-askp-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close Ask SRM</span></button></div>
+    <form class="askp__form" role="search" data-askp-form>
+      <label class="sr-only" for="askp-q">Ask a question or describe a programme</label>
+      <input id="askp-q" type="search" autocomplete="off" placeholder="Ask a question, or try “B.Tech under 3 lakh”">
+      <button class="pill pill--ink" type="submit">Ask</button>
+    </form>
+    <div class="askp__chips">
+      <p class="askp__label" id="askp-sq">Suggested questions</p>
+      <ul class="chipbtns" aria-labelledby="askp-sq"><li><button type="button" class="chipbtn" data-ask-chip>How do I book a hostel?</button></li><li><button type="button" class="chipbtn" data-ask-chip>What scholarships are there for engineering?</button></li><li><button type="button" class="chipbtn" data-ask-chip>How do international students apply?</button></li><li><button type="button" class="chipbtn" data-ask-chip>Who do I contact at the Career Centre?</button></li></ul>
+      <p class="askp__label" id="askp-pq">Find programmes</p>
+      <ul class="chipbtns" aria-labelledby="askp-pq"><li><button type="button" class="chipbtn" data-ask-chip>B.Tech under 3 lakh at Kattankulathur</button></li><li><button type="button" class="chipbtn" data-ask-chip>Law programmes</button></li><li><button type="button" class="chipbtn" data-ask-chip>MBA at Kattankulathur</button></li><li><button type="button" class="chipbtn" data-ask-chip>Diploma programmes</button></li><li><button type="button" class="chipbtn" data-ask-chip>Undergraduate under 1 lakh</button></li><li><button type="button" class="chipbtn" data-ask-chip>Agriculture programmes</button></li></ul>
+    </div>
+    <div class="askp__out" aria-live="polite" data-askp-out></div>
+    <p class="ai__note">Answers are quoted from this site’s pages, with a link to each source.</p>
+  </div>
+</div>
+
+<nav class="mbar" aria-label="Quick actions" data-mbar>
+  <a class="mbar__item" href="/programs/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Programs</span></a>
+  <a class="mbar__item" href="/admissions/scholarships/#estimate"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10M7 8h10M7 4c5 0 5 8 0 8l8 8"/></svg><span>Fees</span></a>
+  <a class="mbar__item" href="tel:+914427417000"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>Call</span></a>
+  <a class="mbar__item mbar__item--apply" href="https://www.srmist.edu.in/admission-india/" target="_blank" rel="noopener noreferrer" data-ext>Apply<span class="sr-only"> (opens the original SRMIST site)</span></a>
+</nav>
 <!-- /build:header -->
 <!-- build:audience -->
 <nav class="iam" aria-label="Information for"><div class="wrap"><span class="iam__label">For</span><ul>
   <li><a href="https://www.srmist.edu.in/students/" target="_blank" rel="noopener noreferrer" data-ext>Students<span class="sr-only"> (opens the original SRMIST site)</span></a></li>
   <li><a href="https://www.srmist.edu.in/faculty-staff/" target="_blank" rel="noopener noreferrer" data-ext>Faculty &amp; Staff<span class="sr-only"> (opens the original SRMIST site)</span></a></li>
-  <li><a href="https://www.srmist.edu.in/parents/" target="_blank" rel="noopener noreferrer" data-ext>Parents<span class="sr-only"> (opens the original SRMIST site)</span></a></li>
+  <li><a href="/parents/">Parents</a></li>
   <li><a href="/contact/">Visitors</a></li>
   <li><a href="https://www.srmist.edu.in/alumni/" target="_blank" rel="noopener noreferrer" data-ext>Alumni<span class="sr-only"> (opens the original SRMIST site)</span></a></li>
   <li><a href="https://www.srmist.edu.in/examinations/" target="_blank" rel="noopener noreferrer" data-ext>Examinations<span class="sr-only"> (opens the original SRMIST site)</span></a></li>
@@ -80,7 +175,29 @@
   </section>
   <nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/admissions/">Admissions</a></li><li aria-current="page">Admission India</li></ol></nav>
   
-<section class="sec sec--cards section section--tight wrap" id="colleges" aria-labelledby="colleges-h">
+<section class="sec sec--list section section--tight wrap" id="journey" aria-labelledby="journey-h">
+  <div class="s-head"><h2 id="journey-h">Your admission journey</h2><p class="lead">Tick each step as you finish it. Your progress stays in this browser.</p></div>
+  <div class="checklist" data-checklist="india-2027">
+      <div class="checklist__progress"><p data-cl-count aria-live="polite">0 of 7 steps done</p><div class="checklist__bar" aria-hidden="true"><span data-cl-bar></span></div></div>
+      <ol class="checklist__steps"><li class="clstep" data-cl-step="advisory">
+        <div class="clstep__head"><input type="checkbox" id="cli-advisory" data-cl-check="advisory"><label for="cli-advisory"><span class="clstep__n">Step 1</span> Read the public advisory</label></div>
+        <div class="clstep__body"><p>Use only the official website and contacts. <a href="#advisory">Public Advisory</a></p></div></li><li class="clstep" data-cl-step="college">
+        <div class="clstep__head"><input type="checkbox" id="cli-college" data-cl-check="college"><label for="cli-college"><span class="clstep__n">Step 2</span> Choose your college</label></div>
+        <div class="clstep__body"><ul class="chips"><li><a href="#engineering-and-technology">Engineering &amp; Technology</a></li><li><a href="#medicine-and-health-sciences">Medicine &amp; Health Sciences</a></li><li><a href="#management">Management</a></li><li><a href="#liberal-arts-and-business-studies">Liberal Arts and Business Studies</a></li><li><a href="#hotel-and-catering-management">Hotel &amp; Catering Management</a></li><li><a href="#agricultural-sciences">Agricultural Sciences</a></li><li><a href="#law">Law</a></li><li><a href="#distance-education">Distance Education</a></li><li><a href="#ph-d-all-schools-and-faculties">Ph.D (all Schools &amp; Faculties)</a></li></ul></div></li><li class="clstep" data-cl-step="download">
+        <div class="clstep__head"><input type="checkbox" id="cli-download" data-cl-check="download"><label for="cli-download"><span class="clstep__n">Step 3</span> Download the prospectus and dates</label></div>
+        <div class="clstep__body"><ul class="trk__grp"><li><p class="trk__who">Engineering &amp; Technology</p><ul class="linklist"><li><a href="https://webstor.srmist.edu.in/web_assets/downloads/2027/important-dates-for-srmjeee-ug-2027.pdf" target="_blank" rel="noopener noreferrer" data-ext>Important Dates for SRMJEEE UG - 2027<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://webstor.srmist.edu.in/web_assets/downloads/2025/engineering-and-technology-2025-26-prospectus.pdf" target="_blank" rel="noopener noreferrer" data-ext>Download Prospectus<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Medicine &amp; Health Sciences</p><ul class="linklist"><li><a href="https://webstor.srmist.edu.in/web_assets/downloads/2024/srmjeeh-health-science-ug-srmjeel-law-ug-entrance-exam-manual-phase-2.pdf" target="_blank" rel="noopener noreferrer" data-ext>Health Science UG Instruction Manual<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://webstor.srmist.edu.in/web_assets/downloads/2024/srmjeeh-health-science-pg-entrance-exam-manual.pdf" target="_blank" rel="noopener noreferrer" data-ext>Health Science PG Instruction Manual<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="http://webstor.srmist.edu.in/web_assets/downloads/2021/medicine-info.pdf" target="_blank" rel="noopener noreferrer" data-ext>Download Prospectus<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Management</p><ul class="linklist"><li><a href="https://webstor.srmist.edu.in/web_assets/downloads/2024/srmjeem-mba-entrance-exam-manual-phase-3.pdf" target="_blank" rel="noopener noreferrer" data-ext>SRMJEEM Instruction Manual<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="http://webstor.srmist.edu.in/web_assets/downloads/2021/management-info.pdf" target="_blank" rel="noopener noreferrer" data-ext>Download Prospectus<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Liberal Arts and Business Studies</p><ul class="linklist"><li><a href="http://webstor.srmist.edu.in/web_assets/downloads/2021/science-humanities-info.pdf" target="_blank" rel="noopener noreferrer" data-ext>Download Prospectus<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Hotel &amp; Catering Management</p><ul class="linklist"><li><a href="http://webstor.srmist.edu.in/web_assets/downloads/2021/hotel-mgmt-info.pdf" target="_blank" rel="noopener noreferrer" data-ext>Download Prospectus<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Agricultural Sciences</p><ul class="linklist"><li><a href="http://webstor.srmist.edu.in/web_assets/srm_mainsite/files/2020/fas-brochure-01-04-2020.pdf" target="_blank" rel="noopener noreferrer" data-ext>Download Prospectus<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li></ul></div></li><li class="clstep" data-cl-step="apply">
+        <div class="clstep__head"><input type="checkbox" id="cli-apply" data-cl-check="apply"><label for="cli-apply"><span class="clstep__n">Step 4</span> Apply on the official portal</label></div>
+        <div class="clstep__body"><ul class="trk__grp"><li><p class="trk__who">Engineering &amp; Technology</p><ul class="linklist"><li><a href="https://applications.srmist.edu.in/btech" target="_blank" rel="noopener noreferrer" data-ext>B.Tech / M.Tech (Integrated)<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/m-tech" target="_blank" rel="noopener noreferrer" data-ext>M.Tech<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/architecture-and-design" target="_blank" rel="noopener noreferrer" data-ext>B.Arch / B.Design<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/m-arch-m-des" target="_blank" rel="noopener noreferrer" data-ext>M.Arch / M.Des<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/pg-diploma" target="_blank" rel="noopener noreferrer" data-ext>PG Diploma in Genetic Counseling<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Medicine &amp; Health Sciences</p><ul class="linklist"><li><a href="https://applications.srmist.edu.in/srmhs" target="_blank" rel="noopener noreferrer" data-ext>Health Science UG<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/hspg" target="_blank" rel="noopener noreferrer" data-ext>Health Science PG<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/health-science-ug-ncahp-application-form" target="_blank" rel="noopener noreferrer" data-ext>Health Science UG NCAHP<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/post-pg" target="_blank" rel="noopener noreferrer" data-ext>Health Science Post PG<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://medical.srmist.edu.in/campaign/mbbs-md-ms-2025-26/" target="_blank" rel="noopener noreferrer" data-ext>MBBS Admissions<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://dental.srmist.edu.in/campaign/bds-mds-2023-24/" target="_blank" rel="noopener noreferrer" data-ext>BDS Admissions<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://medical.srmist.edu.in/campaign/mbbs-md-ms-2023-24/" target="_blank" rel="noopener noreferrer" data-ext>MD / MS Admission<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://medicalresearch.srmist.edu.in/phd-admission/" target="_blank" rel="noopener noreferrer" data-ext>Division of Medical Research PhD Admissions<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Management</p><ul class="linklist"><li><a href="https://applications.srmist.edu.in/bba" target="_blank" rel="noopener noreferrer" data-ext>BBA<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/mba" target="_blank" rel="noopener noreferrer" data-ext>MBA<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Liberal Arts and Business Studies</p><ul class="linklist"><li><a href="https://applications.srmist.edu.in/science-and-humanities" target="_blank" rel="noopener noreferrer" data-ext>Under Graduate [UG] - B.A., B.Sc., B.Ed., Bs, B.Com, BCA &amp; Diploma<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/science-and-humanities-pg" target="_blank" rel="noopener noreferrer" data-ext>Post Graduate [PG] - M.A., M.Com, M.Sc., M.C.A., and M.S.W.<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/srmist-tvgs-aima-music-dance-teacher-training-programmes/" target="_blank" rel="noopener noreferrer" data-ext>Diploma in Music Teacher Training / Certificate in Music / Dance (Know more)<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Hotel &amp; Catering Management</p><ul class="linklist"><li><a href="https://applications.srmist.edu.in/hcma" target="_blank" rel="noopener noreferrer" data-ext>Hotel and Catering Management [UG]<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/hotel-and-catering-management-pg-application-form" target="_blank" rel="noopener noreferrer" data-ext>Hotel and Catering Management [PG]<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Agricultural Sciences</p><ul class="linklist"><li><a href="https://applications.srmist.edu.in/agricultural-sciences-form" target="_blank" rel="noopener noreferrer" data-ext>Agricultural UG<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/pg-agricultural-sciences-form" target="_blank" rel="noopener noreferrer" data-ext>Agricultural PG<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Law</p><ul class="linklist"><li><a href="https://applications.srmist.edu.in/law" target="_blank" rel="noopener noreferrer" data-ext>5 Year Integrated Law Courses<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/llb" target="_blank" rel="noopener noreferrer" data-ext>LL.B (Hons)<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/llm-application" target="_blank" rel="noopener noreferrer" data-ext>LL.M [PG]<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/law-ug-application-form" target="_blank" rel="noopener noreferrer" data-ext>B.A. (Hons)<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://applications.srmist.edu.in/law-ma-application-form" target="_blank" rel="noopener noreferrer" data-ext>M.A.<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Distance Education</p><ul class="linklist"><li><a href="https://admissions.srmist.edu.in/srmistonline/distanceeducation" target="_blank" rel="noopener noreferrer" data-ext>Apply Now (All Programs)<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li><li><p class="trk__who">Ph.D (all Schools &amp; Faculties)</p><ul class="linklist"><li><a href="https://admissions.srmist.edu.in/srmistonline/phdapplication" target="_blank" rel="noopener noreferrer" data-ext>Apply Now (All Programs)<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul></li></ul></div></li><li class="clstep" data-cl-step="scholarship">
+        <div class="clstep__head"><input type="checkbox" id="cli-scholarship" data-cl-check="scholarship"><label for="cli-scholarship"><span class="clstep__n">Step 5</span> Check scholarships and fees</label></div>
+        <div class="clstep__body"><p><a class="more" href="/admissions/scholarships/#estimate">Estimate your fees and scholarship</a></p></div></li><li class="clstep" data-cl-step="hostel">
+        <div class="clstep__head"><input type="checkbox" id="cli-hostel" data-cl-check="hostel"><label for="cli-hostel"><span class="clstep__n">Step 6</span> Plan your hostel</label></div>
+        <div class="clstep__body"><p><a class="more" href="/campus-life/hostels/">SRM Hostels</a></p></div></li><li class="clstep" data-cl-step="contact">
+        <div class="clstep__head"><input type="checkbox" id="cli-contact" data-cl-check="contact"><label for="cli-contact"><span class="clstep__n">Step 7</span> Contact admissions with questions</label></div>
+        <div class="clstep__body"><ul class="crows"><li class="crow"><span class="crow__label">Admissions (India)</span><a class="crow__val" href="mailto:admissions.india@srmist.edu.in">admissions.india@srmist.edu.in</a><button class="copybtn" type="button" data-copy="admissions.india@srmist.edu.in">Copy<span class="sr-only"> Admissions (India)</span></button></li><li class="crow"><span class="crow__label">Engineering, Agriculture, and Architecture</span><a class="crow__val" href="tel:+917026452645">+91 70 2645 2645</a><button class="copybtn" type="button" data-copy="+91 70 2645 2645">Copy<span class="sr-only"> Engineering, Agriculture, and Architecture</span></button></li><li class="crow"><span class="crow__label">Liberal Arts and Business Studies (formerly Science and Humanities), Law, Management, Medical and Allied Health Sciences, and Hotel Management</span><a class="crow__val" href="tel:+917026472647">+91 70 2647 2647</a><button class="copybtn" type="button" data-copy="+91 70 2647 2647">Copy<span class="sr-only"> Liberal Arts and Business Studies (formerly Science and Humanities), Law, Management, Medical and Allied Health Sciences, and Hotel Management</span></button></li></ul></div></li></ol>
+      <div class="cl-reset"><button class="pill" type="button" data-cl-reset>Reset tracker</button>
+        <span class="cl-confirm" data-cl-confirm hidden>Clear all ticks? <button class="pill pill--blue" type="button" data-cl-yes>Yes, reset</button> <button class="pill" type="button" data-cl-no>Keep them</button></span></div>
+    </div>
+</section><section class="sec sec--cards section section--tight wrap" id="colleges" aria-labelledby="colleges-h">
   <div class="s-head"><h2 id="colleges-h">Apply by college</h2></div>
   <ul class="cardgrid cardgrid--img"><li class="ccard ccard--img" id="engineering-and-technology"><img class="ccard__img" src="/assets/img/bg/tech-park.webp" alt="The SRM Tech Park building with its yellow and blue facade" width="1920" height="1029" loading="lazy" decoding="async"><div class="ccard__in">
         <h3>Engineering &amp; Technology</h3>
@@ -168,7 +285,7 @@
     <p class="footer__copyright">© 2026 SRM Institute of Science and Technology.<br><span class="footer__proposal">Redesign proposal for SRMIST</span></p>
   </div>
   <div class="footer__legal">
-    <ul><li><a href="/contact/">Contact</a></li><li><a href="https://www.srmist.edu.in/privacy-policy/" target="_blank" rel="noopener noreferrer" data-ext>Privacy<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/terms-and-conditions/" target="_blank" rel="noopener noreferrer" data-ext>Terms<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/iqac/public-disclosure/" target="_blank" rel="noopener noreferrer" data-ext>Mandatory disclosures<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul>
+    <ul><li><a href="/contact/">Contact</a></li><li><a href="/parents/">Parents</a></li><li><a href="https://www.srmist.edu.in/privacy-policy/" target="_blank" rel="noopener noreferrer" data-ext>Privacy<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/terms-and-conditions/" target="_blank" rel="noopener noreferrer" data-ext>Terms<span class="sr-only"> (opens the original SRMIST site)</span></a></li><li><a href="https://www.srmist.edu.in/iqac/public-disclosure/" target="_blank" rel="noopener noreferrer" data-ext>Mandatory disclosures<span class="sr-only"> (opens the original SRMIST site)</span></a></li></ul>
   </div>
   </div>
   <figure class="campus-ending">
@@ -177,6 +294,7 @@
 </footer>
 <!-- /build:footer -->
 <script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/features.js" defer></script>
 <script src="/assets/js/inner.js" defer></script>
 </body>
 </html>
