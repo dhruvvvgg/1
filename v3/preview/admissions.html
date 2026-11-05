@@ -1243,7 +1243,10 @@ html.intro-skip .intro { display: none !important; }
       const transform = `translate(${width / 2} ${height / 2}) scale(${scale}) translate(${-focusX} ${-focusY})`;
       seal.setAttribute("transform", transform);
       windows.setAttribute("transform", transform);
-      windows.setAttribute("opacity", String(Math.max(0, Math.min(1, (progress - 0.34) / 0.15))));
+      // Ease the solid tree aperture open: the original blue details blend away
+      // with the white tree rather than switching to a different drawing.
+      const opening = Math.max(0, Math.min(1, (progress - 0.34) / 0.15));
+      windows.setAttribute("opacity", String(opening * opening * (3 - 2 * opening)));
       if (progress > 0.65) root.classList.remove("intro-hold");
     };
     if (!root.classList.contains("intro-on") || motion.matches) intro.remove();

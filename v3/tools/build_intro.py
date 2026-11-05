@@ -11,7 +11,7 @@ def path(p,fill=None,d=None):
  if d:attrs['d']=d
  return '<path '+ ' '.join(f'{k}="{v}"' for k,v in attrs.items())+'/>'
 # Keep only the original outer contour: internal counters are blue branch/leaf details.
-# Use this same solid silhouette for both the opening artwork and reveal aperture.
+# Preserve the detailed opening artwork; only the aperture uses the solid silhouette.
 tree_contours = re.findall(r"[Mm][^Mm]*", paths[136].get("d"))
 assert len(tree_contours) == 400 and tree_contours[0].rstrip().endswith(("Z", "z"))
 tree_outline = tree_contours[0]
@@ -27,7 +27,7 @@ svg='''<svg class="intro__scene" aria-hidden="true" width="100%" height="100%">
   </mask>
  </defs>
  <g mask="url(#intro-reveal)"><rect class="intro__cover" width="100%" height="100%"/>
-  <g data-intro-seal>'''+''.join(path(p,d=tree_outline if i==136 else None) for i,p in enumerate(paths[32:345],start=32))+'''</g>
+  <g data-intro-seal>'''+''.join(path(p) for p in paths[32:345])+'''</g>
  </g>
 </svg>'''
 p=ROOT/'index.html';s=p.read_text();start=s.index('<div class="intro"');end=s.index('<a class="skip"',start)

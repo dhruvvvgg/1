@@ -2,7 +2,7 @@
 
 Based on `claude/srm-homepage-redesign` at `620853d`. The source logo is unchanged.
 
-The complete seal starts opaque. Only the tree becomes transparent during the zoom. Its aperture and opening artwork use only the original SVG tree’s outer contour. Internal blue branch and leaf details are filled, producing one solid silhouette without changing its outer edge. The blue field, gold ring, lettering and foreground ribbon remain solid. A luminance mask cuts the tree through both the seal and its full-page cover; neither the artwork nor the cover fades away.
+The complete seal starts opaque. Only the tree becomes transparent during the zoom. The opening artwork retains the original blue branch and leaf details. The aperture uses only the original SVG tree’s outer contour, so a smooth eased reveal blends both those details and the white tree into the page as zooming starts. No silhouette swap occurs; the completed opening is one uninterrupted tree silhouette. The blue field, gold ring, lettering and foreground ribbon remain solid. A luminance mask cuts the tree through both the seal and its full-page cover; neither the artwork nor the cover fades away.
 
 The artwork and aperture share one transform, fixed at the seal centre (89, 89), which stays at the viewport centre throughout playback. The final magnification expands the central tree opening beyond the viewport. Playback lasts 3.3 seconds, with a 5.5-second cleanup safeguard.
 
