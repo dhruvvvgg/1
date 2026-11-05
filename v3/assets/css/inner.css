@@ -293,8 +293,6 @@
 @media (max-width: 640px) { .hdr-btn--ask > span:not(.sr-only) { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .hdr-btn { padding: 0; width: 44px; } .hdr-tools { margin-left: auto; } .hdr-tools + .header__apply + .menu-btn, .hdr-tools ~ .menu-btn { margin-left: var(--s2); } }
 
 /* ---------- Desktop dropdowns ---------- */
-@media (min-width: 1024px) and (max-width: 1100px) { .nav { display: flex; } }
-@media (min-width: 1024px) and (max-width: 1279px) { .header__apply { display: none; } .nav { gap: var(--s2); font-size: 0.9375rem; } .menu-btn { margin-left: var(--s2); } }
 @media (min-width: 1024px) { .header .menu-btn { margin-left: var(--s2); } }
 .nav__item { position: relative; display: flex; align-items: center; }
 .nav__top { text-decoration: none; padding-block: 10px; }
@@ -498,21 +496,20 @@ html.has-tray main { padding-bottom: 88px; }
 .est__in .pf__field, .cc__sel .pf__field { min-width: 0; }
 /* hidden helper text inside scroll containers must not widen the page */
 .cmp__table, .tablewrap, .iam ul, .askp__out { position: relative; }
-/* 1024 to 1279px: tighter header so all seven sections fit */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .hdr-btn--ask > span:not(.sr-only) { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .hdr-btn--ask { width: 44px; padding: 0; }
-  .header .wrap { gap: var(--s3); }
-  .brand img { height: 44px; }
-  .nav { gap: 2px; font-size: 0.875rem; }
-  .nav__caret { width: 22px; }
-  .hdr-tools { margin-left: var(--s2); }
-}
-/* larger text: the section links move into the menu, as they would when zoomed */
-@media (max-width: 1919px) { html.pref-size-1 .nav, html.pref-size-2 .nav { display: none; } html.pref-size-1 .header__apply, html.pref-size-2 .header__apply { display: none; } }
 
 /* concept strip: top of every page */
 .concept-strip { background: var(--navy); color: var(--snow); font: 600 0.875rem/1.4 var(--font-display); }
 .concept-strip .wrap { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; align-items: center; padding-block: 8px; }
 .concept-strip a { color: var(--accent); display: inline-flex; align-items: center; min-height: 32px; }
 .concept-strip :focus-visible { outline-color: var(--accent); }
+
+/* footer: copyright line at the right end */
+.footer__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s4); }
+.footer__copyright { margin-left: auto; text-align: right; }
+@media (max-width: 560px) { .footer__copyright { margin-left: 0; text-align: left; } }
+/* no sideways page scroll anywhere: clip (not hidden) keeps the sticky header working */
+html, body { overflow-x: clip; }
+@media (max-width: 1100px) {
+  .iam .wrap { flex-wrap: wrap; overflow-x: visible; row-gap: 0; }
+  .iam ul { flex-wrap: wrap; }
+}

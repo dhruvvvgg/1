@@ -69,10 +69,8 @@ const server = http.createServer((req, res) => {
   /* ---------- interactive states: open panels and drive the new controls, then run axe again ---------- */
   const SCENARIOS = [
     ["/", "Ask panel (Ctrl+K)", async p => { await p.keyboard.press("Control+k"); await p.waitForSelector("[data-askp]:not([hidden])"); await p.fill("#askp-q", "B.Tech under 3 lakh at Kattankulathur"); await p.press("#askp-q", "Enter"); await p.waitForSelector(".askp .intent"); }],
-    ["/", "Ask panel, cited answer", async p => { await p.click("[data-ask-open]"); await p.fill("#askp-q", "How do I book a hostel?"); await p.press("#askp-q", "Enter"); await p.waitForSelector(".askp .ai__quote"); }],
+    ["/", "Ask panel, cited answer", async p => { await p.keyboard.press("Control+k"); await p.waitForSelector("[data-askp]:not([hidden])"); await p.fill("#askp-q", "How do I book a hostel?"); await p.press("#askp-q", "Enter"); await p.waitForSelector(".askp .ai__quote"); }],
     ["/", "Hero programme search", async p => { await p.fill("#hero-q", "MBA at Kattankulathur"); await p.press("#hero-q", "Enter"); await p.waitForSelector("[data-ai] .intent"); }],
-    ["/about/", "Reading preferences", async p => { await p.click("[data-prefs-open]"); await p.check('input[name="pref-size"][value="2"]'); await p.check('[data-pref="contrast"]'); await p.check('[data-pref="dyslexia"]'); }],
-    ["/about/", "Dropdown open", async p => { await p.hover('[data-dd] .nav__top >> nth=0'); await p.waitForSelector(".nav__panel:not([hidden])"); }],
     ["/programs/", "Compare tray and table", async p => { const b = await p.$$("[data-compare]"); await b[0].click(); await b[1].click(); await p.waitForSelector("[data-ctray]:not([hidden])"); }],
     ["/programs/", "Saved drawer", async p => { const h = await p.$$("[data-save]"); await h[0].click(); await h[1].click(); await p.click("[data-saved-open]"); await p.waitForSelector("[data-saved]:not([hidden])"); }],
     ["/admissions/", "Route selector result", async p => { await p.click('.optcard:has(input[value="india"])'); await p.click('.optcard:has(input[value="UG"])'); await p.click('.optcard:has(input[value="engineering"])'); await p.waitForSelector(".route__res"); }],

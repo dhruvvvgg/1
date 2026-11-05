@@ -178,12 +178,8 @@ const header = () => `<!-- build:header -->
   <div class="wrap">
     <a class="brand" href="/"><img src="/assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
     <nav class="nav" aria-label="Main" data-nav>
-      ${nav.primary.map(navItem).join("\n      ")}
+      ${nav.primary.map(p => `<a href="${local(p.local)}">${esc(p.label)}</a>`).join("\n      ")}
     </nav>
-    <div class="hdr-tools">
-      <button class="hdr-btn hdr-btn--ask" type="button" data-ask-open aria-haspopup="dialog" aria-controls="ask-panel"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5"/></svg><span>Ask SRM</span><kbd class="hdr-kbd" aria-hidden="true">Ctrl K</kbd></button>
-      <button class="hdr-btn hdr-btn--aa" type="button" data-prefs-open aria-expanded="false" aria-controls="prefs-panel"><span aria-hidden="true">Aa</span><span class="sr-only">Reading preferences</span></button>
-    </div>
     <a class="pill pill--accent header__apply" href="${esc(nav.cta.apply.ext)}" target="_blank" rel="noopener noreferrer" data-ext>${esc(nav.cta.apply.label)}${EXT_ICON}<span class="sr-only"> (opens the original SRMIST site)</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
@@ -207,19 +203,6 @@ const header = () => `<!-- build:header -->
     <ul class="menu__secondary ui">${nav.secondary_bar.map(s => `<li>${navLink(s)}</li>`).join("")}</ul>
     <ul class="menu__campuses ui" aria-label="Campuses">${nav.campuses.map(c => `<li>${ext(c.ext, esc(c.name))}</li>`).join("")}</ul>
   </div>
-</div>
-
-<div class="prefs" id="prefs-panel" role="dialog" aria-labelledby="prefs-title" hidden data-prefs>
-  <div class="prefs__top"><h2 id="prefs-title" class="prefs__title">Reading preferences</h2>
-    <button class="iconbtn" type="button" data-prefs-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="sr-only">Close reading preferences</span></button></div>
-  <fieldset class="prefs__group"><legend>Text size</legend>
-    <div class="seg">${["Default", "Large", "Larger"].map((t, i) => `<label class="seg__opt"><input type="radio" name="pref-size" value="${i}"${i === 0 ? " checked" : ""}><span>${t}</span></label>`).join("")}</div>
-  </fieldset>
-  <label class="switch"><input type="checkbox" data-pref="contrast"><span>High contrast</span></label>
-  <label class="switch"><input type="checkbox" data-pref="dyslexia"><span>Dyslexia-friendly font</span></label>
-  <label class="switch"><input type="checkbox" data-pref="motion"><span>Reduce motion</span></label>
-  <button class="pill" type="button" data-prefs-reset>Reset</button>
-  <p class="sr-only" aria-live="polite" data-prefs-status></p>
 </div>
 
 <div class="askp" id="ask-panel" role="dialog" aria-modal="true" aria-labelledby="askp-title" hidden data-askp>
@@ -329,7 +312,6 @@ function render(page) {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(page.title)} | SRM Institute of Science and Technology</title>
 <meta name="description" content="${esc(page.description || page.lead || page.title)}">
-${PREPAINT}
 ${HEAD_COMMON}
 <link rel="stylesheet" href="/assets/css/site.css">
 <link rel="stylesheet" href="/assets/css/inner.css">
@@ -425,7 +407,6 @@ const indiaTracker = () => {
     ["advisory", "Read the public advisory", `<p>Use only the official website and contacts. <a href="#advisory">Public Advisory</a></p>`],
     ["college", "Choose your college", `<ul class="chips">${a.colleges.map(c => `<li><a href="#${slug(c.name)}">${esc(c.name)}</a></li>`).join("")}</ul>`],
     ["download", "Download the prospectus and dates", `<ul class="trk__grp">${a.colleges.filter(c => c.downloads && c.downloads.length).map(c => `<li><p class="trk__who">${esc(c.name)}</p>${linkList(c.downloads)}</li>`).join("")}</ul>`],
-    ["apply", "Apply on the official portal", `<ul class="trk__grp">${a.colleges.filter(c => c.apply && c.apply.length).map(c => `<li><p class="trk__who">${esc(c.name)}</p>${linkList(c.apply)}</li>`).join("")}</ul>`],
     ["scholarship", "Check scholarships and fees", `<p><a class="more" href="/admissions/scholarships/#estimate">Estimate your fees and scholarship</a></p>`],
     ["hostel", "Plan your hostel", `<p><a class="more" href="/campus-life/hostels/">SRM Hostels</a></p>`],
     ["contact", "Contact admissions with questions", `<ul class="crows">${contactRow(indiaEmail.label, indiaEmail.value, "mail")}${CT.admissions_information_centre.map(x => contactRow(x.programs, x.phone, "tel")).join("")}</ul>`]
@@ -700,8 +681,7 @@ pages.push({
   title: C("admissions-india").title, lead: C("admissions-india").description,
   body: () => {
     const a = C("admissions-india");
-    return sec("journey", "Your admission journey", "Tick each step as you finish it. Your progress stays in this browser.", indiaTracker(), { v: "list" }) +
-      sec("colleges", "Apply by college", null, `<ul class="cardgrid cardgrid--img">${a.colleges.map(c => `<li class="ccard${collegePhoto(c.name) ? " ccard--img" : ""}" id="${slug(c.name)}">${collegePhoto(c.name) ? photo(collegePhoto(c.name), "ccard__img") : ""}<div class="ccard__in">
+    return sec("colleges", "Apply by college", null, `<ul class="cardgrid cardgrid--img">${a.colleges.map(c => `<li class="ccard${collegePhoto(c.name) ? " ccard--img" : ""}" id="${slug(c.name)}">${collegePhoto(c.name) ? photo(collegePhoto(c.name), "ccard__img") : ""}<div class="ccard__in">
         <h3>${esc(c.name)}</h3>
         ${c.apply && c.apply.length ? `<p class="ccard__label">Apply online</p>${linkList(c.apply)}` : ""}
         ${c.also && c.also.length ? `<p class="ccard__label">Also offered</p>${bullets(c.also)}` : ""}
@@ -710,7 +690,8 @@ pages.push({
       </div></li>`).join("")}</ul>`, { v: "cards" }) +
       sec("advisory", a.public_advisory.heading, null, `<div class="notice-box" role="note">
         <ul class="contact-list"><li><span>Admissions</span><a href="mailto:admissions.india@srmist.edu.in">admissions.india@srmist.edu.in</a></li><li><span>Report unofficial sites</span><a href="mailto:cyberwatchdog@srmist.edu.in">cyberwatchdog@srmist.edu.in</a></li><li><span>Official website</span>${ext("https://www.srmist.edu.in/", "www.srmist.edu.in")}</li></ul></div>`, { v: "band" }) +
-      sec("scholarships", "Scholarships", null, `<a class="more" href="/admissions/scholarships/">Scholarships</a>`);
+      sec("scholarships", "Scholarships", null, `<a class="more" href="/admissions/scholarships/">Scholarships</a>`) +
+      sec("journey", "Your admission journey", "Tick each step as you finish it. Your progress stays in this browser.", indiaTracker(), { v: "list" });
   }
 });
 
@@ -718,7 +699,7 @@ pages.push({
 pages.push({
   route: "/admissions/international", template: "content", bg: BG("tech-park"), parent: ["Admissions", "/admissions/"],
   title: C("admissions-international").title, h1: C("admissions-international").heading, lead: C("admissions-international").description,
-  toc: [["checklist", "Your checklist"], ["waivers", "Fee waivers"], ["programs", "Programmes"], ["resources", "Resources"]],
+  toc: [["waivers", "Fee waivers"], ["programs", "Programmes"], ["resources", "Resources"], ["checklist", "Your checklist"]],
   body: () => {
     const a = C("admissions-international");
     const steps = [
@@ -735,12 +716,12 @@ pages.push({
         <div class="clstep__body">${b}</div></li>`).join("")}</ol>
       <button class="pill" type="button" data-cl-reset>Reset checklist</button>
     </div>`;
-    return sec("checklist", "Your checklist", "Tick each step as you finish it. Your progress stays in this browser.", checklist) +
-      sec("waivers", "Fee waivers", null, statRow(a.fee_waivers.map(f => [(f.text.match(/\d+%/) || [""])[0], f.group]).filter(x => x[0])) + `<ul class="cardgrid">${a.fee_waivers.map(f => `<li class="ccard"><h3>${esc(f.group)}</h3><p>${esc(f.text)}</p></li>`).join("")}</ul>`, { v: "stats" }) +
+    return sec("waivers", "Fee waivers", null, statRow(a.fee_waivers.map(f => [(f.text.match(/\d+%/) || [""])[0], f.group]).filter(x => x[0])) + `<ul class="cardgrid">${a.fee_waivers.map(f => `<li class="ccard"><h3>${esc(f.group)}</h3><p>${esc(f.text)}</p></li>`).join("")}</ul>`, { v: "stats" }) +
       sec("programs", "Programmes", null, `<ul class="cardgrid cardgrid--img">${a.programs.map(p => placeCard(esc(p.college), `${bullets(p.programs)}<div class="ccard__links">${p.details ? ext(p.details, "Details", "more") : ""} ${p.prospectus ? ext(p.prospectus, "Prospectus (PDF)", "more") : ""}</div>`, collegePhoto(p.college))).join("")}</ul>`, { v: "cards" }) +
       sec("resources", "Resources", null, linkList(a.resources)) +
       sec("recognition", "Recognition", null, numCards(a.recognition), { v: "cards" }) +
-      sec("global", "Global outlook", null, pull(a.global), { v: "band" });
+      sec("global", "Global outlook", null, pull(a.global), { v: "band" }) +
+      sec("checklist", "Your checklist", "Tick each step as you finish it. Your progress stays in this browser.", checklist);
   }
 });
 
@@ -1003,7 +984,7 @@ const shortcuts = `<!-- build:shortcuts -->
 <!-- /build:shortcuts -->`;
 if (home.includes("<!-- build:shortcuts -->")) home = swap(home, "shortcuts", /x^/, "", shortcuts);
 else home = home.replace("<!-- /build:audience -->", "<!-- /build:audience -->\n" + shortcuts);
-if (!home.includes('localStorage.getItem("srm-prefs")')) home = home.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n' + PREPAINT);
+home = home.replace(PREPAINT + "\n", "").replace(PREPAINT, "");
 if (!home.includes("/assets/js/features.js")) home = home.replace('<script src="assets/js/site.js" defer></script>', '<script src="assets/js/site.js" defer></script>\n<script src="/assets/js/features.js" defer></script>');
 home = swap(home, "footer", /<!-- Footer:[^\n]*\n<footer|<footer class="footer"/, "</footer>", footer());
 home = home
