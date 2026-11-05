@@ -63,14 +63,84 @@ const record = (id, heading, html) => {
 const para = arr => (arr || []).map(p => `<p>${esc(p)}</p>`).join("");
 const bullets = (arr, cls = "bullets") => (arr && arr.length ? `<ul class="${cls}">${arr.map(x => `<li>${typeof x === "string" ? esc(x) : link(x)}</li>`).join("")}</ul>` : "");
 const linkList = arr => (arr && arr.length ? `<ul class="linklist">${arr.map(x => `<li>${link(x)}</li>`).join("")}</ul>` : "");
-const sec = (id, heading, intro, body, extraCls = "") => {
-  const html = `<section class="section section--tight wrap${extraCls}" id="${id}" aria-labelledby="${id}-h">
-  <div class="s-head"><h2 id="${id}-h">${esc(heading)}</h2>${intro ? `<p>${esc(intro)}</p>` : ""}</div>
+/* ---------- photos, by topic (files already in assets/img) ---------- */
+const PHOTO = {
+  lab: ["/assets/img/bg/lab-research.webp", "A researcher at a microscope workstation in a laboratory"],
+  ideathon: ["/assets/img/bg/ideathon.webp", "Student winners holding a certificate on stage at an ideathon"],
+  biotech: ["/assets/img/bg/biotech-block-1.webp", "The Biotech Block, a glass-fronted building on campus"],
+  milanStage: ["/assets/img/bg/milan-stage.webp", "Performers gathered on the stage at Milan, the campus cultural festival"],
+  milanDance: ["/assets/img/bg/milan-dance.webp", "Dancers in green performing at Milan"],
+  hostelK: ["/assets/img/bg/hostel-kalpana.webp", "The Kalpana Chawla hostel block among trees"],
+  hostelOff: ["/assets/img/srmist-hostel-official.webp", "Hostel buildings with lawns in front"],
+  sports: ["/assets/img/srmist-sports-official.webp", "A women's sports team lined up on a court"],
+  aerial: ["/assets/img/srmist-aerial-official.webp", "Aerial view of the Kattankulathur campus"],
+  convocation: ["/assets/img/bg/off-convocation.webp", "Graduates and dignitaries on stage at the 22nd Convocation"],
+  admissions: ["/assets/img/bg/off-admissions.webp", "A group of students standing together on campus"],
+  ub: ["/assets/img/bg/srm-university-auditorium.webp", "The colonnaded University Building at dusk"],
+  grounds: ["/assets/img/bg/srm-university-campus-chennai-tamil-nadu.webp", "Campus lawns and roads seen from a height"],
+  formula: ["/assets/img/bg/off-formula-bharat.webp", "The student Formula Bharat team with their race car"],
+  techpark: ["/assets/img/bg/tech-park.webp", "The SRM Tech Park building with its yellow and blue facade"],
+  lecture: ["/assets/img/hero/learn.webp", "Students in a lecture hall during a talk"],
+  medicine: ["/assets/img/bg/off-medicine-lab.webp", "Medical students in white coats with anatomy specimens"],
+  dentistry: ["/assets/img/bg/off-dentistry.webp", "A dental student at work in a dental clinic"],
+  management: ["/assets/img/bg/off-management.webp", "Management students in a classroom"],
+  law: ["/assets/img/bg/off-law-students.webp", "Law students in blazers outside a campus building"],
+  agriculture: ["/assets/img/bg/off-agriculture.webp", "Students tending plants in a greenhouse"],
+  architecture: ["/assets/img/bg/off-architecture.webp", "Architecture students working on a scale model"]
+};
+const collegePhoto = name => {
+  const n = String(name).toLowerCase();
+  if (/dent/.test(n)) return "dentistry";
+  if (/medic|health|nursing|pharm/.test(n)) return "medicine";
+  if (/architect|design/.test(n)) return "architecture";
+  if (/agri/.test(n)) return "agriculture";
+  if (/law/.test(n)) return "law";
+  if (/management|business|commerce/.test(n)) return "management";
+  if (/engineer/.test(n)) return "techpark";
+  if (/science|humanities|liberal/.test(n)) return "lecture";
+  return null;
+};
+const photo = (key, cls = "", eager = false) => { const [src, alt] = PHOTO[key]; return img(src, alt, cls, eager); };
+const frame = key => `<figure class="frame">${photo(key, "frame__img")}</figure>`;
+
+/* ---------- sections: one layout variant each, never three of the same in a row ---------- */
+let variantRun = [];
+let splitFlip = false;
+const sec = (id, heading, intro, body, opts = {}) => {
+  if (typeof opts === "string") opts = {};
+  const v = opts.v || "list";
+  variantRun.push(v);
+  const n = variantRun.length;
+  if (n >= 3 && variantRun[n - 1] === variantRun[n - 2] && variantRun[n - 2] === variantRun[n - 3])
+    console.warn(`layout: three "${v}" sections in a row on ${current && current.route} (at #${id})`);
+  const head = `<div class="s-head"><h2 id="${id}-h">${esc(heading)}</h2>${intro ? `<p>${esc(intro)}</p>` : ""}</div>`;
+  let html;
+  if (v === "split") {
+    splitFlip = !splitFlip;
+    html = `<section class="sec sec--split${splitFlip ? "" : " sec--flip"}" id="${id}" aria-labelledby="${id}-h">
+  <div class="wrap sec-split"><div class="sec-split__text">${head}${body}</div>${frame(opts.img)}</div>
+</section>`;
+  } else if (v === "band") {
+    html = `<section class="sec sec--band" id="${id}" aria-labelledby="${id}-h">
+  <div class="wrap band"><div class="band__head"><h2 id="${id}-h">${esc(heading)}</h2>${intro ? `<p>${esc(intro)}</p>` : ""}</div><div class="band__body">${body}</div></div>
+</section>`;
+  } else {
+    html = `<section class="sec sec--${v} section section--tight wrap" id="${id}" aria-labelledby="${id}-h">
+  ${head}
   ${body}
 </section>`;
+  }
   record(id, heading, (intro || "") + " " + body);
   return html;
 };
+/* numbers that appear word for word in the content, each with its own label */
+const statRow = items => `<dl class="statrow">${items.map(([n, l]) => `<div><dt>${esc(l)}</dt><dd>${esc(n)}</dd></div>`).join("")}</dl>`;
+/* mission, values and recognition: numbered cards */
+const numCards = arr => (arr && arr.length ? `<ol class="numcards">${arr.map(x => `<li><p>${esc(x)}</p></li>`).join("")}</ol>` : "");
+const pull = text => `<blockquote class="pull"><p>${esc(text)}</p></blockquote>`;
+const pullMany = arr => `<blockquote class="pull">${(arr || []).map(t => `<p>${esc(t)}</p>`).join("")}</blockquote>`;
+/* a card with a photo on top when the item is a place or a college */
+const placeCard = (title, inner, key) => `<li class="ccard${key ? " ccard--img" : ""}">${key ? photo(key, "ccard__img") : ""}<div class="ccard__in"><h3>${title}</h3>${inner}</div></li>`;
 const person = (p, extra = "") => `<div class="person-card">
   <p class="person-card__name">${esc(p.name)}</p>${p.role ? `<p class="person-card__role">${esc(p.role)}</p>` : ""}
   ${p.office ? `<p>${esc(p.office)}</p>` : ""}
@@ -170,7 +240,9 @@ const toc = items => `<nav class="toc wrap" aria-label="On this page"><ul>${item
 function render(page) {
   current = { route: local(page.route), title: page.title };
   if (page.lead) askChunks.push({ u: current.route, p: page.title, h: page.title, t: page.lead });
-  const body = page.body(); // records Ask chunks as sections render
+  variantRun = []; splitFlip = false;
+  let body = page.body(); // records Ask chunks as sections render
+  body = body.replace(/<p>(?![\s\S]*?<p class="lead">)/, '<p class="lead">');
   const trail = [["Home", "/"], ...(page.parent ? [page.parent] : []), [page.crumb || page.title, current.route]];
   const html = `<!doctype html>
 <html lang="en-IN">
@@ -234,12 +306,12 @@ pages.push({
     const prim = nav.primary.find(p => p.label === "Academics");
     const colleges = P.colleges.map((c, i) => {
       const n = progs.filter(p => p.college_idx === i).length;
-      return { title: esc(c), text: "", links: `<a class="more" href="/programs/?college=${i}">${n} programmes in this list</a>` };
+      return { title: esc(c), n, i };
     });
     return sec("explore", "Explore", null, linkList(prim.children.map(c => ({ label: c.label, local: c.local, ext: c.ext })))) +
-      sec("colleges", "Colleges in the Program Finder", P.source.split(" - ")[1] || null, cards(colleges)) +
+      sec("colleges", "Colleges in the Program Finder", P.source.split(" - ")[1] || null, `<ul class="cardgrid cardgrid--img">${colleges.map(c => placeCard(c.title, `<div class="ccard__links"><a class="more" href="/programs/?college=${c.i}">${c.n} programmes in this list</a></div>`, collegePhoto(c.title))).join("")}</ul>`, { v: "cards" }) +
       sec("engineering", C("academics-engineering").title, C("academics-engineering").meta_description,
-        `<a class="more" href="/academics/engineering-technology/">${esc(C("academics-engineering").title)}</a>`) +
+        `<a class="more" href="/academics/engineering-technology/">${esc(C("academics-engineering").title)}</a>`, { v: "split", img: "formula" }) +
       sec("minors", "Minors in engineering", null, bullets(P.minors_in_engineering, "chips"));
   }
 });
@@ -303,7 +375,7 @@ pages.push({
       <button class="pill" type="button" data-cmp-clear hidden>Clear comparison</button>
     </div>`;
     return sec("finder", "Program Finder", null, finder) +
-      sec("quiz", "Which course fits me", "Answer five questions to see the three programmes in this list that match you best.", quiz) +
+      sec("quiz", "Which course fits me", "Answer five questions to see the three programmes in this list that match you best.", quiz, { v: "cards" }) +
       sec("compare", "Compare programmes", null, compare) +
       `<script type="application/json" id="programs-data">${JSON.stringify({ colleges: P.colleges, levels: LEVEL, campuses: CAMPUS, rows: progs.map(p => ({ ...p, ...shown(p), href: progHref(p), feeLabel: feeLabel(p) })) }).replace(/</g, "\\u003c")}</script>`;
   }
@@ -327,12 +399,12 @@ pages.push({
       ${s.fee ? `<div><dt>Annual fee</dt><dd>${inr(s.fee)}</dd></div>` : ""}
       ${s.intake ? `<div><dt>Intake</dt><dd>${s.intake}</dd></div>` : ""}
     </dl>`;
-    return sec("facts", "Programme at a glance", null, facts + `<p class="actions">${ext(cet.apply[0].href, "Apply: " + esc(cet.apply[0].text), "pill pill--accent")} ${ext(progHref(p), "Full programme details", "pill")}</p>`) +
-      (accr.length ? sec("accreditation", "Accreditation", null, `<ul class="bullets">${accr.map(a => `<li>${esc(a.body)}: ${esc(a.programs.find(x => x.startsWith("B.Tech Computer Science and Engineering")))}</li>`).join("")}</ul><a class="more" href="/about/accreditations-rankings/">Accreditations & Rankings</a>`) : "") +
-      sec("pathways", "Pathways", null, `<p>${esc(eng.pathways_text)}</p>`) +
+    return sec("facts", "Programme at a glance", null, facts + `<p class="actions">${ext(cet.apply[0].href, "Apply: " + esc(cet.apply[0].text), "pill pill--accent")} ${ext(progHref(p), "Full programme details", "pill")}</p>`, { v: "stats" }) +
+      (accr.length ? sec("accreditation", "Accreditation", null, `<ul class="bullets">${accr.map(a => `<li>${esc(a.body)}: ${esc(a.programs.find(x => x.startsWith("B.Tech Computer Science and Engineering")))}</li>`).join("")}</ul><a class="more" href="/about/accreditations-rankings/">Accreditations & Rankings</a>`, { v: "split", img: "techpark" }) : "") +
+      sec("pathways", "Pathways", null, pull(eng.pathways_text), { v: "band" }) +
       sec("minors", "Minors in engineering", null, bullets(P.minors_in_engineering, "chips")) +
       sec("admission", "Admission", null, `${linkList(cet.downloads)}<a class="more" href="/admissions/scholarships/">Scholarships</a>`) +
-      sec("college", "College", null, `<p>${esc(eng.title)}, ${esc(eng.campus)}.</p>${person(eng.dean)}<a class="more" href="/academics/engineering-technology/">${esc(eng.title)}</a>`);
+      sec("college", "College", null, `<p>${esc(eng.title)}, ${esc(eng.campus)}.</p>${person(eng.dean)}<a class="more" href="/academics/engineering-technology/">${esc(eng.title)}</a>`, { v: "split", img: "formula" });
   }
 });
 
@@ -345,12 +417,12 @@ pages.push({
   body: () => {
     const e = C("academics-engineering");
     const engProgs = progs.filter(p => p.college_idx === 0);
-    return sec("words", "Founder's words", null, `<blockquote class="quote quote--sm">${para(e.founder_words)}</blockquote>`) +
+    return sec("words", "Founder's words", null, pullMany(e.founder_words), { v: "band" }) +
       sec("dean", "Dean's message", null, `<div class="split2"><div class="prose">${para(e.deans_message)}</div>${person(e.dean)}</div>`) +
-      sec("structure", "Schools and departments", e.structure_text, `<ul class="cardgrid cardgrid--tight">${e.departments.map(d => `<li class="ccard"><h3>${ext("https://www.srmist.edu.in/departments/", esc(d))}</h3></li>`).join("")}</ul><a class="more" href="/academics/departments/">Find a department</a>`) +
-      sec("pathways", "Pathways", null, `<p>${esc(e.pathways_text)}</p>`) +
+      sec("structure", "Schools and departments", e.structure_text, statRow([["7", "Schools"], ["22", "Departments"]]) + `<ul class="cardgrid cardgrid--tight">${e.departments.map(d => `<li class="ccard"><h3>${ext("https://www.srmist.edu.in/departments/", esc(d))}</h3></li>`).join("")}</ul><a class="more" href="/academics/departments/">Find a department</a>`, { v: "stats" }) +
+      sec("pathways", "Pathways", null, pull(e.pathways_text), { v: "band" }) +
       sec("centres", "Centres", null, bullets(e.centres, "chips")) +
-      sec("programs", "Programmes", null, `<ul class="linklist linklist--cols">${engProgs.map(p => `<li>${progLink(p, esc(p.name))}</li>`).join("")}</ul><a class="more" href="/programs/?college=0">Filter engineering programmes</a>`) +
+      sec("programs", "Programmes", null, `<ul class="linklist linklist--cols">${engProgs.map(p => `<li>${progLink(p, esc(p.name))}</li>`).join("")}</ul><a class="more" href="/programs/?college=0">Filter engineering programmes</a>`, { v: "split", img: "techpark" }) +
       sec("other", "Other colleges", null, linkList(nav.primary.find(p => p.label === "Academics").children.filter(c => c.ext).map(c => ({ label: c.label, ext: c.ext }))));
   }
 });
@@ -370,8 +442,19 @@ pages.push({
 });
 
 /* ---- hub: /admissions ---- */
-const genericSection = s => sec(s.id || slug(s.heading), s.heading, null,
-  para(s.paragraphs) + (s.text ? `<p>${esc(s.text)}</p>` : "") + bullets(s.bullets || s.list) + (s.items ? `<ul class="cardgrid">${s.items.map(i => `<li class="ccard"><h3>${link(i)}</h3>${i.desc ? `<p>${esc(i.desc)}</p>` : ""}</li>`).join("")}</ul>` : "") + linkList(s.links));
+const ADM_LAYOUT = {
+  pathways: { v: "cards" },
+  about: { v: "stats", stats: [["50000+", "Students"], ["6", "Campuses"]] },
+  recognition: { v: "cards", numbered: true },
+  global: { v: "band" },
+  tour: { v: "split", img: "aerial" }
+};
+const genericSection = s => {
+  const id = s.id || slug(s.heading), L = ADM_LAYOUT[id] || {};
+  const items = s.items ? `<ul class="cardgrid cardgrid--img">${s.items.map((i, k) => placeCard(link(i), i.desc ? `<p>${esc(i.desc)}</p>` : "", k === 0 ? "admissions" : "aerial")).join("")}</ul>` : "";
+  const text = L.numbered ? numCards(s.paragraphs) : L.v === "band" ? pullMany(s.paragraphs) : para(s.paragraphs);
+  return sec(id, s.heading, null, (L.stats ? statRow(L.stats) : "") + text + (s.text ? `<p>${esc(s.text)}</p>` : "") + bullets(s.bullets || s.list) + items + linkList(s.links), L);
+};
 pages.push({
   route: "/admissions", template: "hub", bg: BG("off-admissions"), title: C("admissions").title, lead: C("admissions").description,
   body: () => C("admissions").sections.map(genericSection).join("") +
@@ -384,15 +467,15 @@ pages.push({
   title: C("admissions-india").title, lead: C("admissions-india").description,
   body: () => {
     const a = C("admissions-india");
-    return sec("colleges", "Apply by college", null, `<ul class="cardgrid">${a.colleges.map(c => `<li class="ccard" id="${slug(c.name)}">
+    return sec("colleges", "Apply by college", null, `<ul class="cardgrid cardgrid--img">${a.colleges.map(c => `<li class="ccard${collegePhoto(c.name) ? " ccard--img" : ""}" id="${slug(c.name)}">${collegePhoto(c.name) ? photo(collegePhoto(c.name), "ccard__img") : ""}<div class="ccard__in">
         <h3>${esc(c.name)}</h3>
         ${c.apply && c.apply.length ? `<p class="ccard__label">Apply online</p>${linkList(c.apply)}` : ""}
         ${c.also && c.also.length ? `<p class="ccard__label">Also offered</p>${bullets(c.also)}` : ""}
         ${c.downloads && c.downloads.length ? `<p class="ccard__label">Downloads</p>${linkList(c.downloads)}` : ""}
         ${c.details ? `<div class="ccard__links">${ext(c.details, "Program | Fees | Eligibility | Criteria", "more")}</div>` : ""}
-      </li>`).join("")}</ul>`) +
+      </div></li>`).join("")}</ul>`, { v: "cards" }) +
       sec("advisory", a.public_advisory.heading, null, `<div class="notice-box" role="note">
-        <ul class="contact-list"><li><span>Admissions</span><a href="mailto:admissions.india@srmist.edu.in">admissions.india@srmist.edu.in</a></li><li><span>Report unofficial sites</span><a href="mailto:cyberwatchdog@srmist.edu.in">cyberwatchdog@srmist.edu.in</a></li><li><span>Official website</span>${ext("https://www.srmist.edu.in/", "www.srmist.edu.in")}</li></ul></div>`) +
+        <ul class="contact-list"><li><span>Admissions</span><a href="mailto:admissions.india@srmist.edu.in">admissions.india@srmist.edu.in</a></li><li><span>Report unofficial sites</span><a href="mailto:cyberwatchdog@srmist.edu.in">cyberwatchdog@srmist.edu.in</a></li><li><span>Official website</span>${ext("https://www.srmist.edu.in/", "www.srmist.edu.in")}</li></ul></div>`, { v: "band" }) +
       sec("scholarships", "Scholarships", null, `<a class="more" href="/admissions/scholarships/">Scholarships</a>`);
   }
 });
@@ -419,11 +502,11 @@ pages.push({
       <button class="pill" type="button" data-cl-reset>Reset checklist</button>
     </div>`;
     return sec("checklist", "Your checklist", "Tick each step as you finish it. Your progress stays in this browser.", checklist) +
-      sec("waivers", "Fee waivers", null, `<ul class="cardgrid">${a.fee_waivers.map(f => `<li class="ccard"><h3>${esc(f.group)}</h3><p>${esc(f.text)}</p></li>`).join("")}</ul>`) +
-      sec("programs", "Programmes", null, `<ul class="cardgrid">${a.programs.map(p => `<li class="ccard"><h3>${esc(p.college)}</h3>${bullets(p.programs)}<div class="ccard__links">${p.details ? ext(p.details, "Details", "more") : ""} ${p.prospectus ? ext(p.prospectus, "Prospectus (PDF)", "more") : ""}</div></li>`).join("")}</ul>`) +
+      sec("waivers", "Fee waivers", null, statRow(a.fee_waivers.map(f => [(f.text.match(/\d+%/) || [""])[0], f.group]).filter(x => x[0])) + `<ul class="cardgrid">${a.fee_waivers.map(f => `<li class="ccard"><h3>${esc(f.group)}</h3><p>${esc(f.text)}</p></li>`).join("")}</ul>`, { v: "stats" }) +
+      sec("programs", "Programmes", null, `<ul class="cardgrid cardgrid--img">${a.programs.map(p => placeCard(esc(p.college), `${bullets(p.programs)}<div class="ccard__links">${p.details ? ext(p.details, "Details", "more") : ""} ${p.prospectus ? ext(p.prospectus, "Prospectus (PDF)", "more") : ""}</div>`, collegePhoto(p.college))).join("")}</ul>`, { v: "cards" }) +
       sec("resources", "Resources", null, linkList(a.resources)) +
-      sec("recognition", "Recognition", null, bullets(a.recognition)) +
-      sec("global", "Global outlook", null, `<p>${esc(a.global)}</p>`);
+      sec("recognition", "Recognition", null, numCards(a.recognition), { v: "cards" }) +
+      sec("global", "Global outlook", null, pull(a.global), { v: "band" });
   }
 });
 
@@ -439,9 +522,9 @@ pages.push({
       <tbody>${t.rows.map(r => `<tr data-campus="${esc(r[0])}">${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
     return sec("table", "Scholarships by campus", null, table) +
       sec("notes", "Notes", null, bullets(s.notes)) +
-      sec("categories", "Scholarship categories", null, bullets(s.categories, "chips")) +
+      sec("categories", "Scholarship categories", null, numCards(s.categories), { v: "cards" }) +
       sec("annexure", s.annexure_a.heading, null, bullets(s.annexure_a.items)) +
-      sec("boards", s.boards.heading, s.boards.text, bullets(s.boards.list, "chips")) +
+      sec("boards", s.boards.heading, s.boards.text, bullets(s.boards.list, "chips"), { v: "split", img: "convocation" }) +
       sec("links", "Documents", null, linkList(s.links));
   }
 });
@@ -451,14 +534,14 @@ pages.push({
   route: "/research", template: "hub", bg: BG("lab-research"), title: C("research").title, lead: C("research").description,
   body: () => {
     const r = C("research");
-    return sec("overview", r.overview.heading, null, para(r.overview.paragraphs) + bullets(r.overview.bullets)) +
-      sec("mission", "Mission", null, bullets(r.mission)) +
+    return sec("overview", r.overview.heading, null, para(r.overview.paragraphs) + bullets(r.overview.bullets), { v: "split", img: "lab" }) +
+      sec("mission", "Mission", null, numCards(r.mission), { v: "cards" }) +
       sec("dean", "Dean (Research)", null, person(r.dean, `<div class="ccard__links">${ext(r.dean.href, "Profile", "more")}</div>`)) +
-      sec("directorate", r.directorate.heading, r.directorate.paragraph, linkList(r.directorate.links)) +
-      sec("academic", "Academic research", null, para(r.academic_research.paragraphs) + ext(r.academic_research.href, "Academic research", "more")) +
-      sec("funded", "Funded research", null, `<ul class="cardgrid">${r.funded_research.map(f => `<li class="ccard"><h3>${link({ text: f.title, href: f.href })}</h3>${f.text ? `<p>${esc(f.text)}</p>` : ""}</li>`).join("")}</ul>`) +
-      sec("facilities", "Central research facilities", null, `<ul class="cardgrid">${r.central_facilities.map(f => `<li class="ccard"><h3>${link({ text: f.name, href: f.href })}</h3><p class="ccard__label">${esc(f.full)}</p>${f.text ? `<p>${esc(f.text)}</p>` : ""}</li>`).join("")}</ul>`) +
-      sec("innovation", "Innovation & Incubation", C("research-innovation").description, `<a class="more" href="/research/innovation-incubation/">Innovation & Incubation</a>`) +
+      sec("directorate", r.directorate.heading, r.directorate.paragraph, linkList(r.directorate.links), { v: "split", img: "biotech" }) +
+      sec("academic", "Academic research", null, pullMany(r.academic_research.paragraphs) + ext(r.academic_research.href, "Academic research", "more"), { v: "band" }) +
+      sec("funded", "Funded research", null, `<ul class="cardgrid">${r.funded_research.map(f => `<li class="ccard"><h3>${link({ text: f.title, href: f.href })}</h3>${f.text ? `<p>${esc(f.text)}</p>` : ""}</li>`).join("")}</ul>`, { v: "cards" }) +
+      sec("facilities", "Central research facilities", null, `<ul class="cardgrid">${r.central_facilities.map(f => `<li class="ccard"><h3>${link({ text: f.name, href: f.href })}</h3><p class="ccard__label">${esc(f.full)}</p>${f.text ? `<p>${esc(f.text)}</p>` : ""}</li>`).join("")}</ul>`, { v: "cards" }) +
+      sec("innovation", "Innovation & Incubation", C("research-innovation").description, `<a class="more" href="/research/innovation-incubation/">Innovation & Incubation</a>`, { v: "split", img: "ideathon" }) +
       sec("policies", "Policies", null, linkList(r.policies)) +
       sec("news", "Research news", null, linkList(r.news_headlines.map(n => ({ text: n.title, href: n.href }))));
   }
@@ -470,10 +553,10 @@ pages.push({
   title: C("research-innovation").title, lead: C("research-innovation").description,
   body: () => {
     const r = C("research-innovation");
-    return sec("about", "About the centre", null, `<p>${esc(r.intro)}</p>`) +
-      sec("vision", "Vision", null, `<p>${esc(r.vision)}</p>`) +
-      sec("mission", "Mission", null, bullets(r.mission)) +
-      sec("units", "Units", null, `<ul class="cardgrid">${r.units.map(u => `<li class="ccard"><h3>${ext(u.href, esc(u.name))}</h3>${u.text ? `<p>${esc(u.text)}</p>` : ""}</li>`).join("")}</ul>`) +
+    return sec("about", "About the centre", null, `<p>${esc(r.intro)}</p>`, { v: "split", img: "ideathon" }) +
+      sec("vision", "Vision", null, pull(r.vision), { v: "band" }) +
+      sec("mission", "Mission", null, numCards(r.mission), { v: "cards" }) +
+      sec("units", "Units", null, `<ul class="cardgrid">${r.units.map(u => `<li class="ccard"><h3>${ext(u.href, esc(u.name))}</h3>${u.text ? `<p>${esc(u.text)}</p>` : ""}</li>`).join("")}</ul>`, { v: "cards" }) +
       sec("policies", "Policies", null, linkList(r.policies));
   }
 });
@@ -483,10 +566,10 @@ pages.push({
   route: "/campus-life", template: "hub", bg: BG("milan-stage"), title: C("campus-life").title, lead: C("campus-life").meta_description,
   body: () => {
     const c = C("campus-life");
-    return sec("activities", c.intro_heading, c.intro, bullets(c.tiles, "chips")) +
-      sec("hostels", "Hostels", C("campus-hostels").description, `<a class="more" href="/campus-life/hostels/">SRM Hostels</a>`) +
-      sec("safety", c.safety.heading, null, `<p>${esc(c.safety.text)}</p>`) +
-      sec("care", c.care.heading, null, `<p>${esc(c.care.text)}</p>` + bullets(c.support_links, "chips")) +
+    return sec("activities", c.intro_heading, c.intro, bullets(c.tiles, "chips"), { v: "split", img: "milanStage" }) +
+      sec("hostels", "Hostels", C("campus-hostels").description, `<a class="more" href="/campus-life/hostels/">SRM Hostels</a>`, { v: "split", img: "hostelK" }) +
+      sec("safety", c.safety.heading, null, pull(c.safety.text), { v: "band" }) +
+      sec("care", c.care.heading, null, `<p>${esc(c.care.text)}</p>` + bullets(c.support_links, "chips"), { v: "split", img: "milanDance" }) +
       sec("more", "More on campus", null, linkList(nav.primary.find(p => p.label === "Campus Life").children.filter(x => x.ext).map(x => ({ label: x.label, ext: x.ext })).concat([{ label: "Campus tour", ext: c.related_original[2] }])));
   }
 });
@@ -498,19 +581,19 @@ pages.push({
   toc: [["about", "About"], ["director", "Director"], ["booking", "Fees and booking"], ["apply", "How to apply"], ["contacts", "Contacts"]],
   body: () => {
     const h = C("campus-hostels");
-    return sec("about", h.heading, null, para(h.intro)) +
+    return sec("about", h.heading, null, para(h.intro), { v: "split", img: "hostelK" }) +
       sec("director", "From the Director", null, `<div class="split2"><div class="prose">${para(h.director.message)}</div>${person(h.director)}</div>`) +
-      sec("vision", "Vision", null, bullets(h.vision)) +
-      sec("hostels", "Hostels", null, `<ul class="cardgrid">${h.hostels.map(x => `<li class="ccard"><h3>${link(x)}</h3></li>`).join("")}</ul>` + linkList(h.links)) +
+      sec("vision", "Vision", null, numCards(h.vision), { v: "cards" }) +
+      sec("hostels", "Hostels", null, `<ul class="cardgrid cardgrid--img">${h.hostels.map((x, k) => placeCard(link(x), "", k === 1 ? "hostelK" : "hostelOff")).join("")}</ul>` + linkList(h.links), { v: "cards" }) +
       sec("booking", h.fees_and_booking_heading, null, bullets(h.booking_groups)) +
-      sec("apply", "How to apply", null, `<ol class="steps">${h.how_to_apply.map(x => `<li>${esc(x)}</li>`).join("")}</ol>`) +
+      sec("apply", "How to apply", null, `<ol class="steps">${h.how_to_apply.map(x => `<li>${esc(x)}</li>`).join("")}</ol>`, { v: "band" }) +
       sec("eligibility", "Who can apply", null, `<div class="split2"><div><h3 class="sub">Eligible</h3>${bullets(h.who_can_apply.eligible)}</div><div><h3 class="sub">Not eligible</h3>${bullets(h.who_can_apply.not_eligible)}</div></div>`) +
       sec("contacts", "Contacts", null, `<ul class="cardgrid">${h.contacts.map(c => `<li class="ccard"><h3>${esc(c.group)}</h3><ul class="contact-list">
           ${c.email ? `<li><span>Email</span><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></li>` : ""}
           ${c.warden_email ? `<li><span>Warden</span><a href="mailto:${esc(c.warden_email)}">${esc(c.warden_email)}</a></li>` : ""}
           ${c.phones ? `<li><span>Phone</span>${c.phones.map(esc).join(", ")}</li>` : ""}
           ${c.mobile ? `<li><span>Mobile</span>${esc(c.mobile)}</li>` : ""}${c.warden_mobile ? `<li><span>Warden mobile</span>${esc(c.warden_mobile)}</li>` : ""}
-          ${c.accounts_office ? `<li><span>Accounts office</span>${esc(c.accounts_office)}</li>` : ""}</ul></li>`).join("")}</ul>`);
+          ${c.accounts_office ? `<li><span>Accounts office</span>${esc(c.accounts_office)}</li>` : ""}</ul></li>`).join("")}</ul>`, { v: "cards" });
   }
 });
 
@@ -524,12 +607,12 @@ pages.push({
   route: "/placements", template: "hub", bg: BG("off-convocation"), title: C("placements").title, h1: C("placements").heading, lead: C("placements").description,
   body: () => {
     const p = C("placements");
-    return sec("about", p.title, null, `<p>${esc(p.intro)}</p>`) +
-      sec("statistics", "Placement statistics", p.stats.label, `<a class="more" href="/placements/statistics/">Placement statistics</a>`) +
+    return sec("about", p.title, null, `<p>${esc(p.intro)}</p>`, { v: "split", img: "convocation" }) +
+      sec("statistics", "Placement statistics", p.stats.label, `<a class="more" href="/placements/statistics/">Placement statistics</a>`, { v: "band" }) +
       sec("director", "From the Director", null, `<div class="split2"><div class="prose">${para(p.director.message)}</div>${person(p.director)}</div>`) +
-      sec("why", "Why choose the Career Centre", null, bullets(p.why_choose)) +
+      sec("why", "Why choose the Career Centre", null, numCards(p.why_choose), { v: "cards" }) +
       sec("sections", "More from the Career Centre", null, linkList(p.sections)) +
-      sec("recruiters", "Recruiters", null, logos()) +
+      sec("recruiters", "Recruiters", null, logos(), { v: "cards" }) +
       sec("contact", "Contact the Career Centre", null, `<ul class="contact-list"><li><span>Address</span>${esc(p.contact.address)}</li><li><span>Email</span><a href="mailto:${esc(p.contact.email)}">${esc(p.contact.email)}</a></li></ul>`);
   }
 });
@@ -538,8 +621,8 @@ pages.push({
 pages.push({
   route: "/placements/statistics", template: "content", bg: BG("off-convocation"), parent: ["Placements", "/placements/"],
   title: "Placement Statistics", lead: C("placements").stats.label,
-  body: () => sec("stats", C("placements").stats.label, null, `<p class="actions">${ext("https://www.srmist.edu.in/placements/placement-statistics/", "See official statistics", "pill pill--accent")}</p>`) +
-    sec("recruiters", "Recruiters", null, logos())
+  body: () => sec("stats", C("placements").stats.label, null, `<p class="actions">${ext("https://www.srmist.edu.in/placements/placement-statistics/", "See official statistics", "pill pill--accent")}</p>`, { v: "band" }) +
+    sec("recruiters", "Recruiters", null, logos(), { v: "cards" })
 });
 
 /* ---- hub: /international ---- */
@@ -547,14 +630,14 @@ pages.push({
   route: "/international", template: "hub", bg: BG("srm-university-campus-chennai-tamil-nadu"), title: C("international").title, lead: C("international").description,
   body: () => {
     const i = C("international");
-    return sec("vision", "Vision", null, `<p>${esc(i.vision)}</p>`) +
-      sec("mission", "Mission", null, bullets(i.mission)) +
-      sec("activities", "What we do", null, `<ul class="cardgrid">${i.activities.map(g => `<li class="ccard"><h3>${esc(g.group)}</h3>${bullets(g.items)}</li>`).join("")}</ul>`) +
-      sec("board", "International Advisory Board", null, `<p>${esc(i.advisory_board)}</p>`) +
-      sec("partnership", "Global partnership", null, `<p>${esc(i.global_partnership)}</p>`) +
+    return sec("vision", "Vision", null, pull(i.vision), { v: "band" }) +
+      sec("mission", "Mission", null, numCards(i.mission), { v: "cards" }) +
+      sec("activities", "What we do", null, `<ul class="cardgrid">${i.activities.map(g => `<li class="ccard"><h3>${esc(g.group)}</h3>${bullets(g.items)}</li>`).join("")}</ul>`, { v: "cards" }) +
+      sec("board", "International Advisory Board", null, statRow([["2003", "Board set up"], ["31", "Founding members"], ["50+", "Members now"]]) + `<p>${esc(i.advisory_board)}</p>`, { v: "stats" }) +
+      sec("partnership", "Global partnership", null, statRow([["100+", "Universities and research centres"]]) + `<p>${esc(i.global_partnership)}</p>`, { v: "split", img: "grounds" }) +
       sec("memberships", "Memberships", null, bullets(i.memberships)) +
       sec("highlights", "Highlights", null, bullets(i.highlights)) +
-      sec("voices", "Student voices", null, `<div class="voices">${i.testimonials.map(t => `<blockquote class="quote quote--sm"><p>${esc(t)}</p></blockquote>`).join("")}</div>`) +
+      sec("voices", "Student voices", null, `<div class="voices">${i.testimonials.map(t => `<blockquote class="pull pull--sm"><p>${esc(t)}</p></blockquote>`).join("")}</div>`, { v: "band" }) +
       sec("contact", "Contact", null, `<div class="split2"><ul class="contact-list"><li><span>Office</span>${esc(i.contact.office)}</li><li><span>Director</span><a href="mailto:${esc(i.contact.director_email)}">${esc(i.contact.director_email)}</a></li><li><span>Phone</span>${esc(i.contact.phone)}</li></ul>${person(i.contact.assistant_director)}</div><p class="actions">${link(i.cta, "pill pill--accent")}</p>`);
   }
 });
@@ -564,14 +647,14 @@ pages.push({
   route: "/about", template: "hub", bg: BG("srm-university-auditorium"), title: C("about").title, lead: "", description: C("about").description,
   body: () => {
     const a = C("about");
-    return sec("focus", "SRM in focus", null, `<p>${esc(a.in_focus)}</p>`) +
-      sec("vision", "Vision", null, `<p>${esc(a.vision)}</p>`) +
-      sec("mission", "Mission", null, bullets(a.mission)) +
-      sec("values", "Core values", null, bullets(a.core_values, "chips")) +
-      sec("history", "History", null, `<ol class="tl">${a.history.map(h => `<li><b>${esc(h.year)}</b><span>${esc(h.text)}</span></li>`).join("")}</ol>${ext(a.history_href, "Full history", "more")}`) +
-      sec("recognition", "Recognition", null, bullets(a.recognition)) +
-      sec("accreditation", "Programme accreditation", null, `<ul class="cardgrid">${a.accreditations.map(x => `<li class="ccard"><h3>${esc(x.body)}</h3>${bullets(x.programs)}</li>`).join("")}</ul><a class="more" href="/about/accreditations-rankings/">Accreditations & Rankings</a>`) +
-      sec("campus", "The campus", null, `<p>${esc(a.campus)}</p>`) +
+    return sec("focus", "SRM in focus", null, statRow([["60000+", "Full time students"], ["4460+", "Faculty"]]) + `<p>${esc(a.in_focus)}</p>`, { v: "stats" }) +
+      sec("vision", "Vision", null, pull(a.vision), { v: "band" }) +
+      sec("mission", "Mission", null, numCards(a.mission), { v: "cards" }) +
+      sec("values", "Core values", null, numCards(a.core_values), { v: "cards" }) +
+      sec("history", "History", null, `<ol class="tline">${a.history.map((h, k) => `<li class="tline__row"><b class="tline__year">${esc(h.year)}</b><p class="tline__text">${esc(h.text)}</p>${k === 0 ? frame("ub") : k === a.history.length - 1 ? frame("aerial") : ""}</li>`).join("")}</ol>${ext(a.history_href, "Full history", "more")}`, { v: "timeline" }) +
+      sec("recognition", "Recognition", null, numCards(a.recognition), { v: "cards" }) +
+      sec("accreditation", "Programme accreditation", null, `<ul class="cardgrid">${a.accreditations.map(x => `<li class="ccard"><h3>${esc(x.body)}</h3>${bullets(x.programs)}</li>`).join("")}</ul><a class="more" href="/about/accreditations-rankings/">Accreditations & Rankings</a>`, { v: "cards" }) +
+      sec("campus", "The campus", null, statRow([["42", "Blocks"], ["250", "Acres"]]) + `<p>${esc(a.campus)}</p>`, { v: "split", img: "grounds" }) +
       sec("achievements", "Student achievements", null, bullets(a.student_achievements)) +
       sec("more", "More about SRM", null, linkList(a.links.concat([{ text: "News & Events", local: "/news-events" }])));
   }
@@ -584,10 +667,10 @@ pages.push({
   body: () => {
     const a = C("about-accreditations");
     const clean = t => String(t).replace(/\s*\(?\s*Till 2022\s*\)?\.?/gi, "").trim();
-    return sec("accreditations", "Accreditations", null, `<ul class="cardgrid">${a.accreditations.map(x => `<li class="ccard"><h3>${esc(x.body)}</h3>${x.text ? `<p>${esc(clean(x.text))}</p>` : ""}${bullets(x.programs)}</li>`).join("")}</ul>`) +
+    return sec("accreditations", "Accreditations", null, `<ul class="cardgrid">${a.accreditations.map(x => `<li class="ccard"><h3>${esc(x.body)}</h3>${x.text ? `<p>${esc(clean(x.text))}</p>` : ""}${bullets(x.programs)}</li>`).join("")}</ul>`, { v: "cards" }) +
       sec("rankings", "Rankings", null, `<ul class="cardgrid cardgrid--tight">${a.rankings.families.map(f => `<li class="ccard"><h3>${esc(f)}</h3></li>`).join("")}</ul>
         <h3 class="sub">Published bands</h3>${bullets(a.rankings.published_bands.map(b => b.replace(/\s*\(as shown on the page\)/g, "")))}
-        <p class="actions">${ext("https://www.srmist.edu.in/about-us/accreditations-and-rankings/", "See full rankings", "pill")}</p>`);
+        <p class="actions">${ext("https://www.srmist.edu.in/about-us/accreditations-and-rankings/", "See full rankings", "pill")}</p>`, { v: "split", img: "ub" });
   }
 });
 
@@ -597,7 +680,7 @@ pages.push({
   body: () => {
     const n = C("news-events");
     return sec("news", "News", null, `<ul class="newslist">${n.news.map(x => `<li>${link({ text: x.title, href: x.href })}</li>`).join("")}</ul>`) +
-      sec("featured", "Featured events", null, `<ul class="cardgrid">${n.events.featured.map(f => `<li class="ccard"><h3>${esc(f)}</h3><div class="ccard__links">${ext("/events", "All events", "more")}</div></li>`).join("")}</ul>`) +
+      sec("featured", "Featured events", null, `<ul class="cardgrid">${n.events.featured.map(f => `<li class="ccard"><h3>${esc(f)}</h3><div class="ccard__links">${ext("/events", "All events", "more")}</div></li>`).join("")}</ul>`, { v: "band" }) +
       sec("upcoming", "Upcoming events", null, `<ul class="newslist">${n.events.upcoming.map(x => `<li>${link({ text: x.title, href: x.href })}</li>`).join("")}</ul>`) +
       sec("more", "More", null, linkList(n.list_links));
   }
@@ -614,8 +697,8 @@ pages.push({
         <li><span>Enquiries</span>${c.enquiry_numbers.map(esc).join(", ")}</li>
         <li><span>Helpline</span>${esc(c.helpline)}</li></ul>
         <ul class="contact-list">${c.emails.map(e => `<li><span>${esc(e.label)}</span><a href="mailto:${esc(e.value)}">${esc(e.value)}</a></li>`).join("")}</ul></div>`) +
-      sec("admissions", "Admissions information centre", null, `<ul class="cardgrid">${c.admissions_information_centre.map(a => `<li class="ccard"><h3>${esc(a.phone)}</h3><p>${esc(a.programs)}</p></li>`).join("")}</ul>`) +
-      sec("visit", "Visit", null, `<p class="actions">${ext(c.visitors.how_to_reach, "How to reach", "pill")} ${ext(c.visitors.virtual_tour, "Virtual tour", "pill")}</p>`) +
+      sec("admissions", "Admissions information centre", null, `<ul class="cardgrid">${c.admissions_information_centre.map(a => `<li class="ccard"><h3>${esc(a.phone)}</h3><p>${esc(a.programs)}</p></li>`).join("")}</ul>`, { v: "cards" }) +
+      sec("visit", "Visit", null, `<p class="actions">${ext(c.visitors.how_to_reach, "How to reach", "pill")} ${ext(c.visitors.virtual_tour, "Virtual tour", "pill")}</p>`, { v: "split", img: "aerial" }) +
       sec("campuses", "Campuses", null, linkList(c.campuses.map(x => ({ text: x.name, href: x.href }))));
   }
 });

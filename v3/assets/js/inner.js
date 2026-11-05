@@ -150,4 +150,13 @@
       if (empty) empty.hidden = n > 0;
     });
   });
+
+  /* ---------- One reveal per section; the class is added here so content shows without JS ---------- */
+  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io = new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-in"); o.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+    $$("main > .sec").forEach(sec => {
+      if (sec.getBoundingClientRect().top < innerHeight) return; // already on screen at load: leave it alone
+      sec.classList.add("reveal"); io.observe(sec);
+    });
+  }
 })();

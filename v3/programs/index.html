@@ -80,7 +80,7 @@
   </section>
   <nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/academics/">Academics</a></li><li aria-current="page">Programs</li></ol></nav>
   <nav class="toc wrap" aria-label="On this page"><ul><li><a href="#finder">Program Finder</a></li><li><a href="#quiz">Which course fits me</a></li><li><a href="#compare">Compare programmes</a></li></ul></nav>
-<section class="section section--tight wrap" id="finder" aria-labelledby="finder-h">
+<section class="sec sec--list section section--tight wrap" id="finder" aria-labelledby="finder-h">
   <div class="s-head"><h2 id="finder-h">Program Finder</h2></div>
   <form class="pf" data-finder role="search" aria-label="Program Finder" onsubmit="return false">
       <div class="pf__row">
@@ -964,8 +964,8 @@
         </dl>
         <label class="prog__cmp"><input type="checkbox" data-compare value="m-tech-automation-and-robotics"> Compare</label>
       </li></ul>
-    <div class="pf__empty" data-empty hidden><p>No programme in this list matches those filters.</p><button class="pill" type="button" data-clear>Clear filters</button> <a class="more" href="https://www.srmist.edu.in/program-finder/" target="_blank" rel="noopener noreferrer" data-ext>Search the full programme list<span class="sr-only"> (opens the original SRMIST site)</span></a></div>
-</section><section class="section section--tight wrap" id="quiz" aria-labelledby="quiz-h">
+    <div class="pf__empty" data-empty hidden><p class="lead">No programme in this list matches those filters.</p><button class="pill" type="button" data-clear>Clear filters</button> <a class="more" href="https://www.srmist.edu.in/program-finder/" target="_blank" rel="noopener noreferrer" data-ext>Search the full programme list<span class="sr-only"> (opens the original SRMIST site)</span></a></div>
+</section><section class="sec sec--cards section section--tight wrap" id="quiz" aria-labelledby="quiz-h">
   <div class="s-head"><h2 id="quiz-h">Which course fits me</h2><p>Answer five questions to see the three programmes in this list that match you best.</p></div>
   <form class="quiz" data-quiz>
       <fieldset class="quiz__q"><legend>1. What do you enjoy most?</legend><label><input type="radio" name="interest" value="computing" required> Computers, code and data</label><label><input type="radio" name="interest" value="engineering"> Machines, electronics and building things</label><label><input type="radio" name="interest" value="health"> Health, medicine and the human body</label><label><input type="radio" name="interest" value="business"> Business, management and commerce</label><label><input type="radio" name="interest" value="law"> Law, policy and society</label><label><input type="radio" name="interest" value="arts"> Writing, media, design and the arts</label><label><input type="radio" name="interest" value="life"> Plants, biology and the environment</label></fieldset>
@@ -976,7 +976,7 @@
       <button class="pill pill--accent" type="submit">Show my top 3</button>
     </form>
     <div class="quiz__out" data-quiz-out aria-live="polite"></div>
-</section><section class="section section--tight wrap" id="compare" aria-labelledby="compare-h">
+</section><section class="sec sec--list section section--tight wrap" id="compare" aria-labelledby="compare-h">
   <div class="s-head"><h2 id="compare-h">Compare programmes</h2></div>
   <div class="cmp" data-compare-panel>
       <p class="cmp__hint" data-cmp-hint>Tick “Compare” on two or three programmes in the finder above.</p>

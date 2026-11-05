@@ -142,7 +142,8 @@
   if (!calm && "IntersectionObserver" in window) {
     const heads = $$(".s-head h2, .bgsec--band h2, .stat-band h2, .heritage h2, .ways-head h2, .closer h2, .bgsec--hero h1, .page-hero h1");
     const rv = new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-in"); o.unobserve(e.target); } }), { rootMargin: "0px 0px -12% 0px" });
-    heads.forEach(h => { h.classList.add("js-rv"); rv.observe(h); });
+    // inner pages use one section-level reveal (inner.js) instead of per-heading reveals
+    if (!document.body.classList.contains("inner")) heads.forEach(h => { h.classList.add("js-rv"); rv.observe(h); });
 
     const pars = $$(".bgsec").filter(b => $(".bgsec__img", b));
     pars.forEach(b => b.classList.add("is-par"));
