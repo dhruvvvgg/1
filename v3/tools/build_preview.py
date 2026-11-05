@@ -20,6 +20,8 @@ def bundle(name, as_main):
         s = '<meta charset="utf-8">\n' + head.strip() + "\n" + body
     open(os.path.join(OUT, name), "w", encoding="utf-8").write(s)
 
+for _n in ("academics.html", "admissions.html", "research.html", "placements.html", "campus-life.html"):
+    bundle(_n, False)
 bundle("index.html", True)
 bundle("page.html", False)
 print("built", len(os.listdir(os.path.join(OUT, "assets/img"))), "entries")
