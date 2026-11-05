@@ -27,9 +27,9 @@ async function gemini(prompt) {
   const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
   const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-    body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM }] }, contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 400 } })
+    body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM }] }, contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 800, thinkingConfig: { thinkingBudget: 0 } } })
   });
-  if (!r.ok) throw new Error("gemini " + r.status);
+  if (!r.ok) throw new Error("gemini " + r.status + " " + (await r.text()).slice(0, 300));
   const d = await r.json();
   return (d.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim() || null;
 }
@@ -40,7 +40,7 @@ async function nvidia(prompt) {
     method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
     body: JSON.stringify({ model: process.env.NVIDIA_MODEL || "nvidia/llama-3.1-nemotron-70b-instruct", temperature: 0.3, max_tokens: 400, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: prompt }] })
   });
-  if (!r.ok) throw new Error("nvidia " + r.status);
+  if (!r.ok) throw new Error("nvidia " + r.status + " " + (await r.text()).slice(0, 300));
   const d = await r.json();
   return (d.choices?.[0]?.message?.content || "").trim() || null;
 }
@@ -60,7 +60,7 @@ module.exports = async function handler(req, res) {
   const prompt = "Pages:\n" + pages.map(p => `- ${p.title}: ${p.href}`).join("\n") + "\n\nQuestion: " + question;
   let text = null;
   for (const provider of [gemini, nvidia]) {
-    try { text = await provider(prompt); } catch (e) { text = null; }
+    try { text = await provider(prompt); if (text === null) console.error(provider.name + ": no key or empty reply"); } catch (e) { console.error(provider.name + " failed:", e.message); text = null; }
     if (text) break;
   }
   if (!text) return res.status(502).json({ error: "The assistant could not answer just now." });
