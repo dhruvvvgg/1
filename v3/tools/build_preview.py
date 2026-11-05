@@ -7,8 +7,7 @@ OUT = os.path.join(ROOT, "preview")
 css = open(os.path.join(ROOT, "assets/css/site.css"), encoding="utf-8").read()
 js = open(os.path.join(ROOT, "assets/js/site.js"), encoding="utf-8").read()
 os.makedirs(os.path.join(OUT, "assets/img"), exist_ok=True)
-for f in os.listdir(os.path.join(ROOT, "assets/img")):
-    shutil.copy2(os.path.join(ROOT, "assets/img", f), os.path.join(OUT, "assets/img", f))
+shutil.copytree(os.path.join(ROOT, "assets/img"), os.path.join(OUT, "assets/img"), dirs_exist_ok=True)
 
 def bundle(name, as_main):
     s = open(os.path.join(ROOT, name), encoding="utf-8").read()
@@ -23,4 +22,4 @@ def bundle(name, as_main):
 
 bundle("index.html", True)
 bundle("page.html", False)
-print("built", sorted(os.listdir(os.path.join(OUT, "assets/img"))))
+print("built", len(os.listdir(os.path.join(OUT, "assets/img"))), "entries")
