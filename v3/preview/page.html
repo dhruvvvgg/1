@@ -1218,7 +1218,7 @@ html.intro-skip .intro { display: none !important; }
   scrollTo(0, 0);
   addEventListener("pageshow", () => scrollTo(0, 0));
 
-  /* Opening seal: zoom into the lower-right counter, never dissolve the logo. */
+  /* Opening seal: preserve the emblem centre throughout the zoom. */
   const intro = $("[data-intro]"), root = document.documentElement;
   if (intro) {
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -1247,10 +1247,10 @@ html.intro-skip .intro { display: none !important; }
       const initial = Math.min(width, height) * 0.34 / 178;
       const base = Math.min(initial, 260 / 178);
       const zoom = Math.max(0, Math.min(1, (progress - 0.34) / 0.66));
-      // Exponential acceleration travels into an actual counter, away from the tree.
+      // Scale around the seal centre. Never pan towards an individual opening.
       const travel = zoom * zoom * zoom;
-      const scale = base * Math.pow((Math.hypot(width, height) / 5) / base, travel);
-      const focusX = 89 + 26 * zoom, focusY = 89 + 25 * zoom;
+      const scale = base * Math.pow((Math.hypot(width, height) / 0.25) / base, travel);
+      const focusX = 89, focusY = 89;
       const transform = `translate(${width / 2} ${height / 2}) scale(${scale}) translate(${-focusX} ${-focusY})`;
       seal.setAttribute("transform", transform);
       windows.setAttribute("transform", transform);

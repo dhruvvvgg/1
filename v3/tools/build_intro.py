@@ -10,18 +10,15 @@ def path(p,fill=None,d=None):
  if fill:attrs['fill']=fill
  if d:attrs['d']=d
  return '<path '+ ' '.join(f'{k}="{v}"' for k,v in attrs.items())+'/>'
-# The first tree subpath is its outer silhouette. Preserve the canopy's fine blue
-# details as ink, rather than turning every tiny leaf counter into a new window.
-tree=re.findall(r'M[^M]*',paths[136].get('d'))[0]
+# Use the complete original tree path, including every branch, leaf and counter.
+# The ribbon is painted in front of the tree in the source logo, so protect it.
 svg='''<svg class="intro__scene" aria-hidden="true" width="100%" height="100%">
  <defs>
   <clipPath id="intro-field" clipPathUnits="userSpaceOnUse">'''+path(paths[135],fill='white')+'''</clipPath>
-  <mask id="intro-protected" maskUnits="userSpaceOnUse" x="0" y="0" width="178" height="178" style="mask-type:luminance"><rect width="178" height="178" fill="white"/>'''+path(paths[136],fill='black',d=tree)+''.join(path(p,fill='black') for p in paths[287:311])+'''</mask>
+  <mask id="intro-protected" maskUnits="userSpaceOnUse" x="0" y="0" width="178" height="178" style="mask-type:luminance"><rect width="178" height="178" fill="white"/>'''+''.join(path(p,fill='black') for p in paths[287:311])+'''</mask>
   <mask id="intro-reveal" maskUnits="userSpaceOnUse" style="mask-type:luminance"><rect width="100%" height="100%" fill="white"/>
-   <g data-intro-windows clip-path="url(#intro-field)" mask="url(#intro-protected)" fill="black" opacity="0">
-    <path data-intro-aperture d="M0 0H178V100H0Z"/>
-    <path data-intro-aperture d="M0 100H89V178H0Z"/>
-    <path data-intro-aperture d="M89 100H178V178H89Z"/>
+   <g data-intro-windows clip-path="url(#intro-field)" mask="url(#intro-protected)" opacity="0">
+    '''+path(paths[136],fill='black').replace('<path ', '<path data-intro-aperture data-intro-tree ')+'''
    </g>
   </mask>
  </defs>
@@ -35,4 +32,4 @@ s=s[:start]+'''<div class="intro" data-intro role="dialog" aria-modal="true" ari
  <button class="intro__skip" type="button" data-intro-skip>Skip intro</button>
 </div>
 '''+s[end:];p.write_text(s)
-print('Built seal artwork and three protected reveal apertures from the original SVG.')
+print('Built seal artwork and the exact tree reveal aperture from the original SVG.')
