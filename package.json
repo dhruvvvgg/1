@@ -10,6 +10,8 @@
     "check": "node scripts/check.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.11.0",
+    "@playwright/test": "1.56.1",
     "vite": "7.2.2"
   }
 }

@@ -26,6 +26,11 @@ for name, theme in [('campus-study',0),('learn-study',1),('research-study',2),('
   for x in [340,820,1300]:
    if theme==2:
     d.rectangle((x,410,x+220,605),fill='#456779');d.rectangle((x+16,426,x+204,565),fill='#c6dce5');d.line((x+20,560,x+165,450),fill='#0c4da2',width=12)
+   elif theme==5:
+    d.rectangle((x,480,x+240,620),fill='#e5ecef')
+    d.polygon([(x+16,580),(x+110,360),(x+200,580)],fill='#547b94')
+    d.ellipse((x+120,350,x+220,450),fill='#0c4da2')
+    d.line((x,620,x+240,620),fill='#0c4da2',width=12)
    else:
     d.polygon([(x,605),(x+40,330),(x+260,370),(x+220,620)],fill='#e5ecef');d.ellipse((x+80,410,x+180,510),outline='#0c4da2',width=12)
  im.save(root/'assets/raw'/f'{name}.png')
