@@ -82,7 +82,7 @@ module.exports = async function handler(req, res) {
     try { text = await provider(prompt); if (text === null) { console.error(provider.name + ": no key or empty reply"); why.push(provider.name + ": no key or empty reply"); } } catch (e) { console.error(provider.name + " failed:", e.message); why.push(e.message); text = null; }
     if (text) break;
   }
-  if (!text) return res.status(502).json({ error: "The assistant could not answer just now.", detail: why }) /* TEMP debug */;
+  if (!text) return res.status(502).json({ error: "The assistant could not answer just now." });
 
   const [answer, tail] = text.split(/\n?\s*LINKS:/i);
   const known = new Set(pages.map(p => p.href));
