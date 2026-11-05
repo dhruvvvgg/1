@@ -29,7 +29,7 @@ for (const [loc, orig] of Object.entries(urlMap)) {
 const absUrl = h => (/^https?:\/\//.test(h) ? h : h.startsWith("/") ? ORIGIN + h : h);
 const mapped = h => toLocal.get(absUrl(h).replace(/[#?].*$/, "").replace(/\/$/, "").replace(/^http:/, "https:").toLowerCase());
 
-const EXT_ICON = '<svg class="ext-ic" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5h5v5M9.5 2.5 3 9"/></svg>';
+const EXT_ICON = ""; // the visible arrow comes from the site's a[data-ext]::after rule
 const srText = href => /(^|\.)srmist\.edu\.in$/.test(new URL(href).hostname)
   ? " (opens the original SRMIST site)" : " (opens an external site in a new tab)";
 /* external link: always new tab, marker icon and hidden text; never rewritten */
@@ -654,7 +654,7 @@ home = home.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g, (m, attrs, inner) => {
   const hm = attrs.match(/href="([^"]+)"/); if (!hm) return m;
   const href = hm[1];
   if (!/^https?:\/\//.test(href)) return m;
-  if (/class="ext-ic"/.test(inner)) return m; // already marked by the builder
+  if (/<span class="sr-only">\s*\(opens /.test(inner)) return m; // already marked by the builder
   const loc = mapped(href);
   if (loc) return `<a${attrs.replace(/\s*data-ext\b/, "").replace(/\s*target="[^"]*"/, "").replace(/\s*rel="[^"]*"/, "").replace(/href="[^"]+"/, `href="${loc}"`)}>${inner}</a>`;
   const clean = attrs.replace(/\s*target="[^"]*"/, "").replace(/\s*rel="[^"]*"/, "").replace(/\s*data-ext\b/, "");

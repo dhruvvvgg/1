@@ -50,7 +50,7 @@ while (queue.length) {
       if (!/\btarget="_blank"/.test(attrs)) fail(route, `external link without target="_blank": ${href}`);
       const rel = (attrs.match(/\brel="([^"]*)"/) || [])[1] || "";
       if (!/\bnoopener\b/.test(rel) || !/\bnoreferrer\b/.test(rel)) fail(route, `external link without rel="noopener noreferrer": ${href}`);
-      if (!/class="ext-ic"/.test(inner)) fail(route, `external link without the external icon: ${href}`);
+      if (!/\bdata-ext\b/.test(attrs)) fail(route, `external link without the external arrow marker (data-ext): ${href}`);
       if (!/<span class="sr-only">\s*\(opens [^<]+\)<\/span>/.test(inner)) fail(route, `external link without hidden "(opens …)" text: ${href}`);
       continue;
     }

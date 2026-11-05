@@ -5,7 +5,7 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const inr = n => "₹" + Number(n).toLocaleString("en-IN");
-  const EXT = '<svg class="ext-ic" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5h5v5M9.5 2.5 3 9"/></svg><span class="sr-only"> (opens the original SRMIST site)</span>';
+  const EXT = '<span class="sr-only"> (opens the original SRMIST site)</span>';
   const progLink = (p, cls = "") => p.href.startsWith("/")
     ? `<a${cls ? ` class="${cls}"` : ""} href="${p.href}">${esc(p.name)}</a>`
     : `<a${cls ? ` class="${cls}"` : ""} href="${esc(p.href)}" target="_blank" rel="noopener noreferrer" data-ext>${esc(p.name)}${EXT}</a>`;
