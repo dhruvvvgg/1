@@ -1,0 +1,106 @@
+[
+  {
+    "id": "engineering",
+    "name": "Engineering & Technology",
+    "interest": "technology",
+    "summary": "Design, computing, machines and the systems that connect them.",
+    "detail": "Explore engineering study through lectures, practical laboratory work and projects.",
+    "route": "engineering"
+  },
+  {
+    "id": "medicine",
+    "name": "Medicine & Health Sciences",
+    "interest": "health",
+    "summary": "Clinical learning, medical science and the study of human health.",
+    "detail": "Medicine and dentistry use NEET-based admission routes. Check the route for your intended level of study.",
+    "route": "medicine"
+  },
+  {
+    "id": "management",
+    "name": "Management",
+    "interest": "society",
+    "summary": "Organisations, enterprise and the decisions that shape business.",
+    "detail": "Explore business and management study, then discuss the relevant admission process with the admissions team.",
+    "route": "other"
+  },
+  {
+    "id": "science",
+    "name": "Science & Humanities",
+    "interest": "technology",
+    "summary": "Natural sciences, languages and the study of people and ideas.",
+    "detail": "Explore your subject through scientific enquiry, analytical work and the humanities.",
+    "route": "other"
+  },
+  {
+    "id": "law",
+    "name": "Law",
+    "interest": "society",
+    "summary": "Legal systems, justice and the practice of reasoned argument.",
+    "detail": "Explore legal study and speak to admissions about programme-specific requirements.",
+    "route": "other"
+  },
+  {
+    "id": "agriculture",
+    "name": "Agricultural Sciences",
+    "interest": "technology",
+    "summary": "Food, crops and the science of sustainable agricultural systems.",
+    "detail": "Agriculture admissions enquiries are handled by the engineering, agriculture and architecture admissions team.",
+    "route": "other"
+  },
+  {
+    "id": "architecture",
+    "name": "Architecture",
+    "interest": "creative",
+    "summary": "Buildings, places and the spaces people share.",
+    "detail": "Discuss your intended architecture programme and its admission requirements with the admissions team.",
+    "route": "other"
+  },
+  {
+    "id": "pharmacy",
+    "name": "Pharmacy",
+    "interest": "health",
+    "summary": "Medicines, pharmaceutical science and their role in care.",
+    "detail": "Explore pharmacy study and the admission route for your chosen qualification.",
+    "route": "other"
+  },
+  {
+    "id": "nursing",
+    "name": "Nursing",
+    "interest": "health",
+    "summary": "Patient care, clinical practice and community health.",
+    "detail": "Explore nursing study and discuss programme-specific requirements with admissions.",
+    "route": "other"
+  },
+  {
+    "id": "physiotherapy",
+    "name": "Physiotherapy",
+    "interest": "health",
+    "summary": "Movement, rehabilitation and physical wellbeing.",
+    "detail": "Explore physiotherapy and the study of rehabilitation and patient care.",
+    "route": "other"
+  },
+  {
+    "id": "occupational-therapy",
+    "name": "Occupational Therapy",
+    "interest": "health",
+    "summary": "Helping people participate in everyday activities.",
+    "detail": "Explore occupational therapy study and the admission route for your chosen level.",
+    "route": "other"
+  },
+  {
+    "id": "hotel-management",
+    "name": "Hotel Management",
+    "interest": "society",
+    "summary": "Hospitality, service and the experience of welcoming people.",
+    "detail": "Explore hospitality and hotel management study at SRM.",
+    "route": "other"
+  },
+  {
+    "id": "public-health",
+    "name": "Public Health",
+    "interest": "health",
+    "summary": "Population health, prevention and healthcare systems.",
+    "detail": "Explore public health and discuss available study routes with the admissions team.",
+    "route": "other"
+  }
+]

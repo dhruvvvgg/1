@@ -1,0 +1,50 @@
+[
+  {
+    "name": "ABB",
+    "image": "abb.jpg"
+  },
+  {
+    "name": "Accenture",
+    "image": "accenture.jpg"
+  },
+  {
+    "name": "Accolite",
+    "image": "accolite.jpg"
+  },
+  {
+    "name": "Aditya Birla Group",
+    "image": "aditya-birla.jpg"
+  },
+  {
+    "name": "Afcons",
+    "image": "Afcons.jpg"
+  },
+  {
+    "name": "Affinsys",
+    "image": "Affinsys.jpg"
+  },
+  {
+    "name": "Microsoft",
+    "image": "microsoft.jpg"
+  },
+  {
+    "name": "McKinley Rice",
+    "image": "mckinley_rice.jpg"
+  },
+  {
+    "name": "Maruti Suzuki",
+    "image": "maruthi.jpg"
+  },
+  {
+    "name": "Mu Sigma",
+    "image": "mu_sigma.jpg"
+  },
+  {
+    "name": "Maersk",
+    "image": "maersk.jpg"
+  },
+  {
+    "name": "LTIMindtree",
+    "image": "ltimindtree.jpg"
+  }
+]

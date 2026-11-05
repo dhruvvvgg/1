@@ -17,3 +17,16 @@ cd redesign && python3 -m http.server 8000
 ```
 
 Then open http://localhost:8000. Images and logos load from srmist.edu.in, so you need an internet connection.
+
+## Latest connected redesign (v3)
+
+The current design is in `v3/`. It includes Admissions, Academics, Placements, Research and Campus Life, shared local navigation, and the UB lakeside footer.
+
+```bash
+python3 v3/tools/build_pages.py
+python3 v3/tools/build_preview.py
+python3 v3/tools/check_pages.py
+python3 -m http.server 8000
+```
+
+Open http://localhost:8000/v3/. Edit `v3/pages/` for page content and `v3/data/` for directory data. The generated `v3/preview/` pages inline their CSS and JavaScript. Design, content-source limits and verification are documented in `v3/PAGES.md`.

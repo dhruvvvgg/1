@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admissions | SRMIST Concept</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Explore admission routes, application preparation, scholarships and admissions contacts at SRMIST.">
+<meta name="theme-color" content="#fafafa">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+/* SRM IST homepage concept v3
+   Thesis: calm and typographic everywhere, two showpieces only: the photo-filled
+   wordmark hero and the white-and-teal campus footer. One accent: SRM gold.
+   Every non-showpiece section uses one pattern: H2, one-sentence intro, one link. */
+
+:root {
+  color-scheme: light;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --ink: #121418;
+  --ink-2: #3a3f48;
+  --muted: #5d636e;          /* 6.0:1 on --bg */
+  --line: #e2e3e6;
+  --accent: #e4b316;         /* SRM gold, from the logo */
+  --accent-ink: #121418;     /* text on accent: 9.6:1 */
+  --header-height: 76px;
+  --footer-text: #d9deea;
+  --footer-muted: #aab3c6;
+  --footer-line: rgb(255 255 255 / 0.16);
+  --night: #0e1b33;          /* footer, chapters scrim */
+
+  --font-display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader", "Source Serif 4", Georgia, serif;
+
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 160px;
+  --section: clamp(96px, 10vw, 176px);
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1360px;
+  --radius-card: 20px;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; scroll-padding-top: calc(var(--header-height) + var(--s4)); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-serif); font-size: 1.1875rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img, svg { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; box-shadow: 0 0 0 6px var(--accent); border-radius: 4px; }
+.dark :focus-visible { outline-color: #fff; }
+
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.sr-only { position: absolute !important; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: 16px; top: -80px; z-index: 100; background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 999px; font: 700 1rem var(--font-display); text-decoration: none; }
+.skip:focus { top: 12px; }
+.ui { font-family: var(--font-display); }
+
+/* Concept banner (competition preview) */
+.concept { background: var(--ink); color: #e9eaee; font: 500 0.875rem/1.4 var(--font-display); }
+.concept .wrap { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; padding-block: 8px; }
+.concept a { color: var(--accent); }
+
+/* ---------- Buttons and links ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px;
+  font: 700 1rem var(--font-display); text-decoration: none; background: var(--surface); color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+  transition: background-color 150ms ease, color 150ms ease, transform 150ms var(--ease);
+}
+.pill:hover { background: var(--ink); color: var(--surface); }
+.pill:active { transform: scale(0.96); }
+.pill--accent { background: var(--accent); box-shadow: none; }
+.pill--accent:hover { background: var(--ink); color: var(--accent); }
+.more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font: 700 1.0625rem var(--font-display); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; transition: text-decoration-color 150ms ease; }
+.more:hover { text-decoration-color: var(--ink); }
+.more::after { content: "→"; transition: transform 200ms var(--ease); }
+.more:hover::after { transform: translateX(4px); }
+/* An icon glyph should not depend on the font including arrow characters. */
+a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 0.85em; margin-left: 0.35em; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M5 19 19 5M5 5h14v14'/%3E%3C/svg%3E") center / contain no-repeat; }
+.more[data-ext]::after { content: ""; margin-left: 0; }
+
+/* ---------- Header ---------- */
+.header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgb(250 250 250 / 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.header .wrap { display: flex; align-items: center; gap: var(--s5); min-height: 76px; }
+.brand img { height: 52px; width: auto; }
+.nav { display: flex; gap: var(--s5); margin-left: auto; font: 600 1rem var(--font-display); }
+.nav a { text-decoration: none; padding-block: 10px; background: linear-gradient(var(--accent), var(--accent)) left bottom / 0 3px no-repeat; transition: background-size 200ms var(--ease); }
+.nav a:hover { background-size: 100% 3px; }
+.menu-btn { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); flex: none; transition: transform 150ms var(--ease); }
+.menu-btn:active { transform: scale(0.96); }
+.menu-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2.25; fill: none; stroke-linecap: round; }
+
+/* Full-screen menu */
+.menu { position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; border: 0; padding: 0; z-index: 90; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; padding-top: env(safe-area-inset-top, 0px); }
+.menu[open] { animation: fade 220ms var(--ease); }
+@keyframes fade { from { opacity: 0; } }
+.menu__top { display: flex; align-items: center; justify-content: space-between; min-height: 76px; border-bottom: 1px solid var(--line); }
+.menu__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s6); padding-block: var(--s8); }
+.menu__grid h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; padding-bottom: var(--s3); margin-bottom: var(--s3); border-bottom: 3px solid var(--accent); }
+.menu__grid a { display: flex; align-items: center; min-height: 40px; text-decoration: none; font-size: 1.0625rem; }
+.menu__grid a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+.menu__cta { display: flex; flex-wrap: wrap; gap: var(--s3); padding-bottom: var(--s8); }
+
+/* ---------- Hero: photo-filled wordmark ---------- */
+.hero { padding-top: clamp(24px, 4vw, 56px); }
+.wordmark { position: relative; font: 800 clamp(10rem, 1rem + 47vw, 52rem)/0.78 var(--font-display); letter-spacing: -0.075em; margin-left: -0.04em; user-select: none; }
+.wordmark__fill { display: block; color: transparent; background-size: cover; background-position: center 40%; -webkit-background-clip: text; background-clip: text; transition: opacity 1600ms ease; padding-bottom: 0.08em; }
+.wordmark__fill + .wordmark__fill { position: absolute; inset: 0; }
+.wordmark__fill:not(.is-on) { opacity: 0; }
+.wordmark__fill:first-child { color: var(--ink); } /* shows only if photos fail */
+.wordmark__fill:first-child.has-img { color: transparent; }
+.hero__row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s7); align-items: end; margin-top: var(--s5); }
+.hero__intro { font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.375rem); line-height: 1.25; letter-spacing: -0.01em; max-width: 30ch; }
+.hero__intro mark { background: var(--accent); color: var(--accent-ink); padding: 0 0.12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hero__side { display: flex; flex-direction: column; gap: var(--s4); align-items: flex-start; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4); font: 500 0.875rem var(--font-display); color: var(--muted); }
+.ctl { white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font: 600 0.875rem var(--font-display); color: var(--ink-2); }
+.ctl:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+.ctl svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* ---------- Scroll chapters (pinned headline, changing backdrop) ---------- */
+.chapters { position: relative; margin-top: var(--section); }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; color: #fff; isolation: isolate; }
+.stage__bg { position: absolute; inset: 0; z-index: -2; }
+.stage__bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 900ms ease, transform 1400ms var(--ease); }
+.stage__bg img.is-on { opacity: 1; transform: none; }
+.stage::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgb(14 27 51 / 0.5); }
+.stage__head { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); }
+.stage__kicker { font: 700 1rem var(--font-display); color: var(--accent); margin-bottom: var(--s3); }
+.stage__title { position: relative; height: 1em; font: 800 clamp(3.25rem, 1.4rem + 8vw, 9.5rem)/1 var(--font-display); letter-spacing: -0.05em; text-transform: uppercase; }
+.stage__title span { position: absolute; left: 0; top: 0; white-space: nowrap; clip-path: inset(0 0 0 0); transition: clip-path 600ms var(--ease), transform 600ms var(--ease); }
+.stage__title span:not(.is-on) { clip-path: inset(0 0 100% 0); transform: translateY(-0.12em); }
+.stage__count { margin-top: var(--s4); font: 600 0.9375rem var(--font-display); color: rgb(255 255 255 / 0.8); font-variant-numeric: tabular-nums; }
+.stage__credit { position: absolute; right: var(--gutter); bottom: 16px; font: 500 0.75rem var(--font-display); color: rgb(255 255 255 / 0.75); }
+.stage__credit a { color: inherit; }
+
+.chapter-cards { position: relative; z-index: 1; margin-top: -60vh; padding-bottom: 30vh; }
+.chapter-card { min-height: 100vh; display: flex; align-items: flex-end; padding-bottom: 12vh; }
+.chapter-card__box { margin-left: auto; width: min(460px, 100%); background: var(--surface); color: var(--ink); border-radius: var(--radius-card); padding: var(--s6); }
+.chapter-card__box h2 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+.chapter-card__box p { margin-top: var(--s3); color: var(--ink-2); }
+.chapter-card__stat { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--line); font: 600 1rem var(--font-display); }
+.chapter-card__stat b { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+.chapter-card__media { display: none; margin: 0 0 var(--s5); }
+
+/* ---------- Quiet sections: one repeating pattern ---------- */
+.section { padding-block: var(--section); }
+.section + .section { padding-top: 0; }
+.s-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s5) var(--s7); align-items: end; margin-bottom: var(--s8); }
+.s-head h2 { font-size: clamp(2.25rem, 1.4rem + 3vw, 4.25rem); font-weight: 800; letter-spacing: -0.045em; line-height: 0.98; }
+.s-head p { color: var(--ink-2); max-width: 46ch; }
+.s-head .more { grid-column: 2; justify-self: start; }
+
+/* Ways in: numbered blocks */
+.ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6); }
+.way { display: flex; flex-direction: column; gap: var(--s4); padding-top: var(--s4); border-top: 1px solid var(--ink); }
+.way img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); outline: 1px solid oklch(0 0 0 / 0.08); outline-offset: -1px; }
+.way h3 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; }
+.way p { color: var(--ink-2); }
+
+/* Work from SRM: credited cards */
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6) var(--s5); }
+.card a { display: flex; flex-direction: column; gap: var(--s3); text-decoration: none; }
+.card figure { margin: 0; }
+.card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-card); outline: 1px solid oklch(0 0 0 / 0.08); outline-offset: -1px; transition: transform 500ms var(--ease); }
+.card a:hover img { transform: scale(1.015); }
+.card figcaption { margin-top: var(--s2); font: 500 0.8125rem var(--font-display); color: var(--muted); }
+.card figcaption a { display: inline; color: inherit; }
+.card__type { font: 700 0.875rem var(--font-display); color: var(--muted); }
+.card h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+.card a:hover h3 { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 5px; }
+.card p { color: var(--ink-2); font-size: 1.0625rem; }
+
+/* Milestones and current campus news */
+.story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s8); align-items: start; }
+.timeline li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--s4); padding-block: var(--s4); border-top: 1px solid var(--line); }
+.timeline li:last-child { border-bottom: 1px solid var(--line); }
+.timeline b { font: 800 1.5rem var(--font-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+
+/* Partner wall */
+.partners { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.partners li { display: grid; place-items: center; aspect-ratio: auto; min-height: 116px; padding: var(--s5); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font: 600 0.875rem var(--font-display); color: var(--muted); }
+
+/* ---------- Light campus footer ---------- */
+.footer { margin-top: var(--section); background: var(--bg); color: var(--ink); font: 400 0.9375rem/1.6 var(--font-display); }
+.footer__frame { width: min(1280px, calc(100% - 2 * var(--gutter))); margin-inline: auto; border: 1px solid var(--line); border-bottom: 0; }
+.footer a { color: inherit; text-decoration: none; text-underline-offset: 5px; }
+.footer a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
+.footer__top { display: grid; grid-template-columns: 1.2fr repeat(4, minmax(0, 1fr)); }
+.footer__top > * { min-width: 0; padding: var(--s6) var(--s5); border-right: 1px solid var(--line); }
+.footer__top > :last-child { border-right: 0; }
+.footer__logo { display: inline-block; }
+.footer__logo img { width: 180px; height: auto; }
+.footer address { font-size: 0.8125rem; font-style: normal; color: var(--ink-2); line-height: 1.7; margin-top: var(--s5); }
+.footer summary { list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 44px; gap: var(--s2); font-size: 0.9375rem; font-weight: 700; cursor: pointer; }
+.footer summary::-webkit-details-marker { display: none; }
+.footer summary::after { content: "+"; color: var(--muted); }
+.footer details[open] summary::after { content: "−"; }
+.footer details a { display: inline-flex; align-items: center; min-height: 40px; color: var(--ink-2); font-size: 0.8125rem; }
+.footer__bar { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: var(--s4); align-items: center; border-top: 1px solid var(--line); padding: var(--s4) var(--s5); }
+.social { display: flex; flex-wrap: wrap; gap: 0; margin-left: -10px; }
+.social a { width: 40px; height: 44px; display: grid; place-items: center; }
+.social a:hover { color: var(--muted); }
+.clock { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px; font-size: 0.75rem; color: var(--muted); }
+.clock time { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.footer__copyright { font-size: 0.75rem; text-align: right; color: var(--ink-2); }
+.footer__legal { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); border-top: 1px solid var(--line); padding: var(--s2) var(--s5); font-size: 0.6875rem; color: var(--muted); }
+.footer__legal ul { display: flex; flex-wrap: wrap; gap: var(--s4); }
+.footer__legal a { display: inline-flex; align-items: center; min-height: 44px; }
+.campus-ending { margin: 0; background: var(--bg); }
+.campus-ending__art { width: 100%; height: auto; aspect-ratio: 1860 / 846; object-fit: contain; mask-image: linear-gradient(to bottom, transparent, black 12%); }
+@media (max-width: 1100px) and (min-width: 561px) {
+ .footer__top { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+ .footer__top > :first-child { grid-column: 1 / -1; border-bottom: 1px solid var(--line); border-right: 0; }
+ .footer__top > :nth-child(4) { border-right: 1px solid var(--line); }
+ .footer__bar { grid-template-columns: 1fr 1fr; }
+ .clock { justify-content: flex-end; }
+ .footer__copyright { grid-column: 1 / -1; text-align: left; }
+}
+@media (max-width: 560px) {
+ .footer__top { grid-template-columns: 1fr; }
+ .footer__top > * { padding: var(--s3) var(--s5); border-right: 0; border-bottom: 1px solid var(--line); }
+ .footer__top > :first-child { padding-block: var(--s6); }
+ .footer__top > :last-child { border-bottom: 0; }
+ .footer__bar { grid-template-columns: 1fr; gap: var(--s2); }
+ .clock { justify-content: flex-start; }
+ .footer__copyright { text-align: left; }
+ .campus-ending__art { object-fit: contain; }
+}
+
+/* ---------- Second-level template ---------- */
+.page-hero { padding-block: var(--s8) var(--s7); border-bottom: 1px solid var(--line); }
+.crumbs { font: 600 0.875rem var(--font-display); color: var(--muted); }
+.crumbs a { color: inherit; }
+.page-hero h1 { margin-top: var(--s4); font-size: clamp(3rem, 1.6rem + 6vw, 7.5rem); font-weight: 800; letter-spacing: -0.055em; line-height: 0.92; }
+.page-hero p { margin-top: var(--s5); font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); line-height: 1.3; max-width: 40ch; }
+.page-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--s8); padding-block: var(--s8); }
+.page-nav { position: sticky; top: 100px; align-self: start; font: 600 1rem var(--font-display); }
+.page-nav a { display: flex; min-height: 40px; align-items: center; text-decoration: none; color: var(--muted); }
+.page-nav a:hover, .page-nav a[aria-current] { color: var(--ink); }
+.page-nav a[aria-current] { box-shadow: inset 3px 0 0 var(--accent); padding-left: 12px; }
+.prose { max-width: 68ch; }
+.prose h2 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.04em; margin: var(--s8) 0 var(--s4); }
+.prose h2:first-child { margin-top: 0; }
+.prose p + p { margin-top: var(--s4); }
+.prose figure { margin: var(--s6) 0; }
+.prose figure img { border-radius: var(--radius-card); }
+.prose figcaption { margin-top: var(--s2); font: 500 0.8125rem var(--font-display); color: var(--muted); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .has-menu .nav { display: none; }
+  .menu-btn { margin-left: auto; }
+  .menu__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .partners { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 800px) {
+  .hero__row, .s-head, .story { grid-template-columns: 1fr; }
+  .s-head .more { grid-column: 1; }
+  .ways, .cards { grid-template-columns: 1fr; }
+  .card img { aspect-ratio: 4 / 3; }
+  .page-grid { grid-template-columns: 1fr; }
+  .page-nav { position: static; display: flex; gap: var(--s4); overflow-x: auto; }
+  .chapter-card__box { margin-inline: auto; }
+}
+@media (max-width: 560px) {
+  :root { --header-height: 64px; }
+  .brand img { height: 42px; }
+  .header .wrap { min-height: 64px; }
+  .menu-btn { width: 48px; height: 48px; }
+  .menu__grid { grid-template-columns: 1fr; }
+  .hero__ctas .pill { flex: 1 1 auto; justify-content: center; }
+  .partners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chapter-card__box { padding: var(--s5); }
+}
+
+/* Phones and reduced-motion mode: readable, naturally scrolling image sections. */
+@media (max-width: 800px), (prefers-reduced-motion: reduce) {
+  .stage { display: none; }
+  .chapter-cards { margin-top: 0; padding-bottom: 0; }
+  .chapter-card { min-height: 0; display: block; padding: 0 0 var(--s8); }
+  .chapter-card__box { margin: 0; width: auto; padding: 0; background: none; box-shadow: none; }
+  .chapter-card__media { display: block; margin-bottom: var(--s4); }
+  .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); }
+  .chapter-card__box h2 { font-size: clamp(2rem, 6vw, 2.5rem); }
+}
+
+/* Polish pass: one orchestrated hero entrance, scroll-aware header, calmer press states */
+@keyframes rise { from { clip-path: inset(0 0 100% 0); transform: translateY(0.06em); } to { clip-path: inset(0 0 -10% 0); transform: none; } }
+.wordmark { animation: rise 900ms var(--ease) both; }
+.header { transition: box-shadow 200ms ease, background-color 200ms ease; }
+.header.is-stuck { box-shadow: 0 6px 24px -12px rgb(14 27 51 / 0.35); background: rgb(250 250 250 / 0.97); }
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) { .has-js .chapter-card__box { box-shadow: 0 24px 60px -28px rgb(14 27 51 / 0.55); } }
+.way img { transition: transform 500ms var(--ease); }
+.way:hover img { transform: translateY(-4px); }
+
+/* Source-backed news and the existing recruiter logos. */
+.social svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.social svg .f { fill: currentColor; stroke: none; }
+.partners img { width: min(100%, 144px); height: 64px; object-fit: contain; mix-blend-mode: multiply; }
+.campus-news h3 { font-size: 1.25rem; line-height: 1.3; padding-bottom: var(--s4); border-bottom: 1px solid var(--line); }
+.news-list li + li { border-top: 1px solid var(--line); }
+.news-list a { display: flex; flex-direction: column; gap: var(--s3); padding-block: var(--s5); text-decoration: none; }
+.news-list__title { font: 600 1.25rem/1.35 var(--font-display); letter-spacing: -0.02em; }
+.news-list li:first-child .news-list__title { font-size: clamp(1.5rem, 2vw, 1.875rem); }
+.news-list a:hover .news-list__title { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.news-list__meta { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); font: 500 0.875rem var(--font-display); color: var(--muted); }
+.news-list__meta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; flex: none; }
+
+
+html:not(.has-menu) .header .wrap { flex-wrap: wrap; gap: var(--s3); padding-block: var(--s3); }
+html:not(.has-menu) .nav { display: flex; flex-wrap: wrap; width: 100%; gap: var(--s2) var(--s5); margin: 0; }
+html:not(.has-js) .stage { display: none; }
+html:not(.has-js) .chapter-cards { margin-top: 0; padding-bottom: 0; }
+html:not(.has-js) .chapter-card { min-height: 0; display: block; padding: 0 0 var(--s8); }
+html:not(.has-js) .chapter-card__box { margin: 0; width: auto; padding: 0; background: none; box-shadow: none; }
+html:not(.has-js) .chapter-card__media { display: block; }
+html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); }
+@media (max-width: 560px) { .partners li { padding: var(--s4); min-height: 96px; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  [data-wordmark-toggle] { display: none; }
+}
+
+</style>
+<style>
+/* Interior pages extend the existing SRM typography, gold, images and spacing. */
+.nav a[aria-current="page"] { background-size: 100% 3px; }
+.inner-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--s8); align-items: center; padding-block: var(--s8); }
+.inner-hero__copy { min-width: 0; }
+.inner-hero h1 { font-size: clamp(3.25rem, 7.3vw, 7.5rem); line-height: 1; letter-spacing: -0.065em; margin-block: var(--s5); }
+.inner-hero__lead { font-size: clamp(1.5rem, 2.4vw, 2.125rem); line-height: 1.3; max-width: 31ch; }
+.inner-hero .pill { margin-top: var(--s6); }
+.inner-hero__photo { margin: 0; min-width: 0; }
+.inner-hero__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+.inner-hero figcaption, .feature-story figcaption, .story-pair figcaption, .campus-mosaic figcaption { font: 500 0.75rem/1.5 var(--font-display); color: var(--muted); margin-top: var(--s2); }
+.section-nav { display: flex; flex-wrap: wrap; gap: 0 var(--s6); border-block: 1px solid var(--line); padding-block: var(--s3); }
+.section-nav a { display: inline-flex; align-items: center; min-height: 44px; font: 600 0.875rem var(--font-display); text-decoration: none; }
+.section-nav a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.route-picker, .directory-controls { display: grid; grid-template-columns: 1fr 1fr auto; gap: var(--s5); align-items: end; font-family: var(--font-display); margin-bottom: var(--s6); }
+.route-picker label, .directory-controls label { display: block; font-size: 0.875rem; font-weight: 700; margin-bottom: var(--s2); }
+.route-picker select, .directory-controls select, .directory-controls input { display: block; width: 100%; min-width: 0; min-height: 52px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); padding: var(--s3); font: 400 1rem var(--font-display); }
+.route-picker > div, .directory-controls > div { min-width: 0; }
+.route-picker .pill { min-height: 52px; justify-content: center; }
+.route-result { border-left: 4px solid var(--accent); background: var(--surface); padding: var(--s6); margin-bottom: var(--s7); }
+.route-result h3 { font-size: 1.5rem; margin-bottom: var(--s3); }
+.route-result p { max-width: 72ch; margin-bottom: var(--s4); }
+.route-overview, .study-paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6); }
+.route-overview article, .study-paths article { border-top: 1px solid var(--line); padding-top: var(--s5); }
+.route-overview h3, .study-paths h3, .split-copy h3, .contact-grid h3, .feature-story h3, .story-pair h3, .visit-panel h3, .campus-mosaic h3 { font-size: 1.5rem; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: var(--s4); }
+.route-overview p, .study-paths p, .split-copy p, .contact-grid p { color: var(--ink-2); }
+.study-paths .more { margin-top: var(--s5); }
+.process { counter-reset: steps; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s7) var(--s8); }
+.process li { display: grid; grid-template-columns: auto 1fr; gap: var(--s5); border-top: 1px solid var(--line); padding-top: var(--s5); }
+.process__number { font: 700 0.9375rem var(--font-display); color: var(--muted); padding-top: 4px; }
+.process h3 { font-size: 1.5rem; line-height: 1.25; margin-bottom: var(--s3); letter-spacing: -0.025em; }
+.process p { color: var(--ink-2); }
+.process .more { margin-top: var(--s4); }
+.process--three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6); }
+.document-checklist { margin-top: var(--s8); padding: var(--s6); border: 1px solid var(--line); border-radius: var(--radius-card); max-width: 840px; }
+.document-checklist h3 { font-size: 1.5rem; margin-bottom: var(--s3); }
+.document-checklist p { color: var(--muted); margin-bottom: var(--s4); }
+.document-checklist label { display: flex; align-items: center; gap: var(--s3); min-height: 48px; font: 400 1rem/1.5 var(--font-display); cursor: pointer; }
+.document-checklist input { flex: none; width: 20px; height: 20px; accent-color: var(--ink); }
+.split-copy, .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s8); }
+.plain-list { list-style: disc; padding-left: var(--s5); color: var(--ink-2); }
+.plain-list li + li { margin-top: var(--s2); }
+.answer { border-top: 1px solid var(--line); }
+.answer:last-child { border-bottom: 1px solid var(--line); }
+.answer summary { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: var(--s5); font: 600 1.125rem/1.4 var(--font-display); list-style: none; padding-block: var(--s4); cursor: pointer; }
+.answer summary::-webkit-details-marker { display: none; }
+.answer summary::after { content: "+"; font-size: 1.5rem; flex: none; }
+.answer[open] summary::after { content: "−"; }
+.answer > div { padding-bottom: var(--s5); max-width: 78ch; color: var(--ink-2); }
+.contact-grid article { border-top: 1px solid var(--line); padding-top: var(--s5); }
+.contact-number { display: inline-flex; align-items: center; min-height: 44px; font: 700 clamp(1.25rem, 2vw, 1.875rem)/1.3 var(--font-display); letter-spacing: -0.035em; text-decoration-color: var(--accent); text-underline-offset: 6px; margin-bottom: var(--s4); }
+.small-note { font-size: 0.9375rem; color: var(--muted); }
+.directory-count { font: 500 0.875rem var(--font-display); color: var(--muted); margin-bottom: var(--s5); }
+.text-button { display: inline-flex; align-items: center; min-height: 52px; font: 600 0.875rem var(--font-display); text-decoration: underline; text-underline-offset: 5px; }
+.subject-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s7); align-items: start; }
+.subject { border-top: 1px solid var(--line); }
+.subject summary { list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 88px; gap: var(--s5); padding-block: var(--s5); cursor: pointer; }
+.subject summary::-webkit-details-marker { display: none; }
+.subject__name { font: 600 1.25rem/1.35 var(--font-display); letter-spacing: -0.02em; }
+.subject__plus { font: 500 1.5rem var(--font-display); }
+.subject[open] .subject__plus { font-size: 0; }
+.subject[open] .subject__plus::after { content: "−"; font-size: 1.5rem; }
+.subject__body { padding-bottom: var(--s6); color: var(--ink-2); }
+.subject__body p + p { margin-top: var(--s3); }
+.subject__body .more { margin-top: var(--s4); font-size: 0.9375rem; }
+.empty-state { padding: var(--s7); border: 1px solid var(--line); text-align: center; }
+.empty-state p { margin: var(--s4) 0 var(--s5); color: var(--muted); }
+.feature-story { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--s8); align-items: center; }
+.feature-story figure { margin: 0; }
+.feature-story img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+.feature-story p { color: var(--ink-2); }
+.feature-story p + p { margin-top: var(--s4); }
+.feature-story .more { display: flex; width: fit-content; margin-top: var(--s5); }
+.next-step { display: flex; justify-content: space-between; align-items: center; gap: var(--s7); padding-block: var(--s8); border-block: 1px solid var(--line); }
+.next-step h2 { font-size: clamp(2rem, 3.5vw, 3.5rem); line-height: 1.05; letter-spacing: -0.04em; }
+.next-step p { max-width: 50ch; margin-top: var(--s4); color: var(--ink-2); }
+.next-step .pill { flex: none; }
+.directory-controls--single { grid-template-columns: minmax(0, 640px) auto; justify-content: start; }
+.recruiter-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-left: 1px solid var(--line); border-top: 1px solid var(--line); }
+.recruiter-list li { min-width: 0; padding: var(--s6) var(--s5); display: flex; align-items: center; flex-direction: column; gap: var(--s4); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.recruiter-list img { width: min(100%, 160px); height: 80px; object-fit: contain; mix-blend-mode: multiply; }
+.recruiter-list span { font: 500 0.8125rem var(--font-display); color: var(--muted); text-align: center; }
+.research-themes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7) var(--s8); }
+.research-themes article { padding-top: var(--s5); border-top: 1px solid var(--line); }
+.research-themes h3 { font-size: 1.75rem; letter-spacing: -0.03em; margin-bottom: var(--s4); }
+.research-themes p { color: var(--ink-2); }
+.research-themes .more { margin-top: var(--s4); }
+.campus-mosaic { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s8); align-items: center; }
+.campus-mosaic figure { margin: 0; }
+.campus-mosaic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+.campus-mosaic .more { margin-top: var(--s5); }
+.story-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); }
+.story-pair figure { margin: 0 0 var(--s5); }
+.story-pair img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-card); }
+.story-pair p { color: var(--ink-2); max-width: 50ch; }
+.editorial-note { max-width: 760px; padding-left: var(--s5); border-left: 4px solid var(--accent); margin-top: var(--s8); }
+.editorial-note h3 { font-size: 1.5rem; margin-bottom: var(--s3); }
+.visit-panel { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s8); border-top: 1px solid var(--line); padding-top: var(--s6); }
+.visit-panel address { font-style: normal; color: var(--ink-2); margin-bottom: var(--s5); }
+.visit-panel .more { margin-top: var(--s4); }
+@media (max-width: 1100px) {
+ .inner-hero { gap: var(--s7); }
+ .process--three { grid-template-columns: 1fr; }
+ .route-picker { grid-template-columns: 1fr 1fr; }
+ .route-picker .pill { justify-self: start; }
+ .recruiter-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 800px) {
+ .inner-hero { grid-template-columns: 1fr; padding-block: var(--s7); }
+ .inner-hero h1 { font-size: clamp(3rem, 11vw, 5.5rem); }
+ .inner-hero__photo img { aspect-ratio: 16 / 10; }
+ .section-nav { gap: 0 var(--s5); }
+ .route-overview, .study-paths, .process, .split-copy, .contact-grid, .feature-story, .research-themes, .campus-mosaic, .visit-panel { grid-template-columns: 1fr; gap: var(--s7); }
+ .directory-controls { grid-template-columns: 1fr 1fr; }
+ .directory-controls .text-button { justify-self: start; }
+ .subject-list { grid-template-columns: 1fr; }
+ .next-step { flex-direction: column; align-items: flex-start; gap: var(--s5); }
+}
+@media (max-width: 560px) {
+ .route-picker, .directory-controls, .story-pair { grid-template-columns: 1fr; gap: var(--s5); }
+ .route-picker .pill { width: 100%; }
+ .document-checklist, .route-result { padding: var(--s5); }
+ .recruiter-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .recruiter-list li { padding: var(--s5) var(--s4); }
+ .inner-hero .pill { padding-inline: var(--s5); }
+ .empty-state { padding: var(--s5); }
+}
+
+</style>
+<link rel="preload" as="image" href="assets/img/commons-srm-university-campus-chennai-tamil-nadu-india.webp">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<aside class="concept" aria-label="About this page">
+  <div class="wrap"><span>Concept redesign entered in the SRM Website Design Challenge 2026. Not the official SRMIST website.</span><a href="https://www.srmist.edu.in/" data-ext>Official site</a></div>
+</aside>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
+    <nav class="nav" aria-label="Main">
+      <a href="academics.html">Academics</a>
+      <a href="admissions.html" aria-current="page">Admissions</a>
+      <a href="placements.html">Placements</a>
+      <a href="research.html">Research</a>
+      <a href="campus-life.html">Campus life</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      <span class="sr-only">Open menu</span>
+    </button>
+  </div>
+</header>
+
+<dialog class="menu" id="menu" aria-label="Site menu" data-menu>
+  <div class="wrap">
+    <div class="menu__top">
+      <a class="brand" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
+      <button class="menu-btn" type="button" data-menu-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <span class="sr-only">Close menu</span>
+      </button>
+    </div>
+    <div class="menu__grid ui">
+      <div><h2>Academics</h2><ul><li><a href="academics.html#areas">Academic areas</a></li><li><a href="academics.html#pathways">Study levels</a></li><li><a href="academics.html#learning">Learning at SRM</a></li><li><a href="academics.html#online">Online &amp; distance</a></li></ul></div>
+      <div><h2>Admissions</h2><ul><li><a href="admissions.html#routes">Indian applicants</a></li><li><a href="admissions.html#international">International applicants</a></li><li><a href="admissions.html?area=medicine#routes">Medicine and dentistry</a></li><li><a href="admissions.html#fees">Scholarships and fees</a></li></ul></div>
+      <div><h2>Research</h2><ul><li><a href="research.html#themes">Directorate of Research</a></li><li><a href="research.html#facilities">Central laboratories</a></li><li><a href="research.html#innovation">Innovation and incubation</a></li><li><a href="research.html#doctoral">PhD study</a></li></ul></div>
+      <div><h2>Campus life</h2><ul><li><a href="campus-life.html#living">Hostels and dining</a></li><li><a href="campus-life.html#clubs">Clubs and festivals</a></li><li><a href="campus-life.html#sports">Sports</a></li><li><a href="campus-life.html#support">Student support</a></li></ul></div>
+      <div><h2>Placements</h2><ul><li><a href="placements.html#prepare">Career preparation</a></li><li><a href="placements.html#experience">Internships</a></li><li><a href="placements.html#recruiters">Recruiters</a></li><li><a href="placements.html#partners">For recruiters</a></li></ul></div>
+    </div>
+    <div class="menu__cta"><a class="pill pill--accent" href="admissions.html#routes">Apply</a><a class="pill" href="admissions.html#help">Request info</a><a class="pill" href="campus-life.html#visit">Visit campus</a></div>
+  </div>
+</dialog>
+
+<main id="main">
+<section class="inner-hero wrap" aria-labelledby="page-title"><div class="inner-hero__copy"><p class="crumbs"><a href="index.html">Home</a> / Admissions</p><h1 id="page-title">Admissions</h1><p class="inner-hero__lead">Your next chapter starts with a subject you care about. Find your route to studying at SRM.</p><a class="pill pill--accent" href="#routes">Find your route</a></div><figure class="inner-hero__photo"><img src="assets/img/commons-srm-university-campus-chennai-tamil-nadu-india.webp" alt="Campus lawns and roads after rain" width="1280" height="786" fetchpriority="high"><figcaption>Kattankulathur campus. Photo: N. Vivekananthamoorthy, CC BY 4.0</figcaption></figure></section><nav class="section-nav wrap" aria-label="On this page"><a href="#routes">Admission routes</a><a href="#application">How to apply</a><a href="#fees">Fees & scholarships</a><a href="#questions">Questions</a><a href="#help">Talk to us</a></nav>
+<section class="section wrap" id="routes"><div class="s-head"><h2>A route that fits your plans.</h2><p>The process depends on your qualification and subject. Start with the route that applies to you.</p></div>
+<form class="route-picker" data-route-form hidden><div><label for="study-level">Study level</label><select id="study-level" name="level"><option value="undergraduate">Undergraduate</option><option value="postgraduate">Postgraduate</option><option value="doctoral">Doctoral research</option></select></div><div><label for="study-area">Area of study</label><select id="study-area" name="area"><option value="engineering">Engineering & technology</option><option value="medicine">Medicine & dentistry</option><option value="other">Other subjects</option></select></div><button class="pill pill--accent" type="submit">View my route</button></form>
+<div class="route-result" data-route-result hidden role="status" aria-live="polite" aria-atomic="true"><h3 data-route-title></h3><p data-route-copy></p><a class="more" data-route-link href="#application">See application steps</a></div>
+<div class="route-overview"><article><h3>Engineering</h3><p>Undergraduate engineering admissions use SRMJEEE, the SRM Joint Engineering Entrance Examination. Postgraduate applicants should check the process for their chosen qualification.</p></article><article><h3>Medicine & dentistry</h3><p>Medical and dental admissions follow the applicable NEET route. Counselling and eligibility requirements depend on the qualification.</p></article><article><h3>Other subjects</h3><p>Management, law, science, humanities, agriculture and health-related subjects have programme-specific routes. The admissions team can help you identify the right one.</p></article></div>
+</section>
+<section class="section wrap" id="application"><div class="s-head"><h2>From interest to application.</h2><p>Choose your programme before checking its requirements. Keep your documents ready for the formal application process.</p></div>
+<ol class="process"><li><span class="process__number">01</span><div><h3>Explore your subject</h3><p>Compare academic areas and choose the level of study that fits your previous qualifications.</p><a class="more" href="academics.html#areas">Explore academics</a></div></li><li><span class="process__number">02</span><div><h3>Check your route</h3><p>Confirm eligibility, entrance examinations, counselling and the application schedule for your chosen programme with admissions.</p></div></li><li><span class="process__number">03</span><div><h3>Prepare your application</h3><p>Gather the documents requested for your programme. Check that your name and other details match across your records.</p></div></li><li><span class="process__number">04</span><div><h3>Complete the formal process</h3><p>Use the application channel confirmed by admissions. Keep your application number and payment acknowledgement for follow-up.</p><a class="more" href="#help">Get application help</a></div></li></ol>
+<div class="document-checklist"><h3>Before you begin</h3><p>A preparation checklist. Your programme may require additional documents.</p><label><input type="checkbox"> Academic records and certificates</label><label><input type="checkbox"> Identity and contact details</label><label><input type="checkbox"> Entrance examination details, if applicable</label><label><input type="checkbox"> Programme and campus preferences</label></div></section>
+<section class="section wrap" id="fees"><div class="s-head"><h2>Plan the practical details.</h2><p>Fees and scholarship rules vary by programme and admission route. Confirm the current information before making a payment.</p></div>
+<div class="split-copy"><article><h3>Fees & expenses</h3><p>Ask about tuition, registration, hostel and other applicable charges for your selected programme. Use the current fee schedule supplied by admissions.</p></article><article><h3>Scholarships & aid</h3><p>SRM offers scholarship and aid routes. Ask which schemes apply to your programme, the documents required and any renewal conditions.</p></article></div></section>
+<section class="section wrap" id="international"><div class="s-head"><h2>Coming from outside India?</h2><p>International applicants have a separate admissions route. Get advice for your qualification and circumstances.</p></div>
+<div class="split-copy"><p>Discuss qualification equivalence, programme requirements and the documents needed for admission before planning travel.</p><div><h3>Questions to bring</h3><ul class="plain-list"><li>Which qualifications are accepted for my programme?</li><li>Which documents need verification?</li><li>What should I arrange before arriving on campus?</li></ul><a class="more" href="#help">Contact admissions</a></div></div></section>
+<section class="section wrap" id="questions"><div class="s-head"><h2>A few useful answers.</h2><p>Start here, then speak to the admissions team about your own application.</p></div><details class="answer"><summary>Does every programme use SRMJEEE?</summary><div><p>No. SRMJEEE is an engineering admission route. Medicine and dentistry follow the relevant NEET process, while other programmes have their own requirements.</p></div></details><details class="answer"><summary>Where can I find current dates and fees?</summary><div><p>Ask admissions for the current schedule and fee information for your exact programme and campus. Dates and costs are not interchangeable across programmes.</p></div></details><details class="answer"><summary>Can I apply for postgraduate or doctoral study?</summary><div><p>SRM has postgraduate and research study routes. Select your intended level above, then discuss the required qualification and process with admissions.</p></div></details><details class="answer"><summary>Is this an application submission form?</summary><div><p>This page helps you choose a route and prepare. Your formal application and any payment take place through the channel confirmed by SRM admissions.</p></div></details>
+</section><section class="section wrap" id="help"><div class="s-head"><h2>Talk it through.</h2><p>The right admissions team can help you move from a question to a clear next step.</p></div>
+<div class="contact-grid"><article><h3>Engineering, agriculture & architecture</h3><a class="contact-number" href="tel:+917026452645">+91 70 2645 2645</a><p>Discuss your intended programme and application route.</p></article><article><h3>Other academic areas</h3><a class="contact-number" href="tel:+917026472647">+91 70 2647 2647</a><p>Business, science, humanities, law, health sciences and hotel management.</p></article></div></section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer" id="footer">
+  <div class="footer__frame">
+  <div class="footer__top">
+    <div>
+      <a class="footer__logo" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology" width="168" height="56" loading="lazy"></a>
+      <address>SRM Nagar, Kattankulathur 603203<br>Chengalpattu District, Tamil Nadu<br><a href="tel:+914427417000">+91 44 2741 7000</a></address>
+
+
+    </div>
+    <details data-acc open><summary>Study</summary><ul><li><a href="academics.html#areas">Programmes</a></li><li><a href="admissions.html#routes">Admissions 2027</a></li><li><a href="admissions.html#fees">Scholarships</a></li><li><a href="admissions.html#international">International students</a></li></ul></details>
+    <details data-acc open><summary>Let us help you</summary><ul><li><a href="https://www.srmist.edu.in/contact-us/">Contact admissions</a></li><li><a href="campus-life.html#visit">Visit campus</a></li><li><a href="campus-life.html#support">Student support</a></li><li><a href="campus-life.html#support">Anti-ragging</a></li></ul></details>
+    <details data-acc open><summary>University</summary><ul><li><a href="https://www.srmist.edu.in/about-us/">About SRMIST</a></li><li><a href="research.html#themes">Research</a></li><li><a href="https://www.srmist.edu.in/news/">News and events</a></li><li><a href="https://www.srmist.edu.in/" data-ext>Official website</a></li></ul></details>
+    <details data-acc open><summary>Campus</summary><ul><li><a href="campus-life.html#explore">Life at SRM</a></li><li><a href="campus-life.html#clubs">Clubs and societies</a></li><li><a href="campus-life.html#sports">Sports</a></li><li><a href="placements.html">Placements</a></li></ul></details>
+  </div>
+  <div class="footer__bar">
+      <ul class="social" aria-label="Social media">
+        <li><a href="https://www.instagram.com/SRMUniversityOfficial/" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M12 7.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6zm0 7.9a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/><circle class="f" cx="17.3" cy="6.7" r="1.1"/><path class="f" d="M16 2H8a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h8a6 6 0 0 0 6-6V8a6 6 0 0 0-6-6zm4.2 14a4.2 4.2 0 0 1-4.2 4.2H8A4.2 4.2 0 0 1 3.8 16V8A4.2 4.2 0 0 1 8 3.8h8A4.2 4.2 0 0 1 20.2 8z"/></svg></a></li>
+        <li><a href="https://www.linkedin.com/company/srm-ist-chennai" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4v11H3zM9.5 9.5h3.8v1.5h.1c.5-1 1.8-1.8 3.7-1.8 4 0 4.7 2.6 4.7 6V20.5h-4v-4.9c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6v5H9.5z"/></svg></a></li>
+        <li><a href="https://www.youtube.com/user/SRMeducation" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a></li>
+        <li><a href="https://twitter.com/SRM_Univ" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M17.7 3h3.1l-6.8 7.7L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L2 3h6.4l4.4 5.9zm-1.1 16.2h1.7L7.5 4.7H5.7z"/></svg></a></li>
+      </ul>
+      <p class="clock">Kattankulathur <time data-clock>--:--</time> IST</p>
+    <p class="footer__copyright">© 2026 SRM Institute of Science and Technology.<br>Concept redesign.</p>
+  </div>
+  <div class="footer__legal">
+    <p>Photography credited where shown. Campus scene: architectural illustration.</p>
+    <ul><li><a href="https://www.srmist.edu.in/privacy-policy/">Privacy</a></li><li><a href="https://www.srmist.edu.in/terms-and-conditions/">Terms</a></li><li><a href="https://www.srmist.edu.in/iqac/public-disclosure/">Mandatory disclosures</a></li></ul>
+  </div>
+
+  </div>
+  <figure class="campus-ending">
+    <img class="campus-ending__art" src="assets/img/ub-lakeside-footer.webp" alt="Illustrated lakeside view of SRM’s University Building, with its sandstone tower, teal arched windows and lower right wing behind campus trees" width="1860" height="846" loading="lazy" decoding="async">
+  </figure>
+</footer>
+
+<script>
+/* SRM concept v3. Navigation and content remain usable without JavaScript. */
+(() => {
+  "use strict";
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+  document.documentElement.classList.add("has-js");
+
+  /* Native modal: background inertness, Escape, and focus containment are built in. */
+  const menu = $("[data-menu]");
+  const openBtn = $("[data-menu-open]");
+  if (menu && openBtn && typeof menu.showModal === "function") {
+    document.documentElement.classList.add("has-menu");
+    openBtn.hidden = false;
+    let previousOverflow = "";
+    openBtn.addEventListener("click", () => {
+      previousOverflow = document.documentElement.style.overflow;
+      menu.showModal();
+      openBtn.setAttribute("aria-expanded", "true");
+      document.documentElement.style.overflow = "hidden";
+      $("[data-menu-close]", menu).focus();
+    });
+    $("[data-menu-close]", menu).addEventListener("click", () => menu.close());
+    $$("a", menu).forEach(a => a.addEventListener("click", () => menu.close()));
+    menu.addEventListener("close", () => {
+      openBtn.setAttribute("aria-expanded", "false");
+      document.documentElement.style.overflow = previousOverflow;
+      openBtn.focus();
+    });
+  }
+
+  /* Only loaded photos enter the rotation. Pause when offscreen, hidden, or focused. */
+  const mark = $("[data-wordmark]");
+  if (mark) {
+    const fills = $$(".wordmark__fill", mark);
+    const hero = mark.closest(".hero");
+    const credit = $("[data-wordmark-credit]");
+    const toggle = $("[data-wordmark-toggle]");
+    let loaded = [], current = fills[0], timer = null;
+    let paused = false, inView = true, focusPaused = false;
+    const show = slide => {
+      current = slide;
+      fills.forEach(f => f.classList.toggle("is-on", f === slide));
+      if (credit) credit.textContent = slide.dataset.credit;
+    };
+    const sync = () => {
+      clearInterval(timer);
+      timer = null;
+      if (toggle) {
+        toggle.hidden = loaded.length < 2 || calm.matches;
+        toggle.setAttribute("aria-pressed", String(paused));
+        $("span", toggle).textContent = paused ? "Play photos" : "Pause photos";
+        $("path", toggle).setAttribute("d", paused ? "M3 1.5 12 7 3 12.5z" : "M3 2h3v10H3zM8 2h3v10H8z");
+      }
+      if (loaded.length > 1 && !paused && !calm.matches && inView && !focusPaused && !document.hidden) {
+        timer = setInterval(() => show(loaded[(loaded.indexOf(current) + 1) % loaded.length]), 5000);
+      }
+    };
+    fills.forEach(f => {
+      const img = new Image();
+      img.onload = () => {
+        f.style.backgroundImage = `url("${f.dataset.img}")`;
+        f.classList.add("has-img");
+        loaded = fills.filter(slide => slide.classList.contains("has-img"));
+        if (!current.classList.contains("has-img")) show(loaded[0]);
+        sync();
+      };
+      // A failed photo stays out of the rotation; the first slide retains a text fallback.
+      img.onerror = () => { if (!loaded.length && credit) credit.textContent = "SRM Institute of Science and Technology"; };
+      img.src = f.dataset.img;
+    });
+    if (toggle) toggle.addEventListener("click", () => { paused = !paused; focusPaused = false; sync(); });
+    hero.addEventListener("focusin", () => { focusPaused = true; sync(); });
+    hero.addEventListener("focusout", e => { if (!hero.contains(e.relatedTarget)) { focusPaused = false; sync(); } });
+    document.addEventListener("visibilitychange", sync);
+    calm.addEventListener("change", sync);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(entries => { inView = entries[0].isIntersecting; sync(); }).observe(hero);
+    }
+  }
+
+  /* Desktop scroll chapters; phones and reduced-motion mode use ordinary image sections. */
+  const chapters = $("[data-chapters]");
+  const cinematic = window.matchMedia("(min-width: 801px) and (prefers-reduced-motion: no-preference)");
+  if (chapters && "IntersectionObserver" in window) {
+    const bgs = $$(".stage__bg img", chapters);
+    const words = $$(".stage__title span", chapters);
+    const cards = $$("[data-chapter]", chapters);
+    let observers = [];
+    const setup = () => {
+      observers.forEach(o => o.disconnect());
+      observers = [];
+      if (!cinematic.matches) return;
+      let current = -1;
+      const set = n => {
+        if (n === current) return;
+        current = n;
+        bgs.forEach((b, k) => b.classList.toggle("is-on", k === n));
+        words.forEach((w, k) => w.classList.toggle("is-on", k === n));
+        $("[data-stage-count]", chapters).textContent = `${String(n + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+        $("[data-stage-credit]", chapters).textContent = cards[n].dataset.credit;
+      };
+      const preload = new IntersectionObserver((entries, observer) => {
+        if (entries.some(e => e.isIntersecting)) { bgs.forEach(b => { b.loading = "eager"; }); observer.disconnect(); }
+      }, { rootMargin: "600px" });
+      preload.observe(chapters);
+      const follow = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) set(Number(e.target.dataset.chapter)); });
+      }, { rootMargin: "-45% 0px -45% 0px" });
+      cards.forEach(c => follow.observe(c));
+      observers = [preload, follow];
+    };
+    setup();
+    cinematic.addEventListener("change", setup);
+  }
+
+  const header = $(".header");
+  if (header) {
+    const syncHeader = () => header.classList.toggle("is-stuck", window.scrollY > 8);
+    syncHeader();
+    addEventListener("scroll", syncHeader, { passive: true });
+  }
+
+  /* Native details stay open without JS; compact screens get collapsible groups. */
+  const small = window.matchMedia("(max-width: 560px)");
+  const syncAcc = () => $$("[data-acc]").forEach(d => { d.open = !small.matches; });
+  syncAcc();
+  small.addEventListener("change", syncAcc);
+
+  const clock = $("[data-clock]");
+  if (clock) {
+    const fmt = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false });
+    const tick = () => {
+      const now = new Date();
+      clock.textContent = fmt.format(now);
+      clock.setAttribute("datetime", now.toISOString());
+    };
+    tick();
+    setInterval(tick, 30000);
+  }
+})();
+
+</script>
+<script>
+/* Page-specific enhancements. All guide and directory content also exists in HTML. */
+(() => {
+  "use strict";
+  document.querySelectorAll('[data-directory]').forEach(directory => {
+    const form = directory.querySelector('[data-filter-form]');
+    const items = [...directory.querySelectorAll('[data-filter-item]')];
+    const count = directory.querySelector('[data-filter-count]');
+    const empty = directory.querySelector('[data-filter-empty]');
+    const search = form.elements.q;
+    const interest = form.elements.interest;
+    const params = new URLSearchParams(location.search);
+    const normalize = text => text.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+    search.value = params.get('q') || '';
+    if (interest && [...interest.options].some(o => o.value === params.get('interest'))) interest.value = params.get('interest');
+    const apply = (persist = true) => {
+      const query = normalize(search.value);
+      let visible = 0;
+      items.forEach(item => {
+        const matches = normalize(item.dataset.search).includes(query) && (!interest || !interest.value || item.dataset.interest === interest.value);
+        item.hidden = !matches;
+        if (matches) visible++;
+      });
+      count.textContent = `${visible} ${visible === 1 ? directory.dataset.singular : directory.dataset.noun} shown`;
+      empty.hidden = visible > 0;
+      if (persist) {
+        const url = new URL(location.href);
+        search.value.trim() ? url.searchParams.set('q', search.value.trim()) : url.searchParams.delete('q');
+        if (interest) interest.value ? url.searchParams.set('interest', interest.value) : url.searchParams.delete('interest');
+        history.replaceState(null, '', url);
+      }
+    };
+    form.hidden = false;
+    form.addEventListener('submit', e => { e.preventDefault(); apply(); });
+    form.addEventListener('input', () => apply());
+    form.addEventListener('change', () => apply());
+    form.addEventListener('reset', () => queueMicrotask(() => apply()));
+    directory.querySelector('[data-filter-reset]').addEventListener('click', () => { form.reset(); search.focus(); });
+    apply(false);
+  });
+
+  const route = document.querySelector('[data-route-form]');
+  if (route) {
+    const result = document.querySelector('[data-route-result]');
+    const title = result.querySelector('[data-route-title]');
+    const copy = result.querySelector('[data-route-copy]');
+    const link = result.querySelector('[data-route-link]');
+    const params = new URLSearchParams(location.search);
+    ['level', 'area'].forEach(name => {
+      const value = params.get(name);
+      if ([...route.elements[name].options].some(o => o.value === value)) route.elements[name].value = value;
+    });
+    const render = () => {
+      const level = route.elements.level.value, area = route.elements.area.value;
+      link.href = '#application'; link.textContent = 'See application steps';
+      if (level === 'doctoral') {
+        title.textContent = 'Your route: doctoral research';
+        copy.textContent = 'Start with your research interest, academic fit and potential supervision. Discuss current eligibility and selection requirements with admissions and the relevant academic team.';
+        link.href = 'research.html#doctoral'; link.textContent = 'Explore doctoral study';
+      } else if (level === 'undergraduate' && area === 'engineering') {
+        title.textContent = 'Your route: undergraduate engineering';
+        copy.textContent = 'SRMJEEE is the entrance route for undergraduate engineering. Confirm the current eligibility, application schedule and selection process for your chosen programme with admissions.';
+      } else if (level === 'undergraduate' && area === 'medicine') {
+        title.textContent = 'Your route: medicine or dentistry';
+        copy.textContent = 'Undergraduate medical and dental admission follows the relevant NEET process. Confirm eligibility, counselling requirements and the current schedule for your chosen qualification.';
+      } else {
+        title.textContent = `Your route: ${level === 'postgraduate' ? 'postgraduate' : 'undergraduate'} study`;
+        copy.textContent = 'Your route is programme-specific. Confirm the required qualification, any entrance or selection process, the current schedule and fees with the admissions team before applying.';
+      }
+      result.hidden = false;
+    };
+    route.hidden = false; render();
+    route.addEventListener('submit', e => {
+      e.preventDefault(); render();
+      const url = new URL(location.href);
+      url.searchParams.set('level', route.elements.level.value); url.searchParams.set('area', route.elements.area.value);
+      history.replaceState(null, '', url);
+    });
+  }
+})();
+
+</script>
+</body>
+</html>
