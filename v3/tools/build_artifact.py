@@ -28,7 +28,8 @@ for rel in pages:
             'window.SRMR=R;var f=window.fetch;window.fetch=function(u,o){return f.call(this,R(u),o);};'
             'document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(a){var h=a.getAttribute("href");if(h&&h.charAt(0)==="/")a.setAttribute("href",R(h));}},true);})();</script>') % up
     s = s.replace("<head>", "<head>\n" + shim, 1) if "<head>" in s else s
-    s = s.replace("<body>", "<body>\n" + BANNER, 1) if "<body>" in s else re.sub(r"(<body[^>]*>)", r"\1\n" + BANNER, s, count=1)
+    if "concept-strip" not in s:
+        s = s.replace("<body>", "<body>\n" + BANNER, 1) if "<body>" in s else re.sub(r"(<body[^>]*>)", r"\1\n" + BANNER, s, count=1)
     if depth == 0:  # the host wraps the main page in its own skeleton
         head = s[s.index("<head>") + 6: s.index("</head>")]
         head = re.sub(r'<meta (charset|name="viewport")[^>]*>\n?', "", head)
