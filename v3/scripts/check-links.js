@@ -39,7 +39,7 @@ while (queue.length) {
   if (!title) fail(route, "missing <title>");
   else if (titles.has(title)) fail(route, `duplicate <title> also used on ${titles.get(title)}`);
   else titles.set(title, route);
-  if (/\b(concept|prototype)\b/i.test(html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<!--[\s\S]*?-->/g, "").replace(/<[^>]+>/g, " "))) fail(route, "visible text mentions concept or prototype");
+  if (/\b(concept|prototype)\b/i.test(html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<!-- build:strip -->[\s\S]*?<!-- \/build:strip -->/g, "").replace(/<!--[\s\S]*?-->/g, "").replace(/<[^>]+>/g, " "))) fail(route, "visible text mentions concept or prototype");
 
   for (const m of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)) {
     const attrs = m[1], inner = m[2];

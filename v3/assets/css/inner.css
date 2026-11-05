@@ -510,3 +510,9 @@ html.has-tray main { padding-bottom: 88px; }
 }
 /* larger text: the section links move into the menu, as they would when zoomed */
 @media (max-width: 1919px) { html.pref-size-1 .nav, html.pref-size-2 .nav { display: none; } html.pref-size-1 .header__apply, html.pref-size-2 .header__apply { display: none; } }
+
+/* concept strip: top of every page */
+.concept-strip { background: var(--navy); color: var(--snow); font: 600 0.875rem/1.4 var(--font-display); }
+.concept-strip .wrap { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; align-items: center; padding-block: 8px; }
+.concept-strip a { color: var(--accent); display: inline-flex; align-items: center; min-height: 32px; }
+.concept-strip :focus-visible { outline-color: var(--accent); }

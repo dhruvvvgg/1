@@ -250,6 +250,7 @@ const header = () => `<!-- build:header -->
 </nav>
 <!-- /build:header -->`;
 
+const STRIP = `<!-- build:strip --><aside class="concept-strip" aria-label="About this site"><div class="wrap"><span>Concept redesign entered in the SRM Website Design Challenge 2026. This is not the official SRMIST website.</span>${ext("https://www.srmist.edu.in/", "Go to the official site, srmist.edu.in")}</div></aside><!-- /build:strip -->`;
 /* reading preferences are applied before first paint, so there is no flash */
 const PREPAINT = `<script>
 (function () { try {
@@ -335,6 +336,7 @@ ${HEAD_COMMON}
 </head>
 <body class="inner inner--${page.template}">
 <a class="skip" href="#main">Skip to main content</a>
+${STRIP}
 ${header()}
 ${audienceBar()}
 <main id="main">
@@ -974,6 +976,8 @@ const swap = (src, name, startRe, endStr, html) => {
   return src.slice(0, s) + html + src.slice(e);
 };
 current = { route: "/", title: "Home" };
+if (home.includes("<!-- build:strip -->")) home = home.replace(/<!-- build:strip -->[\s\S]*?<!-- \/build:strip -->/, STRIP);
+else home = home.replace('<a class="skip" href="#main">Skip to main content</a>', '<a class="skip" href="#main">Skip to main content</a>\n' + STRIP);
 home = swap(home, "header", /<header class="header">/, "</div>\n</div>\n", header() + "\n");
 home = swap(home, "audience", /<nav class="iam"/, "</ul></div></nav>", audienceBar());
 /* shortcut cards (links only from nav.json) with the audience switcher above them */
