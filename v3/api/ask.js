@@ -1,8 +1,8 @@
 /* POST /api/ask  { question, pages: [{ title, href }] }  ->  { answer, links }
    Answers a prospective student's question using only the page list the site sends.
    Keys come from Vercel environment variables and never reach the browser:
-     GEMINI_API_KEY   (optional GEMINI_MODEL, default gemini-3.8-flash)
-     NVIDIA_API_KEY   (optional NVIDIA_MODEL, default nvidia/llama-3.1-nemotron-70b-instruct)
+     GEMINI_API_KEY   (optional GEMINI_MODEL to pin one model)
+     NVIDIA_API_KEY   (optional NVIDIA_MODEL to pin one model)
    Gemini is tried first, then NVIDIA, so either key alone is enough. */
 "use strict";
 
@@ -24,29 +24,44 @@ const okHref = h => typeof h === "string" && h.length < 300 && (/^[a-z0-9][a-z0-
 
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
+// Each provider walks a short list of models: a stable alias first, then smaller or older ones, so one overloaded model never blocks an answer.
+const GEMINI_MODELS = ["gemini-flash-latest", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite"];
+const NVIDIA_MODELS = ["nvidia/nemotron-nano-3-30b-a3b", "nvidia/nemotron-3-super-120b-a12b"];
+
 async function gemini(prompt) {
   const key = process.env.GEMINI_API_KEY; if (!key) return null;
-  const model = process.env.GEMINI_MODEL || "gemini-3.8-flash";
-  const call = () => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-    method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-    body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM }] }, contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 800, thinkingConfig: { thinkingBudget: 0 } } })
-  });
-  let r = await call();
-  for (let n = 0; n < 2 && (r.status === 503 || r.status === 429); n++) { await wait(700 * (n + 1)); r = await call(); } // Google sheds load in short spikes
-  if (!r.ok) throw new Error("gemini " + r.status + " " + (await r.text()).slice(0, 300));
-  const d = await r.json();
-  return (d.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim() || null;
+  const errors = [];
+  for (const model of process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL] : GEMINI_MODELS) {
+    const call = () => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+      body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM }] }, contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 1200 } })
+    });
+    let r = await call();
+    if (r.status === 503 || r.status === 429) { await wait(600); r = await call(); } // Google sheds load in short spikes
+    if (!r.ok) { errors.push(model + " " + r.status); continue; }
+    const d = await r.json();
+    const text = (d.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("").trim();
+    if (text) return text;
+    errors.push(model + " empty");
+  }
+  throw new Error("gemini: " + errors.join(", "));
 }
 
 async function nvidia(prompt) {
   const key = process.env.NVIDIA_API_KEY; if (!key) return null;
-  const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
-    method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
-    body: JSON.stringify({ model: process.env.NVIDIA_MODEL || "nvidia/llama-3.1-nemotron-70b-instruct", temperature: 0.3, max_tokens: 400, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: prompt }] })
-  });
-  if (!r.ok) throw new Error("nvidia " + r.status + " " + (await r.text()).slice(0, 300));
-  const d = await r.json();
-  return (d.choices?.[0]?.message?.content || "").trim() || null;
+  const errors = [];
+  for (const model of process.env.NVIDIA_MODEL ? [process.env.NVIDIA_MODEL] : NVIDIA_MODELS) {
+    const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+      method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
+      body: JSON.stringify({ model, temperature: 0.3, max_tokens: 1200, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: prompt }] })
+    });
+    if (!r.ok) { errors.push(model + " " + r.status); continue; }
+    const d = await r.json();
+    const text = (d.choices?.[0]?.message?.content || "").replace(/<think>[\s\S]*?<\/think>/g, "").trim();
+    if (text) return text;
+    errors.push(model + " empty");
+  }
+  throw new Error("nvidia: " + errors.join(", "));
 }
 
 module.exports = async function handler(req, res) {
@@ -66,10 +81,6 @@ module.exports = async function handler(req, res) {
   for (const provider of [gemini, nvidia]) {
     try { text = await provider(prompt); if (text === null) { console.error(provider.name + ": no key or empty reply"); why.push(provider.name + ": no key or empty reply"); } } catch (e) { console.error(provider.name + " failed:", e.message); why.push(e.message); text = null; }
     if (text) break;
-  }
-  if (!text) { /* TEMP debug: list the models these keys can use */
-    try { const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=100", { headers: { "x-goog-api-key": process.env.GEMINI_API_KEY || "" } }); const d = await r.json(); why.push("gemini models: " + (d.models || []).filter(m => (m.supportedGenerationMethods || []).includes("generateContent")).map(m => m.name.replace("models/", "")).join(", ")); } catch (e) { why.push("gemini list failed"); }
-    try { const r = await fetch("https://integrate.api.nvidia.com/v1/models", { headers: { Authorization: "Bearer " + (process.env.NVIDIA_API_KEY || "") } }); const d = await r.json(); why.push("nvidia models: " + (d.data || []).map(m => m.id).filter(id => /nemotron|llama-3|mistral|gemma|qwen/i.test(id)).slice(0, 60).join(", ")); } catch (e) { why.push("nvidia list failed"); }
   }
   if (!text) return res.status(502).json({ error: "The assistant could not answer just now.", detail: why }) /* TEMP debug */;
 
