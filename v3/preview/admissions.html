@@ -843,34 +843,17 @@ img { background: none; }
 
 
 
-/* ---------- Opening animation: the emblem zooms toward the viewer, turns transparent, and the site shows through it ---------- */
-@property --r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+/* Opening seal: only its three negative-space windows reveal the page.
+   Artwork, cover and all lettering remain fully opaque throughout the zoom. */
 .intro { display: none; }
 html.intro-on { overflow: hidden; }
-html.intro-on .intro { display: grid; place-items: center; position: fixed; inset: 0; z-index: 200; --s: min(34vmin, 260px); }
-/* the cover has a round window that grows with the emblem, so the site is seen through where the emblem was */
-.intro__bg { position: absolute; inset: 0; background: var(--bg); --r: 0px;
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--r), #000 calc(var(--r) + 1px));
-  mask-image: radial-gradient(circle at 50% 50%, transparent var(--r), #000 calc(var(--r) + 1px));
-  animation: intro-window 3.3s linear both, intro-fade 3.3s linear both; }
-/* only the circular seal shows: the full logo is cropped to its left-hand square, so the wordmark text never appears and no second file is loaded */
-.intro__emblem { position: relative; z-index: 1; width: var(--s); height: var(--s); overflow: hidden; transform-origin: 50% 50%; will-change: transform, opacity; animation: intro-emblem 3.3s linear both; }
-.intro__emblem img { position: absolute; left: 0; top: 0; width: calc(var(--s) * 600 / 178); max-width: none; height: auto; }
-@keyframes intro-emblem {
-  0%   { opacity: 0; transform: scale(0.88); animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1); }
-  16%  { opacity: 1; transform: scale(1);    animation-timing-function: linear; }
-  38%  { opacity: 1; transform: scale(1.05); animation-timing-function: cubic-bezier(0.7, 0, 0.95, 0.45); }
-  100% { opacity: 0; transform: scale(40); }
-}
-@keyframes intro-window {
-  0%, 38% { --r: 0px; animation-timing-function: cubic-bezier(0.7, 0, 0.95, 0.45); }
-  100%    { --r: 190vmax; }
-}
-@keyframes intro-fade { 0%, 62% { opacity: 1; } 100% { opacity: 0; } } /* fallback where the animated window is unsupported */
-.intro__skip { position: fixed; right: max(var(--s5), env(safe-area-inset-right, 0px)); bottom: max(var(--s5), env(safe-area-inset-bottom, 0px)); z-index: 2; min-height: 44px; padding: 0 var(--s4); border-radius: 999px; font: 600 0.875rem var(--font-display); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); background: var(--bg); opacity: 0; animation: intro-skip 400ms 700ms var(--ease) forwards; }
+html.intro-on .intro { display: block; position: fixed; inset: 0; z-index: 200; background: var(--bg); }
+.intro__scene { display: block; position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; visibility: hidden; }
+html.intro-on .intro.is-ready { background: transparent; }
+.intro.is-ready .intro__scene { visibility: visible; }
+.intro__cover { fill: var(--bg); }
+.intro__skip { position: fixed; right: max(var(--s5), env(safe-area-inset-right, 0px)); bottom: max(var(--s5), env(safe-area-inset-bottom, 0px)); z-index: 2; min-height: 44px; padding: 0 var(--s4); border-radius: 999px; font: 600 0.875rem var(--font-display); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); background: var(--bg); }
 .intro__skip:hover { color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
-@keyframes intro-skip { to { opacity: 1; } }
-/* the home page's own entrance waits until the window opens */
 html.intro-hold .wordmark, html.intro-hold .hero__intro, html.intro-hold .hero__side { animation-play-state: paused; }
 html.intro-skip .intro { display: none !important; }
 @media (prefers-reduced-motion: reduce) { .intro { display: none !important; } html.intro-on { overflow: auto; } }
@@ -1224,23 +1207,60 @@ html.intro-skip .intro { display: none !important; }
   scrollTo(0, 0);
   addEventListener("pageshow", () => scrollTo(0, 0));
 
-  /* ---------- Opening animation: ends itself, can be skipped, plays once per session ---------- */
+  /* Opening seal: zoom into the lower-right counter, never dissolve the logo. */
   const intro = $("[data-intro]"), root = document.documentElement;
   if (intro) {
-    let done = false;
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    let done = false, frame = 0, safety = 0, started = null;
+    const scene = $(".intro__scene", intro);
+    const seal = $("[data-intro-seal]", intro);
+    const windows = $("[data-intro-windows]", intro);
+    const background = [...document.body.children].filter(el => el !== intro && !["SCRIPT", "STYLE"].includes(el.tagName));
+    const previousInert = background.map(el => el.inert);
     const finish = () => {
-      if (done) return; done = true;
+      if (done) return;
+      done = true;
+      cancelAnimationFrame(frame); clearTimeout(safety);
       root.classList.remove("intro-on", "intro-hold"); root.classList.add("intro-skip");
+      background.forEach((el, i) => { el.inert = previousInert[i]; });
+      removeEventListener("keydown", onKey);
+      motion.removeEventListener("change", onMotion);
       try { sessionStorage.setItem("srm-intro", "1"); } catch (e) {}
       intro.remove();
     };
-    if (!root.classList.contains("intro-on")) intro.remove();
+    const onKey = e => { if (e.key === "Escape") finish(); };
+    const onMotion = () => { if (motion.matches) finish(); };
+    const paint = progress => {
+      const width = innerWidth, height = innerHeight;
+      scene.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      const initial = Math.min(width, height) * 0.34 / 178;
+      const base = Math.min(initial, 260 / 178);
+      const zoom = Math.max(0, Math.min(1, (progress - 0.34) / 0.66));
+      // Exponential acceleration travels into an actual counter, away from the tree.
+      const travel = zoom * zoom * zoom;
+      const scale = base * Math.pow((Math.hypot(width, height) / 5) / base, travel);
+      const focusX = 89 + 26 * zoom, focusY = 89 + 25 * zoom;
+      const transform = `translate(${width / 2} ${height / 2}) scale(${scale}) translate(${-focusX} ${-focusY})`;
+      seal.setAttribute("transform", transform);
+      windows.setAttribute("transform", transform);
+      windows.setAttribute("opacity", String(Math.max(0, Math.min(1, (progress - 0.34) / 0.15))));
+      if (progress > 0.65) root.classList.remove("intro-hold");
+    };
+    if (!root.classList.contains("intro-on") || motion.matches) intro.remove();
     else {
-      setTimeout(() => root.classList.remove("intro-hold"), 2300);          // hero entrance starts as the window opens
-      $(".intro__emblem", intro).addEventListener("animationend", finish);
+      background.forEach(el => { el.inert = true; });
+      paint(0); intro.classList.add("is-ready");
+      const tick = time => {
+        if (started === null) started = time;
+        const progress = Math.min(1, (time - started) / 3300);
+        paint(progress);
+        if (progress === 1) finish(); else frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
       $("[data-intro-skip]", intro).addEventListener("click", finish);
-      addEventListener("keydown", e => { if (e.key === "Escape") finish(); }, { once: true });
-      setTimeout(finish, 5500);                                              // never leave the page covered
+      addEventListener("keydown", onKey);
+      motion.addEventListener("change", onMotion);
+      safety = setTimeout(finish, 5500);
     }
   }
 })();

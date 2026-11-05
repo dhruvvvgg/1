@@ -184,23 +184,60 @@
   scrollTo(0, 0);
   addEventListener("pageshow", () => scrollTo(0, 0));
 
-  /* ---------- Opening animation: ends itself, can be skipped, plays once per session ---------- */
+  /* Opening seal: zoom into the lower-right counter, never dissolve the logo. */
   const intro = $("[data-intro]"), root = document.documentElement;
   if (intro) {
-    let done = false;
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    let done = false, frame = 0, safety = 0, started = null;
+    const scene = $(".intro__scene", intro);
+    const seal = $("[data-intro-seal]", intro);
+    const windows = $("[data-intro-windows]", intro);
+    const background = [...document.body.children].filter(el => el !== intro && !["SCRIPT", "STYLE"].includes(el.tagName));
+    const previousInert = background.map(el => el.inert);
     const finish = () => {
-      if (done) return; done = true;
+      if (done) return;
+      done = true;
+      cancelAnimationFrame(frame); clearTimeout(safety);
       root.classList.remove("intro-on", "intro-hold"); root.classList.add("intro-skip");
+      background.forEach((el, i) => { el.inert = previousInert[i]; });
+      removeEventListener("keydown", onKey);
+      motion.removeEventListener("change", onMotion);
       try { sessionStorage.setItem("srm-intro", "1"); } catch (e) {}
       intro.remove();
     };
-    if (!root.classList.contains("intro-on")) intro.remove();
+    const onKey = e => { if (e.key === "Escape") finish(); };
+    const onMotion = () => { if (motion.matches) finish(); };
+    const paint = progress => {
+      const width = innerWidth, height = innerHeight;
+      scene.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      const initial = Math.min(width, height) * 0.34 / 178;
+      const base = Math.min(initial, 260 / 178);
+      const zoom = Math.max(0, Math.min(1, (progress - 0.34) / 0.66));
+      // Exponential acceleration travels into an actual counter, away from the tree.
+      const travel = zoom * zoom * zoom;
+      const scale = base * Math.pow((Math.hypot(width, height) / 5) / base, travel);
+      const focusX = 89 + 26 * zoom, focusY = 89 + 25 * zoom;
+      const transform = `translate(${width / 2} ${height / 2}) scale(${scale}) translate(${-focusX} ${-focusY})`;
+      seal.setAttribute("transform", transform);
+      windows.setAttribute("transform", transform);
+      windows.setAttribute("opacity", String(Math.max(0, Math.min(1, (progress - 0.34) / 0.15))));
+      if (progress > 0.65) root.classList.remove("intro-hold");
+    };
+    if (!root.classList.contains("intro-on") || motion.matches) intro.remove();
     else {
-      setTimeout(() => root.classList.remove("intro-hold"), 2300);          // hero entrance starts as the window opens
-      $(".intro__emblem", intro).addEventListener("animationend", finish);
+      background.forEach(el => { el.inert = true; });
+      paint(0); intro.classList.add("is-ready");
+      const tick = time => {
+        if (started === null) started = time;
+        const progress = Math.min(1, (time - started) / 3300);
+        paint(progress);
+        if (progress === 1) finish(); else frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
       $("[data-intro-skip]", intro).addEventListener("click", finish);
-      addEventListener("keydown", e => { if (e.key === "Escape") finish(); }, { once: true });
-      setTimeout(finish, 5500);                                              // never leave the page covered
+      addEventListener("keydown", onKey);
+      motion.addEventListener("change", onMotion);
+      safety = setTimeout(finish, 5500);
     }
   }
 })();
