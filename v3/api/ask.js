@@ -58,12 +58,12 @@ module.exports = async function handler(req, res) {
   if (!process.env.GEMINI_API_KEY && !process.env.NVIDIA_API_KEY) return res.status(503).json({ error: "The assistant is not configured." });
 
   const prompt = "Pages:\n" + pages.map(p => `- ${p.title}: ${p.href}`).join("\n") + "\n\nQuestion: " + question;
-  let text = null;
+  let text = null; const why = [];
   for (const provider of [gemini, nvidia]) {
-    try { text = await provider(prompt); if (text === null) console.error(provider.name + ": no key or empty reply"); } catch (e) { console.error(provider.name + " failed:", e.message); text = null; }
+    try { text = await provider(prompt); if (text === null) { console.error(provider.name + ": no key or empty reply"); why.push(provider.name + ": no key or empty reply"); } } catch (e) { console.error(provider.name + " failed:", e.message); why.push(e.message); text = null; }
     if (text) break;
   }
-  if (!text) return res.status(502).json({ error: "The assistant could not answer just now." });
+  if (!text) return res.status(502).json({ error: "The assistant could not answer just now.", detail: why }) /* TEMP debug */;
 
   const [answer, tail] = text.split(/\n?\s*LINKS:/i);
   const known = new Set(pages.map(p => p.href));
