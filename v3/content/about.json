@@ -1,0 +1,44 @@
+{
+  "path": "/about",
+  "source": "https://www.srmist.edu.in/about-us/",
+  "title": "About SRM",
+  "description": "SRMIST - Top ranking university in India, offering wide range of UG, PG & research programs in engineering, management, medicine and science & humanities, law & other colleges",
+  "vision": "To emerge as a World – Class University in creating and disseminating knowledge and providing students a unique learning experience in Science, Technology, Medicine, Management and other areas of Scholarship that will best serve the world and for the betterment of humanity.",
+  "vision_note": "Source sentence is cut in the capture after 'for the betterme…'. The completion above follows the official wording; verify against the original before final.",
+  "mission": ["MOVE UP through international alliances and collaborative initiatives to achieve global excellence.", "ACCOMPLISH A PROCESS to advance knowledge in a rigorous academic and research environment.", "ATTRACT AND BUILD PEOPLE in a rewarding and an inspiring environment by fostering freedom, empowerment, creativity and innovation"],
+  "core_values": ["Excellence, Integrity and Academic Freedom", "Global Vision and Local Commitment", "Inclusiveness, Diversity, Compassion and Mutual Respect"],
+  "in_focus": "SRM Institute of Science and Technology is one of the top ranking universities in India with over 60000+ full time students and more than 4460+ faculty across all the campuses – Kattankulathur, Ramapuram, Vadapalani, Baburayanpettai Campus.",
+  "consistency_warning": "The Admissions page says 50000+ students across 6 campuses; About says 60000+ and 4460+ faculty. Do not show one headline student count site-wide. Cite it only on the page where it appears.",
+  "history": [
+    {"year": "1985", "text": "Launch of SRM Engineering College in Kattankulathur, near Chennai."},
+    {"year": "2002", "text": "Sec. 3 of the UGC Act 1956 Deemed Status to SRM Institute of Science and Technology, Chennai (incl SRM Dental College, Ramapuram)"},
+    {"year": "2003", "text": "SRM Engineering College, Kattankulathur, Chennai was brought under the ambit of SRMIST, Chennai, a deemed to be University."},
+    {"year": "2010", "text": "Inter Disciplinary School of Indian System of Medicine."},
+    {"year": "2013", "text": "Launch of SRM University, Haryana"}
+  ],
+  "history_href": "/about-us/history/",
+  "recognition": [
+    "SRMIST Stands 4th in Country Wise and 147 in World Wide Ranking by UI Metric.",
+    "SRMIST has been accredited by NAAC with the Highest ‘A++’ Grade in the year 2024.",
+    "SRMIST holds the consecutive No. 1 position among the top engineering institutions, top 125 private engineering institutes, and the top 70 private institutes in placement respectively.",
+    "found a podium finish in Atal Rankings of Institutions on Innovation Achievements (ARIIA) 2020."
+  ],
+  "accreditations": [
+    {"body": "IET Engineering", "programs": ["B.Tech Computer Science and Engineering (KTR Campus)", "B.Tech Software Engineering (KTR Campus)", "B.Tech Electronics and Instrumentation Engineering (KTR Campus)", "B.Tech Automobile Engineering (KTR Campus)"]},
+    {"body": "ABET Engineering", "programs": ["B.Tech Civil Engineering (KTR Campus)", "B.Tech Mechanical Engineering (KTR Campus)", "B.Tech Electrical and Electronics Engineering (KTR Campus)", "B.Tech Electronics and Communication Engineering (KTR Campus)"]},
+    {"body": "ABET Computing", "programs": ["B.Tech Information Technology (KTR Campus)"]}
+  ],
+  "campus": "Learning is an enjoyable experience here, with experienced faculty, inspiring libraries and stimulating discussion rooms, large playgrounds and state-of-the-art labs. All in all about 42 blocks sprawling across 250 acres of greenery filled campus.",
+  "student_achievements": [
+    "SRMIST MBA Students Excel at Forge Inspira - Ideathon 2025 Hosted by IIT Hyderabad",
+    "SRM Institute Triumphs at RoboRoarZ: Sweeps 1st and 2nd Place with Stellar Robotics Teams",
+    "Dev Pratap Singh: SRMIST Student as a Cultural Ambassador in St. Petersburg",
+    "SRMIST’s PANCHAVARNA: Championing Innovation at SAEISS Bicycle Design Challenge"
+  ],
+  "links": [
+    {"text": "History", "href": "/about-us/history/"},
+    {"text": "Accreditations & Rankings", "href": "/about-us/accreditations-and-rankings/", "local": "/about/accreditations-rankings"},
+    {"text": "Leadership", "href": "/about-us/leadership-team/"},
+    {"text": "Governance", "href": "/about-us/governance/"}
+  ]
+}

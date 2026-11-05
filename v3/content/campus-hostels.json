@@ -1,0 +1,55 @@
+{
+  "path": "/campus-life/hostels",
+  "source": "https://www.srmist.edu.in/srm-hostels/",
+  "title": "SRM Hostels",
+  "description": "Student accommodation and facilities at SRMIST Kattankulathur.",
+  "heading": "All about Student accommodation & facilities",
+  "intro": [
+    "We, at SRM Institute of Science and Technology (formerly known as SRM University), provide a wide choice in selecting the type or rooms in a hostel to suit every budget, with an aim of providing a decent stay and the best possible learning environment.",
+    "Ours is one of the greenest Campuses in the country with all the facilities that are expected from global Universities. Our students comprise a cosmopolitan mix from all parts of India as well as many countries across the globe.",
+    "The students staying at SRM hostels are provided with healthy and sumptuous food options at highly subsidized rates. They can choose to have North Indian or South Indian menu in the dining halls that are co-located. For the benefit of our international students, the hostels also offer a multi-cuisine dining facility providing Thai, Chinese and continental food.",
+    "SRM provides a comfortable and safe housing to all its students. The students housed in the campus are encouraged to use the gymnasium, playground, and all indoor gaming facilities."
+  ],
+  "director": {
+    "name": "Dr. E. Poovammal",
+    "role": "Professor and Director (Hostels)",
+    "office": "Directorate of Hostels SRMIST-KTR Campus",
+    "email": "director.hostels@srmist.edu.in",
+    "phone": "+91 9940036021",
+    "message": [
+      "As per our Founder Chancellor’s wish, the mission of our directorate is to provide a safe, supportive, and comfortable living environment that fosters academic success and personal growth of every SRMISTian.",
+      "We encourage you to take care of the hostel facilities and report any concerns or needs for improvements. Should you have any personal, academic, or social concerns, our hostel staff, including Wardens and support personnel, are always available to assist.",
+      "We also encourage students to participate in the various cultural, recreational, and educational activities hosted by the Directorate throughout the year."
+    ]
+  },
+  "vision": ["To make the students feel at home", "To provide a friendly, comfortable, well furnished and secure ambiance", "To provide a healthy competitive and diverse cultural learning environment", "To inculcate discipline and to make students more systematic and strategic"],
+  "hostels": [
+    {"name": "Hostels for Men", "href": "/srm-hostels/hostel-for-men/"},
+    {"name": "Hostels for Women", "href": "/srm-hostels/hostel-for-women/"},
+    {"name": "International Hostel", "href": "/srm-hostels/international-hostel/"}
+  ],
+  "links": [
+    {"text": "Meet Our Staff", "href": "/srm-hostels/meet-our-staff/"},
+    {"text": "Hostel Rules (PDF)", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2026/srm-hostel-rules-2026.pdf"},
+    {"text": "Book Hostel (student portal)", "href": "https://sp.srmist.edu.in/"},
+    {"text": "Booking schedule: first-year B.Tech/M.Tech (boys)", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2026/circular-for-all-first-year-btech-and-mtech-2026-boys.pdf"},
+    {"text": "Booking schedule: first-year B.Tech/M.Tech (girls)", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2026/circular-for-all-first-year-btech-and-mtech-2026-girls.pdf"}
+  ],
+  "fees_and_booking_heading": "Hostel Fees and Online Booking Schedule For the Academic Year 2026-2027",
+  "booking_groups": ["All First-Year B.Tech and M.Tech [Integrated] Students", "All First-Year PG M.Tech Students", "I-Year B.Arch and B.Des Students", "II-Year B.Tech/M.Tech (Integrated) / B.Arch / B.Des Students", "III-Year B.Tech/M.Tech (Integrated) / B.Arch / B.Des Students", "IV-Year & V-Year B.Tech/M.Tech (Integrated) / B.Arch / B.Des Students", "Research Scholars"],
+  "how_to_apply": [
+    "Application for admission to the hostel for the first year and renewal for subsequent years should be made online through https://sp.srmist.edu.in only.",
+    "Online hostel booking schedules for first year students will be communicated directly and for senior students, it will be announced through the student’s portal well in advance.",
+    "First year students who have completed all the admission formalities and have the net ID and Password only will be eligible for hostel admission after the hostel booking portal opens.",
+    "No student will be allowed to stay in the hostel without formal admission.",
+    "Every student should submit an undertaking before occupying the hostel that he/she will abide by the rules and regulations of the hostels and the discipline policy in force."
+  ],
+  "who_can_apply": {
+    "eligible": ["Full time bonafide undergraduate, postgraduate and research students of Faculty of Engineering and Technology, Medicine and Health Sciences, Science & Humanities, Management and Law", "Full-time bonafide diploma students of Polytechnic and Hotel Management"],
+    "not_eligible": ["Students who have failed and are not re-admitted as regular students", "Students enrolled in a part-time, evening course, correspondence or any external course of study", "Students penalized for indiscipline activities", "Working men / women and ex-students"]
+  },
+  "contacts": [
+    {"group": "Gents Hostel", "email": "hostel.helpdesk.ktr@srmist.edu.in", "phones": ["044-27453159", "044-27434500", "044-27434506", "044-27434504"], "mobile": "8056016602", "accounts_office": "044-27434507"},
+    {"group": "Ladies Hostel", "phones": ["044-27453159", "044-27456363", "044-27434506", "044-27434504"], "warden_email": "warden.kopperundevi.ktr@srmist.edu.in", "warden_mobile": "8056016627"}
+  ]
+}

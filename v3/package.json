@@ -1,0 +1,12 @@
+{
+  "name": "srmist-site",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "check:links": "node scripts/check-links.js",
+    "check:a11y": "node scripts/a11y.js"
+  },
+  "devDependencies": {
+    "axe-core": "4.10.2"
+  }
+}

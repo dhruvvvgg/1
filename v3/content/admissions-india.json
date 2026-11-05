@@ -1,0 +1,112 @@
+{
+  "path": "/admissions/india",
+  "source": "https://www.srmist.edu.in/admission-india/",
+  "title": "Admission India",
+  "description": "SRMIST offers admission to Engineering, Medical, Management and Science & Humanities students. The university also extends several scholarships, fee waiver schemes, teaching and research assistance to meritorious and deserving students.",
+  "note": "Hub page. Each college block links to its Program | Fees | Eligibility | Criteria page (original) and to external application portals. Keep all application portals, PDFs and prospectuses as external links.",
+  "colleges": [
+    {
+      "name": "Engineering & Technology",
+      "details": "/admission-india/engineering/",
+      "apply": [
+        {"text": "B.Tech / M.Tech (Integrated)", "href": "https://applications.srmist.edu.in/btech"},
+        {"text": "M.Tech", "href": "https://applications.srmist.edu.in/m-tech"},
+        {"text": "B.Arch / B.Design", "href": "https://applications.srmist.edu.in/architecture-and-design"},
+        {"text": "M.Arch / M.Des", "href": "https://applications.srmist.edu.in/m-arch-m-des"},
+        {"text": "PG Diploma in Genetic Counseling", "href": "https://applications.srmist.edu.in/pg-diploma"}
+      ],
+      "also": ["B.Tech (Post Completion of Diploma)", "M.Tech (Flexible Timing)"],
+      "downloads": [
+        {"text": "Important Dates for SRMJEEE UG - 2027", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2027/important-dates-for-srmjeee-ug-2027.pdf"},
+        {"text": "Download Prospectus", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2025/engineering-and-technology-2025-26-prospectus.pdf"}
+      ]
+    },
+    {
+      "name": "Medicine & Health Sciences",
+      "details": "/admission-india/medicine-health-sciences/",
+      "apply": [
+        {"text": "Health Science UG", "href": "https://applications.srmist.edu.in/srmhs"},
+        {"text": "Health Science PG", "href": "https://applications.srmist.edu.in/hspg"},
+        {"text": "Health Science UG NCAHP", "href": "https://applications.srmist.edu.in/health-science-ug-ncahp-application-form"},
+        {"text": "Health Science Post PG", "href": "https://applications.srmist.edu.in/post-pg"},
+        {"text": "MBBS Admissions", "href": "https://medical.srmist.edu.in/campaign/mbbs-md-ms-2025-26/"},
+        {"text": "BDS Admissions", "href": "https://dental.srmist.edu.in/campaign/bds-mds-2023-24/"},
+        {"text": "MD / MS Admission", "href": "https://medical.srmist.edu.in/campaign/mbbs-md-ms-2023-24/"},
+        {"text": "Division of Medical Research PhD Admissions", "href": "https://medicalresearch.srmist.edu.in/phd-admission/"}
+      ],
+      "downloads": [
+        {"text": "Health Science UG Instruction Manual", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2024/srmjeeh-health-science-ug-srmjeel-law-ug-entrance-exam-manual-phase-2.pdf"},
+        {"text": "Health Science PG Instruction Manual", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2024/srmjeeh-health-science-pg-entrance-exam-manual.pdf"},
+        {"text": "Download Prospectus", "href": "http://webstor.srmist.edu.in/web_assets/downloads/2021/medicine-info.pdf"}
+      ]
+    },
+    {
+      "name": "Management",
+      "details": "/admission-india/management/",
+      "apply": [
+        {"text": "BBA", "href": "https://applications.srmist.edu.in/bba"},
+        {"text": "MBA", "href": "https://applications.srmist.edu.in/mba"}
+      ],
+      "also": ["MBA [Part Time]"],
+      "downloads": [
+        {"text": "SRMJEEM Instruction Manual", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2024/srmjeem-mba-entrance-exam-manual-phase-3.pdf"},
+        {"text": "Download Prospectus", "href": "http://webstor.srmist.edu.in/web_assets/downloads/2021/management-info.pdf"}
+      ]
+    },
+    {
+      "name": "Liberal Arts and Business Studies",
+      "subtitle": "(Formerly Faculty of Science and Humanities)",
+      "details": "/admission-india/science-and-humanities/",
+      "apply": [
+        {"text": "Under Graduate [UG] - B.A., B.Sc., B.Ed., Bs, B.Com, BCA & Diploma", "href": "https://applications.srmist.edu.in/science-and-humanities"},
+        {"text": "Post Graduate [PG] - M.A., M.Com, M.Sc., M.C.A., and M.S.W.", "href": "https://applications.srmist.edu.in/science-and-humanities-pg"},
+        {"text": "Diploma in Music Teacher Training / Certificate in Music / Dance (Know more)", "href": "/srmist-tvgs-aima-music-dance-teacher-training-programmes/"}
+      ],
+      "also": ["B.S. (Hons) [UG]", "M.S. [PG] - 2 years", "B.Ed"],
+      "downloads": [{"text": "Download Prospectus", "href": "http://webstor.srmist.edu.in/web_assets/downloads/2021/science-humanities-info.pdf"}]
+    },
+    {
+      "name": "Hotel & Catering Management",
+      "details": "/admission-india/hotel-and-catering-management/",
+      "apply": [
+        {"text": "Hotel and Catering Management [UG]", "href": "https://applications.srmist.edu.in/hcma"},
+        {"text": "Hotel and Catering Management [PG]", "href": "https://applications.srmist.edu.in/hotel-and-catering-management-pg-application-form"}
+      ],
+      "downloads": [{"text": "Download Prospectus", "href": "http://webstor.srmist.edu.in/web_assets/downloads/2021/hotel-mgmt-info.pdf"}]
+    },
+    {
+      "name": "Agricultural Sciences",
+      "details": "/admission-india/agricultural-science/",
+      "apply": [
+        {"text": "Agricultural UG", "href": "https://applications.srmist.edu.in/agricultural-sciences-form"},
+        {"text": "Agricultural PG", "href": "https://applications.srmist.edu.in/pg-agricultural-sciences-form"}
+      ],
+      "downloads": [{"text": "Download Prospectus", "href": "http://webstor.srmist.edu.in/web_assets/srm_mainsite/files/2020/fas-brochure-01-04-2020.pdf"}]
+    },
+    {
+      "name": "Law",
+      "details": "/admission-india/law/",
+      "apply": [
+        {"text": "5 Year Integrated Law Courses", "href": "https://applications.srmist.edu.in/law"},
+        {"text": "LL.B (Hons)", "href": "https://applications.srmist.edu.in/llb"},
+        {"text": "LL.M [PG]", "href": "https://applications.srmist.edu.in/llm-application"},
+        {"text": "B.A. (Hons)", "href": "https://applications.srmist.edu.in/law-ug-application-form"},
+        {"text": "M.A.", "href": "https://applications.srmist.edu.in/law-ma-application-form"}
+      ]
+    },
+    {
+      "name": "Distance Education",
+      "details": "https://srmistdistanceeducation.in/",
+      "apply": [{"text": "Apply Now (All Programs)", "href": "https://admissions.srmist.edu.in/srmistonline/distanceeducation"}]
+    },
+    {
+      "name": "Ph.D (all Schools & Faculties)",
+      "details": "/admission-india/phd/",
+      "apply": [{"text": "Apply Now (All Programs)", "href": "https://admissions.srmist.edu.in/srmistonline/phdapplication"}]
+    }
+  ],
+  "public_advisory": {
+    "heading": "Public Advisory",
+    "note": "Original page carries an admission-fraud warning with contacts: admissions.india@srmist.edu.in (admissions) and cyberwatchdog@srmist.edu.in (report unofficial sites). Official website: https://www.srmist.edu.in/. Do NOT list or link the unofficial sites. Keep this block: it is a real user-safety feature."
+  }
+}

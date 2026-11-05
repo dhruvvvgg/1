@@ -1,0 +1,39 @@
+{
+  "path": "/news-events",
+  "source": "https://www.srmist.edu.in/news/ and https://www.srmist.edu.in/events",
+  "title": "News & Events",
+  "note": "Dates were not captured for these items. Show titles with their original link; do not make up dates. Item hrefs: news items live at the site root as slugs, events under /events/<slug>/; where the exact slug is unknown, link to the list page (/news/ or /events).",
+  "news": [
+    {"title": "SRMIST Awards ₹23 Lakh to Honour Distinctive Achievements of Athletes and Grandmasters", "href": "/srmist-awards-%e2%82%b923-lakh-to-honour-distinctive-achievements-of-athletes-and-grandmasters/"},
+    {"title": "Semiconductor Summit 2026: Igniting Ideas for India’s Semiconductor Future", "href": "/semiconductor-summit-2026-igniting-ideas-for-indias-semiconductor-future/"},
+    {"title": "A Multidisciplinary Approach is Key to a Healthier Tomorrow – Dr. T. R. Paarivendhar, Founder Chancellor at NAMSCON’26", "href": "/a-multidisciplinary-approach-is-key-to-a-healthier-tomorrow-dr-t-r-paarivendhar-founder-chancellor-srmist-at-namscon-2026/"},
+    {"title": "SRMIST Student Sadhana Fenelon Wins Bronze at HELLAS International Badminton Series 2026", "href": "/srmists-sadhana-fenelon-wins-bronze-at-hellas-international-badminton-series-2026/"},
+    {"title": "SRMIST and Volvo Group Partner to Set Up Volvo’s First University-Based Vehicle Technology Centre", "href": "/srmist-and-volvo-group-partner-to-set-up-volvo-first-university-based-vehicle-technology-centre/"},
+    {"title": "SRMIST Explores Academic Collaboration with Chungbuk National University, South Korea", "href": "/srmist-explores-academic-collaboration-with-chungbuk-national-university-south-korea/"},
+    {"title": "SRMIST Women’s Badminton Team Strikes Gold, Qualifies for All India Championship", "href": "/news/"},
+    {"title": "SRMIST’s Tejasvini Narayanan Wins Two Gold Medals in Senior Gymnastics at Khelo Watan Punjab 2026–27", "href": "/news/"},
+    {"title": "SRMIST Concludes ROM 2026, the 700 km Physio Run for Drug-Free India", "href": "/news/"},
+    {"title": "AICSSYC 2026 Inaugurated at SRM Institute of Science and Technology", "href": "/news/"},
+    {"title": "SRMIST Faculty-Led Startup Secures ₹10 Lakh Grant for Advanced Data Centre Cooling Technology", "href": "/news/"},
+    {"title": "MINDVERSE Exhibition Promotes Mental Health Awareness at SRMIST", "href": "/news/"}
+  ],
+  "events": {
+    "featured": ["TECHNOBLIZZ – 2026 (12th Edition)", "Alumni Day 2026"],
+    "upcoming": [
+      {"title": "Falling Walls Lab at SRMIST: Pitch Your Breakthrough Idea", "href": "/events/falling-walls-lab-at-srmist-pitch-your-breakthrough-idea/"},
+      {"title": "ChemE Connect 2026: Quizzes, Debates, Exhibition", "href": "/events/cheme-connect-2026-quizzes-debates-exhibition/"},
+      {"title": "SRM Premier League (SPL) 2.0", "href": "/events/srm-premier-league-spl-2-0/"},
+      {"title": "Six Days FDP on Mechanics-Driven Design and Analysis for Engineering Structures", "href": "/events"},
+      {"title": "Workshop on Fundamentals and Product Innovations in Bakery Science and Technology", "href": "/events"},
+      {"title": "Six-Day Professional Development Programme (PDP) on Network Information Theory: Challenges and Opportunities", "href": "/events"},
+      {"title": "5th International Conference on Higher Education Institute Challenges Solutions for Sustainable Development Goals 2026", "href": "/events"},
+      {"title": "CECAM International Summer School on Non-Covalent Interaction: From Molecules to Materials", "href": "/events"},
+      {"title": "International Collegiate Programming Contest (ICPC) – Chennai Regional 2026", "href": "/events"},
+      {"title": "7th International Conference on Applications of Fluid Dynamics", "href": "/events"},
+      {"title": "International Conference on Coastal Science and Technology for Sustainable Futures (COASTS 2026)", "href": "/events"},
+      {"title": "9th International Conference on Nanoscience and Nanotechnology (ICONN 2027)", "href": "/events"},
+      {"title": "SRM AquaBot Challenge 2027", "href": "/events"}
+    ]
+  },
+  "list_links": [{"text": "All news", "href": "/news/"}, {"text": "All events", "href": "/events"}, {"text": "Announcements", "href": "/announcements/"}, {"text": "Press & Media", "href": "/press-media/"}]
+}

@@ -1,0 +1,22 @@
+{
+  "path": "/about/accreditations-rankings",
+  "source": "https://www.srmist.edu.in/about-us/accreditations-and-rankings/",
+  "title": "Accreditations & Rankings",
+  "accreditations": [
+    {"body": "NAAC A++", "text": "SRM Institute of Science and Technology (formerly SRM University) has been accredited with the highest grade A++ in its 4th Cycle by NAAC (National Assessment and Accreditation Council) for the period 16.06.2024 – 15.06.2031 (7 years).", "note": "The page meta description still says 'until 2023'. Use the 2024-2031 wording."},
+    {"body": "University Grants Commission", "text": "SRMIST has been placed under Category I University by UGC / Ministry of Education as per the UGC (Categorization of Universities (Only) for Grant of Graded Autonomy) Regulations, 2018."},
+    {"body": "IET", "text": "Programs of Kattankulathur Campus accredited by The Institution of Engineering and Technology (IET).", "programs": ["B.Tech Computer Science and Engineering", "B.Tech Software Engineering", "B.Tech Electronics and Instrumentation Engineering", "B.Tech Automobile Engineering"], "note": "Original says 'Till 2022' - stale: do not show an end date."},
+    {"body": "ABET (Engineering Accreditation Commission)", "programs": ["B.Tech Civil Engineering", "B.Tech Mechanical Engineering", "B.Tech Electrical and Electronics Engineering", "B.Tech Electronics and Communication Engineering"]},
+    {"body": "National Board of Accreditation (NBA)", "text": "Eight undergraduate programs including Pharmacy and Three Post Graduate Programs at Kattankulathur received accreditation by NBA.", "table": {"columns": ["NBA Accredited Programs @ Kattankulathur Campus", "Valid Till"], "rows": [["UG – Biotechnology", "30.06.2027 (6 Yrs)"], ["UG – Mechanical Engineering", "30.06.2027 (6 Yrs)"], ["UG – Civil Engineering", "30.06.2027 (6 (3+3) Yrs)"], ["UG – Electronics and Communication Engineering", "30.06.2027 (6 (3+3) Yrs)"], ["UG – Electrical and Electronics Engineering", "30.06.2027 (6 (3+3) Yrs)"], ["UG – Chemical Engineering", "30.06.2027 (3 Yrs)"], ["UG – Mechatronics Engineering", "30.06.2028 (3 Yrs)"], ["UG – B.Pharm", "30.06.2027 (3 Yrs)"], ["PG – Biotechnology", "30.06.2028 (3 Yrs)"], ["PG – Structural Engineering", "30.06.2028 (3 Yrs)"], ["PG – VLSI Design", "30.06.2028 (3 Yrs)"]]}},
+    {"body": "Indian Council of Agricultural Research (ICAR)", "text": "SRM College of Agricultural Sciences is Accredited by Indian Council of Agricultural Research (ICAR)."}
+  ],
+  "rankings": {
+    "families": ["National Institutional Ranking Framework (NIRF)", "QS World University Rankings and QS Asia", "UI GreenMetric", "Atal Ranking of Institutions on Innovation Achievements (ARIIA)", "Times Higher Education (World, Asia, Impact)", "Nature Index", "SCImago Institutions Rankings", "Shanghai (ARWU)"],
+    "published_bands": [
+      "QS World University Rankings: 1001-1200 band (as shown on the page)",
+      "THE World Ranking: 1001-1200 band; THE Asian Ranking: 401-500 band (as shown on the page)",
+      "NIRF: University overall in the 11-50 band (as shown on the page)"
+    ],
+    "note": "The detailed rankings are year-card widgets whose year labels did not extract, so individual year-by-year numbers are NOT reliable. Render a clean grid of the ranking bodies above with the bands listed, and link 'See full rankings' to the original page. Do not invent any other rank numbers."
+  }
+}

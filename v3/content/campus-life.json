@@ -1,0 +1,15 @@
+{
+  "path": "/campus-life",
+  "source": "https://www.srmist.edu.in/life-at-srm/",
+  "title": "Life at SRM",
+  "meta_description": "There are several activities to keep students busy, in their various areas of interest. It’s a stimulating environment for living and learning, with cultural activities, sports, fine arts and entrepreneurship.",
+  "intro_heading": "Vibrant Activities and Opportunities",
+  "intro": "There’s never a dull moment on campus, as the activities on offer are as diverse and varied too – from entertainment to extra-curricular or even religious pursuits.",
+  "tiles": ["Arts & Culture", "Student Life", "Public Service", "Athletics & Fitness"],
+  "safety": {"heading": "Getting Around & Campus Safety", "text": "Walking and cycling are some of the more popular ways to get around the SRM campus. There’s state-of-the-art security and 24 hour emergency services."},
+  "care": {"heading": "Student Care and Noble Cause", "text": "We, here at SRM strongly condemn any kind of ragging practices. Our students welcome the freshers with flowers and a warm hello."},
+  "support_links": ["Complaints & Redressal", "Anti-Ragging", "Anti-Discrimination", "Anti Drug Awareness Cell", "Community Radio", "Students Counselling & Support"],
+  "link_note": "Tiles and support links go to the original site (depth > 2). Hostels is built locally at /campus-life/hostels (campus-hostels.json).",
+  "related_local": ["/campus-life/hostels"],
+  "related_original": ["https://www.srmist.edu.in/student-clubs/", "https://www.srmist.edu.in/library/", "https://www.srmist.edu.in/campus-tour/"]
+}

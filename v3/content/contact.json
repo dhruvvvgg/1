@@ -1,0 +1,31 @@
+{
+  "path": "/contact",
+  "source": "https://www.srmist.edu.in/contact-us/ and https://www.srmist.edu.in/visitors/",
+  "title": "Contact us",
+  "description": "SRMIST team is happy to talk to you!",
+  "address": "SRM Nagar, Kattankulathur - 603 203, Chengalpattu District, Tamil Nadu.",
+  "phones": ["+91-44-27417000", "+91-44-27417777"],
+  "enquiry_numbers": ["044-4743-2333", "044-4743-2444", "044-4743-2599", "044-2745-5317"],
+  "helpline": "044-4743-2350",
+  "admissions_information_centre": [
+    {"programs": "Engineering, Agriculture, and Architecture", "phone": "+91 70 2645 2645"},
+    {"programs": "Liberal Arts and Business Studies (formerly Science and Humanities), Law, Management, Medical and Allied Health Sciences, and Hotel Management", "phone": "+91 70 2647 2647"}
+  ],
+  "emails": [
+    {"label": "Admissions (India)", "value": "admissions.india@srmist.edu.in"},
+    {"label": "Placement / Career Centre", "value": "placement@srmist.edu.in"},
+    {"label": "International Relations", "value": "director.ir@srmist.edu.in"},
+    {"label": "Research (Dean)", "value": "dean.research@srmist.edu.in"},
+    {"label": "Hostels", "value": "hostel.helpdesk.ktr@srmist.edu.in"}
+  ],
+  "campuses": [
+    {"name": "Kattankulathur – Chennai", "href": "https://www.srmist.edu.in"},
+    {"name": "Ramapuram – Chennai", "href": "https://srmrmp.edu.in/ramapuram-campus/"},
+    {"name": "Vadapalani – Chennai", "href": "https://www.srmistvdp.edu.in/"},
+    {"name": "Tiruchirappalli", "href": "https://srmtrichy.edu.in/"},
+    {"name": "Delhi – NCR", "href": "https://www.srmimt.net/"},
+    {"name": "Baburayanpettai, Acharapakkam – Chengalpattu", "href": "/baburayanpettai-campus/"}
+  ],
+  "visitors": {"how_to_reach": "/visitors/", "virtual_tour": "https://webstor.srmist.edu.in/web_assets/srmist-virtual-tour-vo/index.htm"},
+  "note": "The How to Reach (visitors) page text was not captured in full: link to https://www.srmist.edu.in/visitors/ for directions rather than writing any directions. Do NOT add a contact form that submits anywhere."
+}

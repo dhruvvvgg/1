@@ -1,0 +1,54 @@
+{
+  "path": "/international",
+  "source": "https://www.srmist.edu.in/ir/",
+  "title": "International Relations",
+  "description": "Office of International Relations is a dedicated directorate within SRMIST tasked with the mandate of ensuring best of the global practices, opportunities and exchange for the benefit of our students as well as faculty / staff.",
+  "vision": "To make and sustain the SRM Institution to be one of the top leading educational and research institutions in the world and actively contribute to achieving a position within the top 500 QS (Quacquarelli Symonds) Ranking with stronger collaboration with leading International Universities and Research Laboratories for Academics and Research",
+  "mission": ["Sign MoUs with top 500 Universities and Research Laboratories to support students and faculty in Academics and Research.", "Increase the number of Research and other Academic engagements for students and faculty", "Bring Inclusiveness and Diversity by admitting more international students"],
+  "contact": {
+    "office": "Directorate of International Relations, University Library Building, II Floor, SRMIST, Kattankulathur 603 203, India",
+    "director_email": "director.ir@srmist.edu.in",
+    "phone": "+91 44 27417251",
+    "assistant_director": {"name": "Dr. Anupama CG", "email": "asstdirector.ir@srmist.edu.in", "phone": "+91 44 27417256"}
+  },
+  "advisory_board": "Back in 2003, SRM set up an International Advisory Board (IAB) consisting of 31 Distinguished Deans, Directors and professors from top universities across the world. SRM’s IAB is the first across the Indian University system. Now over 50+ Members are on IAB and they are from the best of the universities across the world including Harvard Business School, Kennedy Public School (Harvard University), MIT, Stanford, LSE, UC Berkeley, Cambridge, NUS among others.",
+  "global_partnership": "Through strategic alliances with over 100 universities and research centers across continents, SRM enables academic mobility, collaborative research, dual degree programs, and international internships.",
+  "memberships": ["AUAP – Association Universities of Asia and the Pacific", "ACU – Association of Commonwealth Universities", "SATU – Presidents’ Forum of Southeast and South Asian and Taiwan Universities", "Times Higher Education", "CollegeBoard"],
+  "activities": [
+    {"group": "Outward / Study Abroad", "items": [
+      {"text": "Semester Abroad", "href": "/ir/outward-mobility/semester-abroad-program/"},
+      {"text": "Dual Degree Programme", "href": "/ir/outward-mobility/dual-degree/"},
+      {"text": "Twinning Programme", "href": "/ir/outward-mobility/twining-program/"},
+      {"text": "Indo German Centre for Higher Education"},
+      {"text": "Taiwan International Graduate Program"}
+    ]},
+    {"group": "Inward Mobility", "items": [
+      {"text": "Abroad Students to SRMIST", "href": "/admission-international/"},
+      {"text": "SRM Global Immersion Program", "href": "/ir/srm-global-immersion-program/"},
+      {"text": "SAP / Exchange"}
+    ]},
+    {"group": "Collaborations / MoUs", "items": [
+      {"text": "Strategic Alliance"},
+      {"text": "Supporting international Research Initiatives"},
+      {"text": "Tailor made MDPs for Industry Partners"},
+      {"text": "International MoUs", "href": "/memorandum-of-understanding-mou/international-mou/"}
+    ]},
+    {"group": "Networking and Alliances", "items": [
+      {"text": "Panel of foreign faculty", "href": "/ir/international-relations-foreign-visiting-and-adjunct-professors/"},
+      {"text": "International Advisory Board", "href": "/ir/international-advisory-board/"},
+      {"text": "Global Partnership", "href": "/ir/global-partnerships/"}
+    ]}
+  ],
+  "highlights": [
+    "Binghamton University signed an MoU regarding student exchange and research collaborations.",
+    "SRMIST signed MoU with Kaohsiung Medical University, Taiwan for joint academic activities with their College of Life Sciences",
+    "Ministry of Digital Affairs, Taiwan Signed a MoU concerning the enhanced recruitment of graduates from Information Technology in Taiwan.",
+    "N.P. Ogarev Mordovia State University, Russia and SRMIST celebrates cultural diversity as a mark of mutual understanding between Russia and India."
+  ],
+  "testimonials": [
+    "The Semester Abroad Program has greatly helped me improve and sharpen not just my academic skills but has also benefited my future career prospects. (Student testimonial)",
+    "Coming to Warwick as a part of the Dual Degree Programme was perhaps the best decision I ever made! I shall be getting both my B.Tech and M.Sc degrees in just 4 years, ahead of my peers. (Student testimonial)",
+    "I am excited to have got transferred to the University of Wisconsin, Milwaukee at the end of my third year at SRM. Will be completing my BS and MS at the US in just two years, saving cost and time. (Student testimonial)"
+  ],
+  "cta": {"text": "Apply as an international student", "href": "/admission-international/", "local": "/admissions/international"}
+}

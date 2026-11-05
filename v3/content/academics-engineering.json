@@ -1,0 +1,23 @@
+{
+  "path": "/academics/engineering-technology",
+  "source": "https://www.srmist.edu.in/college/college-of-engineering-technology/",
+  "title": "College of Engineering & Technology",
+  "meta_description": "Welcome to the College of Engineering and Technology (CET) at SRMIST, one of the top engineering institutes in India. We enable our students to become an explorer, maker, doer & help invent the future.",
+  "campus": "Kattankulathur - Chennai",
+  "founder_words": [
+    "SRMIST’s engineering programs endeavor to be at the forefront of innovation. They also foster multi-disciplinary collaborations aimed at solving the most pressing global problems.",
+    "Our goal is to deliver world class, solutions driven programs that inspire curiosity and generate new knowledge and discoveries. Our collaboration with over 50 of the world’s best universities and 215 corporates, strengthens our academic and research programs."
+  ],
+  "dean": {"name": "Dr. Leenus Jesu Martin M", "role": "Dean – FET, Kattankulathur", "email": "dean.cet@srmist.edu.in"},
+  "deans_message": [
+    "Welcome to the College of Engineering & Technology at SRMIST! At SRMIST, we are committed to academic excellence, research innovation, and holistic student development.",
+    "Beyond academics, we nurture a vibrant campus culture that fosters creativity, critical thinking, and ethical leadership."
+  ],
+  "pathways_text": "A student shall have an option of choosing any one of the following pathways: (i) Major (ii) Major with Specialization (iii) Major with Minor or Major with specialization and a Minor. The core philosophy practiced is Inter-Disciplinary Experiential Active Learning (IDEAL).",
+  "structure_text": "The Engineering and Technology faculty comprises 7 Schools and 22 Departments. Each school is headed by a Dean and comprises various Departments of Engineering, clubbed on the basis of their domain expertise.",
+  "departments": ["Aerospace Engineering", "School of Architecture and Interior Design", "Automobile Engineering", "Biomedical Engineering", "Biotechnology", "Civil Engineering", "Chemical Engineering", "Chemistry", "Computational Intelligence", "Computing Technologies", "Data Science & Business Systems", "Electronics & Communication Engineering", "Electrical & Electronics Engineering", "Electronics & Instrumentation Engineering", "Food Technology", "Genetic Engineering", "Language, Culture & Society", "Mathematics", "Mechanical Engineering", "Mechatronics Engineering", "Networking & Communications", "Physics and Nanotechnology"],
+  "centres": ["Center for Architectural Heritage", "Career Development Center", "SRM-DBT Platform (under Bio Engineering)", "Centre For Advanced Concrete Research (CACR)", "Nanotechnology Research Center", "Centre for Yoga", "Centre for Composites and Advanced Materials", "SRM BRIN: center of excellence in Automation Technologies", "Center for Immersive Technologies", "CenTRe for atmOsPheric scIences and Climate studies (TROPIC)", "Center for Electronics and Skill Development and Consultancy Services", "Center of Excellence for Electronic Cooling and CFD Simulation", "Centre for Electric Mobility", "Center of Excellence in Materials for Advanced Technologies (CeMAT)", "Dr. T. R. Paarivendhar Multidisciplinary Research Centre", "Centre for Analysis of Movement, Ergonomics Research and Animersion", "Centre for Advanced Computational and Theoretical Sciences", "Centre of Excellence in Additive Manufacturing"],
+  "sections_on_original": ["Explore our Programs", "Department & Centers", "Research @ FET", "Career and Placement", "Infrastructure & Facilities (Library, Playground)", "Vibrant College Life", "News & Events"],
+  "dept_links": "Department links are not captured. Each department card links to https://www.srmist.edu.in/departments/ (the list page); do not guess department URLs.",
+  "other_colleges_note": "Other colleges (from the original nav): Medical & Health Sciences, Management, Science & Humanities (listed in the footer as Liberal Arts & Business Studies for admissions), Hotel Management, Law, Agricultural Sciences, Distance Education, Online Education. Link them to the original, except for the Engineering page that is built."
+}

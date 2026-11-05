@@ -1,0 +1,50 @@
+{
+  "path": "/admissions",
+  "source": "https://www.srmist.edu.in/admissions/",
+  "title": "Admissions",
+  "description": "A gateway to the programs offered, eligibility criteria, fees, scholarships and loan assistance at SRMIST.",
+  "sections": [
+    {
+      "id": "pathways",
+      "heading": "Choose your pathway",
+      "items": [
+        {"text": "Admissions India", "href": "/admission-india/", "local": "/admissions/india"},
+        {"text": "Admissions International", "href": "/admission-international/", "local": "/admissions/international"}
+      ]
+    },
+    {
+      "id": "about",
+      "heading": "Platform to realize one's potential",
+      "paragraphs": [
+        "SRM is among India’s earliest large multidisciplinary higher educational institutions that now caters 50000+ students across 6 campuses. SRM’s Directorate of Admissions manages admissions for students from across India as well as for International students from all around the world.",
+        "SRM is often seen as a Mini-India. SRM is an ideal destination for those aspiring to pursue under-graduate, post-graduate, PhD or advanced studies. The promise of an enriching student life experience in a vastly multi-cultural, green and high ranked institution are but few reasons you must consider SRM for your higher education.",
+        "We welcome you to take a look at our Admissions section of this website. This will serve you as a gateway to understanding about the various programs offered, eligibility criteria, fees, scholarships and loan assistance. It enables you to have an easy going application and admissions process. You most certainly must reach out to us in case of any questions."
+      ]
+    },
+    {
+      "id": "recognition",
+      "heading": "SRM is among the top & best in India",
+      "paragraphs": [
+        "SRMIST Stands 4th in Country Wise and 147 in World Wide Ranking by UI Metric.",
+        "SRMIST has been accredited by NAAC with the Highest ‘A++’ Grade in the year 2024.",
+        "SRMIST holds the consecutive No. 1 position among the top engineering institutions, top 125 private engineering institutes, and the top 70 private institutes in placement respectively.",
+        "found a podium finish in Atal Rankings of Institutions on Innovation Achievements (ARIIA) 2020."
+      ],
+      "links": [{"text": "Know More", "href": "/srmist-times-engineering-survey-2024/"}]
+    },
+    {
+      "id": "global",
+      "heading": "High Quality World Class Exposure at SRM",
+      "paragraphs": [
+        "Back in 2003, SRM set up an International Advisory Board (IAB) consisting of 31 Distinguished Deans, Directors and professors from top universities across the world. SRM’s IAB is the first across the Indian University system. IAB works towards helping SRMIST set Global Standards and Internationalize through bringing globally acclaimed curriculum, research and teaching methodology to its students and faculty members.",
+        "Now over 50+ Members are on IAB and they are from the best of the universities across the world including Harvard Business School, Kennedy Public School (Harvard University), MIT, Stanford, LSE, UC Berkeley, Cambridge, NUS among others."
+      ]
+    },
+    {
+      "id": "tour",
+      "heading": "Experience Our Campus in 360° Virtual Tour",
+      "links": [{"text": "Virtual Tour 360", "href": "https://webstor.srmist.edu.in/web_assets/srmist-virtual-tour-vo/index.htm"}]
+    }
+  ],
+  "skip_note": "The original 'Latest Updates' block lists 2022 SRMJEEE items. It is stale: do not rebuild it."
+}

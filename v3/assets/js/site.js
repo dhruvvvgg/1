@@ -171,66 +171,66 @@
     addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(run); } }, { passive: true }); run();
   }
 
-  /* ---------- Home search: ask a question, get a short answer written by Claude, grounded in this site's own pages ----------
-     In the published artifact the answer comes from Claude through claude.use("sample").
-     On the hosted site, set <meta name="srm-ai-endpoint" content="/api/ask">: the page POSTs {question, pages} as JSON and expects {answer, links?} back,
-     so the model keys stay in server environment variables and never reach the browser.
-     With neither available, the form falls back to the plain programme search. */
+  /* ---------- Ask SRM: client-side retrieval over this site's own content ----------
+     Passages come from /assets/data/ask-index.json (built from /content by scripts/build.js).
+     Ranking is BM25. The answer is the top passages quoted word for word, each with a link
+     to the page it came from. Nothing is generated. */
   const ai = $("[data-ai]"), aiForm = $(".hero__find");
   if (ai && aiForm) {
     const input = $("input", aiForm), qEl = $("[data-ai-q]", ai), aEl = $("[data-ai-a]", ai), linksEl = $("[data-ai-links]", ai);
-    const endpoint = ($('meta[name="srm-ai-endpoint"]') || {}).content || "";
-    const SUFFIX = " (college or area of study)";
-    let pagesP = null, run = 0;
-    const pageList = () => pagesP || (pagesP = (async () => {
-      const seen = new Map(), add = (t, h) => { t = t.replace(/\s+/g, " ").trim(); if (t && h && !seen.has(h)) seen.set(h, t); };
-      $$(".footer a[href]").forEach(a => { if (!/^https?:/.test(a.getAttribute("href"))) add(a.textContent, a.getAttribute("href")); });
-      try {
-        const html = await (await fetch("academics.html")).text(), doc = new DOMParser().parseFromString(html, "text/html");
-        $$("[data-area] a.tile", doc).forEach(a => add(a.textContent + SUFFIX, a.getAttribute("href")));
-      } catch (e) {}
-      return Array.from(seen, ([href, title]) => ({ title, href }));
-    })());
-    const PROMPT = "You answer questions from prospective students on a concept website for SRM Institute of Science and Technology (SRMIST), Kattankulathur, Chennai. " +
-      "Use ONLY the pages listed below. Never state fees, dates, cut-offs, rankings, package figures or any other number. If the list does not cover the question, say so in one sentence and point to https://www.srmist.edu.in/. " +
-      "Write at most 60 words of warm plain text, no markdown. Then, on a final line, write LINKS: followed by up to three of the listed URLs, separated by ' | ', that best help.\n\nPages:\n";
-    const split = t => String(t).split(/\n?\s*LINKS:/i);
-    const addLink = (href, label) => { const li = document.createElement("li"), a = document.createElement("a"); a.href = href; a.textContent = label; if (/^https?:/.test(href)) { a.target = "_blank"; a.rel = "noopener"; } li.append(a); linksEl.append(li); };
-    const finish = (text, pages, extra) => {
-      const [body, tail] = split(text);
-      aEl.textContent = body.trim();
-      const known = new Map(pages.map(p => [p.href, p.title]));
-      const wanted = (extra && extra.length ? extra : (tail || "").split("|").map(s => s.trim())).filter(h => known.has(h)).slice(0, 3);
-      linksEl.replaceChildren(); wanted.forEach(h => addLink(h, known.get(h).replace(SUFFIX, "")));
+    const STOP = new Set("a an and are as at be by can do does for from has have how i in is it its me my of on or our the their there this to was what when where which who why will with you your about into than that them these they".split(" "));
+    const tok = s => String(s).toLowerCase().normalize("NFKD").replace(/[^\p{L}\p{N}\s]/gu, " ").split(/\s+/).filter(w => w && !STOP.has(w)).map(w => w.length > 4 ? w.replace(/(ies|es|s)$/, "") : w);
+    let idxP = null;
+    const loadIndex = () => idxP || (idxP = fetch("/assets/data/ask-index.json").then(r => r.json()).then(chunks => {
+      const docs = chunks.map(c => { const toks = tok(c.h + " " + c.h + " " + c.t); const tf = new Map(); toks.forEach(t => tf.set(t, (tf.get(t) || 0) + 1)); return { c, tf, len: toks.length }; });
+      const df = new Map(); docs.forEach(d => d.tf.forEach((_, t) => df.set(t, (df.get(t) || 0) + 1)));
+      const avg = docs.reduce((s, d) => s + d.len, 0) / docs.length;
+      return { docs, df, avg, N: docs.length };
+    }));
+    const bm25 = (ix, q) => {
+      const k1 = 1.4, b = 0.75, terms = [...new Set(tok(q))];
+      return ix.docs.map(d => {
+        let s = 0, hit = 0;
+        terms.forEach(t => { const f = d.tf.get(t); if (!f) return; hit++; const n = ix.df.get(t); const idf = Math.log(1 + (ix.N - n + 0.5) / (n + 0.5)); s += idf * (f * (k1 + 1)) / (f + k1 * (1 - b + b * d.len / ix.avg)); });
+        return { d, s: s * (hit / Math.max(terms.length, 1)), hit };
+      }).filter(x => x.s > 0).sort((a, b) => b.s - a.s);
     };
-    const fallback = q => { location.href = "academics.html?q=" + encodeURIComponent(q); };
+    /* quote the sentences that carry the most query terms, word for word */
+    const quote = (text, q) => {
+      const terms = new Set(tok(q));
+      const sents = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+      const ranked = sents.map((s, i) => ({ s: s.trim(), i, n: tok(s).filter(w => terms.has(w)).length })).filter(x => x.n > 0).sort((a, b) => b.n - a.n || a.i - b.i);
+      const pick = (ranked.length ? ranked.slice(0, 2) : [{ s: sents[0].trim(), i: 0 }]).sort((a, b) => a.i - b.i).map(x => x.s).join(" ");
+      return pick.length > 420 ? pick.slice(0, 417).replace(/\s+\S*$/, "") + "…" : pick;
+    };
+    const THRESHOLD = 2.2;
+    const li = (child) => { const l = document.createElement("li"); l.append(child); return l; };
+    const anchor = (href, text) => { const a = document.createElement("a"); a.href = href; a.textContent = text; return a; };
     aiForm.addEventListener("submit", async e => {
       const q = input.value.trim();
       if (!q) return;
       e.preventDefault();
-      const my = ++run;
-      ai.hidden = false; ai.setAttribute("aria-busy", "true"); qEl.textContent = q; aEl.textContent = ""; linksEl.replaceChildren();
+      ai.hidden = false; ai.setAttribute("aria-busy", "true"); qEl.textContent = q; aEl.replaceChildren(); linksEl.replaceChildren();
       try {
-        const pages = await pageList();
-        const sample = window.claude && window.claude.use ? await window.claude.use("sample") : null;
-        if (sample) {
-          const out = await sample(PROMPT + pages.map(p => "- " + p.title + ": " + p.href).join("\n") + "\n\nQuestion: " + q, {
-            modelTier: "quick", cache: false,
-            onText: ({ text }) => { if (my === run) aEl.textContent = split(text)[0]; }
+        const ix = await loadIndex();
+        const top = bm25(ix, q).filter(x => x.s >= THRESHOLD);
+        if (!top.length) {
+          aEl.textContent = "This site does not have an answer to that.";
+          linksEl.append(li(anchor("/contact/", "Contact SRMIST")), li(anchor("/programs/?q=" + encodeURIComponent(q), "Search programmes for “" + q + "”")));
+        } else {
+          const seen = new Set();
+          top.filter(x => !seen.has(x.d.c.u) && seen.add(x.d.c.u)).slice(0, 3).forEach(x => {
+            const bq = document.createElement("blockquote"); bq.className = "ai__quote";
+            const p = document.createElement("p"); p.textContent = "“" + quote(x.d.c.t, q) + "”";
+            const cite = document.createElement("p"); cite.className = "ai__cite";
+            cite.append("Source: ", anchor(x.d.c.u, x.d.c.p + (x.d.c.h && x.d.c.h !== x.d.c.p ? " › " + x.d.c.h : "")));
+            bq.append(p, cite); aEl.append(bq);
           });
-          if (my === run) finish(out.text, pages);
-        } else if (endpoint) {
-          const r = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q, pages }) });
-          if (!r.ok) throw new Error("ai " + r.status);
-          const d = await r.json();
-          if (my === run) finish(d.answer || "", pages, d.links);
-        } else { ai.hidden = true; fallback(q); return; }
+        }
       } catch (err) {
-        if (my !== run) return;
-        if (err && err.code === "not_granted") { ai.hidden = true; fallback(q); return; }
-        aEl.textContent = err && err.code === "rate_limited" ? "Too many questions just now. Try again in a minute, or browse the programmes." : "The assistant is not available right now.";
-        linksEl.replaceChildren(); addLink("academics.html?q=" + encodeURIComponent(q), "Search programmes for \u201c" + q + "\u201d");
-      } finally { if (my === run) ai.setAttribute("aria-busy", "false"); }
+        aEl.textContent = "Search is not available right now.";
+        linksEl.append(li(anchor("/contact/", "Contact SRMIST")));
+      } finally { ai.setAttribute("aria-busy", "false"); }
     });
   }
 

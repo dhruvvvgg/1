@@ -1,0 +1,77 @@
+{
+  "path": "/research",
+  "source": "https://www.srmist.edu.in/research/",
+  "title": "Research",
+  "description": "SRM Institute of Science and Technology (SRMIST) have taken various research initiatives over the years to mobilize the available knowledge resources for research and also, to come up strongly with innovative solutions.",
+  "overview": {
+    "heading": "Overview",
+    "paragraphs": [
+      "SRM Institute of Science and Technology (SRMIST) have taken various research initiatives over the years to mobilize the available knowledge resources for research and also, to come up strongly with innovative solutions."
+    ],
+    "bullets": [
+      "Committed to fostering and furthering research excellence",
+      "Specially focused on emerging areas of great potential like Nanotechnology, Bioengineering, Energy, Environment, Materials and Embedded systems among others",
+      "Actively involved in research projects that have nation building and public cause at their heart like for instance rural healthcare, among others."
+    ]
+  },
+  "mission": ["Provide excellent research culture and infrastructure", "Serve as a platform for strong interdisciplinary collaborations and knowledge sharing", "Publish research findings in high quality journals of international repute", "Create scientifically profound human resources for academic & industrial research", "Promote industrial collaborations involving active and mutually beneficial R & D projects"],
+  "stats_unverified": "The original shows 100+ crores externally funded, 100+ funded projects, 300+ patents and '10+ publications' (publication figures look outdated). Do NOT display these numbers; if a stat strip is needed, use labels without figures or omit.",
+  "dean": {
+    "name": "Dr. Bernaurdshaw Neppolian",
+    "role": "Dean (Research)",
+    "phone": "+91-44-2741-7142",
+    "email": "dean.research@srmist.edu.in",
+    "office": "Room No 910, 9th Floor, Sir C.V. Raman Block, SRMIST, Kattankulathur",
+    "href": "/faculty/dr-bernaurdshaw-neppolian/"
+  },
+  "directorate": {
+    "heading": "Directorate of Research",
+    "paragraph": "Research is an integral and important feature of learning endeavors at SRM Institute of Science and Technology (SRMIST).",
+    "links": [
+      {"text": "Projects", "href": "/research/projects/"},
+      {"text": "Highlights", "href": "/research/highlights/"},
+      {"text": "Ph.D Admissions", "href": "/admission-india/phd/"},
+      {"text": "Apply Ph.D", "href": "https://admissions.srmist.edu.in/srmistonline/phdapplication"}
+    ]
+  },
+  "academic_research": {
+    "paragraphs": [
+      "SRM Institute of Science and Technology organizes Conferences, Seminars and Workshops periodically. These activities and forums help expose young minds to the latest innovations and scientific trends, thereby generating an interest in research.",
+      "Students are also encouraged to take up innovative, socially relevant research projects. Such projects are funded by SRM Institute of Science and Technology."
+    ],
+    "href": "/research/academic-research/"
+  },
+  "policies": [
+    {"text": "Policy on Promotion of Research", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2023/promotion-of-research.pdf"},
+    {"text": "Policy on Chemical and Hazardous Waste disposal", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2023/chemical-and-hazardous-waste.pdf"},
+    {"text": "Policy on Incentives", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2026/incentives-policy.pdf"},
+    {"text": "Policy on Plagiarism", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2023/policy-on-plagiarism.pdf"},
+    {"text": "Policy on IPR", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2023/policy-of-ipr.pdf"},
+    {"text": "Policy on Consultancy", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2023/policy-on-consultancy-policy.pdf"},
+    {"text": "Institutional Code of Ethics for Research", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2023/institutional-code-of-ethics-and-research.pdf"}
+  ],
+  "funded_research": [
+    {"title": "Funded Research", "text": "SRMIST facilitates research pursuits of our faculty members, scholars and students at scale. There is a dedicated focus on ensuring funding is in place so that research projects and studies progress satisfactorily. Incentives in the form of awards and prizes are given out to those demonstrating excellence in research.", "href": "/research/sponsored-projects/"},
+    {"title": "Sponsored Research Projects Sanctioned - 2007 onwards", "href": "/research/sponsored-projects/"},
+    {"title": "Thrust areas of research (PDF)", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2023/thrust-area-of-research.pdf"},
+    {"title": "Collaborations", "text": "Research collaborations with our foreign colleagues are crucial to the success of our global activities involving faculties and students.", "href": "/research/collaborations/"}
+  ],
+  "central_facilities": [
+    {"name": "IIISM", "full": "Interdisciplinary Institute of Indian System of Medicine", "text": "To promote the research in the field of traditional system of Indian Medicine, including Siddha, Ayurveda and Unani, IIISM was established in 2008.", "href": "/research/research-wings/iiism/"},
+    {"name": "REACH", "full": "Center for Research in Environment, Sustainability Advocacy and Climate CHange", "text": "REACH was initiated at SRM Institute of Science and Technology, Kattankulathur, Tamil Nadu to support and enhance a cohesive university-wide environment of research excellence.", "href": "/department/centre-for-research-in-environment-sustainability-advocacy-and-climate-change-reach/"},
+    {"name": "NRC", "full": "Nanotechnology Research Center", "text": "The Nanotechnology Research Center (NRC) with its state-of-the-art facilities is committed to the responsible development of nanotechnology as an important part of its environmental, health and safety research strategy.", "href": "/research/research-wings/nrc/"},
+    {"name": "CACR", "full": "Center for Advanced Concrete Research", "text": "The Center for Advanced Concrete Research (CACR) was started in the year 2010, to carry out interdisciplinary research in the field of concrete.", "href": "/research/research-wings/cacr/"},
+    {"name": "SRM-DBT Platform", "text": "Established in collaboration with the Department of Biotechnology, Govt. of India: SRM-DBT Partnership Platform for Contemporary Research Services and Skill Development in Advanced Life Science Technologies.", "href": "/department/srm-dbt-platform/"},
+    {"name": "Medical Research Centre", "text": "SRMIST’s MRC, established in 2008, promotes research in medical & allied sciences.", "href": "/research/research-wings/mrc/"},
+    {"name": "Center for Statistics", "text": "SRMIST’s Centre for Statistics is the hub of Statistical Training, Research and Consultancy.", "href": "/research/research-wings/centre-for-statistics/"},
+    {"name": "Earthquake Research Cell", "text": "Earthquake Research Cell (ERC) established in 2012 to decipher causes for origin, occurrence and prediction of Earthquake by better understanding the geodynamical behavior of this natural disaster on the globe.", "href": "/research/research-wings/eqrc/"},
+    {"name": "HPCC", "full": "High Performance Computing Centre", "text": "A supercomputer facility for research work, with computational capacity far above a general-purpose computer.", "href": "/research/hpcc/"},
+    {"name": "SCIF", "text": "SCIF portal consolidates the state-of-the-art research facilities available under the Directorate of Research in SRMIST and allows users to directly request & reserve time for use.", "href": "/research/scif/"}
+  ],
+  "news_headlines": [
+    {"title": "SRMIST Awards ₹23 Lakh to Honour Distinctive Achievements of Athletes and Grandmasters", "href": "/srmist-awards-%e2%82%b923-lakh-to-honour-distinctive-achievements-of-athletes-and-grandmasters/"},
+    {"title": "Semiconductor Summit 2026: Igniting Ideas for India’s Semiconductor Future", "href": "/semiconductor-summit-2026-igniting-ideas-for-indias-semiconductor-future/"},
+    {"title": "SRMIST and Volvo Group Partner to Set Up Volvo’s First University-Based Vehicle Technology Centre", "href": "/srmist-and-volvo-group-partner-to-set-up-volvo-first-university-based-vehicle-technology-centre/"},
+    {"title": "SRMIST Explores Academic Collaboration with Chungbuk National University, South Korea", "href": "/srmist-explores-academic-collaboration-with-chungbuk-national-university-south-korea/"}
+  ]
+}

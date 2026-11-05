@@ -1,0 +1,48 @@
+{
+  "path": "/placements",
+  "source": "https://www.srmist.edu.in/career-centre/",
+  "title": "Career Centre",
+  "heading": "Gateway To Great Careers",
+  "description": "Career Centre is the centre point of career development, interpersonal skills and placement activities.",
+  "intro": "Career Centre is the centre point of career development, interpersonal skills and placement activities. Career Centre is a target recruiting ground for all major recruiters and has strong linkages with industry and is highly regarded by employers.",
+  "stats": {
+    "label": "2025 Batch (as on 12th June 2026)",
+    "status": "UNVERIFIED",
+    "note": "The live page's figures render as '1+', '+' and '0 LPA' (broken). Do not invent numbers. Show the label and a 'See official statistics' link only; no figures."
+  },
+  "director": {
+    "name": "Dr. N. Venkata Sastry",
+    "role": "Director, Career Centre",
+    "phone": "+91-44-27455774 (D) / 27452270 Extn: 7301",
+    "message": [
+      "The Career Centre at SRMIST encompasses the Placement Office and the Career Development Centre.",
+      "I look forward to personally seeing you in our campus and satiate your leadership talent needs."
+    ]
+  },
+  "sections": [
+    {"text": "Catapulting Careers", "href": "/placements/catapulting-careers/"},
+    {"text": "Activities", "href": "/placements/activities/"},
+    {"text": "Placement Statistics", "href": "/placements/placement-statistics/", "local": "/placements/statistics"},
+    {"text": "Industrial Collaborations", "href": "/placements/industry-collaborations/"},
+    {"text": "Career Development Centre", "href": "/department/cet-cdc"},
+    {"text": "Meet Our Staff", "href": "/placements/meet-our-staff/"},
+    {"text": "Contact", "href": "/placements/leadership-contact/"}
+  ],
+  "why_choose": [
+    "Centralised team for Engineering, Management, Science & Humanities, Medical Sciences, Law and Agricultural Sciences",
+    "Hub for High Paying Recruiters",
+    "Major recruiters from Fortune 500 list",
+    "Highest number of Core Companies",
+    "Specialized Training programs",
+    "Well Appreciated Industry Immersion Programmes",
+    "Active 100 + MOUS and 20 Centre Of Excellence inside campus",
+    "50000 + Alumni Adding Value to the Corporate World",
+    "100000 + Hours of Professional skills"
+  ],
+  "recruiters_note": "About 100 recruiter logos in the original carousel. Use the logos already in assets/img/partners.",
+  "testimonial_note": "Original has 8 student/alumni testimonials (Oracle, Amazon, D.E. Shaw, Adobe and others), names not captured. Do not fabricate quotes. Use at most the companies as 'Placed at' chips, or link to the original.",
+  "contact": {
+    "address": "15th Floor, Tech Tower II, SRMIST Campus, SRM Nagar, Kattankulathur, Chengalpattu Dist., Tamil Nadu – 603 203",
+    "email": "placement@srmist.edu.in"
+  }
+}

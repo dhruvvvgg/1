@@ -1,0 +1,8 @@
+{
+  "path": "/academics/departments",
+  "source": "https://www.srmist.edu.in/departments/",
+  "title": "Explore our Departments",
+  "meta_description": "SRMIST consists of over 100 departments, faculties, schools and institutes, this page lists with a easy-to-find / filter view.",
+  "note": "Only the first page of the original list was captured (12 entries). Show the Engineering departments from academics-engineering.json (22) as the filterable list, label the page 'Faculty of Engineering & Technology departments', and add a clear link 'All SRMIST departments' to the original /departments/. Do not claim a count of departments beyond what the original states ('over 100').",
+  "captured": ["Department of Electrical and Electronics Engineering", "Department of Mechanical Engineering", "Department of Biomedical Engineering", "Department of Genetic Engineering", "Department of Food Technology", "Department of Chemistry", "Department of Civil Engineering", "School of Architecture and Interior Design", "Department of Automobile Engineering", "Department of Aerospace Engineering", "Department of Mechatronics Engineering", "Department of Physics and Nanotechnology"]
+}

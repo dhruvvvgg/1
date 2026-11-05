@@ -1,0 +1,42 @@
+{
+  "note": "Local = built page. Everything else points to the original site and opens in a new tab with the external marker.",
+  "primary": [
+    {"label": "Academics", "local": "/academics", "children": [
+      {"label": "Programs", "local": "/programs"},
+      {"label": "Engineering & Technology", "local": "/academics/engineering-technology"},
+      {"label": "Departments", "local": "/academics/departments"},
+      {"label": "Medical & Health Sciences", "ext": "https://www.srmist.edu.in/college/college-of-medicine-health-sciences/"},
+      {"label": "Management", "ext": "https://www.srmist.edu.in/college/faculty-of-management/"},
+      {"label": "Science & Humanities", "ext": "https://www.srmist.edu.in/college/faculty-of-science-humanities/"},
+      {"label": "Law", "ext": "https://www.srmist.edu.in/college/school-of-law/"},
+      {"label": "Agricultural Sciences", "ext": "https://www.srmist.edu.in/college/srm-college-of-agricultural-sciences/"}
+    ]},
+    {"label": "Admissions", "local": "/admissions", "children": [
+      {"label": "Admission India", "local": "/admissions/india"},
+      {"label": "Admission International", "local": "/admissions/international"},
+      {"label": "Scholarships", "local": "/admissions/scholarships"}
+    ]},
+    {"label": "Research", "local": "/research", "children": [
+      {"label": "Innovation & Incubation", "local": "/research/innovation-incubation"}
+    ]},
+    {"label": "Campus Life", "local": "/campus-life", "children": [
+      {"label": "Hostels", "local": "/campus-life/hostels"},
+      {"label": "Student Clubs", "ext": "https://www.srmist.edu.in/student-clubs/"},
+      {"label": "Library", "ext": "https://www.srmist.edu.in/library/"}
+    ]},
+    {"label": "Placements", "local": "/placements", "children": [
+      {"label": "Placement Statistics", "local": "/placements/statistics"}
+    ]},
+    {"label": "International", "local": "/international"},
+    {"label": "About", "local": "/about", "children": [
+      {"label": "Accreditations & Rankings", "local": "/about/accreditations-rankings"},
+      {"label": "News & Events", "local": "/news-events"}
+    ]}
+  ],
+  "audience_bar": ["Students", "Faculty & Staff", "Parents", "Visitors", "Alumni", "Examinations"],
+  "audience_ext": {"Students": "https://www.srmist.edu.in/students/", "Faculty & Staff": "https://www.srmist.edu.in/faculty-staff/", "Parents": "https://www.srmist.edu.in/parents/", "Visitors": "/contact", "Alumni": "https://www.srmist.edu.in/alumni/", "Examinations": "https://www.srmist.edu.in/examinations/"},
+  "secondary_bar": [{"label": "Library", "ext": "https://www.srmist.edu.in/library/"}, {"label": "Career Centre", "local": "/placements"}, {"label": "News", "local": "/news-events"}, {"label": "Events", "local": "/news-events"}, {"label": "Blog", "ext": "https://www.srmist.edu.in/blog/"}, {"label": "Careers", "ext": "https://www.srmist.edu.in/careers/"}, {"label": "Contact", "local": "/contact"}],
+  "campuses": [{"name": "Kattankulathur – Chennai", "ext": "https://www.srmist.edu.in"}, {"name": "Ramapuram – Chennai", "ext": "https://srmrmp.edu.in/ramapuram-campus/"}, {"name": "Vadapalani – Chennai", "ext": "https://www.srmistvdp.edu.in/"}, {"name": "Tiruchirappalli", "ext": "https://srmtrichy.edu.in/"}, {"name": "Delhi – NCR", "ext": "https://www.srmimt.net/"}],
+  "cta": {"apply": {"label": "Apply now", "ext": "https://www.srmist.edu.in/admission-india/"}},
+  "caution": "The /college/<slug>/ URLs for non-engineering colleges above are best guesses from the original naming; the link checker must verify each and fall back to https://www.srmist.edu.in/departments/ if one fails."
+}

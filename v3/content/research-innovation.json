@@ -1,0 +1,20 @@
+{
+  "path": "/research/innovation-incubation",
+  "source": "https://www.srmist.edu.in/research/innovation-incubation/",
+  "title": "Innovation & Incubation",
+  "description": "SRM Innovation and Incubation Centre (SIIC) is for aspiring entrepreneurs to turn their innovative ideas into thriving ventures.",
+  "intro": "SRM Innovation Incubation and Entrepreneurship Centre is for aspiring entrepreneurs to turn their innovative ideas into thriving ventures. The centre makes provision for resources and constructive criticisms all while viewing it through the prism of reality.",
+  "mission": ["To Create an ecosystem to sensitize, engage and support the innovators from ideation to product development", "To Enable the innovation community with access to best in class infrastructure, mentorship and funding", "To Protect the intellectual assets evolved out of inventive process"],
+  "vision": "Promote an entrepreneurial mindset, Kindle the fires of innovation in the campus and Contribute to building of the self-reliant nation",
+  "units": [
+    {"name": "Directorate of Entrepreneurship and Innovation", "href": "https://www.srmdei.com/"},
+    {"name": "FAB LAB", "text": "Fablab, a one of a kind, state of the art infrastructure. Fablab is a multipurpose platform for all kinds of engineering to take shape, to fuel innovation and entrepreneurship and engineer ideas into reality.", "href": "https://fablab.srmdei.com/"}
+  ],
+  "policies": [
+    {"text": "NAAC - Distinctive Thrust Area", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2023/naac-distinctive-thrust-area.pdf"},
+    {"text": "National Innovation and Startup Policy", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2022/national-innovation-and-startup-policy-2019.pdf"},
+    {"text": "SRMIST Innovation, IPR & Startup Policy", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2026/srm-innovation-ipr-startup-policy.pdf"},
+    {"text": "TN Startup & Innovation Policy", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2022/tn-startup-innovation-policy.pdf"},
+    {"text": "Technology Transfer Process Document", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2026/technology-transfer-process-document.pdf"}
+  ]
+}

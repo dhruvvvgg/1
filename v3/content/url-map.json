@@ -1,0 +1,23 @@
+{
+  "/academics": "https://www.srmist.edu.in/program-finder/",
+  "/programs": "https://www.srmist.edu.in/program-finder/",
+  "/programs/<slug>": "https://www.srmist.edu.in/program/<slug>/",
+  "/academics/engineering-technology": "https://www.srmist.edu.in/college/college-of-engineering-technology/",
+  "/academics/departments": "https://www.srmist.edu.in/departments/",
+  "/admissions": "https://www.srmist.edu.in/admissions/",
+  "/admissions/india": "https://www.srmist.edu.in/admission-india/",
+  "/admissions/international": "https://www.srmist.edu.in/admission-international/",
+  "/admissions/scholarships": "https://www.srmist.edu.in/scholarships/",
+  "/research": "https://www.srmist.edu.in/research/",
+  "/research/innovation-incubation": "https://www.srmist.edu.in/research/innovation-incubation/",
+  "/campus-life": "https://www.srmist.edu.in/life-at-srm/",
+  "/campus-life/hostels": "https://www.srmist.edu.in/srm-hostels/",
+  "/placements": "https://www.srmist.edu.in/career-centre/",
+  "/placements/statistics": "https://www.srmist.edu.in/placements/placement-statistics/",
+  "/international": "https://www.srmist.edu.in/ir/",
+  "/about": "https://www.srmist.edu.in/about-us/",
+  "/about/accreditations-rankings": "https://www.srmist.edu.in/about-us/accreditations-and-rankings/",
+  "/news-events": "https://www.srmist.edu.in/news/",
+  "/contact": "https://www.srmist.edu.in/contact-us/",
+  "_rule": "Any original URL not matched by a local page stays pointing at the original, opened in a new tab with the external marker. Rewrite only exact matches."
+}

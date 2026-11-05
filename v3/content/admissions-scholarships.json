@@ -1,0 +1,67 @@
+{
+  "path": "/admissions/scholarships",
+  "source": "https://www.srmist.edu.in/admission-india/engineering/scholarships/",
+  "title": "Scholarships | Engineering",
+  "description": "SRMIST extends several scholarships, fee waiver schemes, teaching and research assistance to meritorious and deserving students.",
+  "heading": "CET - Scholarships",
+  "notes": [
+    "Number of Scholarships might slightly vary based on the number of test takers in each phase.",
+    "All scholarships are valid only on academic tuition fee except Founder’s Scholarship. Transport / Hostel / other charges are payable.",
+    "Not applicable for industry partnered programs (Annexure – A).",
+    "Seats under each category are limited and are awarded on a first opt basis."
+  ],
+  "annexure_a": {
+    "heading": "ANNEXURE – A (INDUSTRY PARTNERED PROGRAMME – 100% scholarship not applicable for Rank 46-100)",
+    "items": [
+      "B.Tech. - Computer Science & Engineering with specialization in Data Science & Artificial Intelligence (in association with IBM)",
+      "B.Tech. - Computer Science & Engineering with specialization in Block chain & IoT (in association with IBM)",
+      "B.Tech. - Computer Science & Engineering with specialization in Cloud Engineering and DevOps Automation (in association with Xebia)",
+      "B.Tech. - Computer Science with specialization in Business Systems (in association with TCS)"
+    ]
+  },
+  "categories": ["Founder’s Scholarship", "SRM Merit Scholarship", "Chancellor Constituency Scholarship", "Socio-Economic Scholarship", "Unnat Bharat Abhiyan Scholarship", "Differently Abled Scholarship", "SRM Arts and Culture Scholarship", "Employee ward scholarship", "Alumni Scholarship", "Performance Based Scholarship", "Concessions", "Defence Scholarship", "Sponsored Scholarship"],
+  "rank_table": {
+    "columns": ["Campus", "SRM Scholarship", "Percentage of Scholarship", "12th Std. Board", "Rank Ranges"],
+    "note": "Source has rows for KTR, VDP, NCR, RMP, Trichy, AMR (CSE and non-CSE) and Sonepat. Rows for KTR (the main campus) and Trichy are included; render a campus tab/select with these, and link 'All campuses' to the original page.",
+    "rows": [
+      ["KTR", "Founder's Scholarship", "100%", "All Boards", "01 - 40"],
+      ["KTR", "Merit Scholarship", "100%*", "All Boards", "41 - 115"],
+      ["KTR", "Rank Based Scholarship", "75%*", "All Boards", "116 - 215"],
+      ["KTR", "Rank Based Scholarship", "50%*", "All Boards", "216 - 340"],
+      ["KTR", "Rank Based Scholarship", "25%*", "All Boards", "341 - 490"],
+      ["VDP", "Founder's Scholarship", "100%", "All Boards", "01 - 40"],
+      ["VDP", "Merit Scholarship", "100%*", "All Boards", "41 - 115"],
+      ["VDP", "Rank Based Scholarship", "75%*", "All Boards", "116 - 215"],
+      ["VDP", "Rank Based Scholarship", "50%*", "All Boards", "216 - 340"],
+      ["VDP", "Rank Based Scholarship", "25%*", "All Boards", "341 - 490"],
+      ["NCR", "Founder's Scholarship", "100%", "All Boards", "01 - 40"],
+      ["NCR", "Merit Scholarship", "100%*", "All Boards", "41 - 115"],
+      ["NCR", "Rank Based Scholarship", "75%*", "All Boards", "116 - 215"],
+      ["NCR", "Rank Based Scholarship", "50%*", "All Boards", "216 - 340"],
+      ["NCR", "Rank Based Scholarship", "25%*", "All Boards", "341 - 490"],
+      ["RMP", "Founder Scholarship", "100%", "All Boards", "01 - 15"],
+      ["RMP", "Merit Scholarship", "100%*", "All Boards", "16 - 45"],
+      ["RMP", "RANK Based Scholarship - A", "100%*", "All Boards", "46 - 100"],
+      ["RMP", "RANK Based Scholarship - B", "75%*", "All Boards", "101 - 200"],
+      ["RMP", "RANK Based Scholarship - C", "50%*", "All Boards", "201 - 300"],
+      ["RMP", "RANK Based Scholarship - D", "25%*", "All Boards", "301 - 1000"],
+      ["RMP", "RANK Based Scholarship - E", "10%*", "All Boards", "1001 - 5000"],
+      ["Trichy", "Founder Scholarship", "100%", "All Boards", "01 - 15"],
+      ["Trichy", "Merit Scholarship", "100%*", "All Boards", "16 - 45"],
+      ["Trichy", "RANK Based Scholarship - A", "100%*", "All Boards", "46 - 100"],
+      ["Trichy", "RANK Based Scholarship - B", "75%*", "All Boards", "101 - 500"],
+      ["Trichy", "RANK Based Scholarship - C", "60%*", "All Boards", "501 - 1000"],
+      ["Trichy", "RANK Based Scholarship - D", "40%*", "All Boards", "1001 - 2500"],
+      ["Trichy", "RANK Based Scholarship - E", "25%*", "All Boards", "2501 - 5000"]
+    ]
+  },
+  "boards": {
+    "heading": "CBSE / ICSE / Other Low GER State Boards",
+    "text": "In an effort to promote higher education in India, the states below have been selected on the basis of having Gross Enrolment Ratio below 35% as per Economic Survey data, 2021-22 released by the Ministry of Finance, GoI.",
+    "list": ["Central Board Of Secondary Education (CBSE)", "Council Of Indian School Certificate Examination (CISCE/ISC)", "Assam Higher Secondary Education Council", "Bihar Intermediate Education Council", "Bihar School Examination Board", "Chhatisgarh Board Of Secondary Education", "Goa Board Of Secondary And Higher Secondary Education", "Gujarat Secondary And Higher Secondary Education Board", "Haryana Board Of Education", "J And K State Board Of School Education", "Jharkhand Academic Council", "Karnataka Board Of The Pre-university Education", "Madhya Pradesh Board Of Secondary Education", "Maharastra State Board Of Secondary And Higher Secondary Education", "Meghalaya Board Of School Education", "Mizoram Board Of School Education", "Nagaland Board Of School Education", "Orissa Council Of Higher Secondary Education Bhubaneswar", "Punjab School Education Board", "Rajasthan Board Of Secondary Education", "Tripura Board Of Secondary Education", "U.P. Board Of High School And Intermediate Education", "West Bengal Council Of Higher Secondary Education", "Cambridge University", "IGSE Board", "International Baccalaureate"]
+  },
+  "links": [
+    {"text": "Scholarship Categories (PDF)", "href": "https://webstor.srmist.edu.in/web_assets/downloads/2026/srmist-scholarship-categories.pdf"},
+    {"text": "Scholarship Policy", "href": "/policies/scholarship-policy/"}
+  ]
+}
