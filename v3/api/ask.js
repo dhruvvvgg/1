@@ -22,13 +22,17 @@ function limited(ip) {
 
 const okHref = h => typeof h === "string" && h.length < 300 && (/^[a-z0-9][a-z0-9\-./?#=_%&]*$/i.test(h) || /^https:\/\/([a-z0-9-]+\.)*srmist\.edu\.in(\/|$)/i.test(h));
 
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
 async function gemini(prompt) {
   const key = process.env.GEMINI_API_KEY; if (!key) return null;
   const model = process.env.GEMINI_MODEL || "gemini-3.8-flash";
-  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+  const call = () => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key },
     body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM }] }, contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 800, thinkingConfig: { thinkingBudget: 0 } } })
   });
+  let r = await call();
+  for (let n = 0; n < 2 && (r.status === 503 || r.status === 429); n++) { await wait(700 * (n + 1)); r = await call(); } // Google sheds load in short spikes
   if (!r.ok) throw new Error("gemini " + r.status + " " + (await r.text()).slice(0, 300));
   const d = await r.json();
   return (d.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim() || null;
