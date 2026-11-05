@@ -35,10 +35,17 @@ body = html[html.index("<body>") + len("<body>"): html.index("</body>")]
 # Photos: use a local copy when one exists, otherwise leave the remote URL (shows the brand-blue frame).
 os.makedirs(IMG_OUT, exist_ok=True)
 available = set(os.listdir(IMG_SRC)) if os.path.isdir(IMG_SRC) else set()
+# assets/img/map.json maps a srmist.edu.in filename to a local file with a different name
+# (for example an openly licensed Wikimedia Commons photo standing in for it).
+import json
+mapping = {}
+if "map.json" in available:
+    mapping = {k: v for k, v in json.load(open(os.path.join(IMG_SRC, "map.json"))).items() if not k.startswith("_")}
 used = set()
 def swap(m):
     url = m.group(0)
     name = url.rsplit("/", 1)[-1]
+    name = mapping.get(name, name)
     if name in available:
         used.add(name)
         return "img/" + name
