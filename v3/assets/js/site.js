@@ -179,28 +179,131 @@
     addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(run); } }, { passive: true }); run();
   }
 
+  /* ---------- Home search: ask a question, get a short answer written by Claude, grounded in this site's own pages ----------
+     In the published artifact the answer comes from Claude through claude.use("sample").
+     On the hosted site, set <meta name="srm-ai-endpoint" content="/api/ask">: the page POSTs {question, pages} as JSON and expects {answer, links?} back,
+     so the model keys stay in server environment variables and never reach the browser.
+     With neither available, the form falls back to the plain programme search. */
+  const ai = $("[data-ai]"), aiForm = $(".hero__find");
+  if (ai && aiForm) {
+    const input = $("input", aiForm), qEl = $("[data-ai-q]", ai), aEl = $("[data-ai-a]", ai), linksEl = $("[data-ai-links]", ai);
+    const endpoint = ($('meta[name="srm-ai-endpoint"]') || {}).content || "";
+    const SUFFIX = " (college or area of study)";
+    let pagesP = null, run = 0;
+    const pageList = () => pagesP || (pagesP = (async () => {
+      const seen = new Map(), add = (t, h) => { t = t.replace(/\s+/g, " ").trim(); if (t && h && !seen.has(h)) seen.set(h, t); };
+      $$(".footer a[href]").forEach(a => { if (!/^https?:/.test(a.getAttribute("href"))) add(a.textContent, a.getAttribute("href")); });
+      try {
+        const html = await (await fetch("academics.html")).text(), doc = new DOMParser().parseFromString(html, "text/html");
+        $$("[data-area] a.tile", doc).forEach(a => add(a.textContent + SUFFIX, a.getAttribute("href")));
+      } catch (e) {}
+      return Array.from(seen, ([href, title]) => ({ title, href }));
+    })());
+    const PROMPT = "You answer questions from prospective students on a concept website for SRM Institute of Science and Technology (SRMIST), Kattankulathur, Chennai. " +
+      "Use ONLY the pages listed below. Never state fees, dates, cut-offs, rankings, package figures or any other number. If the list does not cover the question, say so in one sentence and point to https://www.srmist.edu.in/. " +
+      "Write at most 60 words of warm plain text, no markdown. Then, on a final line, write LINKS: followed by up to three of the listed URLs, separated by ' | ', that best help.\n\nPages:\n";
+    const split = t => String(t).split(/\n?\s*LINKS:/i);
+    const addLink = (href, label) => { const li = document.createElement("li"), a = document.createElement("a"); a.href = href; a.textContent = label; if (/^https?:/.test(href)) { a.target = "_blank"; a.rel = "noopener"; } li.append(a); linksEl.append(li); };
+    const finish = (text, pages, extra) => {
+      const [body, tail] = split(text);
+      aEl.textContent = body.trim();
+      const known = new Map(pages.map(p => [p.href, p.title]));
+      const wanted = (extra && extra.length ? extra : (tail || "").split("|").map(s => s.trim())).filter(h => known.has(h)).slice(0, 3);
+      linksEl.replaceChildren(); wanted.forEach(h => addLink(h, known.get(h).replace(SUFFIX, "")));
+    };
+    const fallback = q => { location.href = "academics.html?q=" + encodeURIComponent(q); };
+    aiForm.addEventListener("submit", async e => {
+      const q = input.value.trim();
+      if (!q) return;
+      e.preventDefault();
+      const my = ++run;
+      ai.hidden = false; ai.setAttribute("aria-busy", "true"); qEl.textContent = q; aEl.textContent = ""; linksEl.replaceChildren();
+      try {
+        const pages = await pageList();
+        const sample = window.claude && window.claude.use ? await window.claude.use("sample") : null;
+        if (sample) {
+          const out = await sample(PROMPT + pages.map(p => "- " + p.title + ": " + p.href).join("\n") + "\n\nQuestion: " + q, {
+            modelTier: "quick", cache: false,
+            onText: ({ text }) => { if (my === run) aEl.textContent = split(text)[0]; }
+          });
+          if (my === run) finish(out.text, pages);
+        } else if (endpoint) {
+          const r = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q, pages }) });
+          if (!r.ok) throw new Error("ai " + r.status);
+          const d = await r.json();
+          if (my === run) finish(d.answer || "", pages, d.links);
+        } else { ai.hidden = true; fallback(q); return; }
+      } catch (err) {
+        if (my !== run) return;
+        if (err && err.code === "not_granted") { ai.hidden = true; fallback(q); return; }
+        aEl.textContent = err && err.code === "rate_limited" ? "Too many questions just now. Try again in a minute, or browse the programmes." : "The assistant is not available right now.";
+        linksEl.replaceChildren(); addLink("academics.html?q=" + encodeURIComponent(q), "Search programmes for \u201c" + q + "\u201d");
+      } finally { if (my === run) ai.setAttribute("aria-busy", "false"); }
+    });
+  }
+
   /* ---------- Every page opens at its top ---------- */
   try { history.scrollRestoration = "manual"; } catch (e) {}
   scrollTo(0, 0);
   addEventListener("pageshow", () => scrollTo(0, 0));
 
-  /* ---------- Opening animation: ends itself, can be skipped, plays once per session ---------- */
+  /* Opening seal: preserve the emblem centre throughout the zoom. */
   const intro = $("[data-intro]"), root = document.documentElement;
   if (intro) {
-    let done = false;
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    let done = false, frame = 0, safety = 0, started = null;
+    const scene = $(".intro__scene", intro);
+    const seal = $("[data-intro-seal]", intro);
+    const windows = $("[data-intro-windows]", intro);
+    const background = [...document.body.children].filter(el => el !== intro && !["SCRIPT", "STYLE"].includes(el.tagName));
+    const previousInert = background.map(el => el.inert);
     const finish = () => {
-      if (done) return; done = true;
+      if (done) return;
+      done = true;
+      cancelAnimationFrame(frame); clearTimeout(safety);
       root.classList.remove("intro-on", "intro-hold"); root.classList.add("intro-skip");
+      background.forEach((el, i) => { el.inert = previousInert[i]; });
+      removeEventListener("keydown", onKey);
+      motion.removeEventListener("change", onMotion);
       try { sessionStorage.setItem("srm-intro", "1"); } catch (e) {}
       intro.remove();
     };
-    if (!root.classList.contains("intro-on")) intro.remove();
+    const onKey = e => { if (e.key === "Escape") finish(); };
+    const onMotion = () => { if (motion.matches) finish(); };
+    const paint = progress => {
+      const width = innerWidth, height = innerHeight;
+      scene.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      const initial = Math.min(width, height) * 0.34 / 178;
+      const base = Math.min(initial, 260 / 178);
+      const zoom = Math.max(0, Math.min(1, (progress - 0.34) / 0.66));
+      // Scale around the seal centre. Never pan towards an individual opening.
+      const travel = zoom * zoom * zoom;
+      const scale = base * Math.pow((Math.hypot(width, height) / 0.25) / base, travel);
+      const focusX = 89, focusY = 89;
+      const transform = `translate(${width / 2} ${height / 2}) scale(${scale}) translate(${-focusX} ${-focusY})`;
+      seal.setAttribute("transform", transform);
+      windows.setAttribute("transform", transform);
+      // Ease the solid tree aperture open: the original blue details blend away
+      // with the white tree rather than switching to a different drawing.
+      const opening = Math.max(0, Math.min(1, (progress - 0.34) / 0.15));
+      windows.setAttribute("opacity", String(opening * opening * (3 - 2 * opening)));
+      if (progress > 0.65) root.classList.remove("intro-hold");
+    };
+    if (!root.classList.contains("intro-on") || motion.matches) intro.remove();
     else {
-      setTimeout(() => root.classList.remove("intro-hold"), 2300);          // hero entrance starts as the window opens
-      $(".intro__emblem", intro).addEventListener("animationend", finish);
+      background.forEach(el => { el.inert = true; });
+      paint(0); intro.classList.add("is-ready");
+      const tick = time => {
+        if (started === null) started = time;
+        const progress = Math.min(1, (time - started) / 3300);
+        paint(progress);
+        if (progress === 1) finish(); else frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
       $("[data-intro-skip]", intro).addEventListener("click", finish);
-      addEventListener("keydown", e => { if (e.key === "Escape") finish(); }, { once: true });
-      setTimeout(finish, 5500);                                              // never leave the page covered
+      addEventListener("keydown", onKey);
+      motion.addEventListener("change", onMotion);
+      safety = setTimeout(finish, 5500);
     }
   }
 })();

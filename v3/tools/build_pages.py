@@ -296,12 +296,12 @@ names = {"abb": "ABB", "accenture": "Accenture", "accolite": "Accolite", "aditya
 wall = "".join(f'<li><img src="assets/img/partners/{n}.jpg" alt="{names[n]}" width="300" height="200" loading="lazy"></li>' for n in logos)
 plc = hero("Placements", "Placements", "The Career Centre brings recruiters to campus and prepares students to meet them.") + f'''
 
-{band("Placement results, 2025 batch.", "Offers and packages for the batch that graduated in 2025.", [("10,190+", "Job offers"), ("1,448+", "Job roles recruited for"), ("4,346+", "High-paying offers"), ("61 LPA", "Highest CTC"), ("6.5 LPA", "Average CTC")], OFFICIAL + "placements/", "srmist.edu.in/placements").replace('<section class="stat-band"', '<section class="stat-band" id="results"')}
-
   <section class="section section--tight wrap" id="recruiters" aria-labelledby="rec-title">
 {shead("Who hires from SRM.", "980+ companies recruit from SRM. A few of them are shown here.", None, "rec-title")}
     <ul class="partners partners--wall" aria-label="Recruiters that hire SRM graduates">{wall}</ul>
   </section>
+
+{band("Placement results, 2025 batch.", "Offers and packages for the batch that graduated in 2025.", [("10,190+", "Job offers"), ("1,448+", "Job roles recruited for"), ("4,346+", "High-paying offers"), ("61 LPA", "Highest CTC"), ("6.5 LPA", "Average CTC")], OFFICIAL + "placements/", "srmist.edu.in/placements").replace('<section class="stat-band"', '<section class="stat-band" id="results"')}
 
   <section class="section section--tight wrap" id="career-centre" aria-labelledby="cc-title">
 {shead("The Career Centre.", "It combines the Placement Office and the Career Development Centre.", None, "cc-title")}
@@ -336,13 +336,13 @@ centres = [
 cl = "".join(f'<li><h3>{a}</h3><p>{b}</p></li>' for a, b in centres)
 res = hero("Research", "Research", "SRMIST's research centres work together on applied and cross-disciplinary projects, from patentable ideas to prototypes and incubated companies.") + f'''
 
-{band("Research at SRMIST.", "Faculty and students publish and patent across disciplines.", [("58,000+", "Publications"), ("1,100+", "Patents")], OFFICIAL, "srmist.edu.in")}
-
   <section class="section section--tight wrap" id="centres" aria-labelledby="centres-title">
 {split("bg/off-medicine-lab.webp", "Students and staff working in a laboratory", 1920, 1275, shead("Where the work happens.", "A large multidisciplinary campus lets researchers from different fields work on the same questions.", ("https://www.srmist.edu.in/research/", "Research on the official site"), "centres-title"))}
     <ul class="index index--text">{cl}</ul>
     <p class="note-line">SRMIST also organises conferences, seminars and workshops, and funds socially relevant research projects taken up by students.</p>
   </section>
+
+{band("Research at SRMIST.", "Faculty and students publish and patent across disciplines.", [("58,000+", "Publications"), ("1,100+", "Patents")], OFFICIAL, "srmist.edu.in")}
 
   <section class="section section--tight wrap" id="innovation" aria-labelledby="innov-title">
 {split("bg/ideathon.webp", "Students receiving an award at an SRM innovation event", 1375, 917, shead("From research to start-up.", "The SRMIST Startup Ecosystem offers incubation centres and a mentorship network that connects founders with industry experts.", ("https://www.srmist.edu.in/srmist-startup-ecosystem/", "Startup ecosystem"), "innov-title"))}
