@@ -528,7 +528,7 @@ pages.push({
       sec("statistics", "Placement statistics", p.stats.label, `<a class="more" href="/placements/statistics/">Placement statistics</a>`) +
       sec("director", "From the Director", null, `<div class="split2"><div class="prose">${para(p.director.message)}</div>${person(p.director)}</div>`) +
       sec("why", "Why choose the Career Centre", null, bullets(p.why_choose)) +
-      sec("sections", "Career Centre", null, linkList(p.sections)) +
+      sec("sections", "More from the Career Centre", null, linkList(p.sections)) +
       sec("recruiters", "Recruiters", null, logos()) +
       sec("contact", "Contact the Career Centre", null, `<ul class="contact-list"><li><span>Address</span>${esc(p.contact.address)}</li><li><span>Email</span><a href="mailto:${esc(p.contact.email)}">${esc(p.contact.email)}</a></li></ul>`);
   }

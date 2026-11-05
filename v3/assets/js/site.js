@@ -198,7 +198,14 @@
     /* quote the sentences that carry the most query terms, word for word */
     const quote = (text, q) => {
       const terms = new Set(tok(q));
-      const sents = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+      /* split on sentence ends, but not after abbreviations such as B.Tech, Dr. or No. */
+      const sents = text.split(/(?<!\b(?:[A-Z]|Dr|No|St|Mr|Ms|Prof|Sec|Ltd|Pvt|Govt|viz|etc))(?<=[.!?])\s+(?=[A-Z0-9“"(])/).filter(Boolean);
+      if (sents.length === 1 && text.length > 420) {
+        /* a list rather than prose: quote a window around the first matching word */
+        const words = text.split(/\s+/), hit = Math.max(0, words.findIndex(w => terms.has(tok(w)[0])));
+        const from = Math.max(0, hit - 12);
+        return (from ? "…" : "") + words.slice(from, from + 60).join(" ") + (from + 60 < words.length ? "…" : "");
+      }
       const ranked = sents.map((s, i) => ({ s: s.trim(), i, n: tok(s).filter(w => terms.has(w)).length })).filter(x => x.n > 0).sort((a, b) => b.n - a.n || a.i - b.i);
       const pick = (ranked.length ? ranked.slice(0, 2) : [{ s: sents[0].trim(), i: 0 }]).sort((a, b) => a.i - b.i).map(x => x.s).join(" ");
       return pick.length > 420 ? pick.slice(0, 417).replace(/\s+\S*$/, "") + "…" : pick;
