@@ -7,10 +7,10 @@ OUT = os.path.join(ROOT, "artifact")
 shutil.rmtree(OUT, ignore_errors=True)
 shutil.copytree(os.path.join(ROOT, "assets"), os.path.join(OUT, "assets"))
 
-BANNER = ('<div class="concept-bar" role="note" style="background:#121418;color:#f4f3ee;font:600 14px/1.4 Manrope,system-ui,sans-serif;'
+BANNER = ('<aside aria-label="About this site"><div class="concept-bar" role="note" style="background:#121418;color:#f4f3ee;font:600 14px/1.4 Manrope,system-ui,sans-serif;'
           'padding:8px 16px;display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:space-between">'
           '<span>Concept redesign entered in the SRM Website Design Challenge 2026. This is not the official SRMIST website.</span>'
-          '<a href="https://www.srmist.edu.in/" target="_blank" rel="noopener noreferrer" style="color:#e4b316">Go to the official site, srmist.edu.in</a></div>')
+          '<a href="https://www.srmist.edu.in/" target="_blank" rel="noopener noreferrer" style="color:#e4b316">Go to the official site, srmist.edu.in</a></div></aside>')
 
 pages = [os.path.relpath(os.path.join(d, f), ROOT) for d, _, fs in os.walk(ROOT) for f in fs
          if f == "index.html" and not any(x in d for x in ("artifact", "node_modules", "preview"))]

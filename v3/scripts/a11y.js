@@ -14,7 +14,7 @@ const AXE = fs.readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
 const pages = ["/"];
 (function walk(dir) {
   for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (["node_modules", "assets", "scripts", "content", "api", "tools", ".git"].includes(f.name)) continue;
+    if (["node_modules", "assets", "scripts", "content", "api", "tools", ".git", "artifact"].includes(f.name)) continue;
     const p = path.join(dir, f.name);
     if (f.isDirectory()) walk(p);
     else if (f.name === "index.html" && dir !== ROOT) pages.push("/" + path.relative(ROOT, dir).split(path.sep).join("/") + "/");
