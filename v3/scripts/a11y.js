@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
   const browser = await chromium.launch();
   let problems = 0;
   for (const route of pages) {
-    for (const [w, h] of [[1280, 800], [360, 740]]) {
+    for (const [w, h] of [[1440, 900], [768, 1024], [360, 740]]) {
       const page = await browser.newPage({ viewport: { width: w, height: h } });
       const errors = [];
       page.on("pageerror", e => errors.push(e.message));
@@ -52,11 +52,11 @@ const server = http.createServer((req, res) => {
       await page.waitForTimeout(1000);
       const out = [];
       errors.forEach(e => out.push("console: " + e));
-      if (w === 360) {
+      {
         const over = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
         if (over > 0) {
           const culprits = await page.evaluate(() => [...document.querySelectorAll("body *")].filter(e => e.getBoundingClientRect().right > innerWidth + 1 && !e.closest(".tablewrap,.cmp__table,.rail__track,.reel__track,[data-overflow-ok]")).slice(0, 4).map(e => e.tagName.toLowerCase() + (e.className && typeof e.className === "string" ? "." + e.className.split(" ")[0] : "")));
-          out.push(`layout: page is ${over}px wider than 360px (${culprits.join(", ")})`);
+          out.push(`layout: page is ${over}px wider than ${w}px (${culprits.join(", ")})`);
         }
       }
       await page.addScriptTag({ content: AXE });
@@ -67,6 +67,6 @@ const server = http.createServer((req, res) => {
     }
   }
   await browser.close(); server.close();
-  console.log(`Checked ${pages.length} pages at 1280px and 360px: ${problems ? problems + " problem(s)" : "no problems"}.`);
+  console.log(`Checked ${pages.length} pages at 1440, 768 and 360px: ${problems ? problems + " problem(s)" : "no problems"}.`);
   process.exit(problems ? 1 : 0);
 })().catch(e => { console.error(e); server.close(); process.exit(1); });
