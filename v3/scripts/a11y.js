@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
   const browser = await chromium.launch();
   let problems = 0;
   for (const route of pages) {
-    for (const [w, h] of [[1440, 900], [768, 1024], [360, 740]]) {
+    for (const [w, h] of [[1440, 900], [1024, 768], [768, 1024], [360, 740]]) {
       const page = await browser.newPage({ viewport: { width: w, height: h } });
       const errors = [];
       page.on("pageerror", e => errors.push(e.message));
@@ -66,7 +66,42 @@ const server = http.createServer((req, res) => {
       await page.close();
     }
   }
+  /* ---------- interactive states: open panels and drive the new controls, then run axe again ---------- */
+  const SCENARIOS = [
+    ["/", "Ask panel (Ctrl+K)", async p => { await p.keyboard.press("Control+k"); await p.waitForSelector("[data-askp]:not([hidden])"); await p.fill("#askp-q", "B.Tech under 3 lakh at Kattankulathur"); await p.press("#askp-q", "Enter"); await p.waitForSelector(".askp .intent"); }],
+    ["/", "Ask panel, cited answer", async p => { await p.click("[data-ask-open]"); await p.fill("#askp-q", "How do I book a hostel?"); await p.press("#askp-q", "Enter"); await p.waitForSelector(".askp .ai__quote"); }],
+    ["/", "Hero programme search", async p => { await p.fill("#hero-q", "MBA at Kattankulathur"); await p.press("#hero-q", "Enter"); await p.waitForSelector("[data-ai] .intent"); }],
+    ["/about/", "Reading preferences", async p => { await p.click("[data-prefs-open]"); await p.check('input[name="pref-size"][value="2"]'); await p.check('[data-pref="contrast"]'); await p.check('[data-pref="dyslexia"]'); }],
+    ["/about/", "Dropdown open", async p => { await p.hover('[data-dd] .nav__top >> nth=0'); await p.waitForSelector(".nav__panel:not([hidden])"); }],
+    ["/programs/", "Compare tray and table", async p => { const b = await p.$$("[data-compare]"); await b[0].click(); await b[1].click(); await p.waitForSelector("[data-ctray]:not([hidden])"); }],
+    ["/programs/", "Saved drawer", async p => { const h = await p.$$("[data-save]"); await h[0].click(); await h[1].click(); await p.click("[data-saved-open]"); await p.waitForSelector("[data-saved]:not([hidden])"); }],
+    ["/admissions/", "Route selector result", async p => { await p.click('.optcard:has(input[value="india"])'); await p.click('.optcard:has(input[value="UG"])'); await p.click('.optcard:has(input[value="engineering"])'); await p.waitForSelector(".route__res"); }],
+    ["/admissions/scholarships/", "Estimator result", async p => { await p.selectOption("[data-est-prog]", "b-tech-computer-science-and-engineering"); await p.fill("[data-est-rank]", "180"); await p.waitForTimeout(100); }],
+    ["/contact/", "Office picker", async p => { await p.click('.optcard:has(input[value="hostels"])'); }],
+    ["/academics/departments/", "Research centres tab", async p => { await p.click("#dx-t2"); await p.fill("[data-dx-q]", "centre"); }]
+  ];
+  for (const [route, label, act] of SCENARIOS) {
+    for (const [w, h] of (/Dropdown/.test(label) ? [[1440, 900], [1024, 768]] : [[1440, 900], [360, 740]])) {
+      const page = await browser.newPage({ viewport: { width: w, height: h } });
+      const errors = [];
+      page.on("pageerror", e => errors.push(e.message));
+      page.on("console", m => { if (m.type() === "error") errors.push(m.text()); });
+      await page.addInitScript(() => { try { sessionStorage.setItem("srm-intro", "1"); } catch (e) {} });
+      await page.goto(base + route, { waitUntil: "load" });
+      await page.waitForTimeout(250);
+      const out = [];
+      try { await act(page); await page.waitForTimeout(300); } catch (e) { out.push("interaction failed: " + e.message.split("\n")[0]); }
+      errors.forEach(e => out.push("console: " + e));
+      const over = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+      if (over > 0) out.push(`layout: page is ${over}px wider than ${w}px`);
+      await page.addScriptTag({ content: AXE });
+      const res = await page.evaluate(() => axe.run(document, { runOnly: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"] }));
+      res.violations.forEach(v => out.push(`axe ${v.id} (${v.impact}) x${v.nodes.length}: ${v.nodes.slice(0, 3).map(n => n.target.join(" ")).join(" | ")}`));
+      if (out.length) { problems += out.length; console.log(`${route} [${label}] @${w}px`); out.forEach(o => console.log("  " + o)); }
+      await page.close();
+    }
+  }
   await browser.close(); server.close();
-  console.log(`Checked ${pages.length} pages at 1440, 768 and 360px: ${problems ? problems + " problem(s)" : "no problems"}.`);
+  console.log(`Checked ${pages.length} pages at 1440, 1024, 768 and 360px, plus interactive states: ${problems ? problems + " problem(s)" : "no problems"}.`);
   process.exit(problems ? 1 : 0);
 })().catch(e => { console.error(e); server.close(); process.exit(1); });

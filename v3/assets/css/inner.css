@@ -290,7 +290,7 @@
 .hdr-btn--aa span[aria-hidden] { font: 800 1rem var(--font-serif); letter-spacing: -0.02em; }
 .hdr-kbd { font: 600 0.75rem var(--font-display); color: var(--muted); padding: 2px 6px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--line); }
 @media (max-width: 1279px) { .hdr-kbd { display: none; } }
-@media (max-width: 640px) { .hdr-btn--ask span:not(.sr-only) { display: none; } .hdr-btn--ask::after { content: "Ask"; } .hdr-tools { margin-left: auto; } .hdr-tools + .header__apply + .menu-btn, .hdr-tools ~ .menu-btn { margin-left: var(--s2); } }
+@media (max-width: 640px) { .hdr-btn--ask > span:not(.sr-only) { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .hdr-btn { padding: 0; width: 44px; } .hdr-tools { margin-left: auto; } .hdr-tools + .header__apply + .menu-btn, .hdr-tools ~ .menu-btn { margin-left: var(--s2); } }
 
 /* ---------- Desktop dropdowns ---------- */
 @media (min-width: 1024px) and (max-width: 1100px) { .nav { display: flex; } }
@@ -494,3 +494,19 @@ html.has-tray main { padding-bottom: 88px; }
   html.print-saved .drawer__acts, html.print-saved .iconbtn, html.print-saved [data-unsave] { display: none !important; }
   .mbar, .ctray, .askp, .prefs { display: none !important; }
 }
+.est select, .est input, .cc select { width: 100%; min-width: 0; max-width: 100%; }
+.est__in .pf__field, .cc__sel .pf__field { min-width: 0; }
+/* hidden helper text inside scroll containers must not widen the page */
+.cmp__table, .tablewrap, .iam ul, .askp__out { position: relative; }
+/* 1024 to 1279px: tighter header so all seven sections fit */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hdr-btn--ask > span:not(.sr-only) { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hdr-btn--ask { width: 44px; padding: 0; }
+  .header .wrap { gap: var(--s3); }
+  .brand img { height: 44px; }
+  .nav { gap: 2px; font-size: 0.875rem; }
+  .nav__caret { width: 22px; }
+  .hdr-tools { margin-left: var(--s2); }
+}
+/* larger text: the section links move into the menu, as they would when zoomed */
+@media (max-width: 1919px) { html.pref-size-1 .nav, html.pref-size-2 .nav { display: none; } html.pref-size-1 .header__apply, html.pref-size-2 .header__apply { display: none; } }
