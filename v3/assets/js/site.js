@@ -1,102 +1,141 @@
-/* SRM concept v3. Progressive enhancement: the page reads fine without this file. */
+/* SRM concept v3. Navigation and content remain usable without JavaScript. */
 (() => {
   "use strict";
-  const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+  document.documentElement.classList.add("has-js");
 
-  /* ---------- Full-screen menu ---------- */
+  /* Native modal: background inertness, Escape, and focus containment are built in. */
   const menu = $("[data-menu]");
   const openBtn = $("[data-menu-open]");
-  if (menu && openBtn) {
-    const close = () => { menu.hidden = true; openBtn.setAttribute("aria-expanded", "false"); document.documentElement.style.overflow = ""; openBtn.focus(); };
+  if (menu && openBtn && typeof menu.showModal === "function") {
+    document.documentElement.classList.add("has-menu");
+    openBtn.hidden = false;
+    let previousOverflow = "";
     openBtn.addEventListener("click", () => {
-      menu.hidden = false; openBtn.setAttribute("aria-expanded", "true");
+      previousOverflow = document.documentElement.style.overflow;
+      menu.showModal();
+      openBtn.setAttribute("aria-expanded", "true");
       document.documentElement.style.overflow = "hidden";
       $("[data-menu-close]", menu).focus();
     });
-    $("[data-menu-close]", menu).addEventListener("click", close);
-    $$("a", menu).forEach(a => a.addEventListener("click", () => { if (a.hash) close(); }));
-    menu.addEventListener("keydown", e => {
-      if (e.key === "Escape") close();
-      if (e.key !== "Tab") return;
-      const f = $$("a, button", menu); const first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    $("[data-menu-close]", menu).addEventListener("click", () => menu.close());
+    $$("a", menu).forEach(a => a.addEventListener("click", () => menu.close()));
+    menu.addEventListener("close", () => {
+      openBtn.setAttribute("aria-expanded", "false");
+      document.documentElement.style.overflow = previousOverflow;
+      openBtn.focus();
     });
   }
 
-  /* ---------- Hero: photos inside the wordmark, slow cross-fade, pausable ---------- */
+  /* Only loaded photos enter the rotation. Pause when offscreen, hidden, or focused. */
   const mark = $("[data-wordmark]");
   if (mark) {
     const fills = $$(".wordmark__fill", mark);
+    const hero = mark.closest(".hero");
     const credit = $("[data-wordmark-credit]");
     const toggle = $("[data-wordmark-toggle]");
-    fills.forEach(f => {
-      const img = new Image();
-      img.onload = () => { f.style.backgroundImage = `url("${f.dataset.img}")`; f.classList.add("has-img"); };
-      img.src = f.dataset.img;
-    });
-    let i = 0, timer = null;
-    const show = n => {
-      fills.forEach((f, k) => f.classList.toggle("is-on", k === n));
-      if (credit) credit.textContent = fills[n].dataset.credit;
+    let loaded = [], current = fills[0], timer = null;
+    let paused = false, inView = true, focusPaused = false;
+    const show = slide => {
+      current = slide;
+      fills.forEach(f => f.classList.toggle("is-on", f === slide));
+      if (credit) credit.textContent = slide.dataset.credit;
     };
-    const play = () => { timer = setInterval(() => { i = (i + 1) % fills.length; show(i); }, 5000); };
-    const stop = () => { clearInterval(timer); timer = null; };
-    if (!calm && fills.length > 1) play();
-    if (toggle) {
-      if (calm) toggle.hidden = true;
-      toggle.addEventListener("click", () => {
-        const paused = !!timer;
-        paused ? stop() : play();
+    const sync = () => {
+      clearInterval(timer);
+      timer = null;
+      if (toggle) {
+        toggle.hidden = loaded.length < 2 || calm.matches;
         toggle.setAttribute("aria-pressed", String(paused));
         $("span", toggle).textContent = paused ? "Play photos" : "Pause photos";
-      });
+        $("path", toggle).setAttribute("d", paused ? "M3 1.5 12 7 3 12.5z" : "M3 2h3v10H3zM8 2h3v10H8z");
+      }
+      if (loaded.length > 1 && !paused && !calm.matches && inView && !focusPaused && !document.hidden) {
+        timer = setInterval(() => show(loaded[(loaded.indexOf(current) + 1) % loaded.length]), 5000);
+      }
+    };
+    fills.forEach(f => {
+      const img = new Image();
+      img.onload = () => {
+        f.style.backgroundImage = `url("${f.dataset.img}")`;
+        f.classList.add("has-img");
+        loaded = fills.filter(slide => slide.classList.contains("has-img"));
+        if (!current.classList.contains("has-img")) show(loaded[0]);
+        sync();
+      };
+      // A failed photo stays out of the rotation; the first slide retains a text fallback.
+      img.onerror = () => { if (!loaded.length && credit) credit.textContent = "SRM Institute of Science and Technology"; };
+      img.src = f.dataset.img;
+    });
+    if (toggle) toggle.addEventListener("click", () => { paused = !paused; focusPaused = false; sync(); });
+    hero.addEventListener("focusin", () => { focusPaused = true; sync(); });
+    hero.addEventListener("focusout", e => { if (!hero.contains(e.relatedTarget)) { focusPaused = false; sync(); } });
+    document.addEventListener("visibilitychange", sync);
+    calm.addEventListener("change", sync);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(entries => { inView = entries[0].isIntersecting; sync(); }).observe(hero);
     }
   }
 
-  /* ---------- Scroll chapters: the card in view sets the backdrop and headline ---------- */
+  /* Desktop scroll chapters; phones and reduced-motion mode use ordinary image sections. */
   const chapters = $("[data-chapters]");
-  if (chapters && !calm && "IntersectionObserver" in window) {
+  const cinematic = window.matchMedia("(min-width: 801px) and (prefers-reduced-motion: no-preference)");
+  if (chapters && "IntersectionObserver" in window) {
     const bgs = $$(".stage__bg img", chapters);
     const words = $$(".stage__title span", chapters);
-    const count = $("[data-stage-count]", chapters);
-    const credit = $("[data-stage-credit]", chapters);
     const cards = $$("[data-chapter]", chapters);
-    let current = 0;
-    const set = n => {
-      if (n === current) return;
-      current = n;
-      bgs.forEach((b, k) => b.classList.toggle("is-on", k === n));
-      words.forEach((w, k) => w.classList.toggle("is-on", k === n));
-      count.textContent = `${String(n + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
-      credit.textContent = cards[n].dataset.credit;
+    let observers = [];
+    const setup = () => {
+      observers.forEach(o => o.disconnect());
+      observers = [];
+      if (!cinematic.matches) return;
+      let current = -1;
+      const set = n => {
+        if (n === current) return;
+        current = n;
+        bgs.forEach((b, k) => b.classList.toggle("is-on", k === n));
+        words.forEach((w, k) => w.classList.toggle("is-on", k === n));
+        $("[data-stage-count]", chapters).textContent = `${String(n + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+        $("[data-stage-credit]", chapters).textContent = cards[n].dataset.credit;
+      };
+      const preload = new IntersectionObserver((entries, observer) => {
+        if (entries.some(e => e.isIntersecting)) { bgs.forEach(b => { b.loading = "eager"; }); observer.disconnect(); }
+      }, { rootMargin: "600px" });
+      preload.observe(chapters);
+      const follow = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) set(Number(e.target.dataset.chapter)); });
+      }, { rootMargin: "-45% 0px -45% 0px" });
+      cards.forEach(c => follow.observe(c));
+      observers = [preload, follow];
     };
-    // Load backdrops eagerly once the section is near, so the cross-fade never shows an empty frame.
-    new IntersectionObserver((entries, obs) => {
-      if (entries.some(e => e.isIntersecting)) { bgs.forEach(b => (b.loading = "eager")); obs.disconnect(); }
-    }, { rootMargin: "600px" }).observe(chapters);
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) set(Number(e.target.dataset.chapter)); });
-    }, { rootMargin: "-45% 0px -45% 0px" });
-    cards.forEach(c => io.observe(c));
+    setup();
+    cinematic.addEventListener("change", setup);
   }
 
-  /* ---------- Header gains a soft shadow once the page scrolls ---------- */
   const header = $(".header");
-  if (header) { const f = () => header.classList.toggle("is-stuck", window.scrollY > 8); f(); addEventListener("scroll", f, { passive: true }); }
+  if (header) {
+    const syncHeader = () => header.classList.toggle("is-stuck", window.scrollY > 8);
+    syncHeader();
+    addEventListener("scroll", syncHeader, { passive: true });
+  }
 
-  /* ---------- Footer: accordions collapse on small screens ---------- */
+  /* Native details stay open without JS; compact screens get collapsible groups. */
   const small = window.matchMedia("(max-width: 560px)");
-  const syncAcc = () => $$("[data-acc]").forEach(d => (d.open = !small.matches));
-  syncAcc(); small.addEventListener("change", syncAcc);
+  const syncAcc = () => $$("[data-acc]").forEach(d => { d.open = !small.matches; });
+  syncAcc();
+  small.addEventListener("change", syncAcc);
 
-  /* ---------- Live IST clock in the footer ---------- */
   const clock = $("[data-clock]");
   if (clock) {
     const fmt = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false });
-    const tick = () => { const d = new Date(); clock.textContent = fmt.format(d); clock.setAttribute("datetime", d.toISOString()); };
-    tick(); setInterval(tick, 30000);
+    const tick = () => {
+      const now = new Date();
+      clock.textContent = fmt.format(now);
+      clock.setAttribute("datetime", now.toISOString());
+    };
+    tick();
+    setInterval(tick, 30000);
   }
 })();

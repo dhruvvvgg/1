@@ -9,7 +9,7 @@
 <style>
 /* SRM IST homepage concept v3
    Thesis: calm and typographic everywhere, two showpieces only: the photo-filled
-   wordmark hero and the TP/TP2 skyline footer. One accent: SRM gold.
+   wordmark hero and the white-and-teal campus footer. One accent: SRM gold.
    Every non-showpiece section uses one pattern: H2, one-sentence intro, one link. */
 
 :root {
@@ -22,6 +22,10 @@
   --line: #e2e3e6;
   --accent: #e4b316;         /* SRM gold, from the logo */
   --accent-ink: #121418;     /* text on accent: 9.6:1 */
+  --header-height: 76px;
+  --footer-text: #d9deea;
+  --footer-muted: #aab3c6;
+  --footer-line: rgb(255 255 255 / 0.16);
   --night: #0e1b33;          /* footer, chapters scrim */
 
   --font-display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -36,7 +40,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; scroll-padding-top: calc(var(--header-height) + var(--s4)); }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-serif); font-size: 1.1875rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 img, svg { display: block; max-width: 100%; height: auto; }
 h1, h2, h3 { margin: 0; font-family: var(--font-display); text-wrap: balance; }
@@ -74,8 +78,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .more:hover { text-decoration-color: var(--ink); }
 .more::after { content: "→"; transition: transform 200ms var(--ease); }
 .more:hover::after { transform: translateX(4px); }
-a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
-.more[data-ext]::after { content: "↗"; }
+/* An icon glyph should not depend on the font including arrow characters. */
+a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 0.85em; margin-left: 0.35em; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' d='M5 19 19 5M5 5h14v14'/%3E%3C/svg%3E") center / contain no-repeat; }
+.more[data-ext]::after { content: ""; margin-left: 0; }
 
 /* ---------- Header ---------- */
 .header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgb(250 250 250 / 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
@@ -89,8 +94,8 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
 .menu-btn svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2.25; fill: none; stroke-linecap: round; }
 
 /* Full-screen menu */
-.menu { position: fixed; inset: 0; z-index: 90; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; padding-top: env(safe-area-inset-top, 0px); }
-.menu:not([hidden]) { animation: fade 220ms var(--ease); }
+.menu { position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; border: 0; padding: 0; z-index: 90; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; padding-top: env(safe-area-inset-top, 0px); }
+.menu[open] { animation: fade 220ms var(--ease); }
 @keyframes fade { from { opacity: 0; } }
 .menu__top { display: flex; align-items: center; justify-content: space-between; min-height: 76px; border-bottom: 1px solid var(--line); }
 .menu__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s6); padding-block: var(--s8); }
@@ -112,8 +117,8 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
 .hero__intro mark { background: var(--accent); color: var(--accent-ink); padding: 0 0.12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .hero__side { display: flex; flex-direction: column; gap: var(--s4); align-items: flex-start; }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s3); }
-.hero__meta { display: flex; align-items: center; gap: var(--s4); font: 500 0.875rem var(--font-display); color: var(--muted); }
-.ctl { white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font: 600 0.875rem var(--font-display); color: var(--ink-2); }
+.hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4); font: 500 0.875rem var(--font-display); color: var(--muted); }
+.ctl { white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font: 600 0.875rem var(--font-display); color: var(--ink-2); }
 .ctl:hover { box-shadow: inset 0 0 0 1px var(--ink); }
 .ctl svg { width: 14px; height: 14px; fill: currentColor; }
 
@@ -140,7 +145,7 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
 .chapter-card__box p { margin-top: var(--s3); color: var(--ink-2); }
 .chapter-card__stat { margin-top: var(--s4); padding-top: var(--s3); border-top: 1px solid var(--line); font: 600 1rem var(--font-display); }
 .chapter-card__stat b { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
-.chapter-card__media { display: none; }
+.chapter-card__media { display: none; margin: 0 0 var(--s5); }
 
 /* ---------- Quiet sections: one repeating pattern ---------- */
 .section { padding-block: var(--section); }
@@ -153,7 +158,6 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
 /* Ways in: numbered blocks */
 .ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6); }
 .way { display: flex; flex-direction: column; gap: var(--s4); padding-top: var(--s4); border-top: 1px solid var(--ink); }
-.way__n { font: 800 1rem var(--font-display); font-variant-numeric: tabular-nums; }
 .way img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); outline: 1px solid oklch(0 0 0 / 0.08); outline-offset: -1px; }
 .way h3 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; }
 .way p { color: var(--ink-2); }
@@ -171,42 +175,62 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
 .card a:hover h3 { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 5px; }
 .card p { color: var(--ink-2); font-size: 1.0625rem; }
 
-/* Milestones + pull-quote */
+/* Milestones and current campus news */
 .story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s8); align-items: start; }
 .timeline li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--s4); padding-block: var(--s4); border-top: 1px solid var(--line); }
 .timeline li:last-child { border-bottom: 1px solid var(--line); }
 .timeline b { font: 800 1.5rem var(--font-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.quote { margin: 0; padding-left: var(--s6); border-left: 4px solid var(--accent); }
-.quote p { font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem); line-height: 1.2; letter-spacing: -0.015em; }
-.quote footer { margin-top: var(--s5); font: 600 1rem var(--font-display); color: var(--muted); }
-.placeholder { font: 600 0.75rem var(--font-display); color: #8a5a00; background: #fff4cf; border-radius: 4px; padding: 2px 6px; vertical-align: middle; }
 
 /* Partner wall */
 .partners { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-.partners li { display: grid; place-items: center; aspect-ratio: 3 / 2; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font: 600 0.875rem var(--font-display); color: var(--muted); }
+.partners li { display: grid; place-items: center; aspect-ratio: auto; min-height: 116px; padding: var(--s5); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font: 600 0.875rem var(--font-display); color: var(--muted); }
 
-/* ---------- Footer + skyline ---------- */
-.footer { background: var(--night); color: #d9deea; font-family: var(--font-display); font-size: 0.9375rem; margin-top: var(--section); }
-.footer a { color: #fff; text-decoration: none; }
-.footer a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
-.footer__top { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: var(--s6); padding-block: var(--s8) var(--s7); }
-.footer__logo { display: inline-block; background: #fff; border-radius: 12px; padding: 10px 14px; }
-.footer__logo img { height: 56px; width: auto; }
-.footer address { font-style: normal; margin-top: var(--s5); line-height: 1.6; }
-.clock { margin-top: var(--s5); display: flex; align-items: baseline; gap: 10px; }
-.clock time { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; font-variant-numeric: tabular-nums; }
-.footer details { border-top: 1px solid rgb(255 255 255 / 0.12); }
-.footer summary { list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 52px; font-weight: 800; color: #fff; font-size: 1.0625rem; cursor: pointer; }
+/* ---------- Light campus footer ---------- */
+.footer { margin-top: var(--section); background: var(--bg); color: var(--ink); font: 400 0.9375rem/1.6 var(--font-display); }
+.footer__frame { width: min(1280px, calc(100% - 2 * var(--gutter))); margin-inline: auto; border: 1px solid var(--line); border-bottom: 0; }
+.footer a { color: inherit; text-decoration: none; text-underline-offset: 5px; }
+.footer a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
+.footer__top { display: grid; grid-template-columns: 1.2fr repeat(4, minmax(0, 1fr)); }
+.footer__top > * { min-width: 0; padding: var(--s6) var(--s5); border-right: 1px solid var(--line); }
+.footer__top > :last-child { border-right: 0; }
+.footer__logo { display: inline-block; }
+.footer__logo img { width: 180px; height: auto; }
+.footer address { font-size: 0.8125rem; font-style: normal; color: var(--ink-2); line-height: 1.7; margin-top: var(--s5); }
+.footer summary { list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 44px; gap: var(--s2); font-size: 0.9375rem; font-weight: 700; cursor: pointer; }
 .footer summary::-webkit-details-marker { display: none; }
-.footer summary::after { content: "+"; color: var(--accent); font-size: 1.25rem; }
-.footer details[open] summary::after { content: "–"; }
-.footer details ul { padding-bottom: var(--s4); }
-.footer details a { display: inline-flex; min-height: 36px; align-items: center; }
-.footer__legal { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); justify-content: space-between; padding-block: var(--s5); border-top: 1px solid rgb(255 255 255 / 0.12); font-size: 0.8125rem; color: #aab3c6; }
-.footer__legal ul { display: flex; flex-wrap: wrap; gap: var(--s5); }
-.social { display: flex; gap: var(--s2); margin-top: var(--s5); }
-.social a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); font-size: 0.8125rem; font-weight: 700; }
-.social a:hover { box-shadow: inset 0 0 0 1px var(--accent); text-decoration: none; }
+.footer summary::after { content: "+"; color: var(--muted); }
+.footer details[open] summary::after { content: "−"; }
+.footer details a { display: inline-flex; align-items: center; min-height: 40px; color: var(--ink-2); font-size: 0.8125rem; }
+.footer__bar { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: var(--s4); align-items: center; border-top: 1px solid var(--line); padding: var(--s4) var(--s5); }
+.social { display: flex; flex-wrap: wrap; gap: 0; margin-left: -10px; }
+.social a { width: 40px; height: 44px; display: grid; place-items: center; }
+.social a:hover { color: var(--muted); }
+.clock { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px; font-size: 0.75rem; color: var(--muted); }
+.clock time { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.footer__copyright { font-size: 0.75rem; text-align: right; color: var(--ink-2); }
+.footer__legal { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); border-top: 1px solid var(--line); padding: var(--s2) var(--s5); font-size: 0.6875rem; color: var(--muted); }
+.footer__legal ul { display: flex; flex-wrap: wrap; gap: var(--s4); }
+.footer__legal a { display: inline-flex; align-items: center; min-height: 44px; }
+.campus-ending { margin: 0; background: var(--bg); }
+.campus-ending__art { width: 100%; height: auto; aspect-ratio: 1860 / 846; object-fit: contain; mask-image: linear-gradient(to bottom, transparent, black 12%); }
+@media (max-width: 1100px) and (min-width: 561px) {
+ .footer__top { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+ .footer__top > :first-child { grid-column: 1 / -1; border-bottom: 1px solid var(--line); border-right: 0; }
+ .footer__top > :nth-child(4) { border-right: 1px solid var(--line); }
+ .footer__bar { grid-template-columns: 1fr 1fr; }
+ .clock { justify-content: flex-end; }
+ .footer__copyright { grid-column: 1 / -1; text-align: left; }
+}
+@media (max-width: 560px) {
+ .footer__top { grid-template-columns: 1fr; }
+ .footer__top > * { padding: var(--s3) var(--s5); border-right: 0; border-bottom: 1px solid var(--line); }
+ .footer__top > :first-child { padding-block: var(--s6); }
+ .footer__top > :last-child { border-bottom: 0; }
+ .footer__bar { grid-template-columns: 1fr; gap: var(--s2); }
+ .clock { justify-content: flex-start; }
+ .footer__copyright { text-align: left; }
+ .campus-ending__art { object-fit: contain; }
+}
 
 /* ---------- Second-level template ---------- */
 .page-hero { padding-block: var(--s8) var(--s7); border-bottom: 1px solid var(--line); }
@@ -226,19 +250,13 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
 .prose figure { margin: var(--s6) 0; }
 .prose figure img { border-radius: var(--radius-card); }
 .prose figcaption { margin-top: var(--s2); font: 500 0.8125rem var(--font-display); color: var(--muted); }
-.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); margin-top: var(--s6); }
-.facts div { padding-top: var(--s3); border-top: 1px solid var(--ink); }
-.facts dt { font: 600 0.875rem var(--font-display); color: var(--muted); }
-.facts dd { margin: 0; font: 800 1.5rem var(--font-display); letter-spacing: -0.02em; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
-  .nav { display: none; }
+  .has-menu .nav { display: none; }
   .menu-btn { margin-left: auto; }
   .menu__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .partners { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .footer__top { grid-template-columns: 1fr 1fr; }
-  .footer__top > :first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 800px) {
   .hero__row, .s-head, .story { grid-template-columns: 1fr; }
@@ -247,59 +265,66 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
   .card img { aspect-ratio: 4 / 3; }
   .page-grid { grid-template-columns: 1fr; }
   .page-nav { position: static; display: flex; gap: var(--s4); overflow-x: auto; }
-  .facts { grid-template-columns: 1fr 1fr; }
   .chapter-card__box { margin-inline: auto; }
 }
 @media (max-width: 560px) {
+  :root { --header-height: 64px; }
   .brand img { height: 42px; }
   .header .wrap { min-height: 64px; }
   .menu-btn { width: 48px; height: 48px; }
   .menu__grid { grid-template-columns: 1fr; }
   .hero__ctas .pill { flex: 1 1 auto; justify-content: center; }
-  .footer__top { grid-template-columns: 1fr; }
   .partners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .chapter-card__box { padding: var(--s5); }
-  .stage__head { top: 24%; }
-  .chapter-card { padding-bottom: 4vh; min-height: 115vh; }
-  .chapter-cards { margin-top: -40vh; }
 }
 
-/* Reduced motion: no pinning, no cross-fades; chapters become plain stacked sections */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+/* Phones and reduced-motion mode: readable, naturally scrolling image sections. */
+@media (max-width: 800px), (prefers-reduced-motion: reduce) {
   .stage { display: none; }
   .chapter-cards { margin-top: 0; padding-bottom: 0; }
   .chapter-card { min-height: 0; display: block; padding: 0 0 var(--s8); }
-  .chapter-card__box { margin: 0; width: auto; padding: 0; background: none; }
+  .chapter-card__box { margin: 0; width: auto; padding: 0; background: none; box-shadow: none; }
   .chapter-card__media { display: block; margin-bottom: var(--s4); }
   .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); }
-  .chapter-card__box h2 { font-size: 2.5rem; }
+  .chapter-card__box h2 { font-size: clamp(2rem, 6vw, 2.5rem); }
 }
 
 /* Polish pass: one orchestrated hero entrance, scroll-aware header, calmer press states */
 @keyframes rise { from { clip-path: inset(0 0 100% 0); transform: translateY(0.06em); } to { clip-path: inset(0 0 -10% 0); transform: none; } }
-@keyframes settle { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 .wordmark { animation: rise 900ms var(--ease) both; }
-.hero__intro { animation: settle 700ms 450ms var(--ease) both; }
-.hero__side { animation: settle 700ms 600ms var(--ease) both; }
 .header { transition: box-shadow 200ms ease, background-color 200ms ease; }
 .header.is-stuck { box-shadow: 0 6px 24px -12px rgb(14 27 51 / 0.35); background: rgb(250 250 250 / 0.97); }
-.chapter-card__box { box-shadow: 0 24px 60px -28px rgb(14 27 51 / 0.55); }
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) { .has-js .chapter-card__box { box-shadow: 0 24px 60px -28px rgb(14 27 51 / 0.55); } }
 .way img { transition: transform 500ms var(--ease); }
 .way:hover img { transform: translateY(-4px); }
 
-/* Social icons, partner logo placeholders, review placeholders */
+/* Source-backed news and the existing recruiter logos. */
 .social svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .social svg .f { fill: currentColor; stroke: none; }
-.partners li { padding: var(--s3); }
-.partners img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-.social svg .f { stroke: none; }
-.plogo { display: inline-flex; align-items: center; gap: 8px; color: #8b919c; font: 700 0.9375rem var(--font-display); letter-spacing: -0.01em; }
-.plogo svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.reviews { display: grid; gap: var(--s6); }
-.quote--sm p { font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); }
-.quote--sm { border-left-width: 3px; }
-@media (min-width: 801px) { .reviews { grid-template-columns: 1fr 1fr; } .reviews .quote:first-child { grid-column: 1 / -1; } }
+.partners img { width: min(100%, 144px); height: 64px; object-fit: contain; mix-blend-mode: multiply; }
+.campus-news h3 { font-size: 1.25rem; line-height: 1.3; padding-bottom: var(--s4); border-bottom: 1px solid var(--line); }
+.news-list li + li { border-top: 1px solid var(--line); }
+.news-list a { display: flex; flex-direction: column; gap: var(--s3); padding-block: var(--s5); text-decoration: none; }
+.news-list__title { font: 600 1.25rem/1.35 var(--font-display); letter-spacing: -0.02em; }
+.news-list li:first-child .news-list__title { font-size: clamp(1.5rem, 2vw, 1.875rem); }
+.news-list a:hover .news-list__title { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.news-list__meta { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); font: 500 0.875rem var(--font-display); color: var(--muted); }
+.news-list__meta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; flex: none; }
+
+
+html:not(.has-menu) .header .wrap { flex-wrap: wrap; gap: var(--s3); padding-block: var(--s3); }
+html:not(.has-menu) .nav { display: flex; flex-wrap: wrap; width: 100%; gap: var(--s2) var(--s5); margin: 0; }
+html:not(.has-js) .stage { display: none; }
+html:not(.has-js) .chapter-cards { margin-top: 0; padding-bottom: 0; }
+html:not(.has-js) .chapter-card { min-height: 0; display: block; padding: 0 0 var(--s8); }
+html:not(.has-js) .chapter-card__box { margin: 0; width: auto; padding: 0; background: none; box-shadow: none; }
+html:not(.has-js) .chapter-card__media { display: block; }
+html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); }
+@media (max-width: 560px) { .partners li { padding: var(--s4); min-height: 96px; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  [data-wordmark-toggle] { display: none; }
+}
 
 </style>
 <link rel="preload" as="image" href="assets/img/commons-tech-park.webp">
@@ -316,18 +341,18 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
     <nav class="nav" aria-label="Main">
       <a href="#chapters">Academics</a>
       <a href="#ways">Admissions</a>
-      <a href="#work">Research</a>
-      <a href="#work">Campus life</a>
-      <a href="page.html">About</a>
+      <a href="https://www.srmist.edu.in/research/">Research</a>
+      <a href="https://www.srmist.edu.in/life-at-srm/">Campus life</a>
+      <a href="https://www.srmist.edu.in/about-us/">About</a>
     </nav>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open hidden>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
       <span class="sr-only">Open menu</span>
     </button>
   </div>
 </header>
 
-<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" hidden data-menu>
+<dialog class="menu" id="menu" aria-label="Site menu" data-menu>
   <div class="wrap">
     <div class="menu__top">
       <a class="brand" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
@@ -337,15 +362,15 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
       </button>
     </div>
     <div class="menu__grid ui">
-      <div><h2>Academics</h2><ul><li><a href="page.html">Colleges and faculties</a></li><li><a href="page.html">Programme finder</a></li><li><a href="page.html">Departments A to Z</a></li><li><a href="page.html">Online and distance</a></li></ul></div>
-      <div><h2>Admissions</h2><ul><li><a href="page.html">Indian applicants</a></li><li><a href="page.html">International applicants</a></li><li><a href="page.html">Medicine and dentistry</a></li><li><a href="page.html">Scholarships and fees</a></li></ul></div>
-      <div><h2>Research</h2><ul><li><a href="page.html">Directorate of Research</a></li><li><a href="page.html">Central laboratories</a></li><li><a href="page.html">Innovation and incubation</a></li><li><a href="page.html">PhD study</a></li></ul></div>
-      <div><h2>Campus life</h2><ul><li><a href="page.html">Hostels and dining</a></li><li><a href="page.html">Clubs and festivals</a></li><li><a href="page.html">Sports</a></li><li><a href="page.html">Student support</a></li></ul></div>
-      <div><h2>About</h2><ul><li><a href="page.html">History</a></li><li><a href="page.html">Leadership</a></li><li><a href="page.html">Rankings and accreditation</a></li><li><a href="page.html">News and events</a></li></ul></div>
+      <div><h2>Academics</h2><ul><li><a href="https://www.srmist.edu.in/departments/">Colleges and faculties</a></li><li><a href="https://www.srmist.edu.in/admission-india/">Programme finder</a></li><li><a href="https://www.srmist.edu.in/departments/">Departments A to Z</a></li><li><a href="https://www.srmist.edu.in/directorate-of-online-and-distance-education-dode/">Online and distance</a></li></ul></div>
+      <div><h2>Admissions</h2><ul><li><a href="https://www.srmist.edu.in/admission-india/">Indian applicants</a></li><li><a href="https://www.srmist.edu.in/admission-international/">International applicants</a></li><li><a href="https://www.srmist.edu.in/college/medicine-and-health-sciences/">Medicine and dentistry</a></li><li><a href="https://www.srmist.edu.in/admission-india/engineering/scholarships/">Scholarships and fees</a></li></ul></div>
+      <div><h2>Research</h2><ul><li><a href="https://www.srmist.edu.in/research/">Directorate of Research</a></li><li><a href="https://www.srmist.edu.in/research/#crlf">Central laboratories</a></li><li><a href="https://www.srmist.edu.in/research/innovation-incubation/">Innovation and incubation</a></li><li><a href="https://www.srmist.edu.in/research/academic-research/">PhD study</a></li></ul></div>
+      <div><h2>Campus life</h2><ul><li><a href="https://www.srmist.edu.in/life-at-srm/facilities-and-operations/">Hostels and dining</a></li><li><a href="https://www.srmist.edu.in/life-at-srm/student-life/clubs/">Clubs and festivals</a></li><li><a href="https://www.srmist.edu.in/life-at-srm/sports/">Sports</a></li><li><a href="https://www.srmist.edu.in/life-at-srm/student-counselling-services/">Student support</a></li></ul></div>
+      <div><h2>About</h2><ul><li><a href="https://www.srmist.edu.in/about-us/history/">History</a></li><li><a href="https://www.srmist.edu.in/about-us/leadership-team/">Leadership</a></li><li><a href="https://www.srmist.edu.in/about-us/accreditations-and-rankings/">Rankings and accreditation</a></li><li><a href="https://www.srmist.edu.in/news/">News and events</a></li></ul></div>
     </div>
-    <div class="menu__cta"><a class="pill pill--accent" href="#ways">Apply</a><a class="pill" href="#ways">Request info</a><a class="pill" href="#ways">Visit campus</a></div>
+    <div class="menu__cta"><a class="pill pill--accent" href="https://www.srmist.edu.in/admissions/">Apply</a><a class="pill" href="page.html#contact">Request info</a><a class="pill" href="#visit">Visit campus</a></div>
   </div>
-</div>
+</dialog>
 
 <main id="main">
 
@@ -363,12 +388,12 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
       <p class="hero__intro">A university in Kattankulathur, Chennai, where engineers, doctors, lawyers and designers <mark>learn side by side</mark> on one campus.</p>
       <div class="hero__side">
         <div class="hero__ctas">
-          <a class="pill pill--accent" href="#ways">Apply</a>
-          <a class="pill" href="#ways">Request info</a>
-          <a class="pill" href="#ways">Visit campus</a>
+          <a class="pill pill--accent" href="https://www.srmist.edu.in/admissions/">Apply</a>
+          <a class="pill" href="page.html#contact">Request info</a>
+          <a class="pill" href="#visit">Visit campus</a>
         </div>
         <div class="hero__meta">
-          <button class="ctl" type="button" data-wordmark-toggle aria-pressed="false"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h3v10H3zM8 2h3v10H8z"/></svg><span>Pause photos</span></button>
+          <button class="ctl" type="button" data-wordmark-toggle aria-pressed="false" hidden><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h3v10H3zM8 2h3v10H8z"/></svg><span>Pause photos</span></button>
           <span data-wordmark-credit aria-live="off">Tech Park. Photo: Syed Tehzeeb Alam, CC BY-SA 4.0</span>
         </div>
       </div>
@@ -399,7 +424,7 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
           <h2 class="chapter-card__title">Learn</h2>
           <p>Engineering, medicine, law, management and more are taught on one campus, so a computer scientist can sit in a class next to a future doctor or lawyer.</p>
           <p class="chapter-card__stat"><b>13</b> areas of study, from engineering to law</p>
-          <a class="more" href="page.html">Explore programmes</a>
+          <a class="more" href="https://www.srmist.edu.in/admission-india/">Explore programmes</a>
         </div>
       </article>
       <article class="chapter-card" data-chapter="1" data-credit="Aaruush '21. Photo: Rishitshivesh1017, CC BY-SA 4.0">
@@ -408,7 +433,7 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
           <h2 class="chapter-card__title">Research</h2>
           <p>Shared laboratories, high-performance computing and an incubator turn student and faculty work into papers, patents and companies.</p>
           <p class="chapter-card__stat"><b>47,000+</b> publications and <b>920+</b> patents</p>
-          <a class="more" href="page.html">See the research</a>
+          <a class="more" href="https://www.srmist.edu.in/research/">See the research</a>
         </div>
       </article>
       <article class="chapter-card" data-chapter="2" data-credit="Bihu team. Photo: Arnab J Deka, CC BY-SA 3.0">
@@ -417,7 +442,7 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
           <h2 class="chapter-card__title">Live</h2>
           <p>Hostels, sports grounds and student festivals like Aaruush and Milan keep the campus busy long after classes end.</p>
           <p class="chapter-card__stat"><b>8</b> campuses in 6 cities</p>
-          <a class="more" href="page.html">Campus life</a>
+          <a class="more" href="https://www.srmist.edu.in/life-at-srm/">Campus life</a>
         </div>
       </article>
       <article class="chapter-card" data-chapter="3" data-credit="Photo: Animesh Sahoo, CC BY-SA 4.0">
@@ -426,41 +451,38 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
           <h2 class="chapter-card__title">Lead</h2>
           <p>Graduates go on to recruiters across India and abroad, the civil services, research labs and companies of their own.</p>
           <p class="chapter-card__stat"><b>5,546+</b> job offers in 2023–24</p>
-          <a class="more" href="page.html">Placements and alumni</a>
+          <a class="more" href="https://www.srmist.edu.in/placements/">Placements and alumni</a>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- Ways in: numbered blocks -->
+  <!-- Ways in: three independent starting points -->
   <section class="section wrap" id="ways" aria-labelledby="ways-title">
     <div class="s-head">
-      <h2 id="ways-title">Three ways in</h2>
+      <h2 id="ways-title">Find your way to SRM</h2>
       <p>Whether you are applying, choosing a course or planning a visit, start here.</p>
     </div>
-    <ol class="ways">
+    <ul class="ways">
       <li class="way">
-        <span class="way__n">01</span>
         <img src="assets/img/commons-srm-university-auditorium.webp" alt="The colonnaded old main building at dusk" width="1280" height="720" loading="lazy">
         <h3>Apply</h3>
         <p>Engineering admits through SRMJEEE. Medicine and dentistry follow NEET. Other programmes have their own routes.</p>
         <a class="more" href="https://www.srmist.edu.in/admissions/" data-ext>Admissions 2027</a>
       </li>
       <li class="way">
-        <span class="way__n">02</span>
         <img src="assets/img/commons-tech-park.webp" alt="The yellow and blue facade of the SRM Tech Park" width="1280" height="848" loading="lazy">
         <h3>Explore programmes</h3>
         <p>Search undergraduate, postgraduate and doctoral programmes by subject or level.</p>
-        <a class="more" href="page.html">Programme finder</a>
+        <a class="more" href="https://www.srmist.edu.in/admission-india/">Programme finder</a>
       </li>
-      <li class="way">
-        <span class="way__n">03</span>
+      <li class="way" id="visit">
         <img src="assets/img/commons-srm-university-campus-chennai-tamil-nadu-india.webp" alt="Aerial view of campus lawns and roads after rain" width="1280" height="786" loading="lazy">
         <h3>Visit</h3>
-        <p>Walk the campus with a student guide, or take the 360° tour from home.</p>
-        <a class="more" href="page.html">Plan a visit</a>
+        <p>Find the Kattankulathur campus in Chengalpattu, Tamil Nadu, and plan your route before you travel.</p>
+        <a class="more" href="https://www.google.com/maps/search/?api=1&amp;query=SRM+Institute+of+Science+and+Technology+Kattankulathur">Get directions</a>
       </li>
-    </ol>
+    </ul>
   </section>
 
   <!-- Work from SRM: credited cards -->
@@ -468,11 +490,11 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
     <div class="s-head">
       <h2 id="work-title">Work from SRM</h2>
       <p>Projects, talks and performances by students, shown with the people who made them.</p>
-      <a class="more" href="page.html">More work</a>
+      <a class="more" href="https://www.srmist.edu.in/news/">More work</a>
     </div>
     <ul class="cards">
       <li class="card">
-        <a href="page.html">
+        <a href="https://www.srmist.edu.in/news/">
           <figure><img src="assets/img/commons-a21-env.webp" alt="A darkened hall of students watching a live coding session" width="1280" height="853" loading="lazy">
             <figcaption>Photo: Rishitshivesh1017, CC BY-SA 4.0</figcaption></figure>
           <span class="card__type">Aaruush '21</span>
@@ -481,7 +503,7 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
         </a>
       </li>
       <li class="card">
-        <a href="page.html">
+        <a href="https://www.srmist.edu.in/life-at-srm/culture/">
           <figure><img src="assets/img/commons-a22wcmt.webp" alt="A guitarist singing on a stage lit in blue" width="1280" height="853" loading="lazy">
             <figcaption>Photo: Rishitshivesh1017, CC BY-SA 4.0</figcaption></figure>
           <span class="card__type">Aaruush '22</span>
@@ -490,7 +512,7 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
         </a>
       </li>
       <li class="card">
-        <a href="page.html">
+        <a href="https://www.srmist.edu.in/news/">
           <figure><img src="assets/img/commons-0j9a0195.webp" alt="A speaker at a lectern in front of a full lecture hall" width="1280" height="853" loading="lazy">
             <figcaption>Photo: VA Studios, CC BY-SA 4.0</figcaption></figure>
           <span class="card__type">Talks</span>
@@ -506,7 +528,7 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
     <div class="s-head">
       <h2 id="story-title">Since 1985</h2>
       <p>From one engineering college to a university with eight campuses in six cities.</p>
-      <a class="more" href="page.html">Our history</a>
+      <a class="more" href="https://www.srmist.edu.in/about-us/history/">Our history</a>
     </div>
     <div class="story">
       <ol class="timeline">
@@ -516,20 +538,14 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
         <li><b>2010</b><span>The Inter Disciplinary School of Indian System of Medicine is set up.</span></li>
         <li><b>2024</b><span>NAAC accredits SRMIST with its highest grade, A++.</span></li>
       </ol>
-      <div class="reviews">
-        <blockquote class="quote">
-          <p>“An SRMIST student has been named a Distinguished Winner at Apple’s Swift Student Challenge 2026.”</p>
-          <footer>SRMIST news, 2026</footer>
-        </blockquote>
-        <blockquote class="quote quote--sm">
-          <p>“Team Camber Racing claims the national title at Formula Bharat 2026.”</p>
-          <footer>SRMIST news, 2026</footer>
-        </blockquote>
-        <blockquote class="quote quote--sm">
-          <p>“SRMIST sports students secure prestigious positions in the public sector.”</p>
-          <footer>SRMIST news, 2026</footer>
-        </blockquote>
-      </div>
+      <aside class="campus-news" aria-labelledby="campus-news-title">
+        <h3 id="campus-news-title">From the campus</h3>
+        <ul class="news-list">
+          <li><a href="https://www.srmist.edu.in/srmist-student-named-distinguished-winner-at-apples-swift-student-challenge-2026/"><span class="news-list__title">An SRMIST student named a Distinguished Winner at Apple’s Swift Student Challenge 2026</span><span class="news-list__meta">SRMIST news, 2026 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a></li>
+          <li><a href="https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/"><span class="news-list__title">Team Camber Racing claims the national title at Formula Bharat 2026</span><span class="news-list__meta">SRMIST news, 2026 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a></li>
+          <li><a href="https://www.srmist.edu.in/srmist-sports-students-secure-prestigious-positions-in-the-public-sector/"><span class="news-list__title">SRMIST sports students secure positions in the public sector</span><span class="news-list__meta">SRMIST news, 2026 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a></li>
+        </ul>
+      </aside>
     </div>
   </section>
 
@@ -538,138 +554,188 @@ a[data-ext]::after { content: " ↗"; font-family: var(--font-display); }
     <div class="s-head">
       <h2 id="partners-title">Recruiters and partners</h2>
       <p>980+ companies recruit from SRM. A few of them are shown here.</p>
-      <a class="more" href="page.html">Placements</a>
+      <a class="more" href="https://www.srmist.edu.in/placements/">Placements</a>
     </div>
     <ul class="partners" aria-label="Recruiters that hire SRM graduates"><li><img src="assets/img/partners/abb.jpg" alt="ABB" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/accenture.jpg" alt="Accenture" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/accolite.jpg" alt="Accolite" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/aditya-birla.jpg" alt="Aditya Birla Group" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/Afcons.jpg" alt="Afcons" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/Affinsys.jpg" alt="Affinsys" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/microsoft.jpg" alt="Microsoft" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/mckinley_rice.jpg" alt="McKinley Rice" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/maruthi.jpg" alt="Maruti Suzuki" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/mu_sigma.jpg" alt="Mu Sigma" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/maersk.jpg" alt="Maersk" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/ltimindtree.jpg" alt="LTIMindtree" width="300" height="200" loading="lazy"></li></ul>
   </section>
 </main>
 
 <!-- Footer -->
-<footer class="footer dark">
-  <div class="wrap footer__top">
+<footer class="footer" id="footer">
+  <div class="footer__frame">
+  <div class="footer__top">
     <div>
       <a class="footer__logo" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology" width="168" height="56" loading="lazy"></a>
-      <address>SRM Nagar, Kattankulathur 603203<br>Chengalpattu District, Tamil Nadu<br>+91 44 2741 7000</address>
-      <p class="clock">Kattankulathur <time data-clock>--:--</time> IST</p>
+      <address>SRM Nagar, Kattankulathur 603203<br>Chengalpattu District, Tamil Nadu<br><a href="tel:+914427417000">+91 44 2741 7000</a></address>
+
+
+    </div>
+    <details data-acc open><summary>Study</summary><ul><li><a href="https://www.srmist.edu.in/admission-india/">Programmes</a></li><li><a href="https://www.srmist.edu.in/admissions/">Admissions 2027</a></li><li><a href="https://www.srmist.edu.in/admission-india/engineering/scholarships/">Scholarships</a></li><li><a href="https://www.srmist.edu.in/admission-international/">International students</a></li></ul></details>
+    <details data-acc open><summary>Let us help you</summary><ul><li><a href="https://www.srmist.edu.in/contact-us/">Contact admissions</a></li><li><a href="#visit">Visit campus</a></li><li><a href="https://www.srmist.edu.in/life-at-srm/student-counselling-services/">Student support</a></li><li><a href="https://www.srmist.edu.in/life-at-srm/anti-ragging/">Anti-ragging</a></li></ul></details>
+    <details data-acc open><summary>University</summary><ul><li><a href="https://www.srmist.edu.in/about-us/">About SRMIST</a></li><li><a href="https://www.srmist.edu.in/research/">Research</a></li><li><a href="https://www.srmist.edu.in/news/">News and events</a></li><li><a href="https://www.srmist.edu.in/" data-ext>Official website</a></li></ul></details>
+    <details data-acc open><summary>Campus</summary><ul><li><a href="https://www.srmist.edu.in/life-at-srm/">Life at SRM</a></li><li><a href="https://www.srmist.edu.in/life-at-srm/student-life/clubs/">Clubs and societies</a></li><li><a href="https://www.srmist.edu.in/life-at-srm/sports/">Sports</a></li><li><a href="https://www.srmist.edu.in/placements/">Placements</a></li></ul></details>
+  </div>
+  <div class="footer__bar">
       <ul class="social" aria-label="Social media">
         <li><a href="https://www.instagram.com/SRMUniversityOfficial/" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M12 7.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6zm0 7.9a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/><circle class="f" cx="17.3" cy="6.7" r="1.1"/><path class="f" d="M16 2H8a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h8a6 6 0 0 0 6-6V8a6 6 0 0 0-6-6zm4.2 14a4.2 4.2 0 0 1-4.2 4.2H8A4.2 4.2 0 0 1 3.8 16V8A4.2 4.2 0 0 1 8 3.8h8A4.2 4.2 0 0 1 20.2 8z"/></svg></a></li>
         <li><a href="https://www.linkedin.com/company/srm-ist-chennai" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4v11H3zM9.5 9.5h3.8v1.5h.1c.5-1 1.8-1.8 3.7-1.8 4 0 4.7 2.6 4.7 6V20.5h-4v-4.9c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6v5H9.5z"/></svg></a></li>
         <li><a href="https://www.youtube.com/user/SRMeducation" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a></li>
         <li><a href="https://twitter.com/SRM_Univ" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M17.7 3h3.1l-6.8 7.7L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L2 3h6.4l4.4 5.9zm-1.1 16.2h1.7L7.5 4.7H5.7z"/></svg></a></li>
       </ul>
-    </div>
-    <details data-acc open><summary>Study</summary><ul><li><a href="page.html">Programmes</a></li><li><a href="page.html">Admissions 2027</a></li><li><a href="page.html">Scholarships</a></li><li><a href="page.html">International students</a></li></ul></details>
-    <details data-acc open><summary>Let us help you</summary><ul><li><a href="page.html">Contact admissions</a></li><li><a href="page.html">Visit campus</a></li><li><a href="page.html">Student support</a></li><li><a href="page.html">Anti-ragging</a></li></ul></details>
-    <details data-acc open><summary>University</summary><ul><li><a href="page.html">About SRMIST</a></li><li><a href="page.html">Research</a></li><li><a href="page.html">News and events</a></li><li><a href="https://www.srmist.edu.in/" data-ext>Official website</a></li></ul></details>
+      <p class="clock">Kattankulathur <time data-clock>--:--</time> IST</p>
+    <p class="footer__copyright">© 2026 SRM Institute of Science and Technology.<br>Concept redesign.</p>
   </div>
-  <div class="wrap footer__legal">
-    <p>© 2026 SRM Institute of Science and Technology (concept). Photos: Wikimedia Commons contributors, credited where shown.</p>
-    <ul><li><a href="page.html">Privacy</a></li><li><a href="page.html">Terms</a></li><li><a href="page.html">Mandatory disclosures</a></li></ul>
+  <div class="footer__legal">
+    <p>Photography credited where shown. Campus scene: architectural illustration.</p>
+    <ul><li><a href="https://www.srmist.edu.in/privacy-policy/">Privacy</a></li><li><a href="https://www.srmist.edu.in/terms-and-conditions/">Terms</a></li><li><a href="https://www.srmist.edu.in/iqac/public-disclosure/">Mandatory disclosures</a></li></ul>
   </div>
 
+  </div>
+  <figure class="campus-ending">
+    <img class="campus-ending__art" src="assets/img/ub-lakeside-footer.webp" alt="Illustrated lakeside view of SRM’s University Building, with its sandstone tower, teal arched windows and lower right wing behind campus trees" width="1860" height="846" loading="lazy" decoding="async">
+  </figure>
 </footer>
 
 <script>
-/* SRM concept v3. Progressive enhancement: the page reads fine without this file. */
+/* SRM concept v3. Navigation and content remain usable without JavaScript. */
 (() => {
   "use strict";
-  const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+  document.documentElement.classList.add("has-js");
 
-  /* ---------- Full-screen menu ---------- */
+  /* Native modal: background inertness, Escape, and focus containment are built in. */
   const menu = $("[data-menu]");
   const openBtn = $("[data-menu-open]");
-  if (menu && openBtn) {
-    const close = () => { menu.hidden = true; openBtn.setAttribute("aria-expanded", "false"); document.documentElement.style.overflow = ""; openBtn.focus(); };
+  if (menu && openBtn && typeof menu.showModal === "function") {
+    document.documentElement.classList.add("has-menu");
+    openBtn.hidden = false;
+    let previousOverflow = "";
     openBtn.addEventListener("click", () => {
-      menu.hidden = false; openBtn.setAttribute("aria-expanded", "true");
+      previousOverflow = document.documentElement.style.overflow;
+      menu.showModal();
+      openBtn.setAttribute("aria-expanded", "true");
       document.documentElement.style.overflow = "hidden";
       $("[data-menu-close]", menu).focus();
     });
-    $("[data-menu-close]", menu).addEventListener("click", close);
-    $$("a", menu).forEach(a => a.addEventListener("click", () => { if (a.hash) close(); }));
-    menu.addEventListener("keydown", e => {
-      if (e.key === "Escape") close();
-      if (e.key !== "Tab") return;
-      const f = $$("a, button", menu); const first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    $("[data-menu-close]", menu).addEventListener("click", () => menu.close());
+    $$("a", menu).forEach(a => a.addEventListener("click", () => menu.close()));
+    menu.addEventListener("close", () => {
+      openBtn.setAttribute("aria-expanded", "false");
+      document.documentElement.style.overflow = previousOverflow;
+      openBtn.focus();
     });
   }
 
-  /* ---------- Hero: photos inside the wordmark, slow cross-fade, pausable ---------- */
+  /* Only loaded photos enter the rotation. Pause when offscreen, hidden, or focused. */
   const mark = $("[data-wordmark]");
   if (mark) {
     const fills = $$(".wordmark__fill", mark);
+    const hero = mark.closest(".hero");
     const credit = $("[data-wordmark-credit]");
     const toggle = $("[data-wordmark-toggle]");
-    fills.forEach(f => {
-      const img = new Image();
-      img.onload = () => { f.style.backgroundImage = `url("${f.dataset.img}")`; f.classList.add("has-img"); };
-      img.src = f.dataset.img;
-    });
-    let i = 0, timer = null;
-    const show = n => {
-      fills.forEach((f, k) => f.classList.toggle("is-on", k === n));
-      if (credit) credit.textContent = fills[n].dataset.credit;
+    let loaded = [], current = fills[0], timer = null;
+    let paused = false, inView = true, focusPaused = false;
+    const show = slide => {
+      current = slide;
+      fills.forEach(f => f.classList.toggle("is-on", f === slide));
+      if (credit) credit.textContent = slide.dataset.credit;
     };
-    const play = () => { timer = setInterval(() => { i = (i + 1) % fills.length; show(i); }, 5000); };
-    const stop = () => { clearInterval(timer); timer = null; };
-    if (!calm && fills.length > 1) play();
-    if (toggle) {
-      if (calm) toggle.hidden = true;
-      toggle.addEventListener("click", () => {
-        const paused = !!timer;
-        paused ? stop() : play();
+    const sync = () => {
+      clearInterval(timer);
+      timer = null;
+      if (toggle) {
+        toggle.hidden = loaded.length < 2 || calm.matches;
         toggle.setAttribute("aria-pressed", String(paused));
         $("span", toggle).textContent = paused ? "Play photos" : "Pause photos";
-      });
+        $("path", toggle).setAttribute("d", paused ? "M3 1.5 12 7 3 12.5z" : "M3 2h3v10H3zM8 2h3v10H8z");
+      }
+      if (loaded.length > 1 && !paused && !calm.matches && inView && !focusPaused && !document.hidden) {
+        timer = setInterval(() => show(loaded[(loaded.indexOf(current) + 1) % loaded.length]), 5000);
+      }
+    };
+    fills.forEach(f => {
+      const img = new Image();
+      img.onload = () => {
+        f.style.backgroundImage = `url("${f.dataset.img}")`;
+        f.classList.add("has-img");
+        loaded = fills.filter(slide => slide.classList.contains("has-img"));
+        if (!current.classList.contains("has-img")) show(loaded[0]);
+        sync();
+      };
+      // A failed photo stays out of the rotation; the first slide retains a text fallback.
+      img.onerror = () => { if (!loaded.length && credit) credit.textContent = "SRM Institute of Science and Technology"; };
+      img.src = f.dataset.img;
+    });
+    if (toggle) toggle.addEventListener("click", () => { paused = !paused; focusPaused = false; sync(); });
+    hero.addEventListener("focusin", () => { focusPaused = true; sync(); });
+    hero.addEventListener("focusout", e => { if (!hero.contains(e.relatedTarget)) { focusPaused = false; sync(); } });
+    document.addEventListener("visibilitychange", sync);
+    calm.addEventListener("change", sync);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(entries => { inView = entries[0].isIntersecting; sync(); }).observe(hero);
     }
   }
 
-  /* ---------- Scroll chapters: the card in view sets the backdrop and headline ---------- */
+  /* Desktop scroll chapters; phones and reduced-motion mode use ordinary image sections. */
   const chapters = $("[data-chapters]");
-  if (chapters && !calm && "IntersectionObserver" in window) {
+  const cinematic = window.matchMedia("(min-width: 801px) and (prefers-reduced-motion: no-preference)");
+  if (chapters && "IntersectionObserver" in window) {
     const bgs = $$(".stage__bg img", chapters);
     const words = $$(".stage__title span", chapters);
-    const count = $("[data-stage-count]", chapters);
-    const credit = $("[data-stage-credit]", chapters);
     const cards = $$("[data-chapter]", chapters);
-    let current = 0;
-    const set = n => {
-      if (n === current) return;
-      current = n;
-      bgs.forEach((b, k) => b.classList.toggle("is-on", k === n));
-      words.forEach((w, k) => w.classList.toggle("is-on", k === n));
-      count.textContent = `${String(n + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
-      credit.textContent = cards[n].dataset.credit;
+    let observers = [];
+    const setup = () => {
+      observers.forEach(o => o.disconnect());
+      observers = [];
+      if (!cinematic.matches) return;
+      let current = -1;
+      const set = n => {
+        if (n === current) return;
+        current = n;
+        bgs.forEach((b, k) => b.classList.toggle("is-on", k === n));
+        words.forEach((w, k) => w.classList.toggle("is-on", k === n));
+        $("[data-stage-count]", chapters).textContent = `${String(n + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+        $("[data-stage-credit]", chapters).textContent = cards[n].dataset.credit;
+      };
+      const preload = new IntersectionObserver((entries, observer) => {
+        if (entries.some(e => e.isIntersecting)) { bgs.forEach(b => { b.loading = "eager"; }); observer.disconnect(); }
+      }, { rootMargin: "600px" });
+      preload.observe(chapters);
+      const follow = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) set(Number(e.target.dataset.chapter)); });
+      }, { rootMargin: "-45% 0px -45% 0px" });
+      cards.forEach(c => follow.observe(c));
+      observers = [preload, follow];
     };
-    // Load backdrops eagerly once the section is near, so the cross-fade never shows an empty frame.
-    new IntersectionObserver((entries, obs) => {
-      if (entries.some(e => e.isIntersecting)) { bgs.forEach(b => (b.loading = "eager")); obs.disconnect(); }
-    }, { rootMargin: "600px" }).observe(chapters);
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) set(Number(e.target.dataset.chapter)); });
-    }, { rootMargin: "-45% 0px -45% 0px" });
-    cards.forEach(c => io.observe(c));
+    setup();
+    cinematic.addEventListener("change", setup);
   }
 
-  /* ---------- Header gains a soft shadow once the page scrolls ---------- */
   const header = $(".header");
-  if (header) { const f = () => header.classList.toggle("is-stuck", window.scrollY > 8); f(); addEventListener("scroll", f, { passive: true }); }
+  if (header) {
+    const syncHeader = () => header.classList.toggle("is-stuck", window.scrollY > 8);
+    syncHeader();
+    addEventListener("scroll", syncHeader, { passive: true });
+  }
 
-  /* ---------- Footer: accordions collapse on small screens ---------- */
+  /* Native details stay open without JS; compact screens get collapsible groups. */
   const small = window.matchMedia("(max-width: 560px)");
-  const syncAcc = () => $$("[data-acc]").forEach(d => (d.open = !small.matches));
-  syncAcc(); small.addEventListener("change", syncAcc);
+  const syncAcc = () => $$("[data-acc]").forEach(d => { d.open = !small.matches; });
+  syncAcc();
+  small.addEventListener("change", syncAcc);
 
-  /* ---------- Live IST clock in the footer ---------- */
   const clock = $("[data-clock]");
   if (clock) {
     const fmt = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false });
-    const tick = () => { const d = new Date(); clock.textContent = fmt.format(d); clock.setAttribute("datetime", d.toISOString()); };
-    tick(); setInterval(tick, 30000);
+    const tick = () => {
+      const now = new Date();
+      clock.textContent = fmt.format(now);
+      clock.setAttribute("datetime", now.toISOString());
+    };
+    tick();
+    setInterval(tick, 30000);
   }
 })();
 
