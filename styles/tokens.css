@@ -1,0 +1,17 @@
+@font-face { font-family: Manrope; src: url('../assets/fonts/manrope.ttf') format('truetype'); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: Newsreader; src: url('../assets/fonts/newsreader.ttf') format('truetype'); font-weight: 200 800; font-display: swap; }
+:root {
+  --ink: #172932;
+  --paper: #f5f7f7;
+  --line: #b9c5cb;
+  --surface: #e5ecef;
+  --accent: #0c4da2; /* Provisional SRM blue from existing audit; verify against official logo. */
+  --muted: #445962;
+  --sans: Manrope, sans-serif;
+  --serif: Newsreader, Georgia, serif;
+  --small: 1rem; --body: 1.25rem; --lead: 2rem; --title: 3.5rem; --display: clamp(3rem, 7.5vw, 8rem);
+  --s1: 4px; --s2: 8px; --s3: 16px; --s4: 24px; --s5: 32px; --s6: 48px; --s7: 64px; --s8: 96px; --s9: 128px;
+  --radius: 8px;
+  /* Layer scale: base 0, image overlays 1, skip link 2. */
+  --z-overlay: 1; --z-skip: 2;
+}
