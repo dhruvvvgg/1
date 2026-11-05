@@ -3,7 +3,7 @@
   "use strict";
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.contains("pref-motion");
 
   /* ---------- Full-screen menu ---------- */
   const menu = $("[data-menu]");
@@ -158,76 +158,6 @@
       tick = false;
     };
     addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(run); } }, { passive: true }); run();
-  }
-
-  /* ---------- Ask SRM: client-side retrieval over this site's own content ----------
-     Passages come from /assets/data/ask-index.json (built from /content by scripts/build.js).
-     Ranking is BM25. The answer is the top passages quoted word for word, each with a link
-     to the page it came from. Nothing is generated. */
-  const ai = $("[data-ai]"), aiForm = $(".hero__find");
-  if (ai && aiForm) {
-    const input = $("input", aiForm), qEl = $("[data-ai-q]", ai), aEl = $("[data-ai-a]", ai), linksEl = $("[data-ai-links]", ai);
-    const STOP = new Set("a an and are as at be by can do does for from has have how i in is it its me my of on or our the their there this to was what when where which who why will with you your about into than that them these they".split(" "));
-    const tok = s => String(s).toLowerCase().normalize("NFKD").replace(/[^\p{L}\p{N}\s]/gu, " ").split(/\s+/).filter(w => w && !STOP.has(w)).map(w => w.length > 4 ? w.replace(/(ies|es|s)$/, "") : w);
-    let idxP = null;
-    const loadIndex = () => idxP || (idxP = fetch("/assets/data/ask-index.json").then(r => r.json()).then(chunks => {
-      const docs = chunks.map(c => { const toks = tok(c.h + " " + c.h + " " + c.t); const tf = new Map(); toks.forEach(t => tf.set(t, (tf.get(t) || 0) + 1)); return { c, tf, len: toks.length }; });
-      const df = new Map(); docs.forEach(d => d.tf.forEach((_, t) => df.set(t, (df.get(t) || 0) + 1)));
-      const avg = docs.reduce((s, d) => s + d.len, 0) / docs.length;
-      return { docs, df, avg, N: docs.length };
-    }));
-    const bm25 = (ix, q) => {
-      const k1 = 1.4, b = 0.75, terms = [...new Set(tok(q))];
-      return ix.docs.map(d => {
-        let s = 0, hit = 0;
-        terms.forEach(t => { const f = d.tf.get(t); if (!f) return; hit++; const n = ix.df.get(t); const idf = Math.log(1 + (ix.N - n + 0.5) / (n + 0.5)); s += idf * (f * (k1 + 1)) / (f + k1 * (1 - b + b * d.len / ix.avg)); });
-        return { d, s: s * (hit / Math.max(terms.length, 1)), hit };
-      }).filter(x => x.s > 0).sort((a, b) => b.s - a.s);
-    };
-    /* quote the sentences that carry the most query terms, word for word */
-    const quote = (text, q) => {
-      const terms = new Set(tok(q));
-      /* split on sentence ends, but not after abbreviations such as B.Tech, Dr. or No. */
-      const sents = text.split(/(?<!\b(?:[A-Z]|Dr|No|St|Mr|Ms|Prof|Sec|Ltd|Pvt|Govt|viz|etc))(?<=[.!?])\s+(?=[A-Z0-9“"(])/).filter(Boolean);
-      if (sents.length === 1 && text.length > 420) {
-        /* a list rather than prose: quote a window around the first matching word */
-        const words = text.split(/\s+/), hit = Math.max(0, words.findIndex(w => terms.has(tok(w)[0])));
-        const from = Math.max(0, hit - 12);
-        return (from ? "…" : "") + words.slice(from, from + 60).join(" ") + (from + 60 < words.length ? "…" : "");
-      }
-      const ranked = sents.map((s, i) => ({ s: s.trim(), i, n: tok(s).filter(w => terms.has(w)).length })).filter(x => x.n > 0).sort((a, b) => b.n - a.n || a.i - b.i);
-      const pick = (ranked.length ? ranked.slice(0, 2) : [{ s: sents[0].trim(), i: 0 }]).sort((a, b) => a.i - b.i).map(x => x.s).join(" ");
-      return pick.length > 420 ? pick.slice(0, 417).replace(/\s+\S*$/, "") + "…" : pick;
-    };
-    const THRESHOLD = 2.2;
-    const li = (child) => { const l = document.createElement("li"); l.append(child); return l; };
-    const anchor = (href, text) => { const a = document.createElement("a"); a.href = href; a.textContent = text; return a; };
-    aiForm.addEventListener("submit", async e => {
-      const q = input.value.trim();
-      if (!q) return;
-      e.preventDefault();
-      ai.hidden = false; ai.setAttribute("aria-busy", "true"); qEl.textContent = q; aEl.replaceChildren(); linksEl.replaceChildren();
-      try {
-        const ix = await loadIndex();
-        const top = bm25(ix, q).filter(x => x.s >= THRESHOLD);
-        if (!top.length) {
-          aEl.textContent = "This site does not have an answer to that.";
-          linksEl.append(li(anchor("/contact/", "Contact SRMIST")), li(anchor("/programs/?q=" + encodeURIComponent(q), "Search programmes for “" + q + "”")));
-        } else {
-          const seen = new Set();
-          top.filter(x => !seen.has(x.d.c.u) && seen.add(x.d.c.u)).slice(0, 3).forEach(x => {
-            const bq = document.createElement("blockquote"); bq.className = "ai__quote";
-            const p = document.createElement("p"); p.textContent = "“" + quote(x.d.c.t, q) + "”";
-            const cite = document.createElement("p"); cite.className = "ai__cite";
-            cite.append("Source: ", anchor(x.d.c.u, x.d.c.p + (x.d.c.h && x.d.c.h !== x.d.c.p ? " › " + x.d.c.h : "")));
-            bq.append(p, cite); aEl.append(bq);
-          });
-        }
-      } catch (err) {
-        aEl.textContent = "Search is not available right now.";
-        linksEl.append(li(anchor("/contact/", "Contact SRMIST")));
-      } finally { ai.setAttribute("aria-busy", "false"); }
-    });
   }
 
   /* ---------- Every page opens at its top ---------- */
