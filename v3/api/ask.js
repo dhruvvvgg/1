@@ -67,6 +67,10 @@ module.exports = async function handler(req, res) {
     try { text = await provider(prompt); if (text === null) { console.error(provider.name + ": no key or empty reply"); why.push(provider.name + ": no key or empty reply"); } } catch (e) { console.error(provider.name + " failed:", e.message); why.push(e.message); text = null; }
     if (text) break;
   }
+  if (!text) { /* TEMP debug: list the models these keys can use */
+    try { const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=100", { headers: { "x-goog-api-key": process.env.GEMINI_API_KEY || "" } }); const d = await r.json(); why.push("gemini models: " + (d.models || []).filter(m => (m.supportedGenerationMethods || []).includes("generateContent")).map(m => m.name.replace("models/", "")).join(", ")); } catch (e) { why.push("gemini list failed"); }
+    try { const r = await fetch("https://integrate.api.nvidia.com/v1/models", { headers: { Authorization: "Bearer " + (process.env.NVIDIA_API_KEY || "") } }); const d = await r.json(); why.push("nvidia models: " + (d.data || []).map(m => m.id).filter(id => /nemotron|llama-3|mistral|gemma|qwen/i.test(id)).slice(0, 60).join(", ")); } catch (e) { why.push("nvidia list failed"); }
+  }
   if (!text) return res.status(502).json({ error: "The assistant could not answer just now.", detail: why }) /* TEMP debug */;
 
   const [answer, tail] = text.split(/\n?\s*LINKS:/i);
