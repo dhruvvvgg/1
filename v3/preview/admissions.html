@@ -62,10 +62,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .skip:focus { top: 12px; }
 .ui { font-family: var(--font-display); }
 
-/* Concept banner (competition preview) */
-.concept { background: var(--ink); color: #e9eaee; font: 500 0.875rem/1.4 var(--font-display); }
-.concept .wrap { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; padding-block: 8px; }
-.concept a { color: var(--accent); }
 
 /* ---------- Buttons and links ---------- */
 .pill {
@@ -194,8 +190,6 @@ a[data-ext]::after { content: " ↗"; display: inline-block; text-decoration: no
 .social { display: flex; flex-wrap: wrap; gap: 0; margin-left: -10px; }
 .social a { width: 40px; height: 44px; display: grid; place-items: center; }
 .social a:hover { color: var(--muted); }
-.clock { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px; font-size: 0.75rem; color: var(--muted); }
-.clock time { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
 .footer__copyright { font-size: 0.75rem; text-align: right; color: var(--ink-2); }
 .footer__legal { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); border-top: 1px solid var(--line); padding: var(--s2) var(--s5); font-size: 0.6875rem; color: var(--muted); }
 .footer__legal ul { display: flex; flex-wrap: wrap; gap: var(--s4); }
@@ -207,8 +201,7 @@ a[data-ext]::after { content: " ↗"; display: inline-block; text-decoration: no
  .footer__top > :first-child { grid-column: 1 / -1; border-bottom: 1px solid var(--line); border-right: 0; }
  .footer__top > :nth-child(4) { border-right: 1px solid var(--line); }
  .footer__bar { grid-template-columns: 1fr 1fr; }
- .clock { justify-content: flex-end; }
- .footer__copyright { grid-column: 1 / -1; text-align: left; }
+  .footer__copyright { grid-column: 1 / -1; text-align: left; }
 }
 @media (max-width: 560px) {
  .footer__top { grid-template-columns: 1fr; }
@@ -216,8 +209,7 @@ a[data-ext]::after { content: " ↗"; display: inline-block; text-decoration: no
  .footer__top > :first-child { padding-block: var(--s6); }
  .footer__top > :last-child { border-bottom: 0; }
  .footer__bar { grid-template-columns: 1fr; gap: var(--s2); }
- .clock { justify-content: flex-start; }
- .footer__copyright { text-align: left; }
+  .footer__copyright { text-align: left; }
  .campus-ending__art { object-fit: contain; }
 }
 
@@ -879,9 +871,6 @@ html.intro-skip .intro { display: none !important; }
 <body>
 <a class="skip" href="#main">Skip to main content</a>
 
-<aside class="concept" aria-label="About this page">
-  <div class="wrap"><span>Concept redesign entered in the SRM Website Design Challenge 2026. Not the official SRMIST website.</span><a href="https://www.srmist.edu.in/" data-ext>Official site</a></div>
-</aside>
 
 <header class="header">
   <div class="wrap">
@@ -1023,7 +1012,6 @@ html.intro-skip .intro { display: none !important; }
         <li><a href="https://www.youtube.com/user/SRMeducation" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a></li>
         <li><a href="https://twitter.com/SRM_Univ" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M17.7 3h3.1l-6.8 7.7L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L2 3h6.4l4.4 5.9zm-1.1 16.2h1.7L7.5 4.7H5.7z"/></svg></a></li>
       </ul>
-      <p class="clock">Kattankulathur <time data-clock>--:--</time> IST</p>
     <p class="footer__copyright">© 2026 SRM Institute of Science and Technology.<br>Concept redesign.</p>
   </div>
   <div class="footer__legal">
@@ -1133,14 +1121,6 @@ html.intro-skip .intro { display: none !important; }
   const small = window.matchMedia("(max-width: 560px)");
   const syncAcc = () => $$("[data-acc]").forEach(d => (d.open = !small.matches));
   syncAcc(); if (small.addEventListener) small.addEventListener("change", syncAcc); else if (small.addListener) small.addListener(syncAcc);
-
-  /* ---------- Live IST clock in the footer ---------- */
-  const clock = $("[data-clock]");
-  if (clock) {
-    const fmt = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false });
-    const tick = () => { const d = new Date(); clock.textContent = fmt.format(d); clock.setAttribute("datetime", d.toISOString()); };
-    tick(); setInterval(tick, 30000);
-  }
 
   /* ---------- Work from SRM: one full-bleed slide at a time (native scroll-snap does the work) ---------- */
   const reel = $("[data-reel]");

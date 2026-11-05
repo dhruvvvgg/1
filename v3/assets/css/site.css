@@ -48,10 +48,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .skip:focus { top: 12px; }
 .ui { font-family: var(--font-display); }
 
-/* Concept banner (competition preview) */
-.concept { background: var(--ink); color: #e9eaee; font: 500 0.875rem/1.4 var(--font-display); }
-.concept .wrap { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; padding-block: 8px; }
-.concept a { color: var(--accent); }
 
 /* ---------- Buttons and links ---------- */
 .pill {
@@ -180,8 +176,6 @@ a[data-ext]::after { content: " ↗"; display: inline-block; text-decoration: no
 .social { display: flex; flex-wrap: wrap; gap: 0; margin-left: -10px; }
 .social a { width: 40px; height: 44px; display: grid; place-items: center; }
 .social a:hover { color: var(--muted); }
-.clock { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px; font-size: 0.75rem; color: var(--muted); }
-.clock time { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
 .footer__copyright { font-size: 0.75rem; text-align: right; color: var(--ink-2); }
 .footer__legal { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5); border-top: 1px solid var(--line); padding: var(--s2) var(--s5); font-size: 0.6875rem; color: var(--muted); }
 .footer__legal ul { display: flex; flex-wrap: wrap; gap: var(--s4); }
@@ -193,8 +187,7 @@ a[data-ext]::after { content: " ↗"; display: inline-block; text-decoration: no
  .footer__top > :first-child { grid-column: 1 / -1; border-bottom: 1px solid var(--line); border-right: 0; }
  .footer__top > :nth-child(4) { border-right: 1px solid var(--line); }
  .footer__bar { grid-template-columns: 1fr 1fr; }
- .clock { justify-content: flex-end; }
- .footer__copyright { grid-column: 1 / -1; text-align: left; }
+  .footer__copyright { grid-column: 1 / -1; text-align: left; }
 }
 @media (max-width: 560px) {
  .footer__top { grid-template-columns: 1fr; }
@@ -202,8 +195,7 @@ a[data-ext]::after { content: " ↗"; display: inline-block; text-decoration: no
  .footer__top > :first-child { padding-block: var(--s6); }
  .footer__top > :last-child { border-bottom: 0; }
  .footer__bar { grid-template-columns: 1fr; gap: var(--s2); }
- .clock { justify-content: flex-start; }
- .footer__copyright { text-align: left; }
+  .footer__copyright { text-align: left; }
  .campus-ending__art { object-fit: contain; }
 }
 

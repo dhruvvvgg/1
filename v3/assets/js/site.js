@@ -95,14 +95,6 @@
   const syncAcc = () => $$("[data-acc]").forEach(d => (d.open = !small.matches));
   syncAcc(); if (small.addEventListener) small.addEventListener("change", syncAcc); else if (small.addListener) small.addListener(syncAcc);
 
-  /* ---------- Live IST clock in the footer ---------- */
-  const clock = $("[data-clock]");
-  if (clock) {
-    const fmt = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false });
-    const tick = () => { const d = new Date(); clock.textContent = fmt.format(d); clock.setAttribute("datetime", d.toISOString()); };
-    tick(); setInterval(tick, 30000);
-  }
-
   /* ---------- Work from SRM: one full-bleed slide at a time (native scroll-snap does the work) ---------- */
   const reel = $("[data-reel]");
   if (reel) {
