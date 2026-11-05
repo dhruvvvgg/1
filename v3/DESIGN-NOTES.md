@@ -16,7 +16,7 @@ Official university destinations and the three linked news stories come from the
 
 - Naturally scrolling image sections on phones and in reduced-motion mode.
 - Native modal navigation with background focus containment and Escape handling.
-- Photo rotation skips failed images and pauses on focus, offscreen, and when the document is hidden.
+- Full-background photographic heroes now replace the earlier photo-filled wordmark rotation; the current photographic design and sources are recorded in PHOTOGRAPHY.md.
 - Real destination links, linked campus news, readable secondary-page content, and usable phone links.
 
 ## Local verification

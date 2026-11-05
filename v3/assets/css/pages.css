@@ -1,13 +1,6 @@
 /* Interior pages extend the existing SRM typography, gold, images and spacing. */
 .nav a[aria-current="page"] { background-size: 100% 3px; }
-.inner-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--s8); align-items: center; padding-block: var(--s8); }
-.inner-hero__copy { min-width: 0; }
-.inner-hero h1 { font-size: clamp(3.25rem, 7.3vw, 7.5rem); line-height: 1; letter-spacing: -0.065em; margin-block: var(--s5); }
-.inner-hero__lead { font-size: clamp(1.5rem, 2.4vw, 2.125rem); line-height: 1.3; max-width: 31ch; }
-.inner-hero .pill { margin-top: var(--s6); }
-.inner-hero__photo { margin: 0; min-width: 0; }
-.inner-hero__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
-.inner-hero figcaption, .feature-story figcaption, .story-pair figcaption, .campus-mosaic figcaption { font: 500 0.75rem/1.5 var(--font-display); color: var(--muted); margin-top: var(--s2); }
+.feature-story figcaption, .story-pair figcaption, .campus-mosaic figcaption { font: 500 0.75rem/1.5 var(--font-display); color: var(--muted); margin-top: var(--s2); }
 .section-nav { display: flex; flex-wrap: wrap; gap: 0 var(--s6); border-block: 1px solid var(--line); padding-block: var(--s3); }
 .section-nav a { display: inline-flex; align-items: center; min-height: 44px; font: 600 0.875rem var(--font-display); text-decoration: none; }
 .section-nav a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 6px; }
@@ -66,7 +59,7 @@
 .empty-state p { margin: var(--s4) 0 var(--s5); color: var(--muted); }
 .feature-story { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--s8); align-items: center; }
 .feature-story figure { margin: 0; }
-.feature-story img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+.feature-story img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 0; }
 .feature-story p { color: var(--ink-2); }
 .feature-story p + p { margin-top: var(--s4); }
 .feature-story .more { display: flex; width: fit-content; margin-top: var(--s5); }
@@ -86,11 +79,11 @@
 .research-themes .more { margin-top: var(--s4); }
 .campus-mosaic { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s8); align-items: center; }
 .campus-mosaic figure { margin: 0; }
-.campus-mosaic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+.campus-mosaic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 0; }
 .campus-mosaic .more { margin-top: var(--s5); }
 .story-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); }
 .story-pair figure { margin: 0 0 var(--s5); }
-.story-pair img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-card); }
+.story-pair img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 0; }
 .story-pair p { color: var(--ink-2); max-width: 50ch; }
 .editorial-note { max-width: 760px; padding-left: var(--s5); border-left: 4px solid var(--accent); margin-top: var(--s8); }
 .editorial-note h3 { font-size: 1.5rem; margin-bottom: var(--s3); }
@@ -98,16 +91,12 @@
 .visit-panel address { font-style: normal; color: var(--ink-2); margin-bottom: var(--s5); }
 .visit-panel .more { margin-top: var(--s4); }
 @media (max-width: 1100px) {
- .inner-hero { gap: var(--s7); }
  .process--three { grid-template-columns: 1fr; }
  .route-picker { grid-template-columns: 1fr 1fr; }
  .route-picker .pill { justify-self: start; }
  .recruiter-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 800px) {
- .inner-hero { grid-template-columns: 1fr; padding-block: var(--s7); }
- .inner-hero h1 { font-size: clamp(3rem, 11vw, 5.5rem); }
- .inner-hero__photo img { aspect-ratio: 16 / 10; }
  .section-nav { gap: 0 var(--s5); }
  .route-overview, .study-paths, .process, .split-copy, .contact-grid, .feature-story, .research-themes, .campus-mosaic, .visit-panel { grid-template-columns: 1fr; gap: var(--s7); }
  .directory-controls { grid-template-columns: 1fr 1fr; }
@@ -121,6 +110,5 @@
  .document-checklist, .route-result { padding: var(--s5); }
  .recruiter-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
  .recruiter-list li { padding: var(--s5) var(--s4); }
- .inner-hero .pill { padding-inline: var(--s5); }
  .empty-state { padding: var(--s5); }
 }

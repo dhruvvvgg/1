@@ -1,0 +1,102 @@
+[
+  {
+    "name": "campus-aerial",
+    "url": "https://excelpucollege.org/assets/img/listing-gallery/6774cac0095e1.jpg",
+    "source": "https://excelpucollege.org/listings/srm-institute-of-science-and-technology-srmist",
+    "path": "assets/img/photo-campus-aerial.webp",
+    "width": 2000,
+    "height": 1248,
+    "bytes": 366318,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "campus-courts",
+    "url": "https://assets.kollegeapply.com/images/1751548654646-1745920548phpxasTmd.jpeg",
+    "source": "https://www.kollegeapply.com/college/srm-institute-of-science-and-technology-chennai-gallery",
+    "path": "assets/img/photo-campus-courts.webp",
+    "width": 870,
+    "height": 470,
+    "bytes": 159180,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "electronics-lab",
+    "url": "https://www.eduvow.com/images/college/1746_srm-university-chennai-9.jpg",
+    "source": "https://www.eduvow.com/college-details/srm-university-chennai",
+    "path": "assets/img/photo-electronics-lab.webp",
+    "width": 720,
+    "height": 480,
+    "bytes": 43416,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "research-microscopy",
+    "url": "https://images.shiksha.com/mediadata/images/1697007186phpAwEANp.jpeg",
+    "source": "https://www.shiksha.com/college/srm-college-of-agricultural-sciences-srm-ist-kattankulathur-chennai-213811",
+    "path": "assets/img/photo-research-microscopy.webp",
+    "width": 768,
+    "height": 432,
+    "bytes": 54278,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "cricket",
+    "url": "https://chennaipatrika.com/uploads/images/image_750x_689c84d356e67.jpg",
+    "source": "https://chennaipatrika.com/post/srmist-founders-birthday-trophy-2025-mens-cricket-tournament-day-1-results",
+    "path": "assets/img/photo-cricket.webp",
+    "width": 750,
+    "height": 460,
+    "bytes": 70326,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "volleyball",
+    "url": "https://www.chennaipatrika.com/uploads/images/image_750x_68a3373a41869.jpg",
+    "source": "https://www.chennaipatrika.com/post/srmist-founders-birthday-trophy-beach-volleyball-results",
+    "path": "assets/img/photo-volleyball.webp",
+    "width": 750,
+    "height": 500,
+    "bytes": 104904,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "placement-group",
+    "url": "https://img.jagranjosh.com/imported/images/E/Articles/SRMIST.jpg",
+    "source": "https://www.jagranjosh.com/articles/over-3000-offers-made-on-day-1-of-campus-placements-at-srm-university-1537516816-1",
+    "path": "assets/img/photo-placement-group.webp",
+    "width": 1200,
+    "height": 675,
+    "bytes": 161506,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "convocation",
+    "url": "https://webstor.srmist.edu.in/web_assets/downloads/convocation/21st-convocation-gallery-srmist/convocation/img/full/21st-convocation-srmist-2025-768.jpg",
+    "source": "https://webstor.srmist.edu.in/web_assets/downloads/convocation/21st-convocation-gallery-srmist/convocation/page-7.html",
+    "path": "assets/img/photo-convocation.webp",
+    "width": 2200,
+    "height": 1468,
+    "bytes": 603138,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "laser-lab",
+    "url": "https://pbs.twimg.com/media/Gfy4ufLagAAGUoi.jpg",
+    "source": "https://x.com/PhysNanoSRMIST",
+    "path": "assets/img/photo-laser-lab.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 100522,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  },
+  {
+    "name": "student-projects",
+    "url": "https://pbs.twimg.com/media/F_s7ObYa0AAwfQQ.jpg",
+    "source": "https://x.com/BSrmist",
+    "path": "assets/img/photo-student-projects.webp",
+    "width": 1200,
+    "height": 900,
+    "bytes": 342002,
+    "discovery": "Image search; Google Images was attempted but returned a bot check. Original source downloaded."
+  }
+]

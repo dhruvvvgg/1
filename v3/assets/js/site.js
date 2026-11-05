@@ -3,7 +3,6 @@
   "use strict";
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.documentElement.classList.add("has-js");
 
   /* Native modal: background inertness, Escape, and focus containment are built in. */
@@ -27,56 +26,6 @@
       document.documentElement.style.overflow = previousOverflow;
       openBtn.focus();
     });
-  }
-
-  /* Only loaded photos enter the rotation. Pause when offscreen, hidden, or focused. */
-  const mark = $("[data-wordmark]");
-  if (mark) {
-    const fills = $$(".wordmark__fill", mark);
-    const hero = mark.closest(".hero");
-    const credit = $("[data-wordmark-credit]");
-    const toggle = $("[data-wordmark-toggle]");
-    let loaded = [], current = fills[0], timer = null;
-    let paused = false, inView = true, focusPaused = false;
-    const show = slide => {
-      current = slide;
-      fills.forEach(f => f.classList.toggle("is-on", f === slide));
-      if (credit) credit.textContent = slide.dataset.credit;
-    };
-    const sync = () => {
-      clearInterval(timer);
-      timer = null;
-      if (toggle) {
-        toggle.hidden = loaded.length < 2 || calm.matches;
-        toggle.setAttribute("aria-pressed", String(paused));
-        $("span", toggle).textContent = paused ? "Play photos" : "Pause photos";
-        $("path", toggle).setAttribute("d", paused ? "M3 1.5 12 7 3 12.5z" : "M3 2h3v10H3zM8 2h3v10H8z");
-      }
-      if (loaded.length > 1 && !paused && !calm.matches && inView && !focusPaused && !document.hidden) {
-        timer = setInterval(() => show(loaded[(loaded.indexOf(current) + 1) % loaded.length]), 5000);
-      }
-    };
-    fills.forEach(f => {
-      const img = new Image();
-      img.onload = () => {
-        f.style.backgroundImage = `url("${f.dataset.img}")`;
-        f.classList.add("has-img");
-        loaded = fills.filter(slide => slide.classList.contains("has-img"));
-        if (!current.classList.contains("has-img")) show(loaded[0]);
-        sync();
-      };
-      // A failed photo stays out of the rotation; the first slide retains a text fallback.
-      img.onerror = () => { if (!loaded.length && credit) credit.textContent = "SRM Institute of Science and Technology"; };
-      img.src = f.dataset.img;
-    });
-    if (toggle) toggle.addEventListener("click", () => { paused = !paused; focusPaused = false; sync(); });
-    hero.addEventListener("focusin", () => { focusPaused = true; sync(); });
-    hero.addEventListener("focusout", e => { if (!hero.contains(e.relatedTarget)) { focusPaused = false; sync(); } });
-    document.addEventListener("visibilitychange", sync);
-    calm.addEventListener("change", sync);
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(entries => { inView = entries[0].isIntersecting; sync(); }).observe(hero);
-    }
   }
 
   /* Desktop scroll chapters; phones and reduced-motion mode use ordinary image sections. */

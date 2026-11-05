@@ -12,9 +12,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
 <style>
 /* SRM IST homepage concept v3
-   Thesis: calm and typographic everywhere, two showpieces only: the photo-filled
-   wordmark hero and the white-and-teal campus footer. One accent: SRM gold.
-   Every non-showpiece section uses one pattern: H2, one-sentence intro, one link. */
+   Photo-led page heroes, large Manrope headings and Newsreader body text.
+   One accent: SRM gold. Shared light navigation and a lakeside campus footer. */
 
 :root {
   color-scheme: light;
@@ -107,24 +106,6 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
 .menu__grid a { display: flex; align-items: center; min-height: 40px; text-decoration: none; font-size: 1.0625rem; }
 .menu__grid a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
 .menu__cta { display: flex; flex-wrap: wrap; gap: var(--s3); padding-bottom: var(--s8); }
-
-/* ---------- Hero: photo-filled wordmark ---------- */
-.hero { padding-top: clamp(24px, 4vw, 56px); }
-.wordmark { position: relative; font: 800 clamp(10rem, 1rem + 47vw, 52rem)/0.78 var(--font-display); letter-spacing: -0.075em; margin-left: -0.04em; user-select: none; }
-.wordmark__fill { display: block; color: transparent; background-size: cover; background-position: center 40%; -webkit-background-clip: text; background-clip: text; transition: opacity 1600ms ease; padding-bottom: 0.08em; }
-.wordmark__fill + .wordmark__fill { position: absolute; inset: 0; }
-.wordmark__fill:not(.is-on) { opacity: 0; }
-.wordmark__fill:first-child { color: var(--ink); } /* shows only if photos fail */
-.wordmark__fill:first-child.has-img { color: transparent; }
-.hero__row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s7); align-items: end; margin-top: var(--s5); }
-.hero__intro { font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.375rem); line-height: 1.25; letter-spacing: -0.01em; max-width: 30ch; }
-.hero__intro mark { background: var(--accent); color: var(--accent-ink); padding: 0 0.12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.hero__side { display: flex; flex-direction: column; gap: var(--s4); align-items: flex-start; }
-.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s3); }
-.hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4); font: 500 0.875rem var(--font-display); color: var(--muted); }
-.ctl { white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font: 600 0.875rem var(--font-display); color: var(--ink-2); }
-.ctl:hover { box-shadow: inset 0 0 0 1px var(--ink); }
-.ctl svg { width: 14px; height: 14px; fill: currentColor; }
 
 /* ---------- Scroll chapters (pinned headline, changing backdrop) ---------- */
 .chapters { position: relative; margin-top: var(--section); }
@@ -238,8 +219,6 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
 
 /* ---------- Second-level template ---------- */
 .page-hero { padding-block: var(--s8) var(--s7); border-bottom: 1px solid var(--line); }
-.crumbs { font: 600 0.875rem var(--font-display); color: var(--muted); }
-.crumbs a { color: inherit; }
 .page-hero h1 { margin-top: var(--s4); font-size: clamp(3rem, 1.6rem + 6vw, 7.5rem); font-weight: 800; letter-spacing: -0.055em; line-height: 0.92; }
 .page-hero p { margin-top: var(--s5); font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); line-height: 1.3; max-width: 40ch; }
 .page-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--s8); padding-block: var(--s8); }
@@ -263,7 +242,7 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
   .partners { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 800px) {
-  .hero__row, .s-head, .story { grid-template-columns: 1fr; }
+  .s-head, .story { grid-template-columns: 1fr; }
   .s-head .more { grid-column: 1; }
   .ways, .cards { grid-template-columns: 1fr; }
   .card img { aspect-ratio: 4 / 3; }
@@ -277,7 +256,6 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
   .header .wrap { min-height: 64px; }
   .menu-btn { width: 48px; height: 48px; }
   .menu__grid { grid-template-columns: 1fr; }
-  .hero__ctas .pill { flex: 1 1 auto; justify-content: center; }
   .partners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .chapter-card__box { padding: var(--s5); }
 }
@@ -294,8 +272,6 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
 }
 
 /* Polish pass: one orchestrated hero entrance, scroll-aware header, calmer press states */
-@keyframes rise { from { clip-path: inset(0 0 100% 0); transform: translateY(0.06em); } to { clip-path: inset(0 0 -10% 0); transform: none; } }
-.wordmark { animation: rise 900ms var(--ease) both; }
 .header { transition: box-shadow 200ms ease, background-color 200ms ease; }
 .header.is-stuck { box-shadow: 0 6px 24px -12px rgb(14 27 51 / 0.35); background: rgb(250 250 250 / 0.97); }
 @media (min-width: 801px) and (prefers-reduced-motion: no-preference) { .has-js .chapter-card__box { box-shadow: 0 24px 60px -28px rgb(14 27 51 / 0.55); } }
@@ -330,18 +306,58 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
   [data-wordmark-toggle] { display: none; }
 }
 
+/* Full-bleed photographic heroes. The scrim serves text contrast, not decoration. */
+.photo-hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: clamp(600px, 76svh, 820px); color: var(--surface); background: var(--night); overflow: hidden; }
+.photo-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--hero-position, center); z-index: -2; }
+.photo-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(5 14 24 / 0.84) 0%, rgb(5 14 24 / 0.55) 54%, rgb(5 14 24 / 0.15) 100%); }
+.photo-hero__content { padding-block: clamp(80px, 8vw, 120px) 88px; }
+.photo-hero__title { font: 800 clamp(3.25rem, 8.4vw, 8.5rem)/1 var(--font-display); letter-spacing: -0.065em; margin-bottom: var(--s5); max-width: 12ch; }
+.photo-hero__lead { font: 400 clamp(1.5rem, 2.5vw, 2.25rem)/1.3 var(--font-serif); max-width: 34ch; text-wrap: pretty; }
+.photo-hero .pill { margin-top: var(--s6); }
+.photo-hero__actions { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
+.photo-hero__actions .pill { margin-top: 0; }
+.photo-hero .pill:not(.pill--accent) { background: transparent; color: var(--surface); box-shadow: inset 0 0 0 1.5px var(--surface); }
+.photo-hero .pill:not(.pill--accent):hover { background: var(--surface); color: var(--ink); }
+.photo-hero__credit { position: absolute; right: var(--gutter); bottom: var(--s4); max-width: calc(100% - 2 * var(--gutter)); padding: 4px 8px; background: rgb(0 0 0 / 0.68); font: 400 0.6875rem/1.5 var(--font-display); }
+.photo-hero__credit a { color: inherit; text-underline-offset: 3px; }
+.photo-hero--home { --hero-position: center 60%; min-height: clamp(680px, 86svh, 920px); }
+.photo-hero--home .photo-hero__title { font-size: clamp(9rem, 28vw, 24rem); line-height: 0.8; letter-spacing: -0.075em; margin-left: -0.035em; margin-bottom: var(--s6); }
+.photo-hero--home .photo-hero__lead { max-width: 35ch; font-size: clamp(1.5rem, 2.2vw, 2rem); }
+.photo-hero--research { --hero-position: 72% center; }
+.photo-hero--campus-life { --hero-position: 60% 38%; }
+.photo-hero--placements { --hero-position: center 55%; }
+.photo-break { margin: 0 0 var(--s7); }
+.photo-break > img { width: 100%; height: clamp(240px, 40vw, 620px); object-fit: cover; object-position: center 45%; }
+.photo-break figcaption, .photo-diptych figcaption { font: 400 0.75rem/1.5 var(--font-display); color: var(--muted); padding-top: var(--s3); }
+.photo-break figcaption a, .photo-diptych figcaption a { text-underline-offset: 3px; }
+.photo-diptych { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s1); margin-bottom: var(--s7); }
+.photo-diptych figure { margin: 0; min-width: 0; }
+.photo-diptych img { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: cover; }
+.photo-diptych figcaption { padding-inline: var(--gutter); }
+@media (max-width: 800px) {
+ html { scrollbar-gutter: auto; }
+ .photo-hero { min-height: 620px; }
+ .photo-hero::after { background: rgb(5 14 24 / 0.62); }
+ .photo-hero__content { padding-block: 80px 92px; }
+ .photo-hero__title { font-size: clamp(3rem, 11vw, 5.5rem); }
+ .photo-hero__lead { max-width: 30ch; }
+ .photo-hero__credit { left: var(--gutter); right: auto; }
+ .photo-hero--home { min-height: 700px; }
+ .photo-hero--home .photo-hero__title { font-size: clamp(8rem, 33vw, 17rem); }
+}
+@media (max-width: 560px) {
+ .photo-hero__lead { font-size: 1.5rem; }
+ .photo-hero__title { letter-spacing: -0.06em; }
+ .photo-hero__actions .pill { flex: 1 1 auto; justify-content: center; }
+ .photo-diptych { grid-template-columns: 1fr; gap: var(--s5); }
+ .photo-break > img { height: 260px; }
+}
+
 </style>
 <style>
 /* Interior pages extend the existing SRM typography, gold, images and spacing. */
 .nav a[aria-current="page"] { background-size: 100% 3px; }
-.inner-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--s8); align-items: center; padding-block: var(--s8); }
-.inner-hero__copy { min-width: 0; }
-.inner-hero h1 { font-size: clamp(3.25rem, 7.3vw, 7.5rem); line-height: 1; letter-spacing: -0.065em; margin-block: var(--s5); }
-.inner-hero__lead { font-size: clamp(1.5rem, 2.4vw, 2.125rem); line-height: 1.3; max-width: 31ch; }
-.inner-hero .pill { margin-top: var(--s6); }
-.inner-hero__photo { margin: 0; min-width: 0; }
-.inner-hero__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
-.inner-hero figcaption, .feature-story figcaption, .story-pair figcaption, .campus-mosaic figcaption { font: 500 0.75rem/1.5 var(--font-display); color: var(--muted); margin-top: var(--s2); }
+.feature-story figcaption, .story-pair figcaption, .campus-mosaic figcaption { font: 500 0.75rem/1.5 var(--font-display); color: var(--muted); margin-top: var(--s2); }
 .section-nav { display: flex; flex-wrap: wrap; gap: 0 var(--s6); border-block: 1px solid var(--line); padding-block: var(--s3); }
 .section-nav a { display: inline-flex; align-items: center; min-height: 44px; font: 600 0.875rem var(--font-display); text-decoration: none; }
 .section-nav a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 6px; }
@@ -400,7 +416,7 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
 .empty-state p { margin: var(--s4) 0 var(--s5); color: var(--muted); }
 .feature-story { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--s8); align-items: center; }
 .feature-story figure { margin: 0; }
-.feature-story img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+.feature-story img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 0; }
 .feature-story p { color: var(--ink-2); }
 .feature-story p + p { margin-top: var(--s4); }
 .feature-story .more { display: flex; width: fit-content; margin-top: var(--s5); }
@@ -420,11 +436,11 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
 .research-themes .more { margin-top: var(--s4); }
 .campus-mosaic { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s8); align-items: center; }
 .campus-mosaic figure { margin: 0; }
-.campus-mosaic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); }
+.campus-mosaic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 0; }
 .campus-mosaic .more { margin-top: var(--s5); }
 .story-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); }
 .story-pair figure { margin: 0 0 var(--s5); }
-.story-pair img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-card); }
+.story-pair img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 0; }
 .story-pair p { color: var(--ink-2); max-width: 50ch; }
 .editorial-note { max-width: 760px; padding-left: var(--s5); border-left: 4px solid var(--accent); margin-top: var(--s8); }
 .editorial-note h3 { font-size: 1.5rem; margin-bottom: var(--s3); }
@@ -432,16 +448,12 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
 .visit-panel address { font-style: normal; color: var(--ink-2); margin-bottom: var(--s5); }
 .visit-panel .more { margin-top: var(--s4); }
 @media (max-width: 1100px) {
- .inner-hero { gap: var(--s7); }
  .process--three { grid-template-columns: 1fr; }
  .route-picker { grid-template-columns: 1fr 1fr; }
  .route-picker .pill { justify-self: start; }
  .recruiter-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 800px) {
- .inner-hero { grid-template-columns: 1fr; padding-block: var(--s7); }
- .inner-hero h1 { font-size: clamp(3rem, 11vw, 5.5rem); }
- .inner-hero__photo img { aspect-ratio: 16 / 10; }
  .section-nav { gap: 0 var(--s5); }
  .route-overview, .study-paths, .process, .split-copy, .contact-grid, .feature-story, .research-themes, .campus-mosaic, .visit-panel { grid-template-columns: 1fr; gap: var(--s7); }
  .directory-controls { grid-template-columns: 1fr 1fr; }
@@ -455,12 +467,11 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
  .document-checklist, .route-result { padding: var(--s5); }
  .recruiter-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
  .recruiter-list li { padding: var(--s5) var(--s4); }
- .inner-hero .pill { padding-inline: var(--s5); }
  .empty-state { padding: var(--s5); }
 }
 
 </style>
-<link rel="preload" as="image" href="assets/img/commons-bihu-team.webp">
+<link rel="preload" as="image" href="assets/img/commons-a22wcmt.webp">
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
@@ -507,7 +518,7 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
 </dialog>
 
 <main id="main">
-<section class="inner-hero wrap" aria-labelledby="page-title"><div class="inner-hero__copy"><p class="crumbs"><a href="index.html">Home</a> / Campus life</p><h1 id="page-title">Campus life</h1><p class="inner-hero__lead">The people you meet. The things you try. The place you learn to call your own.</p><a class="pill pill--accent" href="#explore">Explore life at SRM</a></div><figure class="inner-hero__photo"><img src="assets/img/commons-bihu-team.webp" alt="The Bihu team in traditional dress on a campus lawn" width="1280" height="695" fetchpriority="high"><figcaption>Photo: Arnab J Deka, CC BY-SA 3.0</figcaption></figure></section><nav class="section-nav wrap" aria-label="On this page"><a href="#explore">Explore</a><a href="#clubs">Clubs & culture</a><a href="#sports">Sports</a><a href="#living">Living here</a><a href="#support">Support</a><a href="#visit">Visit</a></nav>
+<section class="photo-hero dark photo-hero--campus-life" aria-labelledby="page-title"><img src="assets/img/commons-a22wcmt.webp" alt="A guitarist performing on a blue-lit Aaruush stage" width="1280" height="853" fetchpriority="high"><div class="wrap photo-hero__content"><h1 class="photo-hero__title" id="page-title">Campus life</h1><p class="photo-hero__lead">The people you meet. The things you try. The place you learn to call your own.</p><a class="pill pill--accent" href="#explore">Explore life at SRM</a></div><p class="photo-hero__credit">Photo: Rishitshivesh1017, CC BY-SA 4.0</p></section><nav class="section-nav wrap" aria-label="On this page"><a href="#explore">Explore</a><a href="#clubs">Clubs & culture</a><a href="#sports">Sports</a><a href="#living">Living here</a><a href="#support">Support</a><a href="#visit">Visit</a></nav>
 <section class="section wrap" id="explore"><div class="s-head"><h2>A campus beyond your timetable.</h2><p>Kattankulathur brings academic life together with student festivals, sports, shared spaces and communities.</p></div>
 <div class="campus-mosaic"><figure class="campus-mosaic__wide"><img src="assets/img/commons-srm-university-campus-chennai-tamil-nadu-india.webp" alt="Campus lawns, roads and gathering spaces after rain" width="1280" height="786" loading="lazy"><figcaption>Photo: N. Vivekananthamoorthy, CC BY 4.0</figcaption></figure><div><h3>Find your own rhythm.</h3><p>Spend time with your subject, join a student community, try an event and explore the spaces around you. University life is made of ordinary days as well as big occasions.</p><a class="more" href="#clubs">Find a community</a></div></div></section>
 <section class="section wrap" id="clubs"><div class="s-head"><h2>Find your people.</h2><p>Student clubs, cultural communities and festivals give shared interests a place to grow.</p></div>
@@ -515,8 +526,8 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
 <div class="editorial-note"><h3>New to campus?</h3><p>Ask your student team or department about recognised clubs, upcoming introductions and ways to take part. You do not need to arrive with everything figured out.</p></div></section>
 <section class="section wrap" id="sports"><div class="s-head"><h2>Make time to move.</h2><p>Sport, athletics and fitness sit alongside academic life on campus.</p></div>
 <div class="split-copy"><article><h3>Play, train or try something new</h3><p>Ask the sports team about facilities, practice times, teams and the activities open to you. Access and schedules should be checked locally.</p></article><article><h3>Be part of a team</h3><p>Whether you want to develop a skill or meet people through an activity, start by finding out how to participate in campus sport.</p><a class="more" href="#support">Find campus support</a></article></div></section>
-<section class="section wrap" id="living"><div class="s-head"><h2>Settle into everyday life.</h2><p>Hostels, food, transport and campus facilities shape the practical side of university.</p></div><details class="answer"><summary>Hostels & accommodation</summary><div><p>SRM has hostel facilities. Ask about current availability, allocation, charges and residence rules before making plans to move.</p></div></details><details class="answer"><summary>Dining & daily routines</summary><div><p>Discuss dining arrangements, timings and any specific requirements with the relevant hostel or campus team.</p></div></details><details class="answer"><summary>Getting around</summary><div><p>Get familiar with campus routes, transport arrangements and safety guidance after you arrive. Your student or residence team can help with local information.</p></div></details></section>
-<section class="section wrap" id="support"><div class="s-head"><h2>You can ask for help.</h2><p>Student support includes counselling, campus safety, grievance support and anti-ragging arrangements.</p></div>
+<div class="photo-diptych"><figure><img src="assets/img/photo-cricket.webp" alt="Players taking part in a cricket match on the SRM campus" width="750" height="460" loading="lazy" decoding="async"><figcaption><a href="https://chennaipatrika.com/post/srmist-founders-birthday-trophy-2025-mens-cricket-tournament-day-1-results">Founder’s Birthday Trophy 2025, Chennai Patrika</a></figcaption></figure><figure><img src="assets/img/photo-volleyball.webp" alt="A beach volleyball match at SRMIST" width="750" height="500" loading="lazy" decoding="async"><figcaption><a href="https://www.chennaipatrika.com/post/srmist-founders-birthday-trophy-beach-volleyball-results">Beach volleyball 2025, Chennai Patrika</a></figcaption></figure></div><section class="section wrap" id="living"><div class="s-head"><h2>Settle into everyday life.</h2><p>Hostels, food, transport and campus facilities shape the practical side of university.</p></div><details class="answer"><summary>Hostels & accommodation</summary><div><p>SRM has hostel facilities. Ask about current availability, allocation, charges and residence rules before making plans to move.</p></div></details><details class="answer"><summary>Dining & daily routines</summary><div><p>Discuss dining arrangements, timings and any specific requirements with the relevant hostel or campus team.</p></div></details><details class="answer"><summary>Getting around</summary><div><p>Get familiar with campus routes, transport arrangements and safety guidance after you arrive. Your student or residence team can help with local information.</p></div></details></section>
+<figure class="photo-break"><img src="assets/img/photo-campus-courts.webp" alt="Aerial view of the campus plaza, gardens and academic buildings" width="870" height="470" loading="lazy" decoding="async"><figcaption class="wrap"><a href="https://www.kollegeapply.com/college/srm-institute-of-science-and-technology-chennai-gallery">Campus view, source: KollegeApply</a></figcaption></figure><section class="section wrap" id="support"><div class="s-head"><h2>You can ask for help.</h2><p>Student support includes counselling, campus safety, grievance support and anti-ragging arrangements.</p></div>
 <div class="split-copy"><article><h3>Start a conversation</h3><p>Speak with your department, student support or residence team when you need guidance. Ask the university to connect you with student counselling when appropriate.</p><a class="contact-number" href="tel:+914427417000">+91 44 2741 7000</a><p class="small-note">University switchboard. Ask for the relevant support team.</p></article><article><h3>Know where to go</h3><p>Save the campus and residence contacts supplied during orientation. For an immediate emergency, use the emergency services and local campus contacts available to you.</p></article></div></section>
 <section class="section wrap" id="visit"><div class="s-head"><h2>Come and see the place.</h2><p>Plan your route to Kattankulathur and contact the university about visit arrangements before travelling.</p></div>
 <div class="visit-panel"><div><h3>SRM Institute of Science and Technology</h3><address>SRM Nagar, Kattankulathur 603203<br>Chengalpattu District, Tamil Nadu</address><a class="pill pill--accent" href="https://www.google.com/maps/search/?api=1&amp;query=SRM+Institute+of+Science+and+Technology+Kattankulathur" data-ext>Get directions</a></div><div><h3>Before your visit</h3><p>Confirm which campus and department you need, who you will meet and any entry arrangements.</p><a class="more" href="tel:+914427417000">Call the university</a></div></div></section><section class="next-step wrap"><div><h2>Can you see yourself here?</h2><p>Explore academic areas and find the right admission route.</p></div><a class="pill pill--accent" href="admissions.html">Explore admissions</a></section>
@@ -565,7 +576,6 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
   "use strict";
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.documentElement.classList.add("has-js");
 
   /* Native modal: background inertness, Escape, and focus containment are built in. */
@@ -589,56 +599,6 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
       document.documentElement.style.overflow = previousOverflow;
       openBtn.focus();
     });
-  }
-
-  /* Only loaded photos enter the rotation. Pause when offscreen, hidden, or focused. */
-  const mark = $("[data-wordmark]");
-  if (mark) {
-    const fills = $$(".wordmark__fill", mark);
-    const hero = mark.closest(".hero");
-    const credit = $("[data-wordmark-credit]");
-    const toggle = $("[data-wordmark-toggle]");
-    let loaded = [], current = fills[0], timer = null;
-    let paused = false, inView = true, focusPaused = false;
-    const show = slide => {
-      current = slide;
-      fills.forEach(f => f.classList.toggle("is-on", f === slide));
-      if (credit) credit.textContent = slide.dataset.credit;
-    };
-    const sync = () => {
-      clearInterval(timer);
-      timer = null;
-      if (toggle) {
-        toggle.hidden = loaded.length < 2 || calm.matches;
-        toggle.setAttribute("aria-pressed", String(paused));
-        $("span", toggle).textContent = paused ? "Play photos" : "Pause photos";
-        $("path", toggle).setAttribute("d", paused ? "M3 1.5 12 7 3 12.5z" : "M3 2h3v10H3zM8 2h3v10H8z");
-      }
-      if (loaded.length > 1 && !paused && !calm.matches && inView && !focusPaused && !document.hidden) {
-        timer = setInterval(() => show(loaded[(loaded.indexOf(current) + 1) % loaded.length]), 5000);
-      }
-    };
-    fills.forEach(f => {
-      const img = new Image();
-      img.onload = () => {
-        f.style.backgroundImage = `url("${f.dataset.img}")`;
-        f.classList.add("has-img");
-        loaded = fills.filter(slide => slide.classList.contains("has-img"));
-        if (!current.classList.contains("has-img")) show(loaded[0]);
-        sync();
-      };
-      // A failed photo stays out of the rotation; the first slide retains a text fallback.
-      img.onerror = () => { if (!loaded.length && credit) credit.textContent = "SRM Institute of Science and Technology"; };
-      img.src = f.dataset.img;
-    });
-    if (toggle) toggle.addEventListener("click", () => { paused = !paused; focusPaused = false; sync(); });
-    hero.addEventListener("focusin", () => { focusPaused = true; sync(); });
-    hero.addEventListener("focusout", e => { if (!hero.contains(e.relatedTarget)) { focusPaused = false; sync(); } });
-    document.addEventListener("visibilitychange", sync);
-    calm.addEventListener("change", sync);
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(entries => { inView = entries[0].isIntersecting; sync(); }).observe(hero);
-    }
   }
 
   /* Desktop scroll chapters; phones and reduced-motion mode use ordinary image sections. */

@@ -12,9 +12,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
 <style>
 /* SRM IST homepage concept v3
-   Thesis: calm and typographic everywhere, two showpieces only: the photo-filled
-   wordmark hero and the white-and-teal campus footer. One accent: SRM gold.
-   Every non-showpiece section uses one pattern: H2, one-sentence intro, one link. */
+   Photo-led page heroes, large Manrope headings and Newsreader body text.
+   One accent: SRM gold. Shared light navigation and a lakeside campus footer. */
 
 :root {
   color-scheme: light;
@@ -107,24 +106,6 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
 .menu__grid a { display: flex; align-items: center; min-height: 40px; text-decoration: none; font-size: 1.0625rem; }
 .menu__grid a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
 .menu__cta { display: flex; flex-wrap: wrap; gap: var(--s3); padding-bottom: var(--s8); }
-
-/* ---------- Hero: photo-filled wordmark ---------- */
-.hero { padding-top: clamp(24px, 4vw, 56px); }
-.wordmark { position: relative; font: 800 clamp(10rem, 1rem + 47vw, 52rem)/0.78 var(--font-display); letter-spacing: -0.075em; margin-left: -0.04em; user-select: none; }
-.wordmark__fill { display: block; color: transparent; background-size: cover; background-position: center 40%; -webkit-background-clip: text; background-clip: text; transition: opacity 1600ms ease; padding-bottom: 0.08em; }
-.wordmark__fill + .wordmark__fill { position: absolute; inset: 0; }
-.wordmark__fill:not(.is-on) { opacity: 0; }
-.wordmark__fill:first-child { color: var(--ink); } /* shows only if photos fail */
-.wordmark__fill:first-child.has-img { color: transparent; }
-.hero__row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s7); align-items: end; margin-top: var(--s5); }
-.hero__intro { font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.375rem); line-height: 1.25; letter-spacing: -0.01em; max-width: 30ch; }
-.hero__intro mark { background: var(--accent); color: var(--accent-ink); padding: 0 0.12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.hero__side { display: flex; flex-direction: column; gap: var(--s4); align-items: flex-start; }
-.hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s3); }
-.hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4); font: 500 0.875rem var(--font-display); color: var(--muted); }
-.ctl { white-space: nowrap; flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font: 600 0.875rem var(--font-display); color: var(--ink-2); }
-.ctl:hover { box-shadow: inset 0 0 0 1px var(--ink); }
-.ctl svg { width: 14px; height: 14px; fill: currentColor; }
 
 /* ---------- Scroll chapters (pinned headline, changing backdrop) ---------- */
 .chapters { position: relative; margin-top: var(--section); }
@@ -238,8 +219,6 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
 
 /* ---------- Second-level template ---------- */
 .page-hero { padding-block: var(--s8) var(--s7); border-bottom: 1px solid var(--line); }
-.crumbs { font: 600 0.875rem var(--font-display); color: var(--muted); }
-.crumbs a { color: inherit; }
 .page-hero h1 { margin-top: var(--s4); font-size: clamp(3rem, 1.6rem + 6vw, 7.5rem); font-weight: 800; letter-spacing: -0.055em; line-height: 0.92; }
 .page-hero p { margin-top: var(--s5); font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); line-height: 1.3; max-width: 40ch; }
 .page-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--s8); padding-block: var(--s8); }
@@ -263,7 +242,7 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
   .partners { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 800px) {
-  .hero__row, .s-head, .story { grid-template-columns: 1fr; }
+  .s-head, .story { grid-template-columns: 1fr; }
   .s-head .more { grid-column: 1; }
   .ways, .cards { grid-template-columns: 1fr; }
   .card img { aspect-ratio: 4 / 3; }
@@ -277,7 +256,6 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
   .header .wrap { min-height: 64px; }
   .menu-btn { width: 48px; height: 48px; }
   .menu__grid { grid-template-columns: 1fr; }
-  .hero__ctas .pill { flex: 1 1 auto; justify-content: center; }
   .partners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .chapter-card__box { padding: var(--s5); }
 }
@@ -294,8 +272,6 @@ a[data-ext]::after { content: ""; display: inline-block; width: 0.85em; height: 
 }
 
 /* Polish pass: one orchestrated hero entrance, scroll-aware header, calmer press states */
-@keyframes rise { from { clip-path: inset(0 0 100% 0); transform: translateY(0.06em); } to { clip-path: inset(0 0 -10% 0); transform: none; } }
-.wordmark { animation: rise 900ms var(--ease) both; }
 .header { transition: box-shadow 200ms ease, background-color 200ms ease; }
 .header.is-stuck { box-shadow: 0 6px 24px -12px rgb(14 27 51 / 0.35); background: rgb(250 250 250 / 0.97); }
 @media (min-width: 801px) and (prefers-reduced-motion: no-preference) { .has-js .chapter-card__box { box-shadow: 0 24px 60px -28px rgb(14 27 51 / 0.55); } }
@@ -330,8 +306,55 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
   [data-wordmark-toggle] { display: none; }
 }
 
+/* Full-bleed photographic heroes. The scrim serves text contrast, not decoration. */
+.photo-hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: clamp(600px, 76svh, 820px); color: var(--surface); background: var(--night); overflow: hidden; }
+.photo-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--hero-position, center); z-index: -2; }
+.photo-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(5 14 24 / 0.84) 0%, rgb(5 14 24 / 0.55) 54%, rgb(5 14 24 / 0.15) 100%); }
+.photo-hero__content { padding-block: clamp(80px, 8vw, 120px) 88px; }
+.photo-hero__title { font: 800 clamp(3.25rem, 8.4vw, 8.5rem)/1 var(--font-display); letter-spacing: -0.065em; margin-bottom: var(--s5); max-width: 12ch; }
+.photo-hero__lead { font: 400 clamp(1.5rem, 2.5vw, 2.25rem)/1.3 var(--font-serif); max-width: 34ch; text-wrap: pretty; }
+.photo-hero .pill { margin-top: var(--s6); }
+.photo-hero__actions { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
+.photo-hero__actions .pill { margin-top: 0; }
+.photo-hero .pill:not(.pill--accent) { background: transparent; color: var(--surface); box-shadow: inset 0 0 0 1.5px var(--surface); }
+.photo-hero .pill:not(.pill--accent):hover { background: var(--surface); color: var(--ink); }
+.photo-hero__credit { position: absolute; right: var(--gutter); bottom: var(--s4); max-width: calc(100% - 2 * var(--gutter)); padding: 4px 8px; background: rgb(0 0 0 / 0.68); font: 400 0.6875rem/1.5 var(--font-display); }
+.photo-hero__credit a { color: inherit; text-underline-offset: 3px; }
+.photo-hero--home { --hero-position: center 60%; min-height: clamp(680px, 86svh, 920px); }
+.photo-hero--home .photo-hero__title { font-size: clamp(9rem, 28vw, 24rem); line-height: 0.8; letter-spacing: -0.075em; margin-left: -0.035em; margin-bottom: var(--s6); }
+.photo-hero--home .photo-hero__lead { max-width: 35ch; font-size: clamp(1.5rem, 2.2vw, 2rem); }
+.photo-hero--research { --hero-position: 72% center; }
+.photo-hero--campus-life { --hero-position: 60% 38%; }
+.photo-hero--placements { --hero-position: center 55%; }
+.photo-break { margin: 0 0 var(--s7); }
+.photo-break > img { width: 100%; height: clamp(240px, 40vw, 620px); object-fit: cover; object-position: center 45%; }
+.photo-break figcaption, .photo-diptych figcaption { font: 400 0.75rem/1.5 var(--font-display); color: var(--muted); padding-top: var(--s3); }
+.photo-break figcaption a, .photo-diptych figcaption a { text-underline-offset: 3px; }
+.photo-diptych { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s1); margin-bottom: var(--s7); }
+.photo-diptych figure { margin: 0; min-width: 0; }
+.photo-diptych img { width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: cover; }
+.photo-diptych figcaption { padding-inline: var(--gutter); }
+@media (max-width: 800px) {
+ html { scrollbar-gutter: auto; }
+ .photo-hero { min-height: 620px; }
+ .photo-hero::after { background: rgb(5 14 24 / 0.62); }
+ .photo-hero__content { padding-block: 80px 92px; }
+ .photo-hero__title { font-size: clamp(3rem, 11vw, 5.5rem); }
+ .photo-hero__lead { max-width: 30ch; }
+ .photo-hero__credit { left: var(--gutter); right: auto; }
+ .photo-hero--home { min-height: 700px; }
+ .photo-hero--home .photo-hero__title { font-size: clamp(8rem, 33vw, 17rem); }
+}
+@media (max-width: 560px) {
+ .photo-hero__lead { font-size: 1.5rem; }
+ .photo-hero__title { letter-spacing: -0.06em; }
+ .photo-hero__actions .pill { flex: 1 1 auto; justify-content: center; }
+ .photo-diptych { grid-template-columns: 1fr; gap: var(--s5); }
+ .photo-break > img { height: 260px; }
+}
+
 </style>
-<link rel="preload" as="image" href="assets/img/commons-tech-park.webp">
+<link rel="preload" as="image" href="assets/img/photo-student-projects.webp">
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
@@ -378,11 +401,7 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
 </dialog>
 
 <main id="main">
-  <section class="page-hero wrap" aria-labelledby="page-title">
-    <p class="crumbs"><a href="index.html">Home</a> / <a href="page.html">Academics</a> / Engineering and Technology</p>
-    <h1 id="page-title">Engineering and Technology</h1>
-    <p>Explore engineering study at SRMIST’s Kattankulathur campus, from undergraduate programmes to postgraduate study and research.</p>
-  </section>
+  <section class="photo-hero dark photo-hero--engineering" aria-labelledby="page-title"><img src="assets/img/photo-student-projects.webp" alt="Students displaying projects in an SRM academic building" width="1200" height="900" fetchpriority="high"><div class="wrap photo-hero__content"><h1 class="photo-hero__title" id="page-title">Engineering &amp; Technology</h1><p class="photo-hero__lead">Learn through lectures, practical work and projects. Explore engineering study at SRM’s Kattankulathur campus.</p><a class="pill pill--accent" href="academics.html#areas">Explore academic areas</a></div><p class="photo-hero__credit"><a href="https://x.com/BSrmist">Student projects, SRM Biomedical Engineering</a></p></section>
   <div class="wrap page-grid">
     <nav class="page-nav" aria-label="On this page">
       <a href="#overview" aria-current="true">Overview</a>
@@ -451,7 +470,6 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
   "use strict";
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
   document.documentElement.classList.add("has-js");
 
   /* Native modal: background inertness, Escape, and focus containment are built in. */
@@ -475,56 +493,6 @@ html:not(.has-js) .chapter-card__media img { width: 100%; aspect-ratio: 16 / 9; 
       document.documentElement.style.overflow = previousOverflow;
       openBtn.focus();
     });
-  }
-
-  /* Only loaded photos enter the rotation. Pause when offscreen, hidden, or focused. */
-  const mark = $("[data-wordmark]");
-  if (mark) {
-    const fills = $$(".wordmark__fill", mark);
-    const hero = mark.closest(".hero");
-    const credit = $("[data-wordmark-credit]");
-    const toggle = $("[data-wordmark-toggle]");
-    let loaded = [], current = fills[0], timer = null;
-    let paused = false, inView = true, focusPaused = false;
-    const show = slide => {
-      current = slide;
-      fills.forEach(f => f.classList.toggle("is-on", f === slide));
-      if (credit) credit.textContent = slide.dataset.credit;
-    };
-    const sync = () => {
-      clearInterval(timer);
-      timer = null;
-      if (toggle) {
-        toggle.hidden = loaded.length < 2 || calm.matches;
-        toggle.setAttribute("aria-pressed", String(paused));
-        $("span", toggle).textContent = paused ? "Play photos" : "Pause photos";
-        $("path", toggle).setAttribute("d", paused ? "M3 1.5 12 7 3 12.5z" : "M3 2h3v10H3zM8 2h3v10H8z");
-      }
-      if (loaded.length > 1 && !paused && !calm.matches && inView && !focusPaused && !document.hidden) {
-        timer = setInterval(() => show(loaded[(loaded.indexOf(current) + 1) % loaded.length]), 5000);
-      }
-    };
-    fills.forEach(f => {
-      const img = new Image();
-      img.onload = () => {
-        f.style.backgroundImage = `url("${f.dataset.img}")`;
-        f.classList.add("has-img");
-        loaded = fills.filter(slide => slide.classList.contains("has-img"));
-        if (!current.classList.contains("has-img")) show(loaded[0]);
-        sync();
-      };
-      // A failed photo stays out of the rotation; the first slide retains a text fallback.
-      img.onerror = () => { if (!loaded.length && credit) credit.textContent = "SRM Institute of Science and Technology"; };
-      img.src = f.dataset.img;
-    });
-    if (toggle) toggle.addEventListener("click", () => { paused = !paused; focusPaused = false; sync(); });
-    hero.addEventListener("focusin", () => { focusPaused = true; sync(); });
-    hero.addEventListener("focusout", e => { if (!hero.contains(e.relatedTarget)) { focusPaused = false; sync(); } });
-    document.addEventListener("visibilitychange", sync);
-    calm.addEventListener("change", sync);
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(entries => { inView = entries[0].isIntersecting; sync(); }).observe(hero);
-    }
   }
 
   /* Desktop scroll chapters; phones and reduced-motion mode use ordinary image sections. */

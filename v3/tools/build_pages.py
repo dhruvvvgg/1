@@ -36,5 +36,7 @@ legacy=ROOT/'page.html'
 s=legacy.read_text();main=re.search(r'<main id="main">[\s\S]*?</main>',s).group()
 main=main.replace('https://www.srmist.edu.in/departments/', 'academics.html#areas').replace('https://www.srmist.edu.in/admissions/', 'admissions.html#routes').replace(' data-ext', '')
 legacy_prefix=re.sub(r'<title>.*?</title>','<title>Engineering and Technology | SRMIST Concept</title>',prefix)
+legacy_image=re.search(r'<img src="([^"]+)"',main).group(1)
+legacy_prefix=re.sub(r'<link rel="preload" as="image"[^>]+>', f'<link rel="preload" as="image" href="{legacy_image}">', legacy_prefix)
 legacy.write_text(legacy_prefix+main+'\n\n'+suffix)
 print('Built',len(meta),'connected pages and refreshed legacy navigation.')
