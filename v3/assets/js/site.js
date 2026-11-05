@@ -88,67 +88,18 @@
   const syncAcc = () => $$("[data-acc]").forEach(d => (d.open = !small.matches));
   syncAcc(); small.addEventListener("change", syncAcc);
 
-  /* ---------- Live IST clock + sky that follows the time in Kattankulathur ---------- */
+  /* ---------- Live IST clock ---------- */
   const clock = $("[data-clock]");
-  const fmt = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false });
-  const istHour = () => {
-    const p = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "numeric", hour12: false }).formatToParts(new Date());
-    const h = Number(p.find(x => x.type === "hour").value) % 24, m = Number(p.find(x => x.type === "minute").value);
-    return h + m / 60;
-  };
-
-  const sky = $("[data-skyline]");
-  const NS = "http://www.w3.org/2000/svg";
-  if (sky) {
-    // Generate the window grids for both buildings.
-    $$("[data-wins]", sky).forEach(g => {
-      const d = g.dataset;
-      for (let r = 0; r < +d.rows; r++) for (let c = 0; c < +d.cols; c++) {
-        const w = document.createElementNS(NS, "rect");
-        w.setAttribute("x", +d.x + c * (+d.w + +d.gx)); w.setAttribute("y", +d.y + r * (+d.h + +d.gy));
-        w.setAttribute("width", d.w); w.setAttribute("height", d.h);
-        w.setAttribute("class", "win");
-        w.dataset.seed = String(((r * 7 + c * 13) % 10) / 10); // fixed pattern: same windows light up every evening
-        g.append(w);
-      }
+  if (clock) {
+    const fmt = new Intl.DateTimeFormat("en-IN", {
+      timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false
     });
-  }
-  const paintSky = () => {
-    if (clock) { clock.textContent = fmt.format(new Date()); clock.setAttribute("datetime", new Date().toISOString()); }
-    if (!sky) return;
-    const h = istHour();
-    // 0 = day, 1 = full night. Dusk ramps 17:00–19:30, dawn 5:00–6:30.
-    let night = 0;
-    if (h >= 19.5 || h < 5) night = 1;
-    else if (h >= 17) night = (h - 17) / 2.5;
-    else if (h < 6.5) night = 1 - (h - 5) / 1.5;
-    const mix = (a, b, t) => "#" + [0, 2, 4].map(i => Math.round(parseInt(a.slice(1 + i, 3 + i), 16) * (1 - t) + parseInt(b.slice(1 + i, 3 + i), 16) * t).toString(16).padStart(2, "0")).join("");
-    const skyCol = night < 0.5 ? mix("#9cc3e4", "#e59a5b", night * 2) : mix("#e59a5b", "#0e1b33", (night - 0.5) * 2);
-    $("[data-sky]", sky).setAttribute("fill", skyCol);
-    const sun = $("[data-sun]", sky);
-    sun.setAttribute("fill", night > 0.75 ? "#e9edf5" : "#f5d55a");
-    sun.setAttribute("cy", String(90 + night * 30));
-    $$(".win", sky).forEach(w => {
-      const lit = night > +w.dataset.seed * 0.9 + 0.1;
-      const tp2 = w.parentNode.dataset.wins === "tp2";
-      w.setAttribute("fill", lit ? "#ffd766" : tp2 ? "#2b5aa8" : "#1c3f7a");
-    });
-  };
-  paintSky(); setInterval(paintSky, 30000);
-
-  /* Gentle parallax as the footer comes into view */
-  if (sky && !calm) {
-    const layers = $$(".layer", sky);
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return; ticking = true;
-      requestAnimationFrame(() => {
-        const r = sky.getBoundingClientRect();
-        const p = Math.max(0, Math.min(1, (window.innerHeight - r.top) / (window.innerHeight + r.height)));
-        layers.forEach(l => (l.style.transform = `translateY(${(1 - p) * 40 * +l.dataset.depth}px)`));
-        ticking = false;
-      });
+    const tick = () => {
+      const now = new Date();
+      clock.textContent = fmt.format(now);
+      clock.setAttribute("datetime", now.toISOString());
     };
-    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+    tick();
+    setInterval(tick, 30000);
   }
 })();
