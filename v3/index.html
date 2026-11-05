@@ -2,6 +2,14 @@
 <html lang="en-IN">
 <head>
 <meta charset="utf-8">
+<script>
+/* opening animation: once per browser session, never with reduced motion; add ?intro to the address to replay it */
+(function () { try {
+  var force = /[?&]intro\b/.test(location.search), seen = sessionStorage.getItem("srm-intro");
+  if ((force || !seen) && !matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.className += " intro-on intro-hold";
+} catch (e) {} })();
+</script>
+<link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SRMIST Homepage Concept</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -14,6 +22,11 @@
 <link rel="preload" as="image" href="assets/img/commons-tech-park.webp">
 </head>
 <body>
+<div class="intro" data-intro role="presentation">
+  <div class="intro__bg"></div>
+  <div class="intro__emblem"><img src="assets/img/srm-logo.svg" alt="" width="600" height="203"></div>
+  <button class="intro__skip" type="button" data-intro-skip>Skip intro</button>
+</div>
 <a class="skip" href="#main">Skip to main content</a>
 
 <aside class="concept" aria-label="About this page">
@@ -24,10 +37,11 @@
   <div class="wrap">
     <a class="brand" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology, home" width="156" height="52"></a>
     <nav class="nav" aria-label="Main">
-      <a href="#chapters">Academics</a>
-      <a href="#ways">Admissions</a>
-      <a href="#work">Research</a>
-      <a href="#work">Campus life</a>
+      <a href="academics.html">Academics</a>
+      <a href="admissions.html">Admissions</a>
+      <a href="research.html">Research</a>
+      <a href="placements.html">Placements</a>
+      <a href="campus-life.html">Campus life</a>
       <a href="page.html">About</a>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
@@ -47,41 +61,60 @@
       </button>
     </div>
     <div class="menu__grid ui">
-      <div><h2>Academics</h2><ul><li><a href="page.html">Colleges and faculties</a></li><li><a href="page.html">Programme finder</a></li><li><a href="page.html">Departments A to Z</a></li><li><a href="page.html">Online and distance</a></li></ul></div>
-      <div><h2>Admissions</h2><ul><li><a href="page.html">Indian applicants</a></li><li><a href="page.html">International applicants</a></li><li><a href="page.html">Medicine and dentistry</a></li><li><a href="page.html">Scholarships and fees</a></li></ul></div>
-      <div><h2>Research</h2><ul><li><a href="page.html">Directorate of Research</a></li><li><a href="page.html">Central laboratories</a></li><li><a href="page.html">Innovation and incubation</a></li><li><a href="page.html">PhD study</a></li></ul></div>
-      <div><h2>Campus life</h2><ul><li><a href="page.html">Hostels and dining</a></li><li><a href="page.html">Clubs and festivals</a></li><li><a href="page.html">Sports</a></li><li><a href="page.html">Student support</a></li></ul></div>
-      <div><h2>About</h2><ul><li><a href="page.html">History</a></li><li><a href="page.html">Leadership</a></li><li><a href="page.html">Rankings and accreditation</a></li><li><a href="page.html">News and events</a></li></ul></div>
+      <div><h2>Academics</h2><ul><li><a href="academics.html#areas">Colleges and areas of study</a></li><li><a href="academics.html#finder">Find a programme</a></li><li><a href="academics.html#accreditation">Accreditation</a></li><li><a href="academics.html#online">Online and distance</a></li></ul></div>
+      <div><h2>Admissions</h2><ul><li><a href="admissions.html#routes">Indian applicants</a></li><li><a href="admissions.html#international">International applicants</a></li><li><a href="admissions.html#programmes">Programmes open</a></li><li><a href="admissions.html#contact">Contact admissions</a></li></ul></div>
+      <div><h2>Research</h2><ul><li><a href="research.html#centres">Research centres</a></li><li><a href="research.html#innovation">Innovation and incubation</a></li><li><a href="research.html#policies">Policies and ethics</a></li><li><a href="research.html#dean">Dean, Research</a></li></ul></div>
+      <div><h2>Placements</h2><ul><li><a href="placements.html#results">Placement results</a></li><li><a href="placements.html#recruiters">Recruiters</a></li><li><a href="placements.html#career-centre">Career Centre</a></li><li><a href="placements.html#contact">Contact</a></li></ul></div>
+      <div><h2>Campus life</h2><ul><li><a href="campus-life.html#sports">Sports</a></li><li><a href="campus-life.html#hostels">Hostels and dining</a></li><li><a href="campus-life.html#culture">Clubs and festivals</a></li><li><a href="campus-life.html#care">Student support</a></li></ul></div>
     </div>
-    <div class="menu__cta"><a class="pill pill--accent" href="#ways">Apply</a><a class="pill" href="#ways">Request info</a><a class="pill" href="#ways">Visit campus</a></div>
+    <div class="menu__cta"><a class="pill pill--accent" href="admissions.html#routes">Apply</a><a class="pill" href="admissions.html#contact">Request info</a><a class="pill" href="campus-life.html#visit">Visit campus</a></div>
   </div>
 </div>
 
 <main id="main">
 
-  <!-- SHOWPIECE 1: the photo-filled wordmark -->
-  <section class="hero wrap" aria-labelledby="hero-title">
+  <!-- Hero: the university's name, centred, with its own line and the one thing most visitors come to do -->
+  <section class="hero hero--center wrap" aria-labelledby="hero-title">
     <h1 id="hero-title" class="sr-only">SRM Institute of Science and Technology, Kattankulathur</h1>
     <div class="wordmark" aria-hidden="true" data-wordmark>
-      <span class="wordmark__fill is-on" data-img="assets/img/commons-tech-park.webp" data-credit="Tech Park. Photo: Syed Tehzeeb Alam, CC BY-SA 4.0">srm</span>
-      <span class="wordmark__fill" data-img="assets/img/commons-srm-university-campus-chennai-tamil-nadu-india.webp" data-credit="Kattankulathur campus. Photo: N. Vivekananthamoorthy, CC BY 4.0">srm</span>
-      <span class="wordmark__fill" data-img="assets/img/commons-a22wcmt.webp" data-credit="Aaruush '22. Photo: Rishitshivesh1017, CC BY-SA 4.0">srm</span>
-      <span class="wordmark__fill" data-img="assets/img/commons-srm-university-auditorium.webp" data-credit="The old main building. Photo: Hareesh Sivasubramanian, CC BY-SA 3.0">srm</span>
-      <span class="wordmark__fill" data-img="assets/img/commons-bihu-team.webp" data-credit="Bihu team on campus. Photo: Arnab J Deka, CC BY-SA 3.0">srm</span>
+      <span class="wordmark__fill is-on" data-img="assets/img/hero/h1.webp" data-img-m="assets/img/hero/h1m.webp"><span class="wm">SRM</span><span class="wm">IST</span></span>
+      <span class="wordmark__fill" data-img="assets/img/hero/h2.webp" data-img-m="assets/img/hero/h2m.webp"><span class="wm">SRM</span><span class="wm">IST</span></span>
+      <span class="wordmark__fill" data-img="assets/img/hero/h3.webp" data-img-m="assets/img/hero/h3m.webp"><span class="wm">SRM</span><span class="wm">IST</span></span>
+      <span class="wordmark__fill" data-img="assets/img/hero/h4.webp" data-img-m="assets/img/hero/h4m.webp"><span class="wm">SRM</span><span class="wm">IST</span></span>
+      <span class="wordmark__fill" data-img="assets/img/hero/h5.webp" data-img-m="assets/img/hero/h5m.webp"><span class="wm">SRM</span><span class="wm">IST</span></span>
     </div>
-    <div class="hero__row">
-      <p class="hero__intro">A university in Kattankulathur, Chennai, where engineers, doctors, lawyers and designers <mark>learn side by side</mark> on one campus.</p>
-      <div class="hero__side">
-        <div class="hero__ctas">
-          <a class="pill pill--accent" href="#ways">Apply</a>
-          <a class="pill" href="#ways">Request info</a>
-          <a class="pill" href="#ways">Visit campus</a>
-        </div>
-        <div class="hero__meta">
-          <button class="ctl" type="button" data-wordmark-toggle aria-pressed="false"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h3v10H3zM8 2h3v10H8z"/></svg><span>Pause photos</span></button>
-          <span data-wordmark-credit aria-live="off">Tech Park. Photo: Syed Tehzeeb Alam, CC BY-SA 4.0</span>
-        </div>
-      </div>
+    <div class="hero__meta">
+      <button class="ctl" type="button" data-wordmark-toggle aria-pressed="false"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2h3v10H3zM8 2h3v10H8z"/></svg><span>Pause photos</span></button>
+    </div>
+    <p class="hero__tag"><em>Learn. Leap. Lead.</em></p>
+    <p class="hero__intro">A university in Kattankulathur, Chennai, where engineers, doctors, lawyers and designers <mark>learn side by side</mark> on one campus.</p>
+    <form class="hero__find" action="academics.html" method="get" role="search">
+      <label class="sr-only" for="hero-q">Find a programme</label>
+      <input id="hero-q" name="q" type="search" placeholder="Find a programme, e.g. law or nursing" autocomplete="off">
+      <button class="pill pill--ink" type="submit">Search</button>
+    </form>
+    <div class="hero__ctas"><a class="pill pill--accent" href="admissions.html#routes">Apply</a></div>
+  </section>
+
+  <nav class="iam" aria-label="Services for"><div class="wrap"><span class="iam__label">For</span><ul>
+    <li><a href="https://www.srmist.edu.in/students/" data-ext>Students</a></li>
+    <li><a href="https://www.srmist.edu.in/faculty-gateway/" data-ext>Faculty and staff</a></li>
+    <li><a href="https://www.srmist.edu.in/parents/" data-ext>Parents</a></li>
+    <li><a href="https://www.srmist.edu.in/alumni-affairs/" data-ext>Alumni</a></li>
+    <li><a href="https://www.srmist.edu.in/controller-of-examinations/" data-ext>Examinations</a></li>
+  </ul></div></nav>
+
+  <!-- Heritage band: the dark field, one statement, the university in four numbers -->
+  <section class="heritage" aria-labelledby="heritage-title">
+    <div class="wrap">
+      <h2 id="heritage-title">Learning at Kattankulathur since 1985.</h2>
+      <dl class="stats">
+        <div><dt>Established</dt><dd>1985</dd></div>
+        <div><dt>Academicians</dt><dd><b data-count="3200">3,200+</b></dd></div>
+        <div><dt>Students</dt><dd><b data-count="50000">50,000+</b></dd></div>
+        <div><dt>International students</dt><dd><b data-count="900">900+</b></dd></div>
+      </dl>
+      <a class="more" href="page.html#history">SRM's history</a>
     </div>
   </section>
 
@@ -89,158 +122,132 @@
   <section class="chapters" id="chapters" aria-label="Four chapters of SRM" data-chapters>
     <div class="stage" aria-hidden="true">
       <div class="stage__bg">
-        <img class="is-on" src="assets/img/commons-0j9a0195.webp" alt="" width="1280" height="853" loading="lazy">
-        <img src="assets/img/commons-a21-env.webp" alt="" width="1280" height="853" loading="lazy">
-        <img src="assets/img/commons-bihu-team.webp" alt="" width="1280" height="695" loading="lazy">
-        <img src="assets/img/commons-rays-of-hope.webp" alt="" width="1280" height="960" loading="lazy">
+        <img class="is-on" src="assets/img/hero/learn.webp" alt="" width="1280" height="853" loading="lazy">
+        <img src="assets/img/bg/lab-research.webp" alt="" width="1280" height="853" loading="lazy">
+        <img src="assets/img/bg/milan-dance.webp" alt="" width="1280" height="695" loading="lazy">
+        <img src="assets/img/hero/lead.webp" alt="" width="1920" height="1097" loading="lazy">
       </div>
       <div class="stage__head wrap">
-        <p class="stage__kicker">What happens at SRM</p>
-        <p class="stage__title"><span class="is-on">Learn</span><span>Research</span><span>Live</span><span>Lead</span></p>
+        <p class="stage__kicker"><span class="label">What happens at SRM</span></p>
+        <p class="stage__title"><span class="is-on">Learn</span><span>Leap</span><span>Live</span><span>Lead</span></p>
         <p class="stage__count" data-stage-count>01 / 04</p>
       </div>
-      <p class="stage__credit" data-stage-credit>Photo: VA Studios, CC BY-SA 4.0</p>
     </div>
 
     <div class="chapter-cards wrap">
-      <article class="chapter-card" data-chapter="0" data-credit="Photo: VA Studios, CC BY-SA 4.0">
+      <article class="chapter-card" data-chapter="0">
         <div class="chapter-card__box">
-          <figure class="chapter-card__media"><img src="assets/img/commons-0j9a0195.webp" alt="Students filling a lecture hall during a talk" width="1280" height="853" loading="lazy"></figure>
+          <figure class="chapter-card__media"><img src="assets/img/hero/learn.webp" alt="A speaker at a lectern addressing students seated in a lecture hall" width="1280" height="853" loading="lazy"></figure>
           <h2 class="chapter-card__title">Learn</h2>
-          <p>Engineering, medicine, law, management and more are taught on one campus, so a computer scientist can sit in a class next to a future doctor or lawyer.</p>
-          <p class="chapter-card__stat"><b>13</b> areas of study, from engineering to law</p>
-          <a class="more" href="page.html">Explore programmes</a>
+          <p>Engineering, medicine, law, management and more are taught across SRM's colleges, so a computer scientist can share a campus with a future doctor or lawyer.</p>
+          <p class="chapter-card__stat"><b data-count="300">300+</b> programmes across <b data-count="9">9</b> colleges</p>
+          <a class="more" href="academics.html">Explore programmes</a>
         </div>
       </article>
-      <article class="chapter-card" data-chapter="1" data-credit="Aaruush '21. Photo: Rishitshivesh1017, CC BY-SA 4.0">
+      <article class="chapter-card" data-chapter="1">
         <div class="chapter-card__box">
-          <figure class="chapter-card__media"><img src="assets/img/commons-a21-env.webp" alt="A darkened hall of students watching code on a large screen at Aaruush" width="1280" height="853" loading="lazy"></figure>
-          <h2 class="chapter-card__title">Research</h2>
-          <p>Shared laboratories, high-performance computing and an incubator turn student and faculty work into papers, patents and companies.</p>
-          <p class="chapter-card__stat"><b>47,000+</b> publications and <b>920+</b> patents</p>
-          <a class="more" href="page.html">See the research</a>
+          <figure class="chapter-card__media"><img src="assets/img/bg/lab-research.webp" alt="A researcher working at an electron microscope in a laboratory" width="1280" height="853" loading="lazy"></figure>
+          <h2 class="chapter-card__title">Leap</h2>
+          <p>Research laboratories and an innovation and incubation centre turn student and faculty work into papers, patents and companies.</p>
+          <p class="chapter-card__stat"><b data-count="58000">58,000+</b> publications and <b data-count="1100">1,100+</b> patents</p>
+          <a class="more" href="research.html">See the research</a>
         </div>
       </article>
-      <article class="chapter-card" data-chapter="2" data-credit="Bihu team. Photo: Arnab J Deka, CC BY-SA 3.0">
+      <article class="chapter-card" data-chapter="2">
         <div class="chapter-card__box">
-          <figure class="chapter-card__media"><img src="assets/img/commons-bihu-team.webp" alt="Students in Assamese Bihu dress posing on a campus lawn" width="1280" height="695" loading="lazy"></figure>
+          <figure class="chapter-card__media"><img src="assets/img/bg/milan-dance.webp" alt="Students in green T-shirts performing a dance on stage" width="1280" height="695" loading="lazy"></figure>
           <h2 class="chapter-card__title">Live</h2>
           <p>Hostels, sports grounds and student festivals like Aaruush and Milan keep the campus busy long after classes end.</p>
-          <p class="chapter-card__stat"><b>8</b> campuses in 6 cities</p>
-          <a class="more" href="page.html">Campus life</a>
+          <p class="chapter-card__stat"><b data-count="250">250+</b> acres of green campus</p>
+          <a class="more" href="campus-life.html">Campus life</a>
         </div>
       </article>
-      <article class="chapter-card" data-chapter="3" data-credit="Photo: Animesh Sahoo, CC BY-SA 4.0">
+      <article class="chapter-card" data-chapter="3">
         <div class="chapter-card__box">
-          <figure class="chapter-card__media"><img src="assets/img/commons-rays-of-hope.webp" alt="Sunlight breaking through clouds over the campus skyline" width="1280" height="960" loading="lazy"></figure>
+          <figure class="chapter-card__media"><img src="assets/img/hero/lead.webp" alt="A graduate receiving her certificate from dignitaries in convocation robes on stage at SRMIST's 22nd convocation" width="1920" height="1097" loading="lazy"></figure>
           <h2 class="chapter-card__title">Lead</h2>
-          <p>Graduates go on to recruiters across India and abroad, the civil services, research labs and companies of their own.</p>
-          <p class="chapter-card__stat"><b>5,546+</b> job offers in 2023–24</p>
-          <a class="more" href="page.html">Placements and alumni</a>
+          <p>Graduates join recruiters across industries, while others go on to research and to companies of their own.</p>
+          <p class="chapter-card__stat"><b data-count="10190">10,190+</b> job offers, 2025 batch</p>
+          <a class="more" href="placements.html">Placements and alumni</a>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- Ways in: numbered blocks -->
-  <section class="section wrap" id="ways" aria-labelledby="ways-title">
+  <!-- Recognition -->
+  <section class="section wrap" aria-labelledby="recog-title">
     <div class="s-head">
-      <h2 id="ways-title">Three ways in</h2>
-      <p>Whether you are applying, choosing a course or planning a visit, start here.</p>
+      <h2 id="recog-title">Ranked and accredited.</h2>
+      <p>National and global rankings, and the highest grade from NAAC, place SRMIST among India's leading universities.</p>
+      <a class="more" href="academics.html#accreditation">Accreditation and rankings</a>
     </div>
-    <ol class="ways">
-      <li class="way">
-        <span class="way__n">01</span>
-        <img src="assets/img/commons-srm-university-auditorium.webp" alt="The colonnaded old main building at dusk" width="1280" height="720" loading="lazy">
-        <h3>Apply</h3>
-        <p>Engineering admits through SRMJEEE. Medicine and dentistry follow NEET. Other programmes have their own routes.</p>
-        <a class="more" href="https://www.srmist.edu.in/admissions/" data-ext>Admissions 2027</a>
-      </li>
-      <li class="way">
-        <span class="way__n">02</span>
-        <img src="assets/img/commons-tech-park.webp" alt="The yellow and blue facade of the SRM Tech Park" width="1280" height="848" loading="lazy">
-        <h3>Explore programmes</h3>
-        <p>Search undergraduate, postgraduate and doctoral programmes by subject or level.</p>
-        <a class="more" href="page.html">Programme finder</a>
-      </li>
-      <li class="way">
-        <span class="way__n">03</span>
-        <img src="assets/img/commons-srm-university-campus-chennai-tamil-nadu-india.webp" alt="Aerial view of campus lawns and roads after rain" width="1280" height="786" loading="lazy">
-        <h3>Visit</h3>
-        <p>Walk the campus with a student guide, or take the 360° tour from home.</p>
-        <a class="more" href="page.html">Plan a visit</a>
-      </li>
-    </ol>
-  </section>
-
-  <!-- Work from SRM: credited cards -->
-  <section class="section wrap" id="work" aria-labelledby="work-title">
-    <div class="s-head">
-      <h2 id="work-title">Work from SRM</h2>
-      <p>Projects, talks and performances by students, shown with the people who made them.</p>
-      <a class="more" href="page.html">More work</a>
-    </div>
-    <ul class="cards">
-      <li class="card">
-        <a href="page.html">
-          <figure><img src="assets/img/commons-a21-env.webp" alt="A darkened hall of students watching a live coding session" width="1280" height="853" loading="lazy">
-            <figcaption>Photo: Rishitshivesh1017, CC BY-SA 4.0</figcaption></figure>
-          <span class="card__type">Aaruush '21</span>
-          <h3>Live coding at Aaruush, SRM's techno-management fest</h3>
-          <p>Students build and explain projects in front of a full hall.</p>
-        </a>
-      </li>
-      <li class="card">
-        <a href="page.html">
-          <figure><img src="assets/img/commons-a22wcmt.webp" alt="A guitarist singing on a stage lit in blue" width="1280" height="853" loading="lazy">
-            <figcaption>Photo: Rishitshivesh1017, CC BY-SA 4.0</figcaption></figure>
-          <span class="card__type">Aaruush '22</span>
-          <h3>Evenings on stage</h3>
-          <p>Concerts close each day of Aaruush, the festival SRM students run themselves.</p>
-        </a>
-      </li>
-      <li class="card">
-        <a href="page.html">
-          <figure><img src="assets/img/commons-0j9a0195.webp" alt="A speaker at a lectern in front of a full lecture hall" width="1280" height="853" loading="lazy">
-            <figcaption>Photo: VA Studios, CC BY-SA 4.0</figcaption></figure>
-          <span class="card__type">Talks</span>
-          <h3>A full house for a guest lecture</h3>
-          <p>Visiting speakers address students from every college on campus.</p>
-        </a>
-      </li>
+    <ul class="recog">
+      <li><b>11th</b><span>among universities in India in the NIRF 2025 rankings</span></li>
+      <li><b>A++</b><span>NAAC's highest grade, awarded in 2024</span></li>
+      <li><b>4th</b><span>in India on the 2025 UI GreenMetric ranking of sustainable universities</span></li>
     </ul>
   </section>
 
-  <!-- Milestones + pull-quote -->
+  <!-- Student stories: three real stories, each with the photo that belongs to it -->
+  <section class="section wrap" id="work" aria-labelledby="work-title">
+    <div class="s-head">
+      <div><span class="label">Work from SRM</span><h2 id="work-title">What students make.</h2></div>
+      <p>Wins, builds and placements from the people who study here.</p>
+      <a class="more" href="https://www.srmist.edu.in/news/" data-ext>More news</a>
+    </div>
+    <div class="stories">
+      <a class="story story--lead" href="https://www.srmist.edu.in/srmists-team-camber-racing-claims-national-title-at-formula-bharat-2026/" data-ext>
+        <img src="assets/img/bg/off-formula-bharat.webp" alt="Team Camber Racing members standing together beside their race car" width="1920" height="967" loading="lazy">
+        <h3>SRMIST's Team Camber Racing claims the national title at Formula Bharat 2026</h3>
+        <p>The student engineering team built, tested and raced its own car.</p>
+      </a>
+      <a class="story" href="https://www.srmist.edu.in/srmist-student-named-distinguished-winner-at-apples-swift-student-challenge-2026/" data-ext>
+        <img src="assets/img/story-apple.webp" alt="An SRMIST student in an Apple sweatshirt" width="800" height="500" loading="lazy">
+        <h3>An SRMIST student is named a Distinguished Winner at Apple's Swift Student Challenge 2026</h3>
+      </a>
+      <a class="story" href="https://www.srmist.edu.in/srmist-sports-students-secure-prestigious-positions-in-the-public-sector/" data-ext>
+        <img src="assets/img/hero/story-sports.webp" alt="A women's sports team lined up in uniform, holding balls, in front of a net" width="651" height="434" loading="lazy">
+        <h3>SRMIST sports students secure prestigious positions in the public sector</h3>
+      </a>
+    </div>
+  </section>
+
+  <!-- News and events, as on the current site -->
+  <section class="section wrap" aria-labelledby="news-title">
+    <div class="s-head">
+      <h2 id="news-title">What's up at SRM.</h2>
+      <p>The latest from the university, and what is coming up on campus.</p>
+      <a class="more" href="https://www.srmist.edu.in/news/" data-ext>All news and events</a>
+    </div>
+    <div class="newsgrid">
+      <ul class="headlines" aria-label="Latest news">
+        <li><a href="https://www.srmist.edu.in/srmist-marks-founder-chancellor-dr-t-r-parivendhars-birthday-with-sevai-thirunal-2026/" data-ext>SRMIST marks Founder Chancellor Dr. T. R. Parivendhar's birthday with Sevai Thirunal 2026</a></li>
+        <li><a href="https://www.srmist.edu.in/srmist-22nd-convocation/" data-ext>SRMIST 22nd Convocation: Vice President C. P. Radhakrishnan calls youth to lead India's journey to Viksit Bharat</a></li>
+        <li><a href="https://www.srmist.edu.in/semiconductor-summit-2026-igniting-ideas-for-indias-semiconductor-future/" data-ext>Semiconductor Summit 2026: igniting ideas for India's semiconductor future</a></li>
+        <li><a href="https://www.srmist.edu.in/srmist-awards-%e2%82%b923-lakh-to-honour-distinctive-achievements-of-athletes-and-grandmasters/" data-ext>SRMIST awards ₹23 lakh to honour distinctive achievements of athletes and grandmasters</a></li>
+      </ul>
+      <ol class="events" aria-label="Upcoming events">
+        <li><a href="https://www.srmist.edu.in/events/technoblizz-2026-12th-edition/" data-ext><b>12 to 13 Nov</b><span>Technoblizz 2026, 12th edition</span></a></li>
+        <li><a href="https://www.srmist.edu.in/events/six-days-fdp-on-mechanics-driven-design-and-analysis-for-engineering-structures/" data-ext><b>16 to 21 Nov</b><span>Six-day FDP on mechanics-driven design and analysis for engineering structures</span></a></li>
+        <li><a href="https://www.srmist.edu.in/events/alumni-day-2026/" data-ext><b>19 Dec</b><span>Alumni Day 2026</span></a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- How SRM grew -->
   <section class="section wrap" aria-labelledby="story-title">
     <div class="s-head">
-      <h2 id="story-title">Since 1985</h2>
-      <p>From one engineering college to a university with eight campuses in six cities.</p>
-      <a class="more" href="page.html">Our history</a>
+      <h2 id="story-title">How SRM grew.</h2>
+      <p>From one engineering college at Kattankulathur to a university with campuses in six cities.</p>
+      <a class="more" href="page.html#history">Our history</a>
     </div>
-    <div class="story">
-      <ol class="timeline">
-        <li><b>1985</b><span>SRM Engineering College opens at Kattankulathur, near Chennai.</span></li>
-        <li><b>2002</b><span>SRM Institute of Science and Technology receives deemed-to-be-university status under Section 3 of the UGC Act, 1956.</span></li>
-        <li><b>2003</b><span>SRM Engineering College, Kattankulathur, comes under the university.</span></li>
-        <li><b>2010</b><span>The Inter Disciplinary School of Indian System of Medicine is set up.</span></li>
-        <li><b>2024</b><span>NAAC accredits SRMIST with its highest grade, A++.</span></li>
-      </ol>
-      <div class="reviews">
-        <blockquote class="quote">
-          <p>“An SRMIST student has been named a Distinguished Winner at Apple’s Swift Student Challenge 2026.”</p>
-          <footer>SRMIST news, 2026</footer>
-        </blockquote>
-        <blockquote class="quote quote--sm">
-          <p>“Team Camber Racing claims the national title at Formula Bharat 2026.”</p>
-          <footer>SRMIST news, 2026</footer>
-        </blockquote>
-        <blockquote class="quote quote--sm">
-          <p>“SRMIST sports students secure prestigious positions in the public sector.”</p>
-          <footer>SRMIST news, 2026</footer>
-        </blockquote>
-      </div>
-    </div>
+    <ol class="timeline timeline--wide">
+      <li><b>1985</b><span>SRM Engineering College opens at Kattankulathur, near Chennai.</span></li>
+      <li><b>2002</b><span>SRM Institute of Science and Technology receives deemed-to-be-university status under Section 3 of the UGC Act, 1956.</span></li>
+      <li><b>2003</b><span>SRM Engineering College, Kattankulathur, comes under the university.</span></li>
+      <li><b>2010</b><span>The Inter Disciplinary School of Indian System of Medicine is set up.</span></li>
+      <li><b>2024</b><span>NAAC accredits SRMIST with its highest grade, A++.</span></li>
+    </ol>
   </section>
 
   <!-- Partner wall -->
@@ -248,35 +255,56 @@
     <div class="s-head">
       <h2 id="partners-title">Recruiters and partners</h2>
       <p>980+ companies recruit from SRM. A few of them are shown here.</p>
-      <a class="more" href="page.html">Placements</a>
+      <a class="more" href="placements.html">Placements</a>
     </div>
     <ul class="partners" aria-label="Recruiters that hire SRM graduates"><li><img src="assets/img/partners/abb.jpg" alt="ABB" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/accenture.jpg" alt="Accenture" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/accolite.jpg" alt="Accolite" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/aditya-birla.jpg" alt="Aditya Birla Group" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/Afcons.jpg" alt="Afcons" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/Affinsys.jpg" alt="Affinsys" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/microsoft.jpg" alt="Microsoft" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/mckinley_rice.jpg" alt="McKinley Rice" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/maruthi.jpg" alt="Maruti Suzuki" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/mu_sigma.jpg" alt="Mu Sigma" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/maersk.jpg" alt="Maersk" width="300" height="200" loading="lazy"></li><li><img src="assets/img/partners/ltimindtree.jpg" alt="LTIMindtree" width="300" height="200" loading="lazy"></li></ul>
   </section>
+
+  <section class="closer" aria-labelledby="closer-title">
+    <div class="wrap closer__in">
+      <h2 id="closer-title">Your place at SRM starts here.</h2>
+      <div class="closer__ctas">
+        <a class="pill pill--ink" href="admissions.html#routes">Apply</a>
+        <a class="pill pill--line" href="admissions.html#contact">Request info</a>
+        <a class="pill pill--line" href="campus-life.html#visit">Visit campus</a>
+      </div>
+    </div>
+  </section>
 </main>
 
-<!-- Footer -->
-<footer class="footer dark">
-  <div class="wrap footer__top">
+<!-- Footer: light campus footer with the UB lakeside scene -->
+<footer class="footer" id="footer">
+  <div class="footer__frame">
+  <div class="footer__top">
     <div>
       <a class="footer__logo" href="index.html"><img src="assets/img/srm-logo.svg" alt="SRM Institute of Science and Technology" width="168" height="56" loading="lazy"></a>
-      <address>SRM Nagar, Kattankulathur 603203<br>Chengalpattu District, Tamil Nadu<br>+91 44 2741 7000</address>
-      <p class="clock">Kattankulathur <time data-clock>--:--</time> IST</p>
+      <address>SRM Nagar, Kattankulathur 603203<br>Chengalpattu District, Tamil Nadu<br><a href="tel:+914427417000">+91 44 2741 7000</a></address>
+
+
+    </div>
+    <details data-acc open><summary>Study</summary><ul><li><a href="academics.html">Programmes</a></li><li><a href="admissions.html">Admissions 2027</a></li><li><a href="admissions.html#international">Scholarships and fee waivers</a></li><li><a href="admissions.html#international">International students</a></li></ul></details>
+    <details data-acc open><summary>Let us help you</summary><ul><li><a href="admissions.html#contact">Contact admissions</a></li><li><a href="campus-life.html#visit">Visit campus</a></li><li><a href="campus-life.html#care">Student support</a></li><li><a href="campus-life.html#care">Anti-ragging</a></li></ul></details>
+    <details data-acc open><summary>University</summary><ul><li><a href="page.html">About SRMIST</a></li><li><a href="research.html">Research</a></li><li><a href="https://www.srmist.edu.in/news/">News and events</a></li><li><a href="https://www.srmist.edu.in/" data-ext>Official website</a></li></ul></details>
+    <details data-acc open><summary>Campus</summary><ul><li><a href="campus-life.html">Life at SRM</a></li><li><a href="campus-life.html#culture">Clubs and societies</a></li><li><a href="campus-life.html#sports">Sports</a></li><li><a href="placements.html">Placements</a></li></ul></details>
+  </div>
+  <div class="footer__bar">
       <ul class="social" aria-label="Social media">
         <li><a href="https://www.instagram.com/SRMUniversityOfficial/" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M12 7.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6zm0 7.9a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/><circle class="f" cx="17.3" cy="6.7" r="1.1"/><path class="f" d="M16 2H8a6 6 0 0 0-6 6v8a6 6 0 0 0 6 6h8a6 6 0 0 0 6-6V8a6 6 0 0 0-6-6zm4.2 14a4.2 4.2 0 0 1-4.2 4.2H8A4.2 4.2 0 0 1 3.8 16V8A4.2 4.2 0 0 1 8 3.8h8A4.2 4.2 0 0 1 20.2 8z"/></svg></a></li>
         <li><a href="https://www.linkedin.com/company/srm-ist-chennai" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4v11H3zM9.5 9.5h3.8v1.5h.1c.5-1 1.8-1.8 3.7-1.8 4 0 4.7 2.6 4.7 6V20.5h-4v-4.9c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6v5H9.5z"/></svg></a></li>
         <li><a href="https://www.youtube.com/user/SRMeducation" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a></li>
         <li><a href="https://twitter.com/SRM_Univ" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M17.7 3h3.1l-6.8 7.7L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L2 3h6.4l4.4 5.9zm-1.1 16.2h1.7L7.5 4.7H5.7z"/></svg></a></li>
       </ul>
-    </div>
-    <details data-acc open><summary>Study</summary><ul><li><a href="page.html">Programmes</a></li><li><a href="page.html">Admissions 2027</a></li><li><a href="page.html">Scholarships</a></li><li><a href="page.html">International students</a></li></ul></details>
-    <details data-acc open><summary>Let us help you</summary><ul><li><a href="page.html">Contact admissions</a></li><li><a href="page.html">Visit campus</a></li><li><a href="page.html">Student support</a></li><li><a href="page.html">Anti-ragging</a></li></ul></details>
-    <details data-acc open><summary>University</summary><ul><li><a href="page.html">About SRMIST</a></li><li><a href="page.html">Research</a></li><li><a href="page.html">News and events</a></li><li><a href="https://www.srmist.edu.in/" data-ext>Official website</a></li></ul></details>
+      <p class="clock">Kattankulathur <time data-clock>--:--</time> IST</p>
+    <p class="footer__copyright">© 2026 SRM Institute of Science and Technology.<br>Concept redesign.</p>
   </div>
-  <div class="wrap footer__legal">
-    <p>© 2026 SRM Institute of Science and Technology (concept). Photos: Wikimedia Commons contributors, credited where shown.</p>
-    <ul><li><a href="page.html">Privacy</a></li><li><a href="page.html">Terms</a></li><li><a href="page.html">Mandatory disclosures</a></li></ul>
+  <div class="footer__legal">
+    <ul><li><a href="https://www.srmist.edu.in/privacy-policy/">Privacy</a></li><li><a href="https://www.srmist.edu.in/terms-and-conditions/">Terms</a></li><li><a href="https://www.srmist.edu.in/iqac/public-disclosure/">Mandatory disclosures</a></li></ul>
   </div>
 
+  </div>
+  <figure class="campus-ending">
+    <img class="campus-ending__art" src="assets/img/ub-lakeside-footer.webp" alt="Illustrated lakeside view of SRM’s University Building, with its sandstone tower, teal arched windows and lower right wing behind campus trees" width="1860" height="846" loading="lazy" decoding="async">
+  </figure>
 </footer>
 
 <script src="assets/js/site.js" defer></script>
