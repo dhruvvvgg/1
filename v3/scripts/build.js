@@ -198,7 +198,7 @@ const header = () => `<!-- build:header -->
       </button>
     </div>
     <div class="menu__grid ui">
-      ${nav.primary.map(p => `<div><h2><a href="${local(p.local)}">${esc(p.label)}</a></h2><ul>${(p.children || []).map(c => `<li>${navLink(c)}</li>`).join("")}</ul></div>`).join("\n      ")}
+      ${nav.primary.filter(p => p.label !== "International").map(p => `<div><h2><a href="${local(p.local)}">${esc(p.label)}</a></h2><ul>${(p.children || []).map(c => `<li>${navLink(c)}</li>`).join("")}</ul></div>`).join("\n      ")}
     </div>
     <ul class="menu__secondary ui">${nav.secondary_bar.map(s => `<li>${navLink(s)}</li>`).join("")}</ul>
     <ul class="menu__campuses ui" aria-label="Campuses">${nav.campuses.map(c => `<li>${ext(c.ext, esc(c.name))}</li>`).join("")}</ul>
@@ -812,6 +812,10 @@ pages.push({
   }
 });
 
+const PLACE_STATS = `<div class="pstats"><p class="eyebrow">Global skills for global placements, 2026</p>
+<p class="bigstat"><span class="bigstat__n">10,969+</span> <span class="bigstat__l">total offers</span></p>` +
+  statRow([["1701", "Number of roles"], ["5499+", "High-paying offers"], ["60 LPA", "Highest CTC"], ["7.47 LPA", "Average CTC"]]) +
+  `<p class="note">2026 batch, as on 9 September 2026. LPA is lakh per annum.</p></div>`;
 /* ---- hub: /placements ---- */
 const PARTNER = { "abb": "ABB", "accenture": "Accenture", "accolite": "Accolite", "aditya-birla": "Aditya Birla Group", "amazon": "Amazon", "capgemini": "Capgemini", "cognizant": "Cognizant", "deloitte": "Deloitte", "ey": "EY", "ford": "Ford", "hcl": "HCL", "hitachi": "Hitachi", "honeywell": "Honeywell", "hsbc": "HSBC", "hyundai": "Hyundai", "ibm": "IBM", "infosys": "Infosys", "intel": "Intel", "jp_morgan": "J.P. Morgan", "ltimindtree": "LTIMindtree", "maersk": "Maersk", "maruthi": "Maruti Suzuki", "mckinley_rice": "McKinley Rice", "microsoft": "Microsoft", "mu_sigma": "Mu Sigma", "nokia": "Nokia", "pwc": "PwC", "sap": "SAP", "siemens": "Siemens", "tcs": "TCS", "wipro": "Wipro", "Afcons": "Afcons", "Affinsys": "Affinsys", "Shell": "Shell" };
 const logos = () => `<ul class="logowall">${Object.keys(SIZES).filter(k => k.includes("/partners/")).map(k => {
@@ -823,7 +827,7 @@ pages.push({
   body: () => {
     const p = C("placements");
     return sec("about", p.title, null, `<p>${esc(p.intro)}</p>`, { v: "split", img: "convocation" }) +
-      sec("statistics", "Placement statistics", p.stats.label, `<a class="more" href="/placements/statistics/">Placement statistics</a>`, { v: "band" }) +
+      sec("statistics", "Placement statistics", "2026 batch", PLACE_STATS + `<a class="more" href="/placements/statistics/">Placement statistics</a>`, { v: "band" }) +
       sec("director", "From the Director", null, `<div class="split2"><div class="prose">${para(p.director.message)}</div>${person(p.director)}</div>`) +
       sec("why", "Why choose the Career Centre", null, numCards(p.why_choose), { v: "cards" }) +
       sec("sections", "More from the Career Centre", null, linkList(p.sections)) +
@@ -835,8 +839,8 @@ pages.push({
 /* ---- content: /placements/statistics ---- */
 pages.push({
   route: "/placements/statistics", template: "content", bg: BG("off-convocation"), parent: ["Placements", "/placements/"],
-  title: "Placement Statistics", lead: C("placements").stats.label,
-  body: () => sec("stats", C("placements").stats.label, null, `<p class="actions">${ext("https://www.srmist.edu.in/placements/placement-statistics/", "See official statistics", "pill pill--accent")}</p>`, { v: "band" }) +
+  title: "Placement Statistics", lead: "Offers, roles and salaries for the 2026 batch.",
+  body: () => sec("stats", "2026 batch", null, PLACE_STATS + `<p class="actions">${ext("https://www.srmist.edu.in/placements/placement-statistics/", "Statistics on srmist.edu.in", "pill pill--accent")}</p>`, { v: "band" }) +
     sec("recruiters", "Recruiters", null, logos(), { v: "cards" })
 });
 
