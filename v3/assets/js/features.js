@@ -114,6 +114,33 @@
     const pick = (ranked.length ? ranked.slice(0, 2) : [{ s: sents[0].trim(), i: 0 }]).sort((a, b) => a.i - b.i).map(x => x.s).join(" ");
     return pick.length > 420 ? pick.slice(0, 417).replace(/\s+\S*$/, "") + "…" : pick;
   };
+  /* inClaude(q, out, links): inside a claude.ai artifact, Claude answers, grounded in this site's best-matching passages */
+  let sampleP = null;
+  const inClaude = async (q, out, links) => {
+    if (!(window.claude && typeof window.claude.use === "function")) return false;
+    const sample = await (sampleP || (sampleP = window.claude.use("sample").catch(() => null)));
+    if (!sample) return false;
+    const ix = await loadIndex().catch(() => null);
+    const seen = new Set();
+    const ctx = ix ? bm25(ix, q).filter(x => !seen.has(x.d.c.u) && seen.add(x.d.c.u)).slice(0, 5).map(x => x.d.c) : [];
+    const prompt = "You answer questions from prospective students and parents about SRM Institute of Science and Technology (SRMIST), Kattankulathur, Chennai, on a redesign of its website.\n" +
+      "Use the site passages below first. You may add what you reliably know about SRMIST. Only give a fee, date, cut-off or other figure if a passage states it; otherwise say to confirm it on srmist.edu.in. " +
+      "If you are unsure, say so. Write at most 120 words of plain text, no markdown, no lists.\n\nSite passages:\n" +
+      (ctx.length ? ctx.map((c, i) => `[${i + 1}] ${c.p}${c.h && c.h !== c.p ? " > " + c.h : ""}: ${c.t.slice(0, 700)}`).join("\n") : "(none matched)") +
+      "\n\nQuestion: " + q;
+    const p = el("p", "ai__text", "Thinking…"); out.append(p);
+    try {
+      const r = await sample(prompt, { onText: ({ text }) => { p.textContent = text; }, modelTier: "quick" });
+      p.textContent = r.text.replace(/\*\*/g, "").trim();
+    } catch (e) { p.remove(); return false; }
+    if (ctx.length) {
+      const ul = links || el("ul", "ai__links");
+      ctx.slice(0, 3).forEach(c => { const li = el("li"); li.append(anchor(c.u, c.p + (c.h && c.h !== c.p ? " › " + c.h : ""))); ul.append(li); });
+      if (!links) { out.append(el("p", "ai__cite", "Related pages on this site:")); out.append(ul); }
+    }
+    out.append(el("p", "ai__cite", "Answered by Claude using this site’s pages. Check fees and dates on srmist.edu.in before you apply."));
+    return true;
+  };
   /* online(q, out, links): live web answer from /api/ask (Gemini with Google Search); false when unavailable */
   const online = async (q, out, links) => {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -144,7 +171,8 @@
     const data = await loadPrograms().catch(() => null);
     const f = data && parseIntent(q, data);
     if (f) { out.append(intentCard(f, data)); return; }
-    if (await online(q, out, links)) return;
+    if (await inClaude(q, out, links)) return;
+    if (!window.claude && await online(q, out, links)) return;
     const ix = await loadIndex();
     const top = bm25(ix, q).filter(x => x.s >= THRESHOLD);
     const linkBox = links || out;
