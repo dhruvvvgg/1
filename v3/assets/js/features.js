@@ -116,6 +116,7 @@
   };
   /* inClaude(q, out, links): inside a claude.ai artifact, Claude answers, grounded in this site's best-matching passages */
   let sampleP = null;
+  const OFFTOPIC = "I can only help with questions about SRMIST. Try asking about admissions, programmes, hostels or placements.";
   const inClaude = async (q, out, links) => {
     if (!(window.claude && typeof window.claude.use === "function")) return false;
     const sample = await (sampleP || (sampleP = window.claude.use("sample").catch(() => null)));
@@ -125,13 +126,14 @@
     const ctx = ix ? bm25(ix, q).filter(x => !seen.has(x.d.c.u) && seen.add(x.d.c.u)).slice(0, 5).map(x => x.d.c) : [];
     const prompt = "You answer questions from prospective students and parents about SRM Institute of Science and Technology (SRMIST), Kattankulathur, Chennai, on a redesign of its website.\n" +
       "Use the site passages below first. You may add what you reliably know about SRMIST. Only give a fee, date, cut-off or other figure if a passage states it; otherwise say to confirm it on srmist.edu.in. " +
-      "If you are unsure, say so. Write at most 120 words of plain text, no markdown, no lists.\n\nSite passages:\n" +
+      "If you are unsure, say so. If the question is not about SRMIST, its admissions, programmes, fees, scholarships, campus life, hostels, placements, research or student matters, reply with exactly OFF_TOPIC and nothing else. Write at most 120 words of plain text, no markdown, no lists.\n\nSite passages:\n" +
       (ctx.length ? ctx.map((c, i) => `[${i + 1}] ${c.p}${c.h && c.h !== c.p ? " > " + c.h : ""}: ${c.t.slice(0, 700)}`).join("\n") : "(none matched)") +
       "\n\nQuestion: " + q;
     const p = el("p", "ai__text", "Thinking…"); out.append(p);
     try {
-      const r = await sample(prompt, { onText: ({ text }) => { p.textContent = text; }, modelTier: "quick" });
+      const r = await sample(prompt, { onText: ({ text }) => { if (!"OFF_TOPIC".startsWith(text.trim().slice(0, 9))) p.textContent = text; }, modelTier: "quick" });
       p.textContent = r.text.replace(/\*\*/g, "").trim();
+      if (/OFF_TOPIC/.test(r.text)) { p.textContent = OFFTOPIC; return true; }
     } catch (e) { p.remove(); return false; }
     if (ctx.length) {
       const ul = links || el("ul", "ai__links");
@@ -154,6 +156,7 @@
     } catch (e) { d = null; }
     wait.remove();
     if (!d || typeof d.answer !== "string" || !d.answer.trim()) return false;
+    if (/OFF_TOPIC/.test(d.answer)) { out.append(el("p", "ai__text", OFFTOPIC)); return true; }
     d.answer.trim().split(/\n{2,}/).forEach(para => out.append(el("p", "ai__text", para.trim())));
     const src = (d.sources || []).filter(x => x && /^https:\/\//.test(x.url));
     if (src.length) {
