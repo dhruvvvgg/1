@@ -114,6 +114,29 @@
     const pick = (ranked.length ? ranked.slice(0, 2) : [{ s: sents[0].trim(), i: 0 }]).sort((a, b) => a.i - b.i).map(x => x.s).join(" ");
     return pick.length > 420 ? pick.slice(0, 417).replace(/\s+\S*$/, "") + "…" : pick;
   };
+  /* online(q, out, links): live web answer from /api/ask (Gemini with Google Search); false when unavailable */
+  const online = async (q, out, links) => {
+    if (!/^https?:$/.test(location.protocol)) return false;
+    const wait = el("p", "ai__wait", "Searching the web…"); out.append(wait);
+    let d = null;
+    try {
+      const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 20000);
+      const r = await fetch("/api/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q }), signal: ctl.signal });
+      clearTimeout(t);
+      if (r.ok) d = await r.json();
+    } catch (e) { d = null; }
+    wait.remove();
+    if (!d || typeof d.answer !== "string" || !d.answer.trim()) return false;
+    d.answer.trim().split(/\n{2,}/).forEach(para => out.append(el("p", "ai__text", para.trim())));
+    const src = (d.sources || []).filter(x => x && /^https:\/\//.test(x.url));
+    if (src.length) {
+      const ul = links || el("ul", "ai__links");
+      src.forEach(x => { const li = el("li"); const a = anchor(x.url, x.title, true); a.lastChild.textContent = " (opens in a new tab)"; li.append(a); ul.append(li); });
+      if (!links) { out.append(el("p", "ai__cite", d.online ? "Sources from a live web search:" : "More on the official site:")); out.append(ul); }
+    }
+    out.append(el("p", "ai__cite", d.online ? "Answered from a live web search. Check fees and dates on srmist.edu.in before you apply." : "Web search is unavailable, so this answer has no live sources."));
+    return true;
+  };
   const THRESHOLD = 2.2;
   /* answer(q, out, links): programme intent first, otherwise cited passages */
   const answer = async (q, out, links) => {
@@ -121,6 +144,7 @@
     const data = await loadPrograms().catch(() => null);
     const f = data && parseIntent(q, data);
     if (f) { out.append(intentCard(f, data)); return; }
+    if (await online(q, out, links)) return;
     const ix = await loadIndex();
     const top = bm25(ix, q).filter(x => x.s >= THRESHOLD);
     const linkBox = links || out;

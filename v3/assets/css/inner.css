@@ -513,3 +513,7 @@ html, body { overflow-x: clip; }
   .iam .wrap { flex-wrap: wrap; overflow-x: visible; row-gap: 0; }
   .iam ul { flex-wrap: wrap; }
 }
+
+/* live web answers in Ask */
+.ai__text { margin: 0 0 .75em; line-height: 1.55; }
+.ai__wait { margin: 0; opacity: .75; font-style: italic; }

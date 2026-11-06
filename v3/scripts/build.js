@@ -221,7 +221,7 @@ const header = () => `<!-- build:header -->
       <ul class="chipbtns" aria-labelledby="askp-pq">${PROG_CHIPS.map(q => `<li><button type="button" class="chipbtn" data-ask-chip>${esc(q)}</button></li>`).join("")}</ul>
     </div>
     <div class="askp__out" aria-live="polite" data-askp-out></div>
-    <p class="ai__note">Answers are quoted from this site’s pages, with a link to each source.</p>
+    <p class="ai__note">Answers come from a live web search with links to the sources, or from this site’s pages when search is unavailable.</p>
   </div>
 </div>
 
@@ -996,7 +996,7 @@ home = home
   .replace(/(<meta name="viewport"[^>]*>)/, '$1\n<meta name="robots" content="noindex, nofollow">')
   .replace(/<link rel="stylesheet" href="assets\/css\/site.css">(\n<link rel="stylesheet" href="\/assets\/css\/inner.css">)?/, '<link rel="stylesheet" href="assets/css/site.css">\n<link rel="stylesheet" href="/assets/css/inner.css">')
   .replace(/<form class="hero__find" action="[^"]*"/, '<form class="hero__find" action="/programs/"')
-  .replace(/<p class="ai__note">[\s\S]*?<\/p>/, '<p class="ai__note">Answers are quoted from this site’s pages, with a link to each source.</p>');
+  .replace(/<p class="ai__note">[\s\S]*?<\/p>/, '<p class="ai__note">Answers come from a live web search with links to the sources, or from this site’s pages when search is unavailable.</p>');
 /* legacy flat page links on the home page -> built routes */
 const LEGACY = { "academics.html": "/academics/", "admissions.html": "/admissions/", "research.html": "/research/", "placements.html": "/placements/", "campus-life.html": "/campus-life/", "page.html": "/about/" };
 home = home.replace(/href="(academics|admissions|research|placements|campus-life|page)\.html(#[^"]*)?"/g, (m, f) => `href="${LEGACY[f + ".html"]}"`);

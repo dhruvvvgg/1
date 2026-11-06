@@ -1,16 +1,22 @@
-/* POST /api/ask  { question, pages: [{ title, href }] }  ->  { answer, links }
-   Answers a prospective student's question using only the page list the site sends.
+/* POST /api/ask  { question }  ->  { answer, sources: [{ title, url }], online }
+   Answers a prospective student's question from a live Google Search first (Gemini with search grounding),
+   then from NVIDIA's model without search if Gemini is unavailable.
    Keys come from Vercel environment variables and never reach the browser:
      GEMINI_API_KEY   (optional GEMINI_MODEL to pin one model)
      NVIDIA_API_KEY   (optional NVIDIA_MODEL to pin one model)
-   Gemini is tried first, then NVIDIA, so either key alone is enough. */
+   The site falls back to its own quoted passages when this returns an error. */
 "use strict";
 
 const SYSTEM =
-  "You answer questions from prospective students on a concept website for SRM Institute of Science and Technology (SRMIST), Kattankulathur, Chennai. " +
-  "Use ONLY the pages listed in the message. Never state fees, dates, cut-offs, rankings, package figures or any other number. " +
-  "If the list does not cover the question, say so in one sentence and point to https://www.srmist.edu.in/. " +
-  "Write at most 60 words of warm plain text, no markdown. Then, on a final line, write LINKS: followed by up to three of the listed URLs, separated by ' | ', that best help.";
+  "You answer questions from prospective students and parents about SRM Institute of Science and Technology (SRMIST), Kattankulathur, Chennai, India. " +
+  "Search the web and prefer the official site srmist.edu.in and other official sources. " +
+  "Only state a fee, date, cut-off, ranking or other figure if a source you found states it, and say which year it applies to. " +
+  "If you cannot find a reliable answer, say so in one sentence and suggest srmist.edu.in or the admissions office. " +
+  "Write at most 120 words of plain text, no markdown, no bullet symbols.";
+
+const SYSTEM_OFFLINE = SYSTEM.replace("Search the web and prefer", "You cannot search the web. Point to").replace(
+  "Only state a fee, date, cut-off, ranking or other figure if a source you found states it, and say which year it applies to.",
+  "Never state fees, dates, cut-offs, rankings or other figures; send the reader to srmist.edu.in for them.");
 
 const hits = new Map(); // best-effort per-instance rate limit: 12 questions a minute per visitor
 function limited(ip) {
@@ -20,45 +26,51 @@ function limited(ip) {
   return recent.length > 12;
 }
 
-const okHref = h => typeof h === "string" && h.length < 300 && (/^[a-z0-9][a-z0-9\-./?#=_%&]*$/i.test(h) || /^https:\/\/([a-z0-9-]+\.)*srmist\.edu\.in(\/|$)/i.test(h));
-
 const wait = ms => new Promise(r => setTimeout(r, ms));
+const clean = t => t.replace(/<think>[\s\S]*?<\/think>/g, "").replace(/\*\*|__|^#+\s*/gm, "").replace(/\[\d+(,\s*\d+)*\]/g, "").trim();
 
-// Each provider walks a short list of models: a stable alias first, then smaller or older ones, so one overloaded model never blocks an answer.
-const GEMINI_MODELS = ["gemini-flash-latest", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite"];
+const GEMINI_MODELS = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"];
 const NVIDIA_MODELS = ["nvidia/nemotron-nano-3-30b-a3b", "nvidia/nemotron-3-super-120b-a12b"];
 
-async function gemini(prompt) {
+async function gemini(question) {
   const key = process.env.GEMINI_API_KEY; if (!key) return null;
   const errors = [];
   for (const model of process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL] : GEMINI_MODELS) {
     const call = () => fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM }] }, contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 1200 } })
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: SYSTEM }] },
+        contents: [{ role: "user", parts: [{ text: "Question about SRMIST: " + question }] }],
+        tools: [{ google_search: {} }],
+        generationConfig: { temperature: 0.2, maxOutputTokens: 2048 }
+      })
     });
     let r = await call();
-    if (r.status === 503 || r.status === 429) { await wait(600); r = await call(); } // Google sheds load in short spikes
+    if (r.status === 503 || r.status === 429) { await wait(600); r = await call(); }
     if (!r.ok) { errors.push(model + " " + r.status); continue; }
-    const d = await r.json();
-    const text = (d.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join("").trim();
-    if (text) return text;
-    errors.push(model + " empty");
+    const d = await r.json(), c = d.candidates?.[0];
+    const text = clean((c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join(""));
+    if (!text) { errors.push(model + " empty"); continue; }
+    const seen = new Set();
+    const sources = (c.groundingMetadata?.groundingChunks || []).map(g => g.web).filter(w => w && /^https:\/\//.test(w.uri))
+      .filter(w => !seen.has(w.title) && seen.add(w.title)).slice(0, 4).map(w => ({ title: String(w.title || "Source").slice(0, 120), url: w.uri }));
+    return { answer: text, sources, online: true };
   }
   throw new Error("gemini: " + errors.join(", "));
 }
 
-async function nvidia(prompt) {
+async function nvidia(question) {
   const key = process.env.NVIDIA_API_KEY; if (!key) return null;
   const errors = [];
   for (const model of process.env.NVIDIA_MODEL ? [process.env.NVIDIA_MODEL] : NVIDIA_MODELS) {
     const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
       method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
-      body: JSON.stringify({ model, temperature: 0.3, max_tokens: 1200, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: prompt }] })
+      body: JSON.stringify({ model, temperature: 0.2, max_tokens: 1200, messages: [{ role: "system", content: SYSTEM_OFFLINE }, { role: "user", content: question }] })
     });
     if (!r.ok) { errors.push(model + " " + r.status); continue; }
     const d = await r.json();
-    const text = (d.choices?.[0]?.message?.content || "").replace(/<think>[\s\S]*?<\/think>/g, "").trim();
-    if (text) return text;
+    const text = clean(d.choices?.[0]?.message?.content || "");
+    if (text) return { answer: text, sources: [{ title: "srmist.edu.in", url: "https://www.srmist.edu.in/" }], online: false };
     errors.push(model + " empty");
   }
   throw new Error("nvidia: " + errors.join(", "));
@@ -72,20 +84,12 @@ module.exports = async function handler(req, res) {
 
   let body = req.body; if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = null; } }
   const question = body && typeof body.question === "string" ? body.question.trim().slice(0, 300) : "";
-  const pages = Array.isArray(body && body.pages) ? body.pages.filter(p => p && typeof p.title === "string" && okHref(p.href)).slice(0, 80).map(p => ({ title: p.title.slice(0, 120), href: p.href })) : [];
-  if (!question || !pages.length) return res.status(400).json({ error: "A question and the page list are required." });
+  if (!question) return res.status(400).json({ error: "A question is required." });
   if (!process.env.GEMINI_API_KEY && !process.env.NVIDIA_API_KEY) return res.status(503).json({ error: "The assistant is not configured." });
 
-  const prompt = "Pages:\n" + pages.map(p => `- ${p.title}: ${p.href}`).join("\n") + "\n\nQuestion: " + question;
-  let text = null; const why = [];
   for (const provider of [gemini, nvidia]) {
-    try { text = await provider(prompt); if (text === null) { console.error(provider.name + ": no key or empty reply"); why.push(provider.name + ": no key or empty reply"); } } catch (e) { console.error(provider.name + " failed:", e.message); why.push(e.message); text = null; }
-    if (text) break;
+    try { const out = await provider(question); if (out) return res.status(200).json(out); }
+    catch (e) { console.error(provider.name + " failed:", e.message); }
   }
-  if (!text) return res.status(502).json({ error: "The assistant could not answer just now." });
-
-  const [answer, tail] = text.split(/\n?\s*LINKS:/i);
-  const known = new Set(pages.map(p => p.href));
-  const links = (tail || "").split("|").map(s => s.trim()).filter(h => known.has(h)).slice(0, 3);
-  return res.status(200).json({ answer: answer.trim(), links });
+  return res.status(502).json({ error: "The assistant could not answer just now." });
 };
