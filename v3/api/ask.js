@@ -47,7 +47,7 @@ async function gemini(question) {
     });
     let r = await call();
     if (r.status === 503 || r.status === 429) { await wait(1500); r = await call(); }
-    if (!r.ok) { errors.push(model + " " + r.status); continue; }
+    if (!r.ok) { errors.push(model + " " + r.status + " " + (await r.text()).replace(/\s+/g, " ").slice(0, 160)); continue; }
     const d = await r.json(), c = d.candidates?.[0];
     const text = clean((c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join(""));
     if (!text) { errors.push(model + " empty"); continue; }
@@ -67,7 +67,7 @@ async function nvidia(question) {
       method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer " + key },
       body: JSON.stringify({ model, temperature: 0.2, max_tokens: 1200, messages: [{ role: "system", content: SYSTEM_OFFLINE }, { role: "user", content: question }] })
     });
-    if (!r.ok) { errors.push(model + " " + r.status); continue; }
+    if (!r.ok) { errors.push(model + " " + r.status + " " + (await r.text()).replace(/\s+/g, " ").slice(0, 160)); continue; }
     const d = await r.json();
     const text = clean(d.choices?.[0]?.message?.content || "");
     if (text) return { answer: text, sources: [{ title: "srmist.edu.in", url: "https://www.srmist.edu.in/" }], online: false };
