@@ -23,6 +23,7 @@ const pages = ["/"];
 
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".json": "application/json", ".svg": "image/svg+xml", ".webp": "image/webp", ".jpg": "image/jpeg", ".png": "image/png", ".txt": "text/plain" };
 const server = http.createServer((req, res) => {
+  if (req.url.startsWith("/api/")) { res.writeHead(204); return res.end(); }
   let p = decodeURIComponent(req.url.split("?")[0]);
   if (p.endsWith("/")) p += "index.html";
   const f = path.join(ROOT, p);

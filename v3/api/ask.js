@@ -29,8 +29,8 @@ function limited(ip) {
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const clean = t => t.replace(/<think>[\s\S]*?<\/think>/g, "").replace(/\*\*|__|^#+\s*/gm, "").replace(/\[\d+(,\s*\d+)*\]/g, "").trim();
 
-const GEMINI_MODELS = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"];
-const NVIDIA_MODELS = ["nvidia/nemotron-nano-3-30b-a3b", "nvidia/nemotron-3-super-120b-a12b"];
+const GEMINI_MODELS = ["gemini-flash-latest", "gemini-3.1-flash-lite", "gemini-flash-lite-latest"];
+const NVIDIA_MODELS = ["nvidia/nemotron-3-super-120b-a12b", "meta/llama-3.3-70b-instruct", "nvidia/llama-3.1-nemotron-70b-instruct"];
 
 async function gemini(question) {
   const key = process.env.GEMINI_API_KEY; if (!key) return null;
@@ -46,7 +46,7 @@ async function gemini(question) {
       })
     });
     let r = await call();
-    if (r.status === 503 || r.status === 429) { await wait(600); r = await call(); }
+    if (r.status === 503 || r.status === 429) { await wait(1500); r = await call(); }
     if (!r.ok) { errors.push(model + " " + r.status); continue; }
     const d = await r.json(), c = d.candidates?.[0];
     const text = clean((c?.content?.parts || []).filter(p => !p.thought).map(p => p.text || "").join(""));

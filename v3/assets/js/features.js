@@ -121,7 +121,7 @@
     let d = null;
     try {
       const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 20000);
-      const r = await fetch("/api/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q }), signal: ctl.signal });
+      const r = await fetch("/api/ask/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q }), signal: ctl.signal });
       clearTimeout(t);
       if (r.ok) d = await r.json();
     } catch (e) { d = null; }
